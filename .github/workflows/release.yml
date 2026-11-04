@@ -301,11 +301,25 @@ jobs:
           for f in manifests/manifest-*.json; do assets="$assets $f"; done
           assets="$assets manifests/endpoint.json"
 
-          if gh release view "$tag" >/dev/null 2>&1; then
-            gh release upload "$tag" $assets --clobber
-          else
-            gh release create "$tag" $assets \
+          # Créer la release SANS assets puis uploader séparément: `gh release
+          # create <assets>` race avec uploads.github.com (HTTP 404 sur l'asset
+          # juste après la création de la release, problème GitHub connu).
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" \
               --title "Emma $v" \
               --notes "Emma $v — auto-updatable release. Installers and update manifests for all platforms."
+            sleep 10
           fi
+          # Retry loop: les uploads peuvent 404/transitoirement échouer juste
+          # après la création.
+          attempt=1
+          until gh release upload "$tag" $assets --clobber; do
+            if [ "$attempt" -ge 3 ]; then
+              echo "Asset upload failed after 3 attempts"
+              exit 1
+            fi
+            attempt=$((attempt + 1))
+            echo "Upload attempt $((attempt - 1)) failed, retrying in 15s..."
+            sleep 15
+          done
           echo "Published https://github.com/${{ github.repository }}/releases/tag/$tag"
