@@ -73,7 +73,15 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          # The runner's cached pnpm store can be left inconsistent by a
+          # cancelled/interrupted run (ENOENT on rename into node_modules);
+          # clear the store once and retry before failing the job.
+          if ! pnpm install --frozen-lockfile; then
+            echo "pnpm install failed - clearing store cache and retrying"
+            rm -rf "$(pnpm store path)" node_modules
+            pnpm install --frozen-lockfile
+          fi
 
       # cc-manager/anthropic-compat-proxy/remote-file-service/device-link-relay/
       # pi-manager are gitignored and staged by this script (esbuild bundles).
@@ -128,7 +136,15 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          # The runner's cached pnpm store can be left inconsistent by a
+          # cancelled/interrupted run (ENOENT on rename into node_modules);
+          # clear the store once and retry before failing the job.
+          if ! pnpm install --frozen-lockfile; then
+            echo "pnpm install failed - clearing store cache and retrying"
+            rm -rf "$(pnpm store path)" node_modules
+            pnpm install --frozen-lockfile
+          fi
 
       - name: Build remote bundles
         working-directory: apps/desktop
@@ -175,7 +191,15 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          # The runner's cached pnpm store can be left inconsistent by a
+          # cancelled/interrupted run (ENOENT on rename into node_modules);
+          # clear the store once and retry before failing the job.
+          if ! pnpm install --frozen-lockfile; then
+            echo "pnpm install failed - clearing store cache and retrying"
+            rm -rf "$(pnpm store path)" node_modules
+            pnpm install --frozen-lockfile
+          fi
 
       # wayland-scanner is required by the native remote-desktop tools
       # (linux-input build.mjs); not present on the stock ubuntu runner.

@@ -53,7 +53,15 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          # The runner's cached pnpm store can be left inconsistent by a
+          # cancelled/interrupted run (ENOENT on rename into node_modules);
+          # clear the store once and retry before failing the job.
+          if ! pnpm install --frozen-lockfile; then
+            echo "pnpm install failed - clearing store cache and retrying"
+            rm -rf "$(pnpm store path)" node_modules
+            pnpm install --frozen-lockfile
+          fi
 
       # 纯文本扫描、秒级返回：逐用例重置模块、真实等待和普通单测读源码文本只允许
       # 比基线少（engineering-conventions.md §3.2 性能预算），在耗时步骤前快速失败。
@@ -161,7 +169,15 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          # The runner's cached pnpm store can be left inconsistent by a
+          # cancelled/interrupted run (ENOENT on rename into node_modules);
+          # clear the store once and retry before failing the job.
+          if ! pnpm install --frozen-lockfile; then
+            echo "pnpm install failed - clearing store cache and retrying"
+            rm -rf "$(pnpm store path)" node_modules
+            pnpm install --frozen-lockfile
+          fi
 
       # XDT_SKIP_AGENT_BIN_INSTALL 跳过了 postinstall 的全部 agent 二进制,但
       # runtime-configs.ts 模块顶层的 bundledRipgrepDir() 缺 rg 时直接 throw,
@@ -240,7 +256,16 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        shell: bash
+        run: |
+          # The runner's cached pnpm store can be left inconsistent by a
+          # cancelled/interrupted run (ENOENT on rename into node_modules);
+          # clear the store once and retry before failing the job.
+          if ! pnpm install --frozen-lockfile; then
+            echo "pnpm install failed - clearing store cache and retrying"
+            rm -rf "$(pnpm store path)" node_modules
+            pnpm install --frozen-lockfile
+          fi
 
       - name: Install bundled ripgrep
         env:
@@ -279,7 +304,16 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        shell: bash
+        run: |
+          # The runner's cached pnpm store can be left inconsistent by a
+          # cancelled/interrupted run (ENOENT on rename into node_modules);
+          # clear the store once and retry before failing the job.
+          if ! pnpm install --frozen-lockfile; then
+            echo "pnpm install failed - clearing store cache and retrying"
+            rm -rf "$(pnpm store path)" node_modules
+            pnpm install --frozen-lockfile
+          fi
 
       - name: Install bundled ripgrep
         env:
@@ -336,7 +370,15 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: |
+          # The runner's cached pnpm store can be left inconsistent by a
+          # cancelled/interrupted run (ENOENT on rename into node_modules);
+          # clear the store once and retry before failing the job.
+          if ! pnpm install --frozen-lockfile; then
+            echo "pnpm install failed - clearing store cache and retrying"
+            rm -rf "$(pnpm store path)" node_modules
+            pnpm install --frozen-lockfile
+          fi
 
       - name: Install bundled ripgrep
         env:
