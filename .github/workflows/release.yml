@@ -104,7 +104,7 @@ jobs:
         shell: pwsh
         run: |
           $v = "${{ needs.resolve-version.outputs.version }}"
-          $src = Get-ChildItem "apps/desktop/out/make/nsis/*Setup*.exe" | Select-Object -First 1
+          $src = Get-ChildItem "apps/desktop/out/make/nsis" -Recurse -Filter "*Setup*.exe" | Select-Object -First 1
           if (-not $src) { throw "No NSIS installer found in apps/desktop/out/make/nsis" }
           Copy-Item $src.FullName "emma-setup-${v}.exe"
           Get-FileHash "emma-setup-${v}.exe" -Algorithm SHA256
@@ -159,7 +159,9 @@ jobs:
       - name: Package zip
         run: |
           v="${{ needs.resolve-version.outputs.version }}"
-          appdir=$(find apps/desktop/out/make -maxdepth 3 -name "Emma.app" -type d | head -1)
+          # MakerZIP leaves no bare Emma.app in out/make; the packaged app
+          # lives in out/package (electron-forge default packageDir).
+          appdir=$(find apps/desktop/out/package apps/desktop/out/make -maxdepth 4 -name "Emma.app" -type d 2>/dev/null | head -1)
           if [ -z "$appdir" ]; then echo "No Emma.app found"; exit 1; fi
           (cd "$(dirname "$appdir")" && zip -qry "emma-mac-${v}.zip" "Emma.app")
           shasum -a 256 "$(dirname "$appdir")/emma-mac-${v}.zip"
@@ -204,7 +206,12 @@ jobs:
       # wayland-scanner is required by the native remote-desktop tools
       # (linux-input build.mjs); not present on the stock ubuntu runner.
       - name: Install Wayland build deps
-        run: sudo apt-get update && sudo apt-get install -y libwayland-dev
+        # Outils Wayland (wayland-scanner) + libs natifs remote-desktop:
+        # input (xkbcommon/json-c/x11/xtst), capture (libturbojpeg/libpng).
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwayland-dev libxkbcommon-dev libjson-c-dev \
+            libx11-dev libxtst-dev libturbojpeg0-dev libpng-dev
 
       - name: Build remote bundles
         working-directory: apps/desktop
