@@ -34,6 +34,10 @@ concurrency:
 
 env:
   NODE_OPTIONS: '--max-old-space-size=8192'
+  # Miroir public des binaires d'agents (claude/codex/ripgrep) utilisé en
+  # fallback quand l'API GitHub est rate-limitée sur les runners. Emma ne
+  # héberge pas encore ces binaires sur ses propres Releases.
+  XDT_CDN_BASE_URL: 'https://hotfix.cindy.app/cindy'
 
 jobs:
   resolve-version:
@@ -73,6 +77,7 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
+        shell: bash
         run: |
           # The runner's cached pnpm store can be left inconsistent by a
           # cancelled/interrupted run (ENOENT on rename into node_modules);

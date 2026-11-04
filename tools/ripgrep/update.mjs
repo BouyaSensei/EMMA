@@ -127,9 +127,38 @@ function assertStableRelease(meta) {
   if (!Array.isArray(meta.assets)) throw new Error(`Release ${meta.tag_name} has no assets array`);
 }
 
+/**
+ * L'API GitHub (api.github.com) est souvent rate-limitée (403/429) sur les
+ * runners CI même avec token. Les noms d'assets ripgrep sont déterministes
+ * (`ripgrep-<version>-<triple>.<ext>` + `.sha256`), donc on peut synthétiser
+ * le meta et télécharger directement via `releases/download` (pas rate-limité).
+ */
+function syntheticReleaseMeta(version) {
+  // Les tags ripgrep n'ont pas de préfixe v (tag_name: "15.1.0").
+  const tag = version;
+  return {
+    tag_name: tag,
+    name: tag,
+    draft: false,
+    prerelease: false,
+    assets: PLATFORMS.flatMap((p) => {
+      const base = `https://github.com/${REPO}/releases/download/${tag}`;
+      const archive = archiveName(version, p);
+      return [
+        { name: archive, browser_download_url: `${base}/${archive}` },
+        { name: `${archive}.sha256`, browser_download_url: `${base}/${archive}.sha256` },
+      ];
+    }),
+  };
+}
+
 async function fetchReleaseMeta(tag) {
   const url = tag ? RELEASES_BY_TAG_URL(tag) : RELEASES_LATEST_URL;
   const res = await fetch(url, { headers: ghHeaders() });
+  if (!res.ok && (res.status === 403 || res.status === 429) && tag) {
+    console.warn(`[ripgrep-update] API ${res.status} sur ${url}; fallback download direct (assets déterministes)`);
+    return syntheticReleaseMeta(versionFromTag(tag));
+  }
   if (!res.ok) throw new Error(`GitHub releases ${res.status}: ${url}`);
   const meta = await res.json();
   assertStableRelease(meta);
