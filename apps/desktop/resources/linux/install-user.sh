@@ -4,7 +4,7 @@
 set -euo pipefail
 umask 077
 
-fail() { printf 'Cindy: %s\n' "$*" >&2; exit 1; }
+fail() { printf 'Emma: %s\n' "$*" >&2; exit 1; }
 [[ $(uname -s) == Linux ]] || fail 'This installer requires Linux.'
 [[ $EUID -ne 0 ]] || fail 'Run as your desktop user, not root or sudo.'
 for tool in bsdtar sha256sum stat dd mktemp realpath flock find readlink mv ln; do
@@ -14,7 +14,7 @@ mode=${1:-}
 case "$mode" in
   --install)
     [[ $# -ge 3 && $# -le 4 ]] || fail 'Usage: install-user.sh --install PACKAGE.deb SHA256 [PREFIX]'
-    archive=$2 digest=${3,,} prefix=${4:-"$HOME/.local/opt/cindy"}
+    archive=$2 digest=${3,,} prefix=${4:-"$HOME/.local/opt/emma"}
     size=$(stat -c %s -- "$archive")
     expected_version='' expected_region=''
     ;;
@@ -34,7 +34,7 @@ user_home=$(realpath -e -- "$HOME")
 [[ $prefix == "$user_home/"* && $prefix != "$user_home" ]] || fail 'PREFIX must be inside your home directory.'
 marker="$prefix/.cindy-user-install"
 if [[ -e $prefix ]]; then
-  [[ -d $prefix && -f $marker && ! -L $marker ]] || fail 'Existing PREFIX is not a managed Cindy install; choose an empty new path.'
+  [[ -d $prefix && -f $marker && ! -L $marker ]] || fail 'Existing PREFIX is not a managed Emma install; choose an empty new path.'
 else
   [[ $mode == --install ]] || fail 'Managed installation disappeared.'
   mkdir -p -- "$prefix"
@@ -66,7 +66,7 @@ write_launcher() {
   # write cannot leave a truncated executable behind. Replacing it is safe:
   # the managed prefix owns this stable entry point.
   local quoted=${prefix//\'/\'\\\'\'}
-  printf '#!/bin/sh\nexec '\''%s/current/Cindy'\'' "$@"\n' "$quoted" > "$stage/launch"
+  printf '#!/bin/sh\nexec '\''%s/current/Emma'\'' "$@"\n' "$quoted" > "$stage/launch"
   chmod 755 "$stage/launch"
   mv -Tf -- "$stage/launch" "$prefix/launch"
 }
@@ -93,7 +93,7 @@ mkdir "$stage/payload"
 # -P / --absolute-paths or preserve archive ownership / setuid permissions.
 bsdtar -xf "$stage/data.tar" -C "$stage/payload" --no-same-owner --no-same-permissions ./usr/lib/cindy
 payload="$stage/payload/usr/lib/cindy"
-[[ -d $payload && ! -L $payload ]] || fail 'Missing Cindy payload.'
+[[ -d $payload && ! -L $payload ]] || fail 'Missing Emma payload.'
 info="$payload/resources/linux-build-info"
 [[ -f $info && ! -L $info ]] || fail 'This package predates user-install support; use a newer release.'
 mapfile -t fields < "$info"
@@ -101,7 +101,7 @@ mapfile -t fields < "$info"
 version=${fields[1]} arch=${fields[2]} region=${fields[3]} executable=${fields[4]}
 [[ $version =~ ^[0-9]+\.[0-9]+\.[0-9]+([+-][A-Za-z0-9.-]+)?$ ]] || fail 'Invalid build version.'
 [[ $region == global || $region == cn ]] || fail 'Only release builds can be installed.'
-[[ $executable == Cindy ]] || fail 'Unexpected executable identity.'
+[[ $executable == Emma ]] || fail 'Unexpected executable identity.'
 case "$(uname -m):$arch" in x86_64:x64|aarch64:arm64) ;; *) fail 'Package architecture does not match this machine.' ;; esac
 [[ -z $expected_version || $version == "$expected_version" ]] || fail 'Downloaded version does not match the update manifest.'
 [[ -z $expected_region || $region == "$expected_region" ]] || fail 'Downloaded build belongs to a different region.'
@@ -212,6 +212,6 @@ fi
 activation_in_progress=0
 if [[ $mode == --install ]]; then
   write_launcher
-  printf 'Installed Cindy %s. Start with: %s/launch\n' "$version" "$prefix"
+  printf 'Installed Emma %s. Start with: %s/launch\n' "$version" "$prefix"
   printf 'To add a menu entry and login links, run: bash %q %q\n' "$prefix/current/resources/linux/register-desktop.sh" "$prefix"
 fi

@@ -4,6 +4,7 @@ import {
   PeerRecoveryScheduler,
   DeviceLinkError,
   PROTOCOL_VERSION,
+  type DeviceLinkAuthorizationScheme,
   type DeviceLinkFrameAuth,
   type DeviceLinkTiming,
   type Envelope,
@@ -22,7 +23,7 @@ export function createClient(
   host = false,
   options: {
     token?: string;
-    authorizationScheme?: "Bearer" | "EmmaRelay" | "CindyRelay";
+    authorizationScheme?: DeviceLinkAuthorizationScheme;
     timing?: Partial<DeviceLinkTiming>;
     desktop?: boolean;
     /** 自建中转的设备签名钩子(与 Desktop / Mobile 传给 DeviceLinkClient 的同一选项)。 */
