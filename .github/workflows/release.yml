@@ -75,6 +75,15 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # cc-manager/anthropic-compat-proxy/remote-file-service/device-link-relay/
+      # pi-manager are gitignored and staged by this script (esbuild bundles).
+      # `electron-forge make` does NOT trigger npm pre hooks, so external
+      # pipelines must call it explicitly — without it, packaging fails with
+      # ENOENT on resources/cc-manager.
+      - name: Build remote bundles
+        working-directory: apps/desktop
+        run: pnpm build:remote-bundles
+
       - name: Set release version
         run: |
           $v = "${{ needs.resolve-version.outputs.version }}"
@@ -124,6 +133,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build remote bundles
+        working-directory: apps/desktop
+        run: pnpm build:remote-bundles
+
       - name: Set release version
         run: |
           v="${{ needs.resolve-version.outputs.version }}"
@@ -169,6 +182,15 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      # wayland-scanner is required by the native remote-desktop tools
+      # (linux-input build.mjs); not present on the stock ubuntu runner.
+      - name: Install Wayland build deps
+        run: sudo apt-get update && sudo apt-get install -y libwayland-dev
+
+      - name: Build remote bundles
+        working-directory: apps/desktop
+        run: pnpm build:remote-bundles
 
       - name: Set release version
         run: |
