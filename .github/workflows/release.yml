@@ -84,15 +84,12 @@ jobs:
         working-directory: apps/desktop
         run: pnpm build:remote-bundles
 
-      - name: Set release version
-        run: |
-          $v = "${{ needs.resolve-version.outputs.version }}"
-          (Get-Content apps/desktop/package.json -Raw) `
-            -replace '"version":\s*"[0-9]+\.[0-9]+\.[0-9]+"' , ('"version": "' + $v + '"') `
-            | Set-Content apps/desktop/package.json
-
+      # package.json stays at the 0.0.0 versionless sentinel (package-args test);
+      # forge.config.ts injects appVersion from APP_VERSION.
       - name: Build NSIS installer
         working-directory: apps/desktop
+        env:
+          APP_VERSION: ${{ needs.resolve-version.outputs.version }}
         run: node scripts/forge-cli.mjs make --platform=win32 --arch=x64
 
       - name: Normalize artifact name (no spaces)
@@ -137,13 +134,10 @@ jobs:
         working-directory: apps/desktop
         run: pnpm build:remote-bundles
 
-      - name: Set release version
-        run: |
-          v="${{ needs.resolve-version.outputs.version }}"
-          sed -i '' "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"version\": \"$v\"/" apps/desktop/package.json
-
       - name: Build macOS app
         working-directory: apps/desktop
+        env:
+          APP_VERSION: ${{ needs.resolve-version.outputs.version }}
         run: node scripts/forge-cli.mjs make --platform=darwin --arch=arm64
 
       - name: Package zip
@@ -192,13 +186,10 @@ jobs:
         working-directory: apps/desktop
         run: pnpm build:remote-bundles
 
-      - name: Set release version
-        run: |
-          v="${{ needs.resolve-version.outputs.version }}"
-          sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"version\": \"$v\"/" apps/desktop/package.json
-
       - name: Build Linux packages
         working-directory: apps/desktop
+        env:
+          APP_VERSION: ${{ needs.resolve-version.outputs.version }}
         run: node scripts/forge-cli.mjs make --platform=linux --arch=x64
 
       - name: Collect artifacts

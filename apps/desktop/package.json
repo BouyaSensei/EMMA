@@ -1,7 +1,7 @@
 {
   "name": "desktop",
   "productName": "Emma",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Emma desktop client (open-source fork of Cindy)",
   "main": ".vite/build/index.js",
   "private": true,
