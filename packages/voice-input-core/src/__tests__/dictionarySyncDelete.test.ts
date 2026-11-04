@@ -113,7 +113,7 @@ describe('dictionary sync — 删除传播', () => {
     b.state = mergeSyncStates(b.state, a.state);
     expect(entryTexts(b.state)).toEqual(['Emma']);
 
-    remove(a, 'cindy', 2_000);
+    remove(a, 'Emma', 2_000);
     expect(materializeDictionary(a.state).suppressedTexts).toEqual([]);
 
     b.state = mergeSyncStates(b.state, a.state);
@@ -156,7 +156,7 @@ describe('dictionary sync — 删除传播', () => {
   it('删除手动词条不写抑制,之后自动学习可以重新学出来', () => {
     const a = device('a');
     addManual(a, 'Emma', 1_000);
-    remove(a, 'cindy', 2_000);
+    remove(a, 'Emma', 2_000);
     expect(entryTexts(a.state)).toEqual([]);
     expect(materializeDictionary(a.state).suppressedTexts).toEqual([]);
 

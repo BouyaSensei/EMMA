@@ -22,7 +22,7 @@ export function createClient(
   host = false,
   options: {
     token?: string;
-    authorizationScheme?: "Bearer" | "CindyRelay";
+    authorizationScheme?: "Bearer" | "EmmaRelay" | "CindyRelay";
     timing?: Partial<DeviceLinkTiming>;
     desktop?: boolean;
     /** 自建中转的设备签名钩子(与 Desktop / Mobile 传给 DeviceLinkClient 的同一选项)。 */

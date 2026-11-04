@@ -71,12 +71,12 @@ describe('并发改名', () => {
 
     for (let round = 0; round < 5; round += 1) {
       const forward = renameTerm(state, clock, {
-        termKey: 'cindy',
+        termKey: 'emma',
         nextText: 'Emma 客户端',
         nowMs: 2_000 + round * 10,
       });
       const backward = renameTerm(forward.state, forward.clock, {
-        termKey: 'cindy 客户端',
+        termKey: 'emma 客户端',
         nextText: 'Emma',
         nowMs: 2_005 + round * 10,
       });

@@ -29,7 +29,7 @@ describe('墓碑与重建', () => {
       text: 'Emma',
       nowMs: 1_000,
     });
-    const removed = deleteTerms(added.state, added.clock, { termKeys: ['cindy'], nowMs: 2_000 });
+    const removed = deleteTerms(added.state, added.clock, { termKeys: ['emma'], nowMs: 2_000 });
 
     const result = reconcileFromLocalSnapshot(removed.state, removed.clock, {
       snapshot: { entries: [{ text: 'Emma', source: 'manual', frequency: 3 }], suppressedTexts: [] },
@@ -47,7 +47,7 @@ describe('墓碑与重建', () => {
       nowMs: 1_000,
     });
     const peerAfterDelete = deleteTerms(added.state, added.clock, {
-      termKeys: ['cindy'],
+      termKeys: ['emma'],
       nowMs: 2_000,
     });
 

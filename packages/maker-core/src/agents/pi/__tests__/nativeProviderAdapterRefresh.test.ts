@@ -63,10 +63,10 @@ function loadAdapter(initialAliases: Alias[] = [], network?: { fetch: unknown; s
   };
   runInNewContext(compiled, sandbox);
   const adapter = sandbox.adapter as {
-    parseCindyProviderRefreshSnapshot: (raw: unknown, nonce: string) => {
+    parseEmmaProviderRefreshSnapshot: (raw: unknown, nonce: string) => {
       nonce: string; env: Record<string, string>; aliases: Alias[];
     } | undefined;
-    registerCindyNativeProviderAdapters: (pi: unknown, cacheRecovery?: unknown) => Promise<{
+    registerEmmaNativeProviderAdapters: (pi: unknown, cacheRecovery?: unknown) => Promise<{
       refresh: (snapshot: { nonce: string; env: Record<string, string>; aliases: Alias[] }, ctx: unknown, secrets: Set<string>) => Promise<void>;
     }>;
   };
@@ -80,7 +80,7 @@ describe('Emma native provider refresh bridge', () => {
     h.setModels([{ provider: 'managed', id: 'wire' }, { provider: 'extension-owned', id: 'other' }]);
     await h.ctx.modelRegistry.refresh({ allowNetwork: false });
     const wrap = vi.fn((model, options, invoke) => invoke(options));
-    await h.adapter.registerCindyNativeProviderAdapters(h.pi, { accepts: (model: any) => model.provider === 'managed', wrap, ownRegistry: vi.fn() });
+    await h.adapter.registerEmmaNativeProviderAdapters(h.pi, { accepts: (model: any) => model.provider === 'managed', wrap, ownRegistry: vi.fn() });
     await h.handlers.get('session_start')!({}, h.ctx);
     expect([...h.providers.keys()]).toEqual([]);
     const model = { provider: 'managed', id: 'wire', api: 'openai-responses' };
@@ -103,7 +103,7 @@ describe('Emma native provider refresh bridge', () => {
     const original = provider('original-extension');
     const replacement = provider('newer-extension');
     h.pi.registerProvider(original);
-    const adapter = await h.adapter.registerCindyNativeProviderAdapters(h.pi, { accepts: () => true, ownRegistry: vi.fn(),
+    const adapter = await h.adapter.registerEmmaNativeProviderAdapters(h.pi, { accepts: () => true, ownRegistry: vi.fn(),
       wrap: (_model: unknown, options: unknown, invoke: any) => invoke(options) });
     await h.handlers.get('session_start')!({}, h.ctx);
     if (owner === 'newer') h.pi.registerProvider(replacement);
@@ -128,7 +128,7 @@ describe('Emma native provider refresh bridge', () => {
     h.setModels([{ provider: 'managed', id: 'wire' }]);
     await h.ctx.modelRegistry.refresh({ allowNetwork: false });
     (h.ctx.modelRegistry as any)[missing] = undefined;
-    await h.adapter.registerCindyNativeProviderAdapters(h.pi, { accepts: () => true, ownRegistry: vi.fn() });
+    await h.adapter.registerEmmaNativeProviderAdapters(h.pi, { accepts: () => true, ownRegistry: vi.fn() });
     await h.handlers.get('session_start')!({}, h.ctx);
     expect(h.providers.size).toBe(0);
   });
@@ -143,7 +143,7 @@ describe('Emma native provider refresh bridge', () => {
     const fetchGrant = vi.fn(async () => ({ ok: true, json: async () => ({ allowed }) }));
     const stream = vi.fn(async function* () {});
     const h = loadAdapter(aliases, { fetch: fetchGrant, stream, guest: false });
-    const adapter = await h.adapter.registerCindyNativeProviderAdapters(h.pi);
+    const adapter = await h.adapter.registerEmmaNativeProviderAdapters(h.pi);
     h.handlers.get('session_start')!({}, h.ctx);
     expect(h.providers.has('runtime')).toBe(true);
     const request = () => h.providers.get('runtime')!.streamSimple({ provider: 'runtime', id: 'old', api: 'openai-responses' }, { messages: [] }, {});
@@ -152,7 +152,7 @@ describe('Emma native provider refresh bridge', () => {
       body: JSON.stringify({ model: 'old', providerId: 'catalog-provider' }),
     }));
     expect(stream).toHaveBeenCalledTimes(1);
-    const snapshot = h.adapter.parseCindyProviderRefreshSnapshot(JSON.stringify({ nonce: 'abcdefghijklmnop', env: {}, aliases }), 'abcdefghijklmnop')!;
+    const snapshot = h.adapter.parseEmmaProviderRefreshSnapshot(JSON.stringify({ nonce: 'abcdefghijklmnop', env: {}, aliases }), 'abcdefghijklmnop')!;
     await adapter.refresh(snapshot, h.ctx, new Set());
     allowed = false;
     await expect(request()).rejects.toThrow('not authorized');
@@ -171,7 +171,7 @@ describe('Emma native provider refresh bridge', () => {
     const stream = vi.fn(async function* () {});
     const h = loadAdapter([{ id: 'byok', name: 'BYOK', provider: 'native', models: [{ id: 'allowed', grant: 'catalog-a' }] }],
       { fetch: fetchGrant, stream });
-    const adapter = await h.adapter.registerCindyNativeProviderAdapters(h.pi);
+    const adapter = await h.adapter.registerEmmaNativeProviderAdapters(h.pi);
     h.handlers.get('session_start')!({}, h.ctx);
     const provider = h.providers.get('byok')!;
     expect(provider.getModels()).toEqual([{ provider: 'byok', id: 'allowed' }]);
@@ -197,13 +197,13 @@ describe('Emma native provider refresh bridge', () => {
     const valid = { nonce, env: { CINDY_PI_KEY_NEW: 'secret', CINDY_PI_SESSION_TOKEN: 'token' }, aliases: [
       { id: 'custom:xai', name: 'xAI', provider: 'xai', keyEnv: 'CINDY_PI_KEY_NEW' },
     ] };
-    expect(adapter.parseCindyProviderRefreshSnapshot(JSON.stringify(valid), nonce)?.aliases).toEqual(valid.aliases);
-    expect(adapter.parseCindyProviderRefreshSnapshot(JSON.stringify({ ...valid, nonce: 'other' }), nonce)).toBeUndefined();
-    expect(adapter.parseCindyProviderRefreshSnapshot(JSON.stringify({ ...valid, env: { OPENAI_API_KEY: 'secret' } }), nonce)).toBeUndefined();
-    expect(adapter.parseCindyProviderRefreshSnapshot(JSON.stringify({ ...valid, aliases: [
+    expect(adapter.parseEmmaProviderRefreshSnapshot(JSON.stringify(valid), nonce)?.aliases).toEqual(valid.aliases);
+    expect(adapter.parseEmmaProviderRefreshSnapshot(JSON.stringify({ ...valid, nonce: 'other' }), nonce)).toBeUndefined();
+    expect(adapter.parseEmmaProviderRefreshSnapshot(JSON.stringify({ ...valid, env: { OPENAI_API_KEY: 'secret' } }), nonce)).toBeUndefined();
+    expect(adapter.parseEmmaProviderRefreshSnapshot(JSON.stringify({ ...valid, aliases: [
       { ...valid.aliases[0], keyEnv: 'OPENAI_API_KEY' },
     ] }), nonce)).toBeUndefined();
-    expect(adapter.parseCindyProviderRefreshSnapshot(JSON.stringify({ ...valid, aliases: [
+    expect(adapter.parseEmmaProviderRefreshSnapshot(JSON.stringify({ ...valid, aliases: [
       { ...valid.aliases[0], keyEnv: 'CINDY_PI_OPENAI_PROXY_KEY' },
     ] }), nonce)).toBeUndefined();
   });
@@ -212,7 +212,7 @@ describe('Emma native provider refresh bridge', () => {
     const old = { id: 'old', name: 'Old', provider: 'anthropic', keyEnv: 'CINDY_PI_KEY_OLD' };
     const next = { id: 'next', name: 'Next', provider: 'openai', keyEnv: 'CINDY_PI_KEY_NEXT' };
     const h = loadAdapter([old]);
-    const controller = await h.adapter.registerCindyNativeProviderAdapters(h.pi);
+    const controller = await h.adapter.registerEmmaNativeProviderAdapters(h.pi);
     h.handlers.get('session_start')?.({}, h.ctx);
     h.providers.set('package-owned', { id: 'package-owned', auth: {}, getModels: () => [], streamSimple: async () => undefined });
     h.setModels([{ provider: 'next', id: 'new-model' }]);
@@ -233,7 +233,7 @@ describe('Emma native provider refresh bridge', () => {
     const proxy = { id: 'minimax-oauth', name: 'MiniMax', provider: 'minimax-cn' };
     const keyed = { id: 'minimax-key', name: 'MiniMax key', provider: 'minimax-cn', keyEnv: 'CINDY_PI_KEY_NEXT' };
     const h = loadAdapter([proxy]);
-    const controller = await h.adapter.registerCindyNativeProviderAdapters(h.pi);
+    const controller = await h.adapter.registerEmmaNativeProviderAdapters(h.pi);
     h.handlers.get('session_start')!({}, h.ctx);
     expect(h.providers.get(proxy.id)?.auth).toEqual({});
     expect(h.providers.get(proxy.id)?.getModels()).toEqual([{ provider: proxy.id, id: 'old' }]);

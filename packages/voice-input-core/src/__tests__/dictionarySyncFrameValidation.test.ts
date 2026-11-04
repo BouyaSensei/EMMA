@@ -66,7 +66,7 @@ describe('规范 HLC', () => {
       nowMs: 1_000,
     });
     const renamed = renameTerm(added.state, added.clock, {
-      termKey: 'cindy',
+      termKey: 'emma',
       nextText: 'Emma 客户端',
       nowMs: 2_000,
     });

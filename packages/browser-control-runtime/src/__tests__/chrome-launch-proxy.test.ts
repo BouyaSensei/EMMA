@@ -14,7 +14,7 @@ function launchArgs(extraArgs: string[], headless = true): string[] {
     headless,
     extraArgs,
     profiles: {
-      Cindy: { driver: 'openclaw', cdpPort: 18800, color: '#00D9C5' },
+      Emma: { driver: 'openclaw', cdpPort: 18800, color: '#00D9C5' },
     },
   });
   const profile = resolveProfile(resolved, 'Emma');

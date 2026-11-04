@@ -1195,14 +1195,14 @@ describe('Maker session creation singleflight', () => {
 
     await maker.createSession(options('session-a'));
     await expect(maker.createSession(options('session-b'))).rejects.toThrow(
-      /already active in another Cindy task/i,
+      /already active in another Emma task/i,
     );
     expect(startSession).toHaveBeenCalledTimes(1);
 
     const closing = maker.closeSession('session-a');
     await vi.waitFor(() => expect(firstHandle.close).toHaveBeenCalledTimes(1));
     await expect(maker.createSession(options('session-b'))).rejects.toThrow(
-      /already active in another Cindy task/i,
+      /already active in another Emma task/i,
     );
     expect(startSession).toHaveBeenCalledTimes(1);
 
@@ -1323,7 +1323,7 @@ describe('Maker session creation singleflight', () => {
       ...base,
       id: 'session-next-thread-conflict',
       resumeSessionId: nextThread,
-    })).rejects.toThrow(/already active in another Cindy task/i);
+    })).rejects.toThrow(/already active in another Emma task/i);
 
     await Promise.all([first.close(), oldThreadReuse.close()]);
   });

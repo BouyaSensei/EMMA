@@ -157,7 +157,7 @@ describe('mobile native app config', () => {
     const cn = buildConfig({ config: appJson.expo });
     expect(
       process.env.EXPO_PUBLIC_ENDPOINT_MANIFEST_PEER_BASE_URL,
-    ).toBe('https://hotfix.emma.app/emma');
+    ).toBe('https://github.com/BouyaSensei/EMMA/releases/latest/download');
     expect(cn.extra.xdtProductionEnv).toEqual({
       EXPO_PUBLIC_CINDY_AUTH_REGION: 'cn',
       EXPO_PUBLIC_ENDPOINT_MANIFEST_BASE_URL:

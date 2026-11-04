@@ -11,7 +11,7 @@ vi.mock('@react-native-async-storage/async-storage', () => ({
   },
 }));
 const cnBase = 'https://hotfix.emma.cn/emma';
-const globalBase = 'https://hotfix.emma.app/emma';
+const globalBase = 'https://github.com/BouyaSensei/EMMA/releases/latest/download';
 const cnText = getBundledEndpointManifest('cn', `${cnBase}/endpoint.json`)!;
 const globalText = getBundledEndpointManifest(
   'global',

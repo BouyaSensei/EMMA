@@ -34,7 +34,10 @@ vi.mock('@/session/mobileDurableOutbox', async () => {
 vi.mock('react-native', () => ({ AppState: { currentState: 'active', addEventListener: () => ({ remove() {} }) } }));
 vi.mock('expo-router', async () => { const { useEffect } = await import('react'); return { useIsFocused: () => true, useFocusEffect: (fn: any) => useEffect(fn, [fn]) }; });
 
-const bases = { cn: 'https://hotfix.emma.cn/emma', global: 'https://hotfix.emma.app/emma' };
+const bases = {
+  cn: 'https://hotfix.emma.cn/emma',
+  global: 'https://github.com/BouyaSensei/EMMA/releases/latest/download',
+};
 const texts = Object.fromEntries(Object.entries(bases).map(([region, base]) => [region,
   process.env.CINDY_CHAT_PUBLIC_MANIFEST_DIR
     ? readFileSync(join(process.env.CINDY_CHAT_PUBLIC_MANIFEST_DIR, `${region}.json`), 'utf8')

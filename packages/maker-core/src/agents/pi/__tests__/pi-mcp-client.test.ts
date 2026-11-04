@@ -26,7 +26,7 @@ function gatewayWithFetch(fetchImpl: typeof fetch) {
     currentPermissionState: () => ({ mode: 'ask' }),
     FILE_WRITE_BUILTINS: new Set(), READONLY_BUILTINS: new Set(),
     CINDY_HOSTED: null, SUBAGENT_RUN_DIR_ENV: 'fixture-run-dir',
-    resolveFileWriteTargetPath: () => null, isCindyShellTool: () => false,
+    resolveFileWriteTargetPath: () => null, isEmmaShellTool: () => false,
     resolvedCredentialEvidenceForHost: () => [],
     PERMISSION_TITLE: 'permission', PERMISSION_ALLOW: 'allow',
   };

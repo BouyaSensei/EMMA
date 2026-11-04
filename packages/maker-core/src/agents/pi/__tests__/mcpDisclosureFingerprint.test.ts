@@ -174,7 +174,7 @@ function loadGateway(options: {
   };
   runInNewContext(code, sandbox);
 
-  const Gateway = sandbox.CindyMcpGateway as new () => {
+  const Gateway = sandbox.EmmaMcpGateway as new () => {
     add(server: string, client: unknown, tools: ToolDescriptor[]): void;
     register(pi: unknown, options?: unknown): void;
     resolveCall(input: unknown): unknown;

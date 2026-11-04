@@ -446,8 +446,8 @@ function loadReviewSearchHelpers(
 }
 
 function loadBashTimeoutHelpers(): {
-  resolveCindyBashTimeout: (params: unknown) => number;
-  applyCindyBashTimeoutParams: (params: unknown) => Record<string, unknown>;
+  resolveEmmaBashTimeout: (params: unknown) => number;
+  applyEmmaBashTimeoutParams: (params: unknown) => Record<string, unknown>;
 } {
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const start = source.indexOf('const CINDY_PI_BASH_DEFAULT_TIMEOUT_SECONDS =');
@@ -458,8 +458,8 @@ function loadBashTimeoutHelpers(): {
   const factory = new Function(
     `${source.slice(start, end)}; return { resolveEmmaBashTimeout, applyEmmaBashTimeoutParams };`,
   ) as () => {
-    resolveCindyBashTimeout: (params: unknown) => number;
-    applyCindyBashTimeoutParams: (params: unknown) => Record<string, unknown>;
+    resolveEmmaBashTimeout: (params: unknown) => number;
+    applyEmmaBashTimeoutParams: (params: unknown) => Record<string, unknown>;
   };
   return factory();
 }
@@ -1496,30 +1496,30 @@ describe('cindy-bridge extension source', () => {
     expect(executeSlice).not.toContain('AbortController');
     expect(executeSlice).not.toContain('setTimeout');
 
-    const { resolveCindyBashTimeout, applyCindyBashTimeoutParams } = loadBashTimeoutHelpers();
-    expect(resolveCindyBashTimeout(undefined)).toBe(CINDY_PI_BASH_DEFAULT_TIMEOUT_SECONDS);
-    expect(resolveCindyBashTimeout({})).toBe(CINDY_PI_BASH_DEFAULT_TIMEOUT_SECONDS);
-    expect(resolveCindyBashTimeout({ timeout: 0 })).toBe(CINDY_PI_BASH_DEFAULT_TIMEOUT_SECONDS);
-    expect(resolveCindyBashTimeout({ timeout: -1 })).toBe(CINDY_PI_BASH_DEFAULT_TIMEOUT_SECONDS);
-    expect(resolveCindyBashTimeout({ timeout: 45 })).toBe(45);
-    expect(resolveCindyBashTimeout({ timeout: CINDY_PI_BASH_MAX_TIMEOUT_SECONDS })).toBe(
+    const { resolveEmmaBashTimeout, applyEmmaBashTimeoutParams } = loadBashTimeoutHelpers();
+    expect(resolveEmmaBashTimeout(undefined)).toBe(CINDY_PI_BASH_DEFAULT_TIMEOUT_SECONDS);
+    expect(resolveEmmaBashTimeout({})).toBe(CINDY_PI_BASH_DEFAULT_TIMEOUT_SECONDS);
+    expect(resolveEmmaBashTimeout({ timeout: 0 })).toBe(CINDY_PI_BASH_DEFAULT_TIMEOUT_SECONDS);
+    expect(resolveEmmaBashTimeout({ timeout: -1 })).toBe(CINDY_PI_BASH_DEFAULT_TIMEOUT_SECONDS);
+    expect(resolveEmmaBashTimeout({ timeout: 45 })).toBe(45);
+    expect(resolveEmmaBashTimeout({ timeout: CINDY_PI_BASH_MAX_TIMEOUT_SECONDS })).toBe(
       CINDY_PI_BASH_MAX_TIMEOUT_SECONDS,
     );
-    expect(() => resolveCindyBashTimeout({ timeout: CINDY_PI_BASH_MAX_TIMEOUT_SECONDS + 1 })).toThrow(
+    expect(() => resolveEmmaBashTimeout({ timeout: CINDY_PI_BASH_MAX_TIMEOUT_SECONDS + 1 })).toThrow(
       /Invalid timeout: timeout is in seconds; maximum is 1800 seconds \(received 1801\)/,
     );
-    expect(() => resolveCindyBashTimeout({ timeout: 180000 })).toThrow(
+    expect(() => resolveEmmaBashTimeout({ timeout: 180000 })).toThrow(
       /Invalid timeout: timeout is in seconds; maximum is 1800 seconds \(received 180000\)/,
     );
-    expect(() => resolveCindyBashTimeout({ timeout: Number.NaN })).toThrow(/Invalid timeout/);
-    expect(() => resolveCindyBashTimeout({ timeout: Number.POSITIVE_INFINITY })).toThrow(
+    expect(() => resolveEmmaBashTimeout({ timeout: Number.NaN })).toThrow(/Invalid timeout/);
+    expect(() => resolveEmmaBashTimeout({ timeout: Number.POSITIVE_INFINITY })).toThrow(
       /Invalid timeout/,
     );
-    expect(applyCindyBashTimeoutParams({ command: 'ls' })).toEqual({
+    expect(applyEmmaBashTimeoutParams({ command: 'ls' })).toEqual({
       command: 'ls',
       timeout: CINDY_PI_BASH_DEFAULT_TIMEOUT_SECONDS,
     });
-    expect(applyCindyBashTimeoutParams({ command: 'ls', timeout: 12 })).toEqual({
+    expect(applyEmmaBashTimeoutParams({ command: 'ls', timeout: 12 })).toEqual({
       command: 'ls',
       timeout: 12,
     });

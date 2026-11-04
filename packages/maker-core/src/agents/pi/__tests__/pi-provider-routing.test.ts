@@ -6162,7 +6162,7 @@ describe("Pi provider-aware model routing", () => {
         model: "local-model",
         providerId: "my-local",
       }),
-    ).rejects.toThrow(/refusing to fall back to the Cindy gateway/);
+    ).rejects.toThrow(/refusing to fall back to the Emma gateway/);
     expect(captured.args).toEqual([]);
   });
 

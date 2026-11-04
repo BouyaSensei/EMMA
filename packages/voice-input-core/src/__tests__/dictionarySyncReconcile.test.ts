@@ -341,11 +341,11 @@ describe('dictionary sync — 降级回收', () => {
     a.state = result.state;
     a.clock = result.clock;
 
-    expect(keysOf(a.state)).toEqual(['cindy']);
+    expect(keysOf(a.state)).toEqual(['emma']);
     expect(materializeDictionary(a.state).suppressedTexts).toEqual(['Orca']);
     // 抑制生效:后台学习不会把它加回来。
     learn(a, 'Orca', 3_000);
-    expect(keysOf(a.state)).toEqual(['cindy']);
+    expect(keysOf(a.state)).toEqual(['emma']);
   });
 
   it('被上限挤出物化的词条不会被误判成用户删除', () => {
@@ -425,7 +425,7 @@ describe('dictionary sync — 降级回收', () => {
 
     const result = reconcileFromLocalSnapshot(a.state, a.clock, {
       snapshot: { entries: [], suppressedTexts: [] },
-      lastMaterializedKeys: ['cindy'],
+      lastMaterializedKeys: ['emma'],
       nowMs: 2_000,
     });
     a.state = result.state;

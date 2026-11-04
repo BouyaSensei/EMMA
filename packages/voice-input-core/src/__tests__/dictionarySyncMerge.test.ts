@@ -285,7 +285,7 @@ describe('dictionary sync — 频次守恒(防重复增长)', () => {
     expect(materialized.entries[0].source).toBe('manual');
 
     // 手动添加已存在的词条不再 +1。
-    const again = addManualEntry(added.state, added.clock, { text: 'cindy', nowMs: 3_010 });
+    const again = addManualEntry(added.state, added.clock, { text: 'Emma', nowMs: 3_010 });
     expect(materializeDictionary(again.state).entries[0].frequency).toBe(1);
   });
 });
@@ -323,7 +323,7 @@ describe('dictionary sync — 别名合并', () => {
     const clock = createHlcClock('a', 5_000);
     const result = recordLearningEvent(createEmptySyncState(), clock, {
       text: 'Emma',
-      aliases: ['cindy', 'sindy'],
+      aliases: ['emma', 'sindy'],
       stage: 'entry',
       nowMs: 5_000,
     });

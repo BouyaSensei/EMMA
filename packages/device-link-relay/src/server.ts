@@ -27,7 +27,8 @@ const API_PREFIX = '/api/device-link';
 const WS_PATH = `${API_PREFIX}/ws`;
 const MAX_JSON_BODY_BYTES = 64 * 1024;
 const MAX_POLL_WAIT_MS = 25_000;
-const POLL_TOKEN_HEADER = 'x-cindy-relay-poll-token';
+// 新品牌客户端发 x-emma-relay-poll-token,历史客户端仍发 x-cindy-relay-poll-token。
+const POLL_TOKEN_HEADERS = ['x-emma-relay-poll-token', 'x-cindy-relay-poll-token'];
 
 export interface RelayServerOptions {
   /** 中转数据目录,须先用 `initializeRelay` 初始化。 */
@@ -188,7 +189,8 @@ export async function startRelayServer(options: RelayServerOptions): Promise<Rel
   });
   route('GET', /^\/api\/device-link\/relay\/pair\/([0-9a-f-]{36})$/, async ({ req, res, url, params }) => {
     const wait = Math.min(Math.max(Number(url.searchParams.get('wait') ?? 0) * 1000, 0), MAX_POLL_WAIT_MS);
-    const result = await pairing.poll(params[0], headerValue(req.headers[POLL_TOKEN_HEADER]), Number.isFinite(wait) ? wait : 0);
+    const pollToken = POLL_TOKEN_HEADERS.map((name) => req.headers[name]).find((value) => value !== undefined);
+    const result = await pairing.poll(params[0], headerValue(pollToken), Number.isFinite(wait) ? wait : 0);
     sendJson(res, 200, result);
   });
 

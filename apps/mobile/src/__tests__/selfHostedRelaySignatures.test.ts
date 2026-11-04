@@ -173,7 +173,7 @@ it('dispatches only owner-certified, untampered permission frames and rejects re
   const client = new DeviceLinkClient({
     getWsUrl: () => 'wss://relay.home.example/api/device-link/ws',
     getToken: async () => 'relay-credential',
-    authorizationScheme: 'CindyRelay',
+    authorizationScheme: 'EmmaRelay',
     getHello: () => ({ deviceName: 'Phone', platform: 'ios', appVersion: '1', remoteControlEnabled: false, busy: false }),
     createWebSocket: () => ws,
     frameAuth: currentSelfHostedRelayFrameAuth,
@@ -194,7 +194,7 @@ it('dispatches only owner-certified, untampered permission frames and rejects re
     ws.push(genuine);
     expect(received).toEqual([real]);
     expect(fetch).toHaveBeenCalledWith('https://relay.home.example/api/device-link/relay/certs', expect.objectContaining({
-      headers: { Authorization: 'CindyRelay relay-credential' },
+      headers: { Authorization: 'EmmaRelay relay-credential' },
     }));
   } finally {
     client.stop();

@@ -26,7 +26,7 @@ function createProfileFixture() {
     enabled: true,
     defaultProfile: 'Emma',
     profiles: {
-      Cindy: { driver: 'openclaw', cdpPort: 18800, color: '#00D9C5' },
+      Emma: { driver: 'openclaw', cdpPort: 18800, color: '#00D9C5' },
     },
   });
   const profile = resolveProfile(resolved, 'Emma');

@@ -38,7 +38,7 @@ describe('background target navigation policy', () => {
       enabled: true,
       defaultProfile: 'Emma',
       ssrfPolicy: { dangerouslyAllowPrivateNetwork: true },
-      profiles: { Cindy: { driver: 'openclaw', cdpPort: 18800, color: '#00D9C5' } },
+      profiles: { Emma: { driver: 'openclaw', cdpPort: 18800, color: '#00D9C5' } },
     });
     const profile = resolveProfile(resolved, 'Emma')!;
     const profileState: ProfileRuntimeState = { profile, running: null };
