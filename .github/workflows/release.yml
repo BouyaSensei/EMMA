@@ -164,12 +164,20 @@ jobs:
       - name: Package zip
         run: |
           v="${{ needs.resolve-version.outputs.version }}"
-          # MakerZIP leaves no bare Emma.app in out/make; the packaged app
-          # lives in out/package (electron-forge default packageDir).
-          appdir=$(find apps/desktop/out/package apps/desktop/out/make -maxdepth 4 -name "Emma.app" -type d 2>/dev/null | head -1)
-          if [ -z "$appdir" ]; then echo "No Emma.app found"; exit 1; fi
-          (cd "$(dirname "$appdir")" && zip -qry "emma-mac-${v}.zip" "Emma.app")
-          shasum -a 256 "$(dirname "$appdir")/emma-mac-${v}.zip"
+          # MakerZIP (forge make) produit deja le zip distribuable:
+          # out/make/zip/darwin/arm64/<name>-<version>.zip contenant Emma.app.
+          # On le renomme simplement; re-zipper depuis out/package etait
+          # fragile (le .app nu n'y est pas toujours present selon la version
+          # de forge).
+          set +e
+          zipfile=$(find apps/desktop/out/make -type f -name "*.zip" -path "*darwin*" 2>/dev/null | head -1)
+          if [ -z "$zipfile" ]; then
+            echo "No darwin zip under out/make; listing out/ for diagnosis:"
+            find apps/desktop/out -maxdepth 4 \( -name "*.app" -o -name "*.zip" \) 2>/dev/null | head -20
+            exit 1
+          fi
+          cp "$zipfile" "emma-mac-${v}.zip"
+          shasum -a 256 "emma-mac-${v}.zip"
 
       - name: Upload artifact
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
