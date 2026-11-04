@@ -1,0 +1,113 @@
+import { describe, expect, it, vi } from 'vitest';
+import type { DingTalkIM } from '@cindy/im';
+
+import { __testing, handleDingTalkTextInteraction } from '../interaction';
+import { createSharedPermission } from '../../../maker-ipc/sharedPermission';
+
+describe('dingtalk text interactions', () => {
+  it('settles the shared permission when the text reply times out', async () => {
+    const sharedPermission = createSharedPermission();
+    const im = {
+      requestTextReply: vi.fn(async () => { throw new Error('DINGTALK_INTERACTION_TIMEOUT'); }),
+      sendText: vi.fn(async () => {}),
+    } as unknown as DingTalkIM;
+    await expect(handleDingTalkTextInteraction(im, 'owner', {
+      kind: 'permission', requestId: 'timeout', toolName: 'Bash', input: {},
+    }, { sharedPermission })).resolves.toMatchObject({ kind: 'permission', behavior: 'deny' });
+    expect(sharedPermission.decide({ kind: 'permission', behavior: 'allow' })).toBe(false);
+    await expect(sharedPermission.result).resolves.toMatchObject({ reason: 'dingtalk_interaction_timeout_or_cancelled' });
+  });
+
+  it('parses explicit allow and deny replies', () => {
+    const request = {
+      kind: 'permission' as const,
+      requestId: 'request-1',
+      toolName: 'shell_command',
+      input: {},
+    };
+    expect(__testing.parseInteractionReply(request, '允许')).toEqual({
+      kind: 'permission',
+      behavior: 'allow',
+    });
+    expect(__testing.parseInteractionReply(request, '拒绝')).toEqual({
+      kind: 'permission',
+      behavior: 'deny',
+      reason: 'dingtalk_user_denied',
+    });
+  });
+
+  // 2026-10-24 review: text channels showed only the tool name, so a safe and a destructive
+  // Bash call looked identical. They now share the desktop/phone operation summary.
+  it('确认提示显示要执行的具体操作和审核原因', () => {
+    const prompt = __testing.formatInteractionPrompt({
+      kind: 'permission',
+      requestId: 'request-2',
+      toolName: 'Bash',
+      input: { command: 'xcrun simctl delete all' },
+      metadata: { autoReviewReason: '这会删除所有模拟器。' },
+    });
+    expect(prompt).toContain('操作：xcrun simctl delete all');
+    expect(prompt).toContain('自动审批需要你决定：这会删除所有模拟器。');
+  });
+
+  it('自动审批故障时在钉钉确认提示里写明原因', () => {
+    const ordinary = __testing.formatInteractionPrompt({
+      kind: 'permission',
+      requestId: 'request-1',
+      toolName: 'shell_command',
+      input: {},
+    });
+    expect(ordinary).toBe('需要确认操作：shell_command\n回复“允许”继续，或回复“拒绝”取消。');
+
+    const unavailable = __testing.formatInteractionPrompt({
+      kind: 'permission',
+      requestId: 'request-1',
+      toolName: 'shell_command',
+      input: {},
+      metadata: { autoReviewUnavailable: true },
+    });
+    expect(unavailable).toContain('自动审批没完成，请确认要不要允许这次操作。');
+    expect(unavailable).toContain('需要确认操作：shell_command');
+    expect(unavailable).toContain('回复“允许”继续');
+  });
+
+  it('maps a numbered answer to the matching option label', () => {
+    const request = {
+      kind: 'ask_user_question' as const,
+      requestId: 'request-2',
+      questions: [
+        {
+          question: '选择方向',
+          options: [{ label: 'A' }, { label: 'B' }],
+        },
+      ],
+    };
+    expect(__testing.parseInteractionReply(request, '2')).toEqual({
+      kind: 'ask_user_question',
+      answers: { 选择方向: 'B' },
+    });
+  });
+
+  it('asks multiple questions one at a time', async () => {
+    const replies = ['2', 'custom'];
+    const requestTextReply = vi.fn(
+      async <T>(_userId: string, _prompt: string, parse: (text: string) => T | null) =>
+        parse(replies.shift() ?? '') as T,
+    );
+    const im = { requestTextReply } as unknown as DingTalkIM;
+    const request = {
+      kind: 'ask_user_question' as const,
+      requestId: 'request-3',
+      questions: [
+        { question: '方向', options: [{ label: 'A' }, { label: 'B' }] },
+        { question: '备注' },
+      ],
+    };
+
+    await expect(handleDingTalkTextInteraction(im, 'owner-1', request)).resolves.toEqual({
+      kind: 'ask_user_question',
+      answers: { 方向: 'B', 备注: 'custom' },
+    });
+    expect(requestTextReply).toHaveBeenCalledTimes(2);
+  });
+});

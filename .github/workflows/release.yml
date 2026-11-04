@@ -1,0 +1,254 @@
+# Emma release pipeline — CI green + tag => installer published as a GitHub
+# Release, and the app's auto-updater picks it up via the stable
+# "releases/latest/download" base URL (config/endpoint.global.json cdnBaseUrl).
+#
+# Flow:
+#   1. push tag v*.*.* (or manual dispatch with a version)
+#   2. build installers per platform (NSIS win / zip mac / AppImage+deb linux)
+#   3. generate manifest-<platform>-<arch>.json (version + sha256 + size)
+#   4. create/replace the GitHub Release with installers + manifests as assets
+#
+# The desktop updater then fetches:
+#   https://github.com/<org>/<repo>/releases/latest/download/manifest-<platform>-<arch>.json
+# and offers the installer when app.version > installed version.
+
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (x.y.z)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  NODE_OPTIONS: '--max-old-space-size=8192'
+
+jobs:
+  resolve-version:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+    steps:
+      - id: v
+        run: |
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            ver="${{ github.event.inputs.version }}"
+          else
+            ver="${GITHUB_REF_NAME#v}"
+          fi
+          echo "version=${ver}" >> "$GITHUB_OUTPUT"
+          echo "Resolved release version: ${ver}"
+
+  build-windows:
+    needs: resolve-version
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+        with:
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Set release version
+        run: |
+          $v = "${{ needs.resolve-version.outputs.version }}"
+          (Get-Content apps/desktop/package.json -Raw) `
+            -replace '"version":\s*"[0-9]+\.[0-9]+\.[0-9]+"' , ('"version": "' + $v + '"') `
+            | Set-Content apps/desktop/package.json
+
+      - name: Build NSIS installer
+        working-directory: apps/desktop
+        run: node scripts/forge-cli.mjs make --platform=win32 --arch=x64
+
+      - name: Normalize artifact name (no spaces)
+        shell: pwsh
+        run: |
+          $v = "${{ needs.resolve-version.outputs.version }}"
+          $src = Get-ChildItem "apps/desktop/out/make/nsis/*Setup*.exe" | Select-Object -First 1
+          if (-not $src) { throw "No NSIS installer found in apps/desktop/out/make/nsis" }
+          Copy-Item $src.FullName "emma-setup-${v}.exe"
+          Get-FileHash "emma-setup-${v}.exe" -Algorithm SHA256
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@043fb46d1a92c170e21b5e850f781f74bbd86263 # v4.5.0
+        with:
+          name: win32-x64
+          path: emma-setup-*.exe
+
+  build-macos:
+    needs: resolve-version
+    runs-on: macos-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+        with:
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Set release version
+        run: |
+          v="${{ needs.resolve-version.outputs.version }}"
+          sed -i '' "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"version\": \"$v\"/" apps/desktop/package.json
+
+      - name: Build macOS app
+        working-directory: apps/desktop
+        run: node scripts/forge-cli.mjs make --platform=darwin --arch=arm64
+
+      - name: Package zip
+        run: |
+          v="${{ needs.resolve-version.outputs.version }}"
+          appdir=$(find apps/desktop/out/make -maxdepth 3 -name "Emma.app" -type d | head -1)
+          if [ -z "$appdir" ]; then echo "No Emma.app found"; exit 1; fi
+          (cd "$(dirname "$appdir")" && zip -qry "emma-mac-${v}.zip" "Emma.app")
+          shasum -a 256 "$(dirname "$appdir")/emma-mac-${v}.zip"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@043fb46d1a92c170e21b5e850f781f74bbd86263 # v4.5.0
+        with:
+          name: darwin-arm64
+          path: emma-mac-*.zip
+
+  build-linux:
+    needs: resolve-version
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+        with:
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Set release version
+        run: |
+          v="${{ needs.resolve-version.outputs.version }}"
+          sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*\"/\"version\": \"$v\"/" apps/desktop/package.json
+
+      - name: Build Linux packages
+        working-directory: apps/desktop
+        run: node scripts/forge-cli.mjs make --platform=linux --arch=x64
+
+      - name: Collect artifacts
+        run: |
+          v="${{ needs.resolve-version.outputs.version }}"
+          mkdir -p dist-linux
+          find apps/desktop/out/make -maxdepth 3 \( -name "*.AppImage" -o -name "*.deb" \) -exec cp {} dist-linux/ \;
+          ls -la dist-linux/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@043fb46d1a92c170e21b5e850f781f74bbd86263 # v4.5.0
+        with:
+          name: linux-x64
+          path: dist-linux/
+
+  release:
+    needs: [resolve-version, build-windows, build-macos, build-linux]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+
+      - name: Download artifacts
+        uses: actions/download-artifact@018cc2de00e7da637df5aabb6f1bfbe7dd9b8b3f # v4.3.0
+        with:
+          path: artifacts
+
+      - name: Generate update manifests
+        run: |
+          v="${{ needs.resolve-version.outputs.version }}"
+          mkdir -p manifests
+          node scripts/generate-update-manifest.mjs --version "$v" --platform win32-x64 \
+            --installer "artifacts/win32-x64/emma-setup-${v}.exe" --out manifests/manifest-win32-x64.json
+          node scripts/generate-update-manifest.mjs --version "$v" --platform darwin-arm64 \
+            --installer "artifacts/darwin-arm64/emma-mac-${v}.zip" --out manifests/manifest-darwin-arm64.json
+          # Linux: prefer AppImage, fall back to deb
+          linux_asset=$(ls artifacts/linux-x64/*.AppImage 2>/dev/null | head -1)
+          [ -z "$linux_asset" ] && linux_asset=$(ls artifacts/linux-x64/*.deb 2>/dev/null | head -1)
+          if [ -n "$linux_asset" ]; then
+            node scripts/generate-update-manifest.mjs --version "$v" --platform linux-x64 \
+              --installer "$linux_asset" --out manifests/manifest-linux-x64.json
+          else
+            echo "No Linux asset; skipping linux manifest"
+          fi
+          # endpoint.json: the app fetches {cdnBaseUrl}/endpoint.json at startup to
+          # refresh its endpoint configuration (clientEndpointResilience.ts).
+          cp config/endpoint.global.json manifests/endpoint.json
+          cat manifests/*.json
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v="${{ needs.resolve-version.outputs.version }}"
+          tag="v${v}"
+          assets="artifacts/win32-x64/emma-setup-${v}.exe"
+          [ -f "artifacts/darwin-arm64/emma-mac-${v}.zip" ] && assets="$assets artifacts/darwin-arm64/emma-mac-${v}.zip"
+          for f in artifacts/linux-x64/*; do [ -f "$f" ] && assets="$assets $f"; done
+          for f in manifests/manifest-*.json; do assets="$assets $f"; done
+          assets="$assets manifests/endpoint.json"
+
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" $assets --clobber
+          else
+            gh release create "$tag" $assets \
+              --title "Emma $v" \
+              --notes "Emma $v — auto-updatable release. Installers and update manifests for all platforms."
+          fi
+          echo "Published https://github.com/${{ github.repository }}/releases/tag/$tag"

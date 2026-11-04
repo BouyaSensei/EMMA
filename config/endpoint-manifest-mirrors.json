@@ -1,0 +1,8 @@
+{
+  "cn": [
+    "https://raw.githubusercontent.com/BouyaSensei/EMMA/main/config/endpoint.json"
+  ],
+  "global": [
+    "https://raw.githubusercontent.com/BouyaSensei/EMMA/main/config/endpoint.global.json"
+  ]
+}
