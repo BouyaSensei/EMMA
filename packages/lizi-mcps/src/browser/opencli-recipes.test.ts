@@ -245,7 +245,7 @@ describe("bundled OpenCLI recipes", () => {
     const page = new OpenCliPage({ targetId: 'fixture', call: async request => {
       calls.push(request);
       const method = request.recipeCommand?.method;
-      if (method === 'Cindy.begin') return { ok: true, action: request.action, data: { sessionId: 'fixture-session' } };
+      if (method === 'Emma.begin') return { ok: true, action: request.action, data: { sessionId: 'fixture-session' } };
       if (method === 'Input.insertText') {
         if (mode === 'input-error') return { ok: false, action: request.action, message: 'fixture input failed' };
         inserted = String(request.recipeCommand?.params?.text);
@@ -361,8 +361,8 @@ describe("bundled OpenCLI recipes", () => {
     });
     const evaluate = vi.fn(async () => ({ title: 'Too early', contentHtml: '<p>Partial</p>' }));
     const page = {
-      startNetworkCapture: async () => { await sessions.call('web', id, 'Cindy.captureStart'); return true; },
-      readNetworkCapture: async () => (await sessions.call('web', id, 'Cindy.captureRead') as { entries: unknown[] }).entries,
+      startNetworkCapture: async () => { await sessions.call('web', id, 'Emma.captureStart'); return true; },
+      readNetworkCapture: async () => (await sessions.call('web', id, 'Emma.captureRead') as { entries: unknown[] }).entries,
       goto: async () => {
         for (let i = 0; i < 101; i++) event('Network.requestWillBeSent', {
           requestId: String(i), request: { url: 'https://example.test/api' },
@@ -376,8 +376,8 @@ describe("bundled OpenCLI recipes", () => {
       await vi.advanceTimersByTimeAsync(1500);
       await checked;
       expect(evaluate).not.toHaveBeenCalled();
-      await sessions.call('web', id, 'Cindy.captureStart');
-      expect(await sessions.call('web', id, 'Cindy.captureRead')).toEqual({ entries: [] });
+      await sessions.call('web', id, 'Emma.captureStart');
+      expect(await sessions.call('web', id, 'Emma.captureRead')).toEqual({ entries: [] });
     } finally { sessions.dispose(); }
   });
 
@@ -614,7 +614,7 @@ describe("bundled OpenCLI recipes", () => {
     const page = new OpenCliPage({ targetId: 'fixture', call: async request => {
       calls.push(request);
       const method = request.recipeCommand?.method;
-      return { ok: true, action: request.action, data: method === 'Cindy.begin' ? { sessionId: 'fixture-session' }
+      return { ok: true, action: request.action, data: method === 'Emma.begin' ? { sessionId: 'fixture-session' }
         : method === 'Network.getCookies' ? { cookies: [] }
           : { result: request.request?.fn?.includes('api/ent/discover/search')
             ? { code: 0, data: { list: [{ name: 'Fixture candidate', company: 'Fixture company' }] } } : true } };
@@ -1057,9 +1057,9 @@ describe("bundled OpenCLI recipes", () => {
     });
     const evaluate = vi.fn(async () => ({ title: 'Fixture', contentHtml: '<p>Ready content</p>' }));
     const page = {
-      startNetworkCapture: async () => { await sessions.call('web', id, 'Cindy.captureStart'); return true; },
+      startNetworkCapture: async () => { await sessions.call('web', id, 'Emma.captureStart'); return true; },
       readNetworkCapture: async (options?: Record<string, unknown>) =>
-        (await sessions.call('web', id, 'Cindy.captureRead', options) as { entries: unknown[] }).entries,
+        (await sessions.call('web', id, 'Emma.captureRead', options) as { entries: unknown[] }).entries,
       goto: async () => { event('Network.requestWillBeSent', { requestId: 'r', request: { url: 'https://example.test/api' } }); },
       evaluate,
     } as unknown as IPage;
@@ -1284,7 +1284,7 @@ describe("bundled OpenCLI recipes", () => {
     expect(page.getActivePage()).toBe('fresh-target');
     expect(await page.evaluate('document.title')).toBe('fresh content');
     expect(calls.find(call => call.action === 'close')?.targetId).toBe('old-target');
-    expect(calls.find(call => call.recipeCommand?.method === 'Cindy.end')?.targetId).toBe('old-target');
+    expect(calls.find(call => call.recipeCommand?.method === 'Emma.end')?.targetId).toBe('old-target');
     expect(calls.at(-1)?.targetId).toBe('fresh-target');
     await page.closeTab();
     expect(page.getActivePage()).toBeUndefined();
@@ -1455,17 +1455,17 @@ describe("bundled OpenCLI recipes", () => {
     expect(await page.screenshot()).toBe("aW1hZ2U=");
     await page.dispose();
     expect(
-      calls.filter((call) => call.recipeCommand?.method === "Cindy.begin"),
+      calls.filter((call) => call.recipeCommand?.method === "Emma.begin"),
     ).toHaveLength(1);
     expect(
       calls
         .filter(
           (call) =>
-            call.recipeCommand && call.recipeCommand.method !== "Cindy.begin",
+            call.recipeCommand && call.recipeCommand.method !== "Emma.begin",
         )
         .every((call) => call.recipeCommand?.sessionId === "s"),
     ).toBe(true);
-    expect(calls.at(-1)?.recipeCommand?.method).toBe("Cindy.end");
+    expect(calls.at(-1)?.recipeCommand?.method).toBe("Emma.end");
   });
 
   // Product decision 2026-10-23: exclusions must disappear from discovery and

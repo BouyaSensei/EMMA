@@ -61,10 +61,10 @@ describe('MyDevicesPanel device identity', () => {
       const row = document.querySelector(`[data-device-id="${d.deviceId}"]`);
       expect(row?.textContent).not.toContain(d.deviceId);
       if (!d.isSelf && d.name === 'Mac Studio') expect(row?.textContent).toMatch(/Mac Studio \(\d\)/);
-      if (d.appVersion) expect(row?.textContent).toContain(`Cindy ${d.appVersion}`);
+      if (d.appVersion) expect(row?.textContent).toContain(`Emma ${d.appVersion}`);
       else {
-        expect(row?.textContent).not.toContain('Cindy null');
-        expect(row?.textContent).not.toContain('Cindy undefined');
+        expect(row?.textContent).not.toContain('Emma null');
+        expect(row?.textContent).not.toContain('Emma undefined');
       }
     }
   });

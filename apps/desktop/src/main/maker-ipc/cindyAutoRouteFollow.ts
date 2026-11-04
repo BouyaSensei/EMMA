@@ -156,7 +156,7 @@ export async function followMovedCindyAutoRoutes(deps: CindyAutoRouteFollowDeps)
           },
         );
         staged += 1;
-        deps.logger?.info('Cindy Auto moved provider; staged switch for next message', {
+        deps.logger?.info('Emma Auto moved provider; staged switch for next message', {
           sessionId: candidate.sessionId,
           model: route.model,
           from: route.providerId,
@@ -165,7 +165,7 @@ export async function followMovedCindyAutoRoutes(deps: CindyAutoRouteFollowDeps)
       });
     } catch (error) {
       deps.assertCurrent();
-      deps.logger?.info('Cindy Auto provider follow failed; task keeps its route', {
+      deps.logger?.info('Emma Auto provider follow failed; task keeps its route', {
         sessionId: candidate.sessionId,
         error: error instanceof Error ? error.message : String(error),
       });
@@ -208,7 +208,7 @@ async function recheckStagedSwitch(
   if (now === target) return false;
   if (!now || now === from) {
     await deps.cancelStagedSwitch?.(sessionId);
-    deps.logger?.info('Cindy Auto staged switch withdrawn', {
+    deps.logger?.info('Emma Auto staged switch withdrawn', {
       sessionId,
       model: current.model,
       from,
@@ -225,7 +225,7 @@ async function recheckStagedSwitch(
       targetProviderId: now,
     },
   );
-  deps.logger?.info('Cindy Auto staged switch retargeted', {
+  deps.logger?.info('Emma Auto staged switch retargeted', {
     sessionId,
     model: current.model,
     from,

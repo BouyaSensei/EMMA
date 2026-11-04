@@ -15,18 +15,18 @@ describe("recipe browser sessions", () => {
       requestId, request: { url: 'https://example.test/api' },
     });
     try {
-      await sessions.call('target', id, 'Cindy.captureStart');
+      await sessions.call('target', id, 'Emma.captureStart');
       start('unfinished');
       for (let i = 0; i < (cap === 'count' ? 101 : 9); i++) {
         start(`complete-${i}`);
         event('Network.loadingFinished', { requestId: `complete-${i}` });
         await Promise.resolve();
       }
-      const read = await sessions.call('target', id, 'Cindy.captureRead') as { entries: Array<Record<string, unknown>> };
+      const read = await sessions.call('target', id, 'Emma.captureRead') as { entries: Array<Record<string, unknown>> };
       expect(read.entries).toContainEqual(expect.objectContaining({ requestId: 'unfinished', captureComplete: false }));
       expect(read.entries.length).toBeLessThanOrEqual(100);
       expect(read.entries.reduce((sum, entry) => sum + String(entry.responsePreview ?? '').length, 0)).toBeLessThanOrEqual(8_000_000);
-      expect(await sessions.call('target', id, 'Cindy.captureRead')).toMatchObject({ entries: [{ requestId: 'unfinished' }] });
+      expect(await sessions.call('target', id, 'Emma.captureRead')).toMatchObject({ entries: [{ requestId: 'unfinished' }] });
     } finally { sessions.dispose(); }
   });
 
@@ -44,11 +44,11 @@ describe("recipe browser sessions", () => {
         dispose: () => {},
       });
       try {
-        await sessions.call('target', id, 'Cindy.captureStart');
+        await sessions.call('target', id, 'Emma.captureStart');
         event('Network.requestWillBeSent', { requestId: 'r', request: { url: 'https://example.test/api' } });
         event('Network.loadingFinished', { requestId: 'r' });
         await Promise.resolve();
-        const result = await sessions.call('target', id, 'Cindy.captureRead') as { entries: Array<Record<string, unknown>> };
+        const result = await sessions.call('target', id, 'Emma.captureRead') as { entries: Array<Record<string, unknown>> };
         expect(result.entries).toHaveLength(1);
         expect(result.entries[0]).toMatchObject({
           captureComplete: true, responseBodyFullSize: length,
@@ -83,7 +83,7 @@ describe("recipe browser sessions", () => {
       },
       dispose,
     });
-    await sessions.call("tab-one", id, "Cindy.captureStart", {
+    await sessions.call("tab-one", id, "Emma.captureStart", {
       pattern: "/api/,/other/",
     });
     event("Network.requestWillBeSent", {
@@ -100,22 +100,22 @@ describe("recipe browser sessions", () => {
     });
     event("Network.loadingFinished", { requestId: "r" });
     expect(
-      await sessions.call("tab-one", id, "Cindy.captureRead"),
+      await sessions.call("tab-one", id, "Emma.captureRead"),
     ).toMatchObject({
       entries: [{ requestId: "r", responseStatus: 200, requestBody: "test" }],
     });
     complete({ body: '{"items":[1]}' });
     await vi.waitFor(async () => {
       expect(
-        await sessions.call("tab-one", id, "Cindy.captureRead"),
+        await sessions.call("tab-one", id, "Emma.captureRead"),
       ).toMatchObject({
         entries: [{ captureComplete: true, responsePreview: '{"items":[1]}' }],
       });
     });
-    expect(await sessions.call("tab-one", id, "Cindy.captureRead")).toEqual({
+    expect(await sessions.call("tab-one", id, "Emma.captureRead")).toEqual({
       entries: [],
     });
-    await sessions.call("tab-one", id, "Cindy.end");
+    await sessions.call("tab-one", id, "Emma.end");
     expect(unsubscribe).toHaveBeenCalledOnce();
     expect(dispose).toHaveBeenCalledOnce();
   });

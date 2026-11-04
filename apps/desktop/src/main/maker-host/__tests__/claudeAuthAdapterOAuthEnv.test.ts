@@ -150,7 +150,7 @@ describe('DesktopClaudeAuthAdapter — Claude 订阅只经 CLI 自己的登录',
     h.legacyMigrations = 0;
   });
 
-  it('keeps the owner-scoped BYOK key readable when Cindy gateway access is disabled', async () => {
+  it('keeps the owner-scoped BYOK key readable when Emma gateway access is disabled', async () => {
     h.canUseGateway = false;
     const { readClaudeApiKey, readOwnerScopedXdGatewayKey } = mod;
 
@@ -191,7 +191,7 @@ describe('DesktopClaudeAuthAdapter — Claude 订阅只经 CLI 自己的登录',
     expect(h.legacyMigrations).toBe(optionsList.length);
   });
 
-  it('订阅会话:未连接(CLI 未登录或 Cindy 未获许可)→ no_oauth', async () => {
+  it('订阅会话:未连接(CLI 未登录或 Emma 未获许可)→ no_oauth', async () => {
     h.nativeLogin = false;
     const adapter = await makeAdapter();
     await expect(adapter.getState({ credentialMode: 'oauth-bearer' })).resolves.toEqual({
@@ -319,7 +319,7 @@ describe('DesktopClaudeAuthAdapter — Claude 订阅只经 CLI 自己的登录',
     await expect(adapter.getOneShotAuth()).resolves.toBeNull();
   });
 
-  it('invalidate 只广播重新登录提示,不撤销 Cindy 的使用许可', async () => {
+  it('invalidate 只广播重新登录提示,不撤销 Emma 的使用许可', async () => {
     const adapter = await makeAdapter();
     const broadcasts: string[] = [];
     adapter.setOnInvalidatedBroadcast((reason) => broadcasts.push(reason));
@@ -343,7 +343,7 @@ describe('DesktopClaudeAuthAdapter — Claude 订阅只经 CLI 自己的登录',
     expect(broadcast).toHaveBeenCalledTimes(1);
   });
 
-  it('logout 撤销 Cindy 的使用许可,不登出 CLI', async () => {
+  it('logout 撤销 Emma 的使用许可,不登出 CLI', async () => {
     const adapter = await makeAdapter();
     await adapter.logout();
     expect(h.disconnects).toBe(1);

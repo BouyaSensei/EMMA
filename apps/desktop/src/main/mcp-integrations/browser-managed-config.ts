@@ -22,7 +22,7 @@ import {
  *  - 新 userData 里若已有旧名目录(翻转前的 dev 实例),browser.ts module-eval 的
  *    就地改名自愈处理。两处的 'XDMaker'/'Cindy' 字面量与本常量保持一致。
  */
-export const MANAGED_PROFILE = 'Cindy';
+export const MANAGED_PROFILE = 'Emma';
 
 /**
  * Snapshot profile for consented "use my browser logins". Disk name is pinned
@@ -31,7 +31,7 @@ export const MANAGED_PROFILE = 'Cindy';
  * chip still shows `MANAGED_PROFILE` via `displayName`; this string is not
  * user-facing.
  */
-export const REAL_MANAGED_PROFILE = 'Cindy-real';
+export const REAL_MANAGED_PROFILE = 'Emma-real';
 
 /**
  * Fixed brand tint for the managed profile. This intentionally stays on the vivid

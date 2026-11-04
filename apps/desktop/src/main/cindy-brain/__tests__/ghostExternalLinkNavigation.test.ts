@@ -60,8 +60,8 @@ function makeHarness(options: {
   let ownerActive = true;
   const translate = vi.fn((key: string) => {
     const labels: Record<string, string> = {
-      'ghostPanel.externalLinkConfirm.title': '是否要 Cindy 打开外部网站',
-      'ghostPanel.externalLinkConfirm.message': '是否要 Cindy 打开外部网站',
+      'ghostPanel.externalLinkConfirm.title': '是否要 Emma 打开外部网站',
+      'ghostPanel.externalLinkConfirm.message': '是否要 Emma 打开外部网站',
       'ghostPanel.externalLinkConfirm.open': '打开网站',
       'ghostPanel.externalLinkConfirm.cancel': '取消',
     };
@@ -150,8 +150,8 @@ describe('runGhostExternalLinkNavigation', () => {
     expect(harness.resolveOwner).toHaveBeenCalledWith(contents.host);
     expect(harness.showMessageBox).toHaveBeenCalledWith(harness.owner, {
       type: 'question',
-      title: '是否要 Cindy 打开外部网站',
-      message: '是否要 Cindy 打开外部网站',
+      title: '是否要 Emma 打开外部网站',
+      message: '是否要 Emma 打开外部网站',
       detail: 'https://example.com/workspace',
       buttons: ['打开网站', '取消'],
       defaultId: 0,

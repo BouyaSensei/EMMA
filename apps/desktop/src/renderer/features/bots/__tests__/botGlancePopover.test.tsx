@@ -271,12 +271,12 @@ describe('BotGlanceButton', () => {
     expect(update).not.toHaveBeenCalled();
   });
 
-  it('lists Cindy on each computer: this one first, online ones selectable, offline ones folded', async () => {
-    const cindy = { id: 'cindy-default', name: 'Cindy', templateId: 'cindy', status: 'active', sessionId: 's1' };
+  it('lists Emma on each computer: this one first, online ones selectable, offline ones folded', async () => {
+    const cindy = { id: 'cindy-default', name: 'Emma', templateId: 'cindy', status: 'active', sessionId: 's1' };
     h.local = [cindy];
     h.remote = [
-      { id: 'cindy-default', name: 'Cindy', deviceId: 'mini', deviceName: 'Mac-mini', online: true, sessionId: 'r1' },
-      { id: 'cindy-default', name: 'Cindy', deviceId: 'mbp', deviceName: 'Chris-MBP', online: false, sessionId: 'r2' },
+      { id: 'cindy-default', name: 'Emma', deviceId: 'mini', deviceName: 'Mac-mini', online: true, sessionId: 'r1' },
+      { id: 'cindy-default', name: 'Emma', deviceId: 'mbp', deviceName: 'Chris-MBP', online: false, sessionId: 'r2' },
     ];
     await openGlance(cindy);
     const names = () => screen.getAllByTestId('bot-glance-computer').map((row) => row.textContent);

@@ -245,7 +245,7 @@ it('cannot restore old attribution when a pending task-card read completes after
 });
 
 // The compact legacy roster has no templateId; the cloud knows the built-in identity.
-it('applies cloud Cindy identity regardless of roster arrival order and rejects a late old-owner reply', async () => {
+it('applies cloud Emma identity regardless of roster arrival order and rejects a late old-owner reply', async () => {
   h.cloudEnabled = true;
   let finish!: (value: unknown) => void;
   h.copies.mockImplementation(() => new Promise(resolve => { finish = resolve; }));
@@ -270,7 +270,7 @@ it('applies cloud Cindy identity regardless of roster arrival order and rejects 
 
 // Unit / review4390134785: identity must be available without any roster rows;
 // previous arrival-order coverage only read templateId on already listed rows.
-it('exposes known Cindy IDs before an offline home provides its roster and clears on owner switch', async () => {
+it('exposes known Emma IDs before an offline home provides its roster and clears on owner switch', async () => {
   h.devices = [];
   h.cloudEnabled = true;
   h.copies.mockResolvedValue([{ botId: 'same-bot' }]);

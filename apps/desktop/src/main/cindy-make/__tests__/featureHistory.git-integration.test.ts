@@ -34,7 +34,7 @@ async function fixture() {
   const git = (args: string[], cwd = source, indexFile?: string) =>
     runSourceGit(
       { ...env, ...(indexFile ? { GIT_INDEX_FILE: indexFile } : {}) },
-      args.map((arg) => (arg === 'https://github.com/makecindy/cindy.git' ? remote : arg)),
+      args.map((arg) => (arg === 'https://github.com/BouyaSensei/EMMA.git' ? remote : arg)),
       cwd,
       AbortSignal.timeout(30000),
     );

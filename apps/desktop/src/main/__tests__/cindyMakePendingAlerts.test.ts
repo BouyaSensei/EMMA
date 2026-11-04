@@ -27,7 +27,7 @@ function nativeResult(sessionId: string, completion: unknown, content: unknown =
   };
 }
 
-describe('Cindy Make pending-alert recovery', () => {
+describe('Emma Make pending-alert recovery', () => {
   beforeEach(() => {
     vi.resetAllMocks();
     state.enabled = false;

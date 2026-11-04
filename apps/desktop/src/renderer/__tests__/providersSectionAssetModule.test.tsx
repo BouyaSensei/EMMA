@@ -169,7 +169,7 @@ import { ProvidersSection } from '@/components/settings/ProvidersSection';
 function makeXd(): ProviderView {
   return {
     id: 'xd',
-    name: 'Cindy AI',
+    name: 'Emma AI',
     source: 'builtin',
     agents: ['claude-code', 'codex'],
     auth: { method: 'managed' },
@@ -178,7 +178,7 @@ function makeXd(): ProviderView {
       'claude-code': [
         {
           id: 'cindy-test-model',
-          name: 'Cindy Test Model',
+          name: 'Emma Test Model',
           contextWindow: 200000,
           efforts: ['high'],
           defaultEffort: 'high',
@@ -269,8 +269,8 @@ it.each(['ready', 'unavailable'])('uses the queried dashboard in the settings ca
   expect(window.electronAPI.openExternal).toHaveBeenCalledExactlyOnceWith(dashboardUrl);
 });
 
-describe('ProvidersSection — Cindy AI 账户资产模块', () => {
-  it.each(['Cindy AI · 个人', 'Cindy AI · 心动', 'Cindy AI · Example Studio'])(
+describe('ProvidersSection — Emma AI 账户资产模块', () => {
+  it.each(['Emma AI · 个人', 'Emma AI · 心动', 'Emma AI · Example Studio'])(
     'shows the source name %s in the provider list and detail header', async (name) => {
       providersState.providers = [{ ...makeXd(), name }];
       renderSection();
@@ -278,7 +278,7 @@ describe('ProvidersSection — Cindy AI 账户资产模块', () => {
       expect(screen.queryByText('settings.providers.xd.title')).toBeNull();
     },
   );
-  it('仅免费个人账号在 Cindy AI 名称后显示身份标签', async () => {
+  it('仅免费个人账号在 Emma AI 名称后显示身份标签', async () => {
     modelAccessState.accountTier = 'free';
     renderSection();
 

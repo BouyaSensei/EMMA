@@ -50,7 +50,7 @@ describe('chat private media', () => {
     expect(f.fetch).not.toHaveBeenCalled();
   });
 
-  it('uploads the bytes without a Cindy token and seals before returning the message reference', async () => {
+  it('uploads the bytes without a Emma token and seals before returning the message reference', async () => {
     f.read.mockResolvedValue({ buffer: Buffer.from('png'), mimeType: 'image/png' });
     f.fetch.mockResolvedValue(new Response('', { status: 200 }));
     const api = vi.fn(async route => route.endsWith('/media') ? { id: 'media', uploadUrl: 'https://upload.example.test/signed' } : {}) as unknown as ChatApi;

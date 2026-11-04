@@ -159,7 +159,7 @@ describe('saveBotSkillForSession', () => {
 });
 
 describe('设置页与会话挂载读的是同一份磁盘事实', () => {
-  it('mounts exactly the same managed baseline for Cindy and a fresh named Bot, outside learned shelves', async () => {
+  it('mounts exactly the same managed baseline for Emma and a fresh named Bot, outside learned shelves', async () => {
     const cindy = await collectBotOwnSkillMounts('bot-cindy', { userDataDir });
     const fresh = await collectBotOwnSkillMounts('bot-fresh', { userDataDir });
     expect(cindy.baseline).toEqual(fresh.baseline);

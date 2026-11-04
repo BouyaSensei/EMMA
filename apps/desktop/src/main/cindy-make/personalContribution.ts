@@ -177,7 +177,7 @@ export function contributionBody(input: {
     '### 自动验证',
     '',
     '```text',
-    '本 PR 分支由 Cindy Make 在官方最新 main 上单独整理，未在本机运行检查，以 CI 结果为准。',
+    '本 PR 分支由 Emma Make 在官方最新 main 上单独整理，未在本机运行检查，以 CI 结果为准。',
     '```',
     '',
     '### 手工验证',
@@ -206,7 +206,7 @@ export function contributionBody(input: {
     '- [x] 每个 commit 都带 DCO 签名（`git commit -s`，见 [DCO](../DCO)）',
     '- [x] 未提交凭证、令牌或授权文件',
     '',
-    '由 Cindy Make 制作。',
+    '由 Emma Make 制作。',
     '',
   ].join('\n');
 }
@@ -214,7 +214,7 @@ export function contributionBody(input: {
 /**
  * Turns one recorded change into an official pull request through the repository's
  * normal flow: a single DCO-signed commit by the author on top of the latest
- * official `main`, pushed to the author's fork, opened against `makecindy/cindy`.
+ * official `main`, pushed to the author's fork, opened against `BouyaSensei/EMMA`.
  * Only this change is included; the author's other personal changes stay out.
  */
 export class PersonalContribution {

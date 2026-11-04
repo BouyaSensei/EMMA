@@ -173,7 +173,7 @@ describe('chat interaction controls', () => {
   it('lists main and thread mentions in the existing hint without reading on locate or dismiss', async () => {
     const locate = vi.fn(), read = vi.fn();
     const mentions = [{messageId:'main',authorName:'Peer',text:'Please confirm'},
-      {messageId:'reply',threadRootId:'root',authorName:'Peer',text:'Topic question',reply:{companion:{id:'cindy',name:'Cindy'},text:'Waiting for the owner'}}];
+      {messageId:'reply',threadRootId:'root',authorName:'Peer',text:'Topic question',reply:{companion:{id:'cindy',name:'Emma'},text:'Waiting for the owner'}}];
     const props = {threads:[],members:[],openRootId:null,onOpen:vi.fn(),mentions,onLocateMention:locate,onReadMentions:read};
     const view=render(<BotGroupThreadHint {...props} />);
     fireEvent.click(screen.getByTestId('group-attention-hint'));
@@ -751,7 +751,7 @@ describe('chat interaction controls', () => {
   it('creates and displays a copyable link in Strict Mode', async () => {
     render(<StrictMode><ChatInviteDialog groupId="room" onClose={vi.fn()} members={[
       { botId: 'self', name: 'Alex', avatar: '👤', avatarColor: 'graphite', status: 'active', isSelf: true },
-      { botId: 'bot', name: 'Cindy', avatar: '🤖', avatarColor: 'violet', status: 'active' },
+      { botId: 'bot', name: 'Emma', avatar: '🤖', avatarColor: 'violet', status: 'active' },
     ]} /></StrictMode>);
     expect((await screen.findByRole('textbox', { name: k('inviteLink') }) as HTMLInputElement).value).toBe('cindy://chat-invite/test');
     expect(mocks.createInvite).toHaveBeenCalledExactlyOnceWith({ groupId: 'room', clientId: expect.any(String) });

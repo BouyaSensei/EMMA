@@ -10,7 +10,7 @@ import {
 } from '../systemFrontmostInput.js';
 
 describe('createWorkLouderCodexSystemFrontmostInput', () => {
-  describe('microphone key outside Cindy', () => {
+  describe('microphone key outside Emma', () => {
     const HOLD_DELAY_MS = 450;
 
     beforeEach(() => {

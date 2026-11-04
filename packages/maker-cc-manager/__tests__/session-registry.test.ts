@@ -179,7 +179,7 @@ describe('SessionRegistry', () => {
             '$feishu-delegate:message-feishu-coworkers',
             '/feishu-delegate:message-feishu-coworkers',
           ],
-          denialMessage: 'Use the Cindy Feishu source.',
+          denialMessage: 'Use the Emma Feishu source.',
         },
       ],
       // A serialized caller cannot replace the daemon-owned guard.
@@ -211,7 +211,7 @@ describe('SessionRegistry', () => {
     ).resolves.toMatchObject({
       hookSpecificOutput: {
         permissionDecision: 'deny',
-        permissionDecisionReason: 'Use the Cindy Feishu source.',
+        permissionDecisionReason: 'Use the Emma Feishu source.',
       },
     });
     // A user MCP with the ordinary server name is a different source.

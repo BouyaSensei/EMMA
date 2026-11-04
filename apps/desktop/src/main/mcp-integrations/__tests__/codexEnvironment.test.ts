@@ -178,7 +178,7 @@ describe('codexEnvironment', () => {
     expect(instances[0]).not.toBe(instances[1]);
   });
 
-  it('disables cindy_make per thread unless the Session carries the Cindy Make marker', async () => {
+  it('disables cindy_make per thread unless the Session carries the Emma Make marker', async () => {
     const cindyMake: McpProvider = {
       name: 'cindy_make',
       toClaudeSdkConfig: () => ({

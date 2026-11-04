@@ -122,7 +122,7 @@ beforeEach(() => {
   registerMakeRemoteResources(() => h.running);
 });
 
-describe('Cindy Make mobile host adapter', () => {
+describe('Emma Make mobile host adapter', () => {
   it('includes personal sync and PR state as read-only resource content', async () => {
     h.personal.mockResolvedValueOnce({
       remote: { sync: 'synced' },

@@ -17,14 +17,14 @@ const OTHER = '22222222-2222-4222-8222-222222222222';
 
 function message(overrides: Partial<BotGroupMessageView> = {}): BotGroupMessageView {
   return {
-    id: ORIGINAL, sequence: 12, kind: 'message', authorKind: 'bot', authorBotId: 'bot-1', authorName: 'Cindy (Chris)',
+    id: ORIGINAL, sequence: 12, kind: 'message', authorKind: 'bot', authorBotId: 'bot-1', authorName: 'Emma (Chris)',
     content: '第一行\n\n  第二行 ', mentions: { all: false, botIds: [] }, noticeCode: null, planId: null, files: [],
     attachments: [], createdAt: 1, threadRootId: null, ...overrides,
   };
 }
 
 const quote = (overrides: Partial<BotGroupQuoteView> = {}): BotGroupQuoteView => ({
-  messageId: ORIGINAL, authorName: 'Cindy (Chris)', authorKind: 'bot', excerpt: '第一行 第二行',
+  messageId: ORIGINAL, authorName: 'Emma (Chris)', authorKind: 'bot', excerpt: '第一行 第二行',
   attachmentCount: 0, attachmentName: null, sequence: 12, ...overrides,
 });
 
@@ -72,13 +72,13 @@ describe('quote card', () => {
   it('round-trips through the server content block', () => {
     const card = buildBotGroupQuoteCard(quote({ attachmentCount: 3, attachmentName: 'a.pdf' }));
     expect(card).toMatchObject({ type: 'card', namespace: 'cindy.quote', schemaRevision: 1 });
-    expect(card.fallback).toBe('> Cindy (Chris): 第一行 第二行 📎 a.pdf +2');
+    expect(card.fallback).toBe('> Emma (Chris): 第一行 第二行 📎 a.pdf +2');
     expect(readBotGroupQuoteCard(JSON.parse(JSON.stringify(card)))).toEqual(quote({ attachmentCount: 3, attachmentName: 'a.pdf' }));
   });
 
   it('keeps a readable fallback for an attachment-only original', () => {
     expect(buildBotGroupQuoteCard(quote({ excerpt: '', attachmentCount: 1, attachmentName: 'shot.png' })).fallback)
-      .toBe('> Cindy (Chris): 📎 shot.png');
+      .toBe('> Emma (Chris): 📎 shot.png');
   });
 
   it('is not a quote when the revision or any field is wrong', () => {
@@ -119,14 +119,14 @@ describe('parseBotGroupQuoteView', () => {
 
 describe('resolveBotGroupQuote', () => {
   it('prefers the loaded original over the snapshot', () => {
-    expect(resolveBotGroupQuote(quote({ excerpt: 'old' }), [message({ content: 'edited', authorName: 'Cindy' })]))
-      .toEqual({ state: 'live', authorName: 'Cindy', excerpt: 'edited', attachmentCount: 0, attachmentName: null });
+    expect(resolveBotGroupQuote(quote({ excerpt: 'old' }), [message({ content: 'edited', authorName: 'Emma' })]))
+      .toEqual({ state: 'live', authorName: 'Emma', excerpt: 'edited', attachmentCount: 0, attachmentName: null });
   });
 
   it('hides the snapshot once the loaded original is deleted', () => {
     expect(resolveBotGroupQuote(quote(), [message({ deleted: true, content: '（消息已删除）' })]))
-      .toEqual({ state: 'deleted', authorName: 'Cindy (Chris)' });
-    expect(resolveBotGroupQuote(quote({ originalDeleted: true }), [])).toEqual({ state: 'deleted', authorName: 'Cindy (Chris)' });
+      .toEqual({ state: 'deleted', authorName: 'Emma (Chris)' });
+    expect(resolveBotGroupQuote(quote({ originalDeleted: true }), [])).toEqual({ state: 'deleted', authorName: 'Emma (Chris)' });
   });
 
   it('falls back to the snapshot when the original is not loaded', () => {
@@ -135,7 +135,7 @@ describe('resolveBotGroupQuote', () => {
 
   it('keeps the snapshot attachment summary while a loaded original has no attachments yet', () => {
     expect(resolveBotGroupQuote(quote({ excerpt: '', attachmentCount: 2, attachmentName: 'plan.pdf' }), [message({ content: '' })]))
-      .toEqual({ state: 'live', authorName: 'Cindy (Chris)', excerpt: '', attachmentCount: 2, attachmentName: 'plan.pdf' });
+      .toEqual({ state: 'live', authorName: 'Emma (Chris)', excerpt: '', attachmentCount: 2, attachmentName: 'plan.pdf' });
   });
 
   it('never resolves into a Thread reply with the same id', () => {

@@ -204,7 +204,7 @@ describe('buildClaudeEnv', () => {
     const env = await buildClaudeEnv(
       createAuthAdapter({
         ANTHROPIC_API_KEY: 'sk-gw',
-        CLAUDE_CONFIG_DIR: 'C:\\Users\\Admin\\AppData\\Roaming\\Cindy-dev2\\claude-home',
+        CLAUDE_CONFIG_DIR: 'C:\\Users\\Admin\\AppData\\Roaming\\Emma-dev2\\claude-home',
       }),
       {},
       { credentialMode: 'gateway-key', mode: 'remote' },
@@ -486,7 +486,7 @@ describe('buildClaudeEnv', () => {
       expect(env[EXPLORE_INHERIT_CAP_DISABLE_ENV]).toBe('1');
     });
 
-    it('replaces a Cindy-managed cap flag when the live model crosses the policy boundary', () => {
+    it('replaces a Emma-managed cap flag when the live model crosses the policy boundary', () => {
       const env: Record<string, string> = {
         [EXPLORE_INHERIT_CAP_DISABLE_ENV]: '1',
       };

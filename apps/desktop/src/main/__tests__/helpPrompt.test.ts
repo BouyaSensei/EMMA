@@ -111,7 +111,7 @@ describe('buildHelpPrompt', () => {
   });
 
   it.each(['claude-code', 'codex'] as const)(
-    'does not advertise disabled Cindy Make entries in the packaged help knowledge for %s',
+    'does not advertise disabled Emma Make entries in the packaged help knowledge for %s',
     (agentKind) => {
       for (const docs of [HELP_KNOWLEDGE, []]) {
         const prompt = buildHelpPrompt(history, 'en', agentKind, docs);

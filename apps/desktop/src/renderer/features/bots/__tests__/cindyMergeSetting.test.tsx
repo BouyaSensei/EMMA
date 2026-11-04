@@ -23,11 +23,11 @@ const maker = {
 const cloud: CompanionCloudSnapshot = {
   enabled: true, selfDeviceId: 'desk', humanActorId: 'human', demotedBotIds: [],
   actors: [
-    { id: 'a1', externalId: 'cindy-default', name: 'Cindy', avatar: null, homeDeviceId: 'desk', homeDevice: { deviceId: 'desk', name: 'Desk', online: true, isSelf: true } },
-    { id: 'a2', externalId: 'bot_laptop', name: 'Cindy', avatar: null, homeDeviceId: 'laptop', homeDevice: { deviceId: 'laptop', name: 'Laptop', online: true, isSelf: false } },
+    { id: 'a1', externalId: 'cindy-default', name: 'Emma', avatar: null, homeDeviceId: 'desk', homeDevice: { deviceId: 'desk', name: 'Desk', online: true, isSelf: true } },
+    { id: 'a2', externalId: 'bot_laptop', name: 'Emma', avatar: null, homeDeviceId: 'laptop', homeDevice: { deviceId: 'laptop', name: 'Laptop', online: true, isSelf: false } },
   ],
 };
-const copies = [{ botId: 'cindy-default', name: 'Cindy', homeDeviceId: 'desk' }, { botId: 'bot_laptop', name: 'Cindy', homeDeviceId: 'laptop' }];
+const copies = [{ botId: 'cindy-default', name: 'Emma', homeDeviceId: 'desk' }, { botId: 'bot_laptop', name: 'Emma', homeDeviceId: 'laptop' }];
 
 beforeEach(() => {
   for (const fn of Object.values(maker)) fn.mockReset();
@@ -39,18 +39,18 @@ beforeEach(() => {
 });
 afterEach(() => { cleanup(); });
 
-describe('CindyMergeSetting', () => {
-  it('is hidden while there is only one Cindy', async () => {
+describe('EmmaMergeSetting', () => {
+  it('is hidden while there is only one Emma', async () => {
     maker.listCindyCopies.mockResolvedValue([copies[0]]);
-    render(<CindyMergeSetting bot={{ id: 'cindy-default', name: 'Cindy' }} />);
+    render(<CindyMergeSetting bot={{ id: 'cindy-default', name: 'Emma' }} />);
     await waitFor(() => expect(maker.listCindyCopies).toHaveBeenCalled());
     expect(screen.queryByTestId('cindy-merge-row')).toBeNull();
   });
 
-  it('lets the user choose which Cindy to keep and merges the others into it', async () => {
+  it('lets the user choose which Emma to keep and merges the others into it', async () => {
     maker.listCindyCopies.mockResolvedValue(copies);
     maker.mergeCindy.mockResolvedValue({ ok: true, merged: 1, messages: 12, memories: 3, skills: 0, renamed: [] });
-    render(<CindyMergeSetting bot={{ id: 'cindy-default', name: 'Cindy' }} />);
+    render(<CindyMergeSetting bot={{ id: 'cindy-default', name: 'Emma' }} />);
     fireEvent.click(await screen.findByTestId('cindy-merge-row'));
     // Keep the one on the laptop instead.
     fireEvent.click(screen.getByText('bots.cloud.runsOn:{"device":"Laptop"}'));
@@ -60,10 +60,10 @@ describe('CindyMergeSetting', () => {
     expect(h.toast).toHaveBeenCalledWith('bots.cloud.merged:{"count":2,"messages":12}');
   });
 
-  it('explains when the kept Cindy\'s computer cannot be reached', async () => {
+  it('explains when the kept Emma\'s computer cannot be reached', async () => {
     maker.listCindyCopies.mockResolvedValue(copies);
     maker.mergeCindy.mockResolvedValue({ ok: false, code: 'OFFLINE' });
-    render(<CindyMergeSetting bot={{ id: 'bot_laptop', name: 'Cindy' }} />);
+    render(<CindyMergeSetting bot={{ id: 'bot_laptop', name: 'Emma' }} />);
     fireEvent.click(await screen.findByTestId('cindy-merge-row'));
     fireEvent.click(screen.getByRole('button', { name: 'bots.cloud.mergeAction' }));
     expect(await screen.findByRole('alert')).toHaveProperty('textContent', 'bots.cloud.mergeOffline:{"device":"Laptop"}');

@@ -514,7 +514,7 @@ async function isCindyManagedSystemSkillTarget(
       const profileName = path.basename(profileDir);
       if (
         samePath(path.dirname(profileDir), appDataDir) &&
-        /^Cindy(?:Global|Dev)?(?:[-.][A-Za-z0-9._-]+)?$/.test(profileName)
+        /^(?:Cindy|Emma)(?:Global|Dev)?(?:[-.][A-Za-z0-9._-]+)?$/.test(profileName)
       ) return true;
     }
 

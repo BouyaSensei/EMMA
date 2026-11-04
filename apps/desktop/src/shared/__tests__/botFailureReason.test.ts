@@ -37,7 +37,7 @@ describe('Hermes Bot failure reasons', () => {
     ['No access token found for profile', 'missing_config'],
     // Real errors when the Bot's custom provider was deleted (Pi start / send route guard).
     [
-      "Error: pi: BYOM provider 'magpie-8a1e5ed8' cannot serve model 'auto/glm-5p3-flash' (provider absent, or it no longer offers this model); refusing to fall back to the Cindy gateway (would send prompts to the wrong endpoint).",
+      "Error: pi: BYOM provider 'magpie-8a1e5ed8' cannot serve model 'auto/glm-5p3-flash' (provider absent, or it no longer offers this model); refusing to fall back to the Emma gateway (would send prompts to the wrong endpoint).",
       'missing_config',
     ],
     [

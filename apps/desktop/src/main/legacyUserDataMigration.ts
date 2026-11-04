@@ -70,7 +70,7 @@ const DIALOGUE_SKIP_DIR_NAMES: ReadonlySet<string> = new Set(['node_modules']);
 const BROWSER_RUNTIME_DIR_NAME = 'browser-runtime';
 const BROWSER_PROFILES_SUBDIR = 'browser';
 const LEGACY_BROWSER_PROFILE_NAME = 'XDMaker';
-const CURRENT_BROWSER_PROFILE_NAME = 'Cindy';
+const CURRENT_BROWSER_PROFILE_NAME = 'Emma';
 
 /**
  * profile 搬运时跳过的目录名(任意层级命中即整棵跳过):Chrome 的重建型缓存,
@@ -429,7 +429,7 @@ export async function runLegacyUserDataMigration(
           },
         );
         browserProfileCopied = true;
-        deps.log.info('legacy userData migration: browser profile copied (XDMaker -> Cindy)');
+        deps.log.info('legacy userData migration: browser profile copied (XDMaker -> Emma)');
       }
 
       // 3e. 全部成功 → 写 marker → done。

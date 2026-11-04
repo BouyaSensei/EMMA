@@ -6785,7 +6785,7 @@ export function registerMakerIpc(maker: Maker, options: RegisterMakerIpcOptions)
       // 不再按旧来源重载一个已不提供该模型的连接。
       if (!targets) {
         await followMovedCindyAutoRoutesNow().catch((error) =>
-          log.warn('Cindy Auto provider follow failed', {
+          log.warn('Emma Auto provider follow failed', {
             error: error instanceof Error ? error.message : String(error),
           }),
         );
@@ -7325,7 +7325,7 @@ export function registerMakerIpc(maker: Maker, options: RegisterMakerIpcOptions)
       if (!isPiSubagentTerminal(run.state) && !canHostControlPiSubagentRun(run, process.pid)) {
         throwIpcError(
           'PRECONDITION_FAILED',
-          'This Subagent run belongs to another running Cindy instance. Control it from that window.',
+          'This Subagent run belongs to another running Emma instance. Control it from that window.',
         );
       }
       return (await controlPiSubagentRuns(runRoot, run.runId, 'stop')) > 0;
@@ -7396,7 +7396,7 @@ export function registerMakerIpc(maker: Maker, options: RegisterMakerIpcOptions)
     if (!canHostControlPiSubagentRun(run, process.pid)) {
       throwIpcError(
         'PRECONDITION_FAILED',
-        'This Subagent run belongs to another running Cindy instance. Control it from that window.',
+        'This Subagent run belongs to another running Emma instance. Control it from that window.',
       );
     }
     const controlled = await controlPiSubagentRuns(
@@ -12328,7 +12328,7 @@ export function registerMakerIpc(maker: Maker, options: RegisterMakerIpcOptions)
     const dispatchMergeTurn = prepareUpstreamMergeTurn(session.id);
     if (!session.remoteHostId && isCindyMakeWorktreePath(app.getPath('userData'), session.workDir)) {
       if (cindyMakeManager.isTaskPreparing(session.id))
-        throwIpcError('PRECONDITION_FAILED', 'Cindy Make is still preparing this task');
+        throwIpcError('PRECONDITION_FAILED', 'Emma Make is still preparing this task');
       await assertCindyMakeTaskReady(session.id);
     }
     const dispatch = async (): Promise<SessionSendResult> => {
@@ -17258,7 +17258,7 @@ export function registerMakerIpc(maker: Maker, options: RegisterMakerIpcOptions)
       },
       assertCurrent: () => {
         if (getActiveAppSession().generation !== owner.generation) {
-          throw new Error('Account changed during Cindy Auto provider follow');
+          throw new Error('Account changed during Emma Auto provider follow');
         }
       },
       logger: log,
@@ -18925,7 +18925,7 @@ export function registerMakerIpc(maker: Maker, options: RegisterMakerIpcOptions)
     // 新建页的未发送任务第一次发送：renderer 通常已先转正，这里兜底。
     if (isProvisionalSession(sessionId)) await commitProvisionalSession(sessionId);
     if (cindyMakeManager.isTaskPreparing(sessionId) && (args[3] as Record<PropertyKey, unknown> | undefined)?.[CINDY_MAKE_TASK_DISPATCH] !== true) {
-      throwIpcError('PRECONDITION_FAILED', 'Cindy Make is still preparing this task');
+      throwIpcError('PRECONDITION_FAILED', 'Emma Make is still preparing this task');
     }
     await assertReviewExternalInputAllowed(sessionId);
     await syncBotLanePermission(sessionId);

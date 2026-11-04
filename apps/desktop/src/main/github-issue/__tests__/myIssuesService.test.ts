@@ -26,7 +26,7 @@ const GHOST_VIEWER: GithubEnhancementViewer = { source: 'ghost', login: 'octocat
 function ledgerRecord(over: Partial<SubmittedIssueRecord> = {}): SubmittedIssueRecord {
   return {
     number: 1001,
-    url: 'https://github.com/makecindy/cindy/issues/1001',
+    url: 'https://github.com/BouyaSensei/EMMA/issues/1001',
     title: '账本里记的标题',
     type: 'bug',
     submittedAt: '2026-07-01T00:00:00.000Z',
@@ -40,7 +40,7 @@ function remoteIssue(over: Partial<RemoteIssue> = {}): RemoteIssue {
   return {
     number: 2002,
     title: 'GitHub 上的标题',
-    htmlUrl: 'https://github.com/makecindy/cindy/issues/2002',
+    htmlUrl: 'https://github.com/BouyaSensei/EMMA/issues/2002',
     state: 'open',
     labels: ['feature'],
     createdAt: '2026-07-10T00:00:00.000Z',
@@ -162,20 +162,20 @@ describe('mergeIssues', () => {
       [],
       [remoteIssue({ number: 42, htmlUrl: 'https://evil.example.com/phish' })],
     );
-    expect(fromRemote.url).toBe('https://github.com/makecindy/cindy/issues/42');
+    expect(fromRemote.url).toBe('https://github.com/BouyaSensei/EMMA/issues/42');
 
     const [fromLedger] = mergeIssues(
       [ledgerRecord({ number: 43, url: 'https://evil.example.com/phish' })],
       [],
     );
-    expect(fromLedger.url).toBe('https://github.com/makecindy/cindy/issues/43');
+    expect(fromLedger.url).toBe('https://github.com/BouyaSensei/EMMA/issues/43');
 
     const [fromPlatform] = mergeIssues(
       [],
       [],
       [remoteIssue({ number: 44, htmlUrl: 'https://evil.example.com/phish' })],
     );
-    expect(fromPlatform.url).toBe('https://github.com/makecindy/cindy/issues/44');
+    expect(fromPlatform.url).toBe('https://github.com/BouyaSensei/EMMA/issues/44');
   });
 
   it('按创建时间倒序;同一时间戳按 issue 号兜底,顺序稳定', () => {

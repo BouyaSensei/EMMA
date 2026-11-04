@@ -2,9 +2,9 @@
 
 从[§4.23 指南](../../plugin-interactive-pages.md)进入；完整代码以本目录示例为准。
 这里列作者需要查询的参数、能力和失败处理，不要求在每个页面都实现。
-交给生成页面的 LLM（后端里的模型或 Cindy 对话中的 AI）的规则只写在
-《Cindy MCP Apps 页面生成手册》（[PAGE-GENERATION.md](PAGE-GENERATION.md)）；宿主用 `ghost_forge_guide({section:"pages"})`
-提供同一份，show_page 说明让 AI 写页面前先读。要兼容旧版 Cindy，可在插件里自带一份作退路。
+交给生成页面的 LLM（后端里的模型或 Emma 对话中的 AI）的规则只写在
+《Emma MCP Apps 页面生成手册》（[PAGE-GENERATION.md](PAGE-GENERATION.md)）；宿主用 `ghost_forge_guide({section:"pages"})`
+提供同一份，show_page 说明让 AI 写页面前先读。要兼容旧版 Emma，可在插件里自带一份作退路。
 
 ## 清单
 
@@ -13,7 +13,7 @@
 | mcpApps.ui.resources[].uri | 插件内唯一 ui:// URI |
 | file | 包内相对 HTML 路径，不能越界或用符号链接逃逸 |
 | prefersBorder | 可选，是否需要卡片边框 |
-| csp.connectDomains | 页面自己连接的 origin；不会注入 Cindy 凭证 |
+| csp.connectDomains | 页面自己连接的 origin；不会注入 Emma 凭证 |
 | csp.resourceDomains | 页面外部图片、脚本等资源的 origin |
 | csp.frameDomains / baseUriDomains | 可嵌入 frame / base 的 origin |
 | domain / permissions | 可选标准元数据；不能假定当前宿主一定提供对应浏览器能力 |
@@ -22,9 +22,9 @@
 
 CSP 各 origin 必须符合 network.hosts。只经工具调用后端时，connectDomains 和
 resourceDomains 都可为空。标准 SDK 由宿主提供，不必给 CDN 增加白名单。
-mcpApps 是 Cindy 的清单写法；标准页面使用 App SDK，不使用 window.openai。
+mcpApps 是 Emma 的清单写法；标准页面使用 App SDK，不使用 window.openai。
 
-Cindy 为所有页面始终提供 SDK，不检测页面是否 import。包内页面首个文档自带 importmap 时
+Emma 为所有页面始终提供 SDK，不检测页面是否 import。包内页面首个文档自带 importmap 时
 作者映射优先，用 null 禁止导入的映射同样保留；加载器换出的页面再写映射会被浏览器忽略。
 新页面直接裸 import，不写 importmap。
 
@@ -58,7 +58,7 @@ progress 保持递增；total 可省略。cindy.pick、上传、下载等文件�
 不必重复发。页面关闭时清理自己的计时器、订阅和事件；不依赖文档替换清除所有
 JavaScript 状态。临时输入要由页面自行保存，卡片重开默认显示最初工具结果。
 
-整页替换并重新连接后，旧请求会被取消，旧回复不会交给新页面。已被 Cindy 接收的
+整页替换并重新连接后，旧请求会被取消，旧回复不会交给新页面。已被 Emma 接收的
 sendMessage 消息仍会继续发送；不要因旧页面未收到回执而重复发送。尚未接收的消息
 可能因换页取消。工具调用取消也不代表写入已撤销，仍需按请求编号核对。
 
@@ -74,7 +74,7 @@ sendMessage 消息仍会继续发送；不要因旧页面未收到回执而重�
 | openLink | 打开外部链接，只在响应用户点击时调用；是否另外提示由宿主决定；不当宿主鉴权接口 |
 | requestDisplayMode | 请求 inline / fullscreen，使用返回的实际模式 |
 | downloadFile | 保存本卡文件或嵌入资源；先检查能力，用户取消即停止 |
-| createSamplingMessage | 当前不支持，返回 Method not found；不要用它代替 Cindy 的模型能力 |
+| createSamplingMessage | 当前不支持，返回 Method not found；不要用它代替 Emma 的模型能力 |
 
 几个独立调用例子（均需先 await app.connect）：
 
@@ -146,7 +146,7 @@ resource_link，不能让页面直接请求接口或把令牌拼进图片 URL。
 | 现象 | 先检查 |
 | --- | --- |
 | 标准 import 无法解析 | 执行端及查看端是否为 0.1.122-beta 或更新；远程打开时页面加 SDK 是否超出体积限制；不要改用任意 CDN 绕过 |
-| 页面自带 importmap 或从 CDN 加载 SDK，被拦截或加载失败 | 删掉自带映射和外部 SDK 加载，直接写 `import { App } from '@modelcontextprotocol/ext-apps'`，SDK 由 Cindy 提供 |
+| 页面自带 importmap 或从 CDN 加载 SDK，被拦截或加载失败 | 删掉自带映射和外部 SDK 加载，直接写 `import { App } from '@modelcontextprotocol/ext-apps'`，SDK 由 Emma 提供 |
 | 远程打开报 MCP_APP_RESOURCE_TOO_LARGE | 页面本身超出体积限制；页面合格但加上 SDK 才超时会不带 SDK 打开，裸 import 失败。缩小 HTML，通过工具按需读数据，不要改用 CDN |
 | 页面一直等初始结果 | 是否在加载器之后再次等待 ontoolresult；数据应已在首屏 HTML 中 |
 | MCP_APP_TOOL_NOT_VISIBLE | 工具是否在清单中对 app 可见，名字是否一致 |

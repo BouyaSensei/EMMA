@@ -258,7 +258,7 @@ describe('bot model chain settings store', () => {
     expect((await readBotModelChainSettingsState({ rootPath })).isCustomized).toBe(true);
   });
 
-  describe('模型组 Auto 被服务端挪到另一家 Cindy 来源', () => {
+  describe('模型组 Auto 被服务端挪到另一家 Emma 来源', () => {
     const AUTO = 'auto/group-1';
     const view = (id: string, source: ProviderView['source'], modelIds: string[]) =>
       ({

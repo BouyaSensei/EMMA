@@ -37,7 +37,7 @@ try {
 using System;
 using System.Runtime.InteropServices;
 
-public static class CindyProcessSingletonProbe {
+public static class EmmaProcessSingletonProbe {
   [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
   public static extern IntPtr FindWindowEx(
     IntPtr parent,
@@ -52,7 +52,7 @@ public static class CindyProcessSingletonProbe {
 '@
 
   $messageOnlyWindow = [IntPtr]::new(-3)
-  $window = [CindyProcessSingletonProbe]::FindWindowEx(
+  $window = [EmmaProcessSingletonProbe]::FindWindowEx(
     $messageOnlyWindow,
     [IntPtr]::Zero,
     $env:CINDY_SINGLETON_WINDOW_CLASS,
@@ -60,7 +60,7 @@ public static class CindyProcessSingletonProbe {
   )
   if ($window -ne [IntPtr]::Zero) {
     [uint32]$ownerPid = 0
-    [void][CindyProcessSingletonProbe]::GetWindowThreadProcessId($window, [ref]$ownerPid)
+    [void][EmmaProcessSingletonProbe]::GetWindowThreadProcessId($window, [ref]$ownerPid)
     if ($ownerPid -ne [uint32]$env:CINDY_SINGLETON_SELF_PID) {
       [Console]::Out.WriteLine((@{ status = 'occupied'; pid = $ownerPid } | ConvertTo-Json -Compress))
       [Console]::Out.Flush()

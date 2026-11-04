@@ -7,17 +7,17 @@ import piSystemPrompt from '../pi-system-prompt.md?raw';
 describe('composePiSystemPrompt', () => {
   it('keeps the shared identity first and appends the Pi language behavior', () => {
     const prompt = composePiSystemPrompt(
-      'You are Cindy.',
+      'You are Emma.',
       "Infer the user's primary language and use it for reasoning and user-facing content.",
     );
 
     expect(prompt).toBe(
-      "You are Cindy.\n\nInfer the user's primary language and use it for reasoning and user-facing content.",
+      "You are Emma.\n\nInfer the user's primary language and use it for reasoning and user-facing content.",
     );
   });
 
   it('trims sections and omits empty ones', () => {
-    expect(composePiSystemPrompt('  You are Cindy.  ', '   ')).toBe('You are Cindy.');
+    expect(composePiSystemPrompt('  You are Emma.  ', '   ')).toBe('You are Emma.');
   });
 
   it('keeps dedicated file-tool guidance in the Pi behavior section', () => {

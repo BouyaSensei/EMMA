@@ -321,7 +321,7 @@ export function buildCodexCustomProviderArgs(
     const p = route.modelProviderId;
     extraArgs.push(
       '-c',
-      `model_providers.${p}.name="Cindy Custom Provider"`,
+      `model_providers.${p}.name="Emma Custom Provider"`,
       '-c',
       `model_providers.${p}.base_url="${baseUrl}"`,
       '-c',

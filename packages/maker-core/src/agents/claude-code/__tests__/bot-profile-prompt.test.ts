@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { buildClaudeSystemPromptAppend } from '../index';
 
 describe('Claude Bot Profile prompt assembly', () => {
-  it('keeps the Bot SOUL as the first Cindy-owned stable segment', () => {
+  it('keeps the Bot SOUL as the first Emma-owned stable segment', () => {
     const prompt = buildClaudeSystemPromptAppend({
       botProfilePrompt: 'BOT SOUL',
       answerDeliveryPrompt: 'DELIVERY PROTOCOL',

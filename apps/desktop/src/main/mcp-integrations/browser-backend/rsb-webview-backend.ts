@@ -365,7 +365,7 @@ export class RsbWebviewBackend implements BrowserBackend {
         if (!resolved.ok) return resolved.result;
         const scope = JSON.stringify([this.resolveSessionId(request) ?? '', request.profile ?? '', request.targetId]);
         return this.withTabPin(request.targetId, async () => {
-          if (command.method !== 'Cindy.begin') return actionOk(request.action,
+          if (command.method !== 'Emma.begin') return actionOk(request.action,
             await this.recipeSessions.call(scope, command.sessionId ?? '', command.method, command.params));
           // The existing monitor owns the attachment and releases it with the guest.
           await this.network.observe(resolved.wc);

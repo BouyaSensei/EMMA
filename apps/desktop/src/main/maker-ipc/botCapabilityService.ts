@@ -172,7 +172,7 @@ async function catalog(input: { callerSessionId: string; kind: Kind }, ctx: Pick
     }));
     items.push(...harness.map((entry) => ({
       id: entry.name, name: entry.name,
-      description: 'Engine-provided connectors; not Cindy tasks, routines or plugins.',
+      description: 'Engine-provided connectors; not Emma tasks, routines or plugins.',
       available: entry.available !== false,
     })));
   } else {

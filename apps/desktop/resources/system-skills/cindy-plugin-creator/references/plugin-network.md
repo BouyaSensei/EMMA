@@ -117,7 +117,7 @@ PAT。支持宿主管理连接入口时还返回可选的 `hostManagedSetup:true
 此来源的注入形态固定为 `api.github.com` 的
 `Authorization: Bearer {value}`,不允许 exchange,也不要放进 `setup.requires`。
 
-**Cindy 企业身份断言(source:"oidc-token",可选)**:适用于接入 Cindy Connection
+**Emma 企业身份断言(source:"oidc-token",可选)**:适用于接入 Emma Connection
 Auth 的企业服务。主机只在当前登录账号属于组织 Membership，且满足以下任一安装基座时
 按需向 auth-server 换取短时 Connection JWT：①当前组织的 Plugin Market organization
 安装记录(source 必须是服务端 `market`)，且 namespace 属于当前组织、已批准整包 sha256 与记录一致；②企业作者
@@ -135,7 +135,7 @@ organization 记录（含 installed:false）时必须仍走 digest，不得借�
 会从已批准的安装事实读取这些声明,目标请求必须精确命中声明域名才会签发并注入。
 它没有用户输入、`url`、`exchange` 或 `oauth` 详单,也不要放进 `setup.requires`;没有企业
 身份时 cindy.fetch 会 fail-closed 并返回结构化错误。企业服务应使用 Connection JWT
-中的 `sub`、`email` 或 `identities` 等声明自行选择业务身份,不要要求 Cindy 客户端先把
+中的 `sub`、`email` 或 `identities` 等声明自行选择业务身份,不要要求 Emma 客户端先把
 令牌交给插件代码。上游返回 401 时,Host 只对 GET / HEAD / OPTIONS 自动换令牌重试一次；
 POST / PUT / PATCH / DELETE 和上传请求只作废令牌缓存、不自动重放,避免重复业务写入。
 
@@ -221,8 +221,8 @@ identity.displayTemplate 时,`/oauth` 回查与连接结果里 account.label 给
   两路都不接受个人身份或别的组织身份；手动导入不属于 Forge 路径。
   官方公共来源、随包来源、名称和 local 副本均不构成资格。普通插件使用自填
   OAuth 客户端。企业 OIDC 的规则不变；通用能力仍按各自声明和实例批准处理。
-  code/refresh 交换改经 Cindy 服务端 broker 完成,client secret 由服务端持有、不随包
-  分发,且要求用户已登录 Cindy。声明它时必须同时声明 redirectPort,并与 clientSecret
+  code/refresh 交换改经 Emma 服务端 broker 完成,client secret 由服务端持有、不随包
+  分发,且要求用户已登录 Emma。声明它时必须同时声明 redirectPort,并与 clientSecret
   互斥;PKCE 缺省开(verifier
   经 broker exchange 透传服务端),不吃 PKCE 的服务商显式 `"pkce": false`;
   设置页的 `/oauth/<key>/client` 自填通道返回 405(settingsHtml 不要再画
@@ -393,8 +393,8 @@ upload.library 与 upload.hashes 二选一，最多 4 个文件，单件 64 MiB�
 
 ### MCP Apps 页面生成手册头
 
-主机给 `cindy.fetch` 自动加 `Cindy-MCP-Apps-Manual`（手册 CDN 地址，
-`mcp-apps/manual/<客户端版本号>/<sha256>.md`）与 `Cindy-MCP-Apps-Manual-Sha256`，供后端生成页面的模型使用。
+主机给 `cindy.fetch` 自动加 `Emma-MCP-Apps-Manual`（手册 CDN 地址，
+`mcp-apps/manual/<客户端版本号>/<sha256>.md`）与 `Emma-MCP-Apps-Manual-Sha256`，供后端生成页面的模型使用。
 缺省仅当 `callId` 对应工具在 `mcpApps.ui.tools` 中对模型可见（`visibility` 含 `"model"` 或省略）时带；
 `mcpAppsManual: true` 强制带（如 `load_view` 要片段），`false` 不带。只发往已声明主机，跳到其它主机即删；
-自带的同名头被剥除。开发版（0.0.0）、Node 工作进程与旧版 Cindy 不带：后端缺头时用缓存手册，按 sha256 缓存与校验。
+自带的同名头被剥除。开发版（0.0.0）、Node 工作进程与旧版 Emma 不带：后端缺头时用缓存手册，按 sha256 缓存与校验。

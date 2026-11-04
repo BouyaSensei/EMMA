@@ -74,7 +74,7 @@ describe('share quota projection', () => {
       balance: null,
     });
   });
-  it('projects personal Cindy credit pools without grants or account details', async () => {
+  it('projects personal Emma credit pools without grants or account details', async () => {
     state.personal = true;
     creditUsage.mockResolvedValue({
       available: '7',

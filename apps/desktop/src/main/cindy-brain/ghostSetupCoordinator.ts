@@ -246,7 +246,7 @@ export class GhostSetupCoordinator {
       return {
         ok: false,
         errorCode: 'SETUP_REQUIRED',
-        message: '该插件尚未完成设置，请在 Cindy Desktop 中完成配置后重试。',
+        message: '该插件尚未完成设置，请在 Emma Desktop 中完成配置后重试。',
         setup: assessment,
       };
     }

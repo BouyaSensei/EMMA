@@ -69,11 +69,11 @@ export class RecipeBrowserSessions {
     const session = this.sessions.get(id);
     if (!session || session.scope !== scope)
       throw new Error("Recipe browser session is unavailable for this target");
-    if (method === "Cindy.end") {
+    if (method === "Emma.end") {
       this.end(id);
       return {};
     }
-    if (method === "Cindy.captureStart") {
+    if (method === "Emma.captureStart") {
       session.capture = {
         patterns: String(params.pattern ?? "")
           .split(",")
@@ -88,7 +88,7 @@ export class RecipeBrowserSessions {
       });
       return {};
     }
-    if (method === "Cindy.captureRead") {
+    if (method === "Emma.captureRead") {
       if (session.capture?.error) throw new Error(session.capture.error);
       const entries = session.capture?.entries;
       const result = [...(entries?.values() ?? [])].map((entry) => ({

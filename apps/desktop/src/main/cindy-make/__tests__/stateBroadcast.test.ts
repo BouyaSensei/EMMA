@@ -30,7 +30,7 @@ beforeEach(async () => {
   windows[0].webContents.send.mockClear();
 });
 
-describe('Cindy Make state broadcast', () => {
+describe('Emma Make state broadcast', () => {
   it('invalidates the collection for global personal state without a live task entry', () => {
     const state: CindyMakeGlobalState = {
       personalSync: { running: true, step: 'official' },

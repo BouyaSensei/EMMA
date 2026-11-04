@@ -238,7 +238,7 @@ describe('伙伴的家', () => {
     skillIndex: [],
   };
 
-  it('写了 system_prompt.md 也不能覆盖 SOUL 与 Cindy 核心协议', () => {
+  it('写了 system_prompt.md 也不能覆盖 SOUL 与 Emma 核心协议', () => {
     const prompt = buildBotSystemPrompt({ ...base, systemPromptOverride: '  用户自己的补充  ' });
     expect(prompt.stable).toContain('你是小柴。');
     expect(prompt.stable).toContain('# 把活干完');

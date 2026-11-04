@@ -199,7 +199,7 @@ beforeEach(() => {
   providersState.providers = [
     makeProvider('anthropic', { name: 'Anthropic' }),
     makeProvider('xd', {
-      name: 'Cindy AI',
+      name: 'Emma AI',
       auth: { method: 'managed' } as ProviderView['auth'],
       agents: ['claude-code', 'codex'],
       models: { 'claude-code': [], codex: [] },
@@ -412,9 +412,9 @@ describe('ProvidersSection — 深链定位', () => {
     ));
   });
 
-  it('does not offer double-click rename for Cindy AI', async () => {
+  it('does not offer double-click rename for Emma AI', async () => {
     providersState.providers = [makeProvider('xd', {
-      name: 'Cindy AI',
+      name: 'Emma AI',
       auth: { method: 'managed' } as ProviderView['auth'],
       agents: ['claude-code', 'codex'],
       models: { 'claude-code': [], codex: [] },
@@ -558,7 +558,7 @@ describe('ProvidersSection — 深链定位', () => {
     ).toBeTruthy();
   });
 
-  it('Dev 只读复用 OpenAI 登录态允许只断开 Cindy', async () => {
+  it('Dev 只读复用 OpenAI 登录态允许只断开 Emma', async () => {
     codexAuthState.state = {
       kind: 'authenticated',
       authSource: 'oauth',
@@ -779,7 +779,7 @@ describe('ProvidersSection — 深链定位', () => {
     providersState.providers = [
       makeProvider('anthropic', { name: 'Anthropic', connected: true }),
       makeProvider('xd', {
-        name: 'Cindy AI',
+        name: 'Emma AI',
         auth: { method: 'managed' } as ProviderView['auth'],
         agents: ['claude-code', 'codex'],
         models: { 'claude-code': [], codex: [] },
@@ -888,7 +888,7 @@ describe('ProvidersSection — 深链定位', () => {
     expect(wizardSpy).toHaveBeenCalledWith({ kind: 'preset', presetId: 'deepseek' });
   });
 
-  it('目录无 xd(无账号会话)→ 左栏置顶 Cindy 登录引导行,connect=xd 落到该行,CTA 跳 /login', async () => {
+  it('目录无 xd(无账号会话)→ 左栏置顶 Emma 登录引导行,connect=xd 落到该行,CTA 跳 /login', async () => {
     const { fireEvent } = await import('@testing-library/react');
     providersState.providers = [makeProvider('anthropic', { name: 'Anthropic' })];
     render(

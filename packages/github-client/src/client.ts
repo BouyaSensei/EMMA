@@ -641,7 +641,7 @@ export class GithubClient {
         Accept: 'application/vnd.github+json',
         'Content-Type': 'application/json',
         'X-GitHub-Api-Version': '2022-11-28',
-        'User-Agent': 'Cindy (+https://cindy.app)',
+        'User-Agent': 'Emma (+https://cindy.app)',
       },
       body: JSON.stringify({ query, variables }),
     }, undefined, this.fetchImpl);
@@ -1745,7 +1745,7 @@ export class GithubClient {
       Authorization: `Bearer ${this.token}`,
       Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
-      'User-Agent': 'Cindy (+https://cindy.app)',
+      'User-Agent': 'Emma (+https://cindy.app)',
     };
     const init: RequestInit = { method, headers };
 
@@ -1795,7 +1795,7 @@ export class GithubClient {
         Authorization: `Bearer ${this.token}`,
         Accept: 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28',
-        'User-Agent': 'Cindy (+https://cindy.app)',
+        'User-Agent': 'Emma (+https://cindy.app)',
       },
     });
     // 3xx 是预期路径;location 由 GitHub 填充。

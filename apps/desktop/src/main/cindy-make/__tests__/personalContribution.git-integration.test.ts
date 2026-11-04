@@ -9,7 +9,7 @@ import { runSourceGit } from '../sourceGit';
 
 const TOKEN = 'gho_fake-token-for-tests';
 const FORK_URL = 'https://github.com/octo/cindy.git';
-const OFFICIAL_URL = 'https://github.com/makecindy/cindy.git';
+const OFFICIAL_URL = 'https://github.com/BouyaSensei/EMMA.git';
 
 /** Official repository, the author's fork and a personal checkout with one finished change. */
 async function fixture(conflict: boolean) {
@@ -78,13 +78,13 @@ async function fixture(conflict: boolean) {
   const github = { number: 7, state: 'open' };
   const pull = () => ({
     number: github.number,
-    html_url: `https://github.com/makecindy/cindy/pull/${github.number}`,
+    html_url: `https://github.com/BouyaSensei/EMMA/pull/${github.number}`,
     state: github.state,
   });
   const fetchFn = vi.fn(async (url: string | URL | Request, init?: RequestInit) => {
     const target = String(url);
     if (
-      target === 'https://api.github.com/repos/makecindy/cindy/pulls' &&
+      target === 'https://api.github.com/repos/BouyaSensei/EMMA/pulls' &&
       init?.method === 'POST'
     ) {
       if (github.state === 'closed')
@@ -94,7 +94,7 @@ async function fixture(conflict: boolean) {
     if (target.endsWith(`/pulls/${github.number}`) && ['GET', 'PATCH'].includes(init?.method ?? ''))
       return new Response(JSON.stringify(pull()), { status: 200 });
     // The open-pull lookup for a head: a confirmed empty list (never a guess).
-    if (target.startsWith('https://api.github.com/repos/makecindy/cindy/pulls?state=open&head='))
+    if (target.startsWith('https://api.github.com/repos/BouyaSensei/EMMA/pulls?state=open&head='))
       return new Response('[]', { status: 200 });
     return new Response('{}', { status: 404 });
   });
@@ -154,7 +154,7 @@ it('opens a pull request with only this change, on the latest official main, sig
     expect(draft.body).toContain('引用的设计规范：不涉及');
 
     const view = await h.contribution.submit({ ...draft, runId: 'run-1' });
-    expect(view).toMatchObject({ number: 7, url: 'https://github.com/makecindy/cindy/pull/7' });
+    expect(view).toMatchObject({ number: 7, url: 'https://github.com/BouyaSensei/EMMA/pull/7' });
     const branch = 'refs/heads/cindy-make-pr/run-1';
     const head = (await h.raw(['rev-parse', branch], h.fork)).trim();
     const officialMain = (await h.raw(['rev-parse', 'main'], h.official)).trim();

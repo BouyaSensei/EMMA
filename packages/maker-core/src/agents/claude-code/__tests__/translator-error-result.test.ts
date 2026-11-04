@@ -285,7 +285,7 @@ describe('Claude Code translator is_error result guard', () => {
     );
   });
 
-  it('does not classify a custom LiteLLM provider error as a Cindy credential failure', async () => {
+  it('does not classify a custom LiteLLM provider error as a Emma credential failure', async () => {
     const tracker = new UsageTracker();
     const queue = createAsyncQueue<AgentEvent>();
     const ctx = createCtx(tracker, 'custom-litellm');

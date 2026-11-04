@@ -130,7 +130,7 @@ afterEach(async () => {
 });
 
 describe('prepareCodexGlobalPluginsBridge', () => {
-  it('makes a colliding plugin skill explicit-only inside Cindy without changing the user cache', async () => {
+  it('makes a colliding plugin skill explicit-only inside Emma without changing the user cache', async () => {
     const { homeDir, codexHome, paths } = await setup();
     const marketplace = 'personal';
     const plugin = 'feishu-delegate';
@@ -230,7 +230,7 @@ describe('prepareCodexGlobalPluginsBridge', () => {
     ).toBe(true);
   });
 
-  it('gives a plugin MCP a Cindy-only runtime id without changing the user cache', async () => {
+  it('gives a plugin MCP a Emma-only runtime id without changing the user cache', async () => {
     const { homeDir, codexHome, paths } = await setup();
     const marketplace = 'personal';
     const plugin = 'feishu-delegate';
@@ -571,7 +571,7 @@ describe('prepareCodexGlobalPluginsBridge', () => {
     },
   );
 
-  it('never replaces a real marketplace directory that was not created by Cindy routing', async () => {
+  it('never replaces a real marketplace directory that was not created by Emma routing', async () => {
     const { homeDir, codexHome, paths } = await setup();
     const marketplace = 'personal';
     const plugin = 'feishu-delegate';
@@ -1015,7 +1015,7 @@ describe('prepareCodexGlobalPluginsBridge', () => {
     await expect(fs.lstat(link)).rejects.toMatchObject({ code: 'ENOENT' });
   });
 
-  it('removes a Cindy-managed overlay when its source marketplace disappears', async () => {
+  it('removes a Emma-managed overlay when its source marketplace disappears', async () => {
     const { homeDir, codexHome, paths } = await setup();
     const marketplace = 'personal';
     const plugin = 'feishu-delegate';

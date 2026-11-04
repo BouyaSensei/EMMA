@@ -51,7 +51,7 @@ export async function listenForOauthCallback(
           body:
             status === 200
               ? copy.body
-              : errors.errors['invalid-callback'].replace('{brand}', 'Cindy'),
+              : errors.errors['invalid-callback'].replace('{brand}', 'Emma'),
           pageKind: 'ghost-oauth',
         }),
       );

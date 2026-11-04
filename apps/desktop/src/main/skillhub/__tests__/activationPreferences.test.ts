@@ -130,7 +130,7 @@ describe('Skill activation preferences', () => {
   });
   it('keeps built-in activation intent across immutable bundle revisions', async () => {
     const prefs = await import('../activationPreferences');
-    const versions = path.join(root, 'Cindy', 'shared-system-skills', '.versions');
+    const versions = path.join(root, 'Emma', 'shared-system-skills', '.versions');
     const oldSkill = path.join(
       versions,
       'v6-0123456789abcdef-11111111-1111-1111-1111-111111111111',
@@ -167,7 +167,7 @@ describe('Skill activation preferences', () => {
 
     expect(prefs.skillActivationKey(oldSkill)).not.toBe(prefs.skillActivationKey(newSkill));
   });
-  it('also disables native runtime projections when the Cindy built-in Skill is disabled', async () => {
+  it('also disables native runtime projections when the Emma built-in Skill is disabled', async () => {
     const prefs = await import('../activationPreferences');
     const descriptor = (await import('../../maker-host/built-in-skills')).builtInSkillDescriptors(root, root)[0]!;
     fs.mkdirSync(descriptor.absolutePath, { recursive: true });

@@ -82,7 +82,7 @@ describe('isRemoteWorkingDirAllowed', () => {
     expect(await isRemoteWorkingDirAllowed('/freshly/browsed/dir', { stat: h.statSpy })).toBe(true);
   });
 
-  it('真实存在的 Cindy 托管 worktree → 放行', async () => {
+  it('真实存在的 Emma 托管 worktree → 放行', async () => {
     h.setStat(asDir);
     expect(
       await isRemoteWorkingDirAllowed('/repo/.cindy-worktrees/auto-test', { stat: h.statSpy }),

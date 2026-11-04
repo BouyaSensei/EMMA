@@ -577,7 +577,7 @@ describe('model advanced editor', () => {
     expect(mocks.setLimit).toHaveBeenCalledWith(1_000_000);
   });
 
-  it('lists Cindy AI Gemini interfaces without compatibility labels and gives Pi the recommendation', () => {
+  it('lists Emma AI Gemini interfaces without compatibility labels and gives Pi the recommendation', () => {
     const primary = {
       ...model,
       id: 'google/gemini-future',
@@ -623,7 +623,7 @@ describe('model advanced editor', () => {
     expect(setModelVisibility).not.toHaveBeenCalled();
   });
 
-  it('labels only the engine Cindy converts locally and explains it on demand', async () => {
+  it('labels only the engine Emma converts locally and explains it on demand', async () => {
     const source = { ...buildUserProvider({ id: 'chat-only', name: 'Chat Only', runtimes: {
       'claude-code': { baseUrl: 'https://supplier.example/v1', wireProtocol: 'openai-chat', models: [{ id: 'chat-model', name: 'Chat Model' }] },
       pi: { baseUrl: 'https://supplier.example/v1', wireProtocol: 'openai-chat', models: [{ id: 'chat-model', name: 'Chat Model' }] },

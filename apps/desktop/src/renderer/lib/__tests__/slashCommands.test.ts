@@ -240,13 +240,13 @@ describe('filterSlashCommands', () => {
     expect(filterSlashCommands(commands, 'draw/acme').map((command) => command.name)).toEqual(['draw/acme']);
   });
 
-  it('places Cindy official entries before ordinary commands in the initial palette', () => {
+  it('places Emma official entries before ordinary commands in the initial palette', () => {
     const commands = [
       { kind: 'desktop' as const, name: 'help', description: 'Help' },
       {
         kind: 'agent-skill' as const,
         name: 'cindy-skill-creator',
-        description: 'Create or update a Cindy Skill',
+        description: 'Create or update a Emma Skill',
         builtIn: true,
         source: 'skill' as const,
       },
@@ -268,7 +268,7 @@ describe('filterSlashCommands', () => {
     ]);
   });
 
-  it('recognizes the Cindy Learn Skill but not a same-name desktop command or user Skill', () => {
+  it('recognizes the Emma Learn Skill but not a same-name desktop command or user Skill', () => {
     expect(isCindyOfficialSlashCommand({
       kind: 'desktop',
       name: 'learn',
@@ -284,7 +284,7 @@ describe('filterSlashCommands', () => {
     expect(isCindyOfficialSlashCommand({
       kind: 'agent-skill',
       name: 'learn',
-      description: 'Distill a reusable Skill with Cindy',
+      description: 'Distill a reusable Skill with Emma',
       builtIn: true,
       source: 'skill',
     })).toBe(true);
@@ -701,7 +701,7 @@ describe('Pi project skill availability', () => {
 
 
 describe('Claude managed skill dispatch', () => {
-  it('rewrites the short Cindy command to its native plugin command, preserving arguments', () => {
+  it('rewrites the short Emma command to its native plugin command, preserving arguments', () => {
     const command = skill({ name: 'learn', runtimeCommandName: 'cindy:learn', builtIn: true });
     expect(rewriteAgentSkillInvocationForDispatch('/learn keep this workflow', command)).toBe('/cindy:learn keep this workflow');
   });

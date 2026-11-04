@@ -9,7 +9,7 @@ import type { BotSystemSkillId } from '../../../../shared/botSystemSkills.js';
 
 function fixture() {
   let owner = 'a';
-  const source = { id: 'bot-a', name: 'Cindy', description: '', avatar: '', avatarColor: '', status: 'active', canonicalSessionId: 'main-a', lastMessagePreview: null, lastMessageAt: null, lastMessageRole: null, needsAttention: false, hiddenAt: null, pinnedAt: null, activityAt: 1, currentVersion: 3, updatedAt: 1 };
+  const source = { id: 'bot-a', name: 'Emma', description: '', avatar: '', avatarColor: '', status: 'active', canonicalSessionId: 'main-a', lastMessagePreview: null, lastMessageAt: null, lastMessageRole: null, needsAttention: false, hiddenAt: null, pinnedAt: null, activityAt: 1, currentVersion: 3, updatedAt: 1 };
   const settings = { source, identity: '', userContext: '', memory: true, permissions: 'auto', modelChain: [], followsDefault: true, skills: ['existing'], connections: [], toolsets: [], systemSkillsOff: undefined as BotSystemSkillId[] | undefined };
   let skill: BotSkillDetail = { slug: 'learned', name: '写简报', description: '写简报时使用', body: '保留准确来源。', updatedAt: '1' };
   const catalog = [{ id: 'existing', name: 'Existing', description: 'A skill', available: false, joined: true }, { id: 'new', name: 'New', description: 'Available skill', available: true, joined: false }];
@@ -83,7 +83,7 @@ describe('portable teammate editors', () => {
   });
   it('rejects hidden create fields, empty names and missing intent identity', async () => {
     const f = fixture();
-    for (const input of [{ name: '', requestId: 'same-intent-12345678', avatarImageBase64: 'x' }, { name: 'Cindy', avatarImageBase64: 'x' }, { name: 'Cindy', requestId: 'same-intent-12345678', avatarImageBase64: 'x', permissions: 'trusted' }])
+    for (const input of [{ name: '', requestId: 'same-intent-12345678', avatarImageBase64: 'x' }, { name: 'Emma', avatarImageBase64: 'x' }, { name: 'Emma', requestId: 'same-intent-12345678', avatarImageBase64: 'x', permissions: 'trusted' }])
       await expect(f.send(await f.resource('create'), input)).rejects.toThrow();
     expect(f.deps.create).not.toHaveBeenCalled();
   });
@@ -141,7 +141,7 @@ describe('portable teammate editors', () => {
     await f.deps.setSkillEnabled('bot-a', 'learned', false);
     const shelf = await f.resource('settings:bot-a/skills');
     expect(shelf.blocks!.map(block => block.id)).toEqual(['core', 'system', 'skills']);
-    expect(f.entries(shelf, 'core')).toMatchObject([{ resourceId: 'settings:bot-a/skills/_core', subtitle: { translations: { 'zh-CN': '所有伙伴共用 · 始终开启 · 随 Cindy 更新' } } }]);
+    expect(f.entries(shelf, 'core')).toMatchObject([{ resourceId: 'settings:bot-a/skills/_core', subtitle: { translations: { 'zh-CN': '所有伙伴共用 · 始终开启 · 随 Emma 更新' } } }]);
     expect(f.entries(shelf, 'system').map(entry => [entry.resourceId, !!entry.subtitle])).toEqual([
       ['settings:bot-a/skills/_todo', false], ['settings:bot-a/skills/_routine', true], ['settings:bot-a/skills/_follow', false]]);
     expect(f.entries(shelf, 'skills')).toMatchObject([{ resourceId: 'settings:bot-a/skills/learned', subtitle: { fallback: 'Off' } }]);
@@ -248,14 +248,14 @@ describe('portable teammate memory pages', () => {
   it('confirms deletion with the teammate and memory names and deletes through the service', async () => {
     const f = fixture();
     const detail = await f.resource('settings:bot-a/memory/feedback_sources');
-    expect(detail.actions![1]).toMatchObject({ tone: 'destructive', confirmation: { body: { translations: { 'zh-CN': 'Cindy之后不会再参考「注明来源」。' } } } });
+    expect(detail.actions![1]).toMatchObject({ tone: 'destructive', confirmation: { body: { translations: { 'zh-CN': 'Emma之后不会再参考「注明来源」。' } } } });
     // #8157/r4427953333: the real remote resource previously tested only zh-CN;
     // a named teammate + titled entry must also carry localized consequences (unit tier).
     const body = detail.actions![1].confirmation!.body!;
     expect(typeof body).toBe('object');
     for (const locale of ['es', 'fr', 'de', 'pt-PT', 'pt-BR']) {
       const translated = typeof body === 'object' ? body.translations?.[locale] : undefined;
-      expect(translated, locale).toEqual(expect.stringContaining('Cindy'));
+      expect(translated, locale).toEqual(expect.stringContaining('Emma'));
       expect(translated, locale).toEqual(expect.stringContaining('注明来源'));
       expect(translated, locale).not.toBe(typeof body === 'object' ? body.fallback : body);
     }

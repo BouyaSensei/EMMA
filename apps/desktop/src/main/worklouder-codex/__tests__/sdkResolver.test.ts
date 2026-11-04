@@ -64,7 +64,7 @@ describe('Work Louder SDK discovery', () => {
     expect(f.queryStoreInstallRoots).toHaveBeenCalledOnce();
   });
 
-  it('prefers a Cindy-installed SDK without querying Store packages', () => {
+  it('prefers a Emma-installed SDK without querying Store packages', () => {
     const f = fixture();
     f.resolvePackage.mockReturnValue('sdk-entry');
     expect(f.resolve()).toEqual({ entry: 'sdk-entry', source: 'cindy-package' });
@@ -107,7 +107,7 @@ describe('Work Louder SDK discovery', () => {
     expect(f.onChanged).not.toHaveBeenCalled();
   });
 
-  it('retries negative Store results after the cooldown, allowing installation while Cindy is open', async () => {
+  it('retries negative Store results after the cooldown, allowing installation while Emma is open', async () => {
     const f = fixture();
     f.queryStoreInstallRoots.mockResolvedValue([]);
     f.resolve();

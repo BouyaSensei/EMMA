@@ -218,7 +218,7 @@ beforeEach(() => {
 
 // #6884, unit: IM display projection must not change history. Existing text
 // persistence cases had no component fence; the DB boundary here is an in-memory spy.
-it('persists the original rich answer for Cindy history', async () => {
+it('persists the original rich answer for Emma history', async () => {
   const source = '```cindy-ui\n' + JSON.stringify({
     version: 1, seq: 1, op: 'create', id: 'answer', kind: 'text', props: { text: 'Readable answer' },
   }) + '\n```';
@@ -2956,7 +2956,7 @@ describe('stale-idle assistant late final identity', () => {
     const meta = { requestId: 'req-stale-idle', uuid: 'assistant-stale-idle' };
     const persistId = onAssistantTextEvent(
       SESSION,
-      { text: 'Cindy 能够理解多轮对', isFinal: false },
+      { text: 'Emma 能够理解多轮对', isFinal: false },
       meta,
     );
     sealAssistantBlockForLateFinal(SESSION, null);
@@ -2966,7 +2966,7 @@ describe('stale-idle assistant late final identity', () => {
 
     const lateFinalId = onAssistantTextEvent(
       SESSION,
-      { text: 'Cindy 能够理解多轮对', isFinal: true, isFullText: true },
+      { text: 'Emma 能够理解多轮对', isFinal: true, isFullText: true },
       { ...meta, uuid: 'assistant-late-snapshot', stopReason: 'stop_sequence' },
     );
     expect(lateFinalId).toBe(persistId);
@@ -2980,7 +2980,7 @@ describe('stale-idle assistant late final identity', () => {
       .filter((c) => (c[1] as { role?: string }).role === 'assistant');
     expect(assistantCreates).toHaveLength(1);
     expect(assistantCreates[0]?.[1]).toEqual(
-      expect.objectContaining({ clientId: persistId, content: 'Cindy 能够理解多轮对' }),
+      expect.objectContaining({ clientId: persistId, content: 'Emma 能够理解多轮对' }),
     );
     expect(updateMessageContent).not.toHaveBeenCalled();
     expect(patchMessageAgentMetaWithResult).not.toHaveBeenCalled();

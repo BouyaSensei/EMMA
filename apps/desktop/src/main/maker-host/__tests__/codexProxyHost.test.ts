@@ -404,7 +404,7 @@ describe('codex gateway config', () => {
     const provider = (id: string) => Object.fromEntries(args.filter(v => v.startsWith(`model_providers.${id}.`))
       .map(v => { const [key, ...value] = v.slice(`model_providers.${id}.`.length).split('='); return [key, value.join('=')]; }));
     const gateway = provider('cindy_gateway');
-    expect(provider('cindy_summary')).toEqual({ ...gateway, name: '"Cindy Summary"' });
+    expect(provider('cindy_summary')).toEqual({ ...gateway, name: '"Emma Summary"' });
     expect(provider('cindy_codex').name).toBe('"OpenAI"');
   });
 
@@ -449,7 +449,7 @@ describe('codex gateway config', () => {
     expect(args).toContain('features.enable_request_compression=false');
   });
 
-  it('env-key / provider-oauth 只定义 Cindy Codex 远程压缩 identity', async () => {
+  it('env-key / provider-oauth 只定义 Emma Codex 远程压缩 identity', async () => {
     const { buildCodexProxySpawnArgs } = await import('../codex-gateway-config.js');
 
     for (const mode of ['env-key', 'provider-oauth'] as const) {
@@ -2265,7 +2265,7 @@ describe('chatBridgeCapabilitiesForRoute', () => {
       error: {
         type: 'server_error',
         code: 'cindy_codex_parent_route_unavailable',
-        message: 'Cindy could not resolve the parent Provider route for this spawned Codex agent.',
+        message: 'Emma could not resolve the parent Provider route for this spawned Codex agent.',
       },
     });
     expect(mockState.capturedRegistry?.get('thread-collab-orphan')).toBeUndefined();

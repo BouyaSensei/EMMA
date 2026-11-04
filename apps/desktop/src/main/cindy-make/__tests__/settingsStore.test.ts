@@ -13,7 +13,7 @@ import {
   writeCindyMakeSyncLatestBeforeBuild,
 } from '../settingsStore.js';
 
-describe('Cindy Make settings store', () => {
+describe('Emma Make settings store', () => {
   beforeEach(() => {
     paths.userData = fs.mkdtempSync(path.join(os.tmpdir(), 'cindy-make-settings-'));
   });

@@ -378,12 +378,12 @@ export function startCompanionCloud(input: {
           if (inserted > 0) state.update(keepBotId, keepActor.id, entry => { entry.pendingRebuild = true; });
         } });
       for (const actor of from) actor.disabled = true;
-      input.log?.info?.('Copies of Cindy merged', { actorId: keepActor.id, merged: summary.merged, messages: summary.messages });
+      input.log?.info?.('Copies of Emma merged', { actorId: keepActor.id, merged: summary.merged, messages: summary.messages });
       await refreshForeground?.().catch(() => undefined);
       publish(); mirrors.kick(keepBotId); uploads.kick(keepBotId);
       return { ok: true, ...summary };
     } catch (error) {
-      input.log?.warn('Merging copies of Cindy will need another try', { code: errorCode(error) });
+      input.log?.warn('Merging copies of Emma will need another try', { code: errorCode(error) });
       await refreshForeground?.().catch(() => undefined);
       publish();
       // A copy that got busy (or could not send) right before retiring: say why, as before the merge.

@@ -30,8 +30,8 @@ describe('windowsPackagedInstanceBarrier', () => {
   });
 
   it('uses Electron ProcessSingleton names and a message-only-window probe', () => {
-    expect(__testing.processSingletonNames('Cindy')).toEqual({
-      mutexName: 'Local\\CindyProcessSingletonStartup',
+    expect(__testing.processSingletonNames('Emma')).toEqual({
+      mutexName: 'Local\\EmmaProcessSingletonStartup',
       windowClass: 'Chrome_MessageWindow',
     });
     expect(__testing.WINDOWS_PACKAGED_INSTANCE_BARRIER_SCRIPT).toContain('FindWindowEx');
@@ -79,7 +79,7 @@ describe('windowsPackagedInstanceBarrier', () => {
   it.runIf(process.platform === 'win32')(
     'holds the packaged startup mutex until release and allows a later retry',
     async () => {
-      const programName = `CindyBarrierTest${process.pid}`;
+      const programName = `EmmaBarrierTest${process.pid}`;
       const userDataDir = path.join(os.tmpdir(), programName);
       const first = await acquireWindowsPackagedInstanceBarrier({
         userDataDir,

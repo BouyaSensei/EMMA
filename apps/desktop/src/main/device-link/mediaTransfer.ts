@@ -87,7 +87,7 @@ async function presignPut(
   ext: string,
   contentType: string,
 ): Promise<PresignPutResponse> {
-  requireAppCapability('canUseDeviceLink', 'Device Link requires a Cindy account.');
+  requireAppCapability('canUseDeviceLink', 'Device Link requires an Emma account.');
   const sharedTaskId = sharedTaskMediaId();
   const apiFetch = sharedTaskId ? officialDeviceLinkApiFetch : deviceLinkApiFetch;
   return apiFetch<PresignPutResponse>(PRESIGN_PUT_PATH, {
@@ -124,7 +124,7 @@ function mediaApiFetchFor(key: string): typeof deviceLinkApiFetch {
 
 /** 向 relay server 申请下载预签名(server 校验请求方 == key 内嵌 userId)。 */
 async function presignGet(key: string, timeoutMs?: number): Promise<PresignGetResponse> {
-  requireAppCapability('canUseDeviceLink', 'Device Link requires a Cindy account.');
+  requireAppCapability('canUseDeviceLink', 'Device Link requires an Emma account.');
   return mediaApiFetchFor(key)<PresignGetResponse>(PRESIGN_GET_PATH, {
     method: 'POST',
     body: { key },
@@ -772,7 +772,7 @@ export async function downloadToFile(
  *  清理是 best-effort,失败让 OSS 生命周期规则兜底,不应阻断主流程。 */
 export async function removeRemote(key: string): Promise<void> {
   try {
-    requireAppCapability('canUseDeviceLink', 'Device Link requires a Cindy account.');
+    requireAppCapability('canUseDeviceLink', 'Device Link requires an Emma account.');
     await mediaApiFetchFor(key)<{ deleted: boolean }>(DELETE_PATH, {
       method: 'DELETE',
       body: { key },

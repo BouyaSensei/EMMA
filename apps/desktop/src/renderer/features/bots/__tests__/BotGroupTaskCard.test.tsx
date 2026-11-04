@@ -20,7 +20,7 @@ import { BotGroupTaskCard } from '../BotGroupTaskCard';
 
 const task = (state: BotGroupTaskCardView['state'], summary?: string): BotGroupTaskCardView => ({
   meta: { v: 1, role: 'delegation-request', delegationId: 'task-1', fromBotId: 'bot-a', fromBotName: 'LiZi', toBotId: null,
-    toBotName: 'Cindy', parentSessionId: 'group-lane', childSessionId: 'child-1', objective: 'Write the launch post' },
+    toBotName: 'Emma', parentSessionId: 'group-lane', childSessionId: 'child-1', objective: 'Write the launch post' },
   state, title: 'Launch post', ...(summary ? { summary } : {}),
 });
 

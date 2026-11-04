@@ -324,7 +324,7 @@ it('keeps appended result receipts visible while the teammate is busy, across hi
 
 it('nests only explicitly bound results, preserving original anchor and human message order', () => {
   const card = { v: 1 as const, role: 'delegation-result' as const, delegationId: 'job', fromBotId: 'bot',
-    fromBotName: 'Cindy', toBotId: null, toBotName: '', parentSessionId: 'chat', childSessionId: 'child', objective: 'Report',
+    fromBotName: 'Emma', toBotId: null, toBotName: '', parentSessionId: 'chat', childSessionId: 'child', objective: 'Report',
     result: { runSequence: 1, status: 'completed' as const, text: 'Report contents', artifacts: [] } };
   const receipt = message('receipt', 'assistant', '', { systemCardType: 'bot-session-task-result', systemCardData: card });
   const anchor = message('anchor', 'assistant', '', { systemCardType: 'bot-session-task' });
@@ -364,7 +364,7 @@ describe('provider final streaming', () => {
 
 it('does not insert interleaved valid receipts ahead of live final prose and preserves exact host bindings', () => {
   const card = (id: string) => ({ v: 1 as const, role: 'delegation-result' as const, delegationId: id, fromBotId: 'bot',
-    fromBotName: 'Cindy', toBotId: null, toBotName: '', parentSessionId: 'chat', childSessionId: id, objective: id,
+    fromBotName: 'Emma', toBotId: null, toBotName: '', parentSessionId: 'chat', childSessionId: id, objective: id,
     result: { runSequence: 1, status: 'completed' as const, text: 'Report', artifacts: [] } });
   const a = card('a'), b = card('b');
   const receipt = (id: string, data: ReturnType<typeof card>) => message(id, 'assistant', '', { systemCardType: 'bot-session-task-result', systemCardData: data });
@@ -381,7 +381,7 @@ it('does not insert interleaved valid receipts ahead of live final prose and pre
 
 it('keeps an unanswered historical receipt visible while the next user turn streams', () => {
   const data = { v: 1, role: 'delegation-result', delegationId: 'd', fromBotId: 'b',
-    fromBotName: 'Cindy', toBotId: null, toBotName: '', parentSessionId: 'chat', childSessionId: 'child', objective: 'Task',
+    fromBotName: 'Emma', toBotId: null, toBotName: '', parentSessionId: 'chat', childSessionId: 'child', objective: 'Task',
     result: { runSequence: 1, status: 'completed', text: 'Report', artifacts: [] } };
   const receipt = message('receipt', 'assistant', '', { systemCardType: 'bot-session-task-result', systemCardData: data });
   const history = [message('old-user', 'user'), receipt];

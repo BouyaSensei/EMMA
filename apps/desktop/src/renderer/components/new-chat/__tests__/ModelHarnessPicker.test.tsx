@@ -30,7 +30,7 @@ function entry(kind: 'gateway' | 'chat-only' = 'gateway') {
   const wire = (api: string) => (kind === 'gateway' ? api : 'openai-completions');
   const provider = {
     id: kind === 'gateway' ? 'xd' : 'custom-chat',
-    name: kind === 'gateway' ? 'Cindy AI' : 'Chat Only',
+    name: kind === 'gateway' ? 'Emma AI' : 'Chat Only',
     connected: true,
     source: kind === 'gateway' ? 'builtin' : 'custom',
     agents: ['claude-code', 'codex', 'pi'],
@@ -63,16 +63,16 @@ describe('model harness choices', () => {
     const capability = model.capabilities[agent]!;
     const rendered = render(<ModelConfigFlyout entry={model}
       config={{ engine, agent, capability, efforts: [], effort: null, fast: false, fastCapable: false,
-        customized: false, wireModelId: capability.wireModelId }} state="recommended" sourceLabel="Cindy AI" price={null}
+        customized: false, wireModelId: capability.wireModelId }} state="recommended" sourceLabel="Emma AI" price={null}
       effortLabelOf={(_, effort) => effort} onEngineChange={vi.fn()} onEffortChange={vi.fn()}
       onFastChange={vi.fn()} onResetToRecommended={vi.fn()} onAddFavorite={vi.fn()} onRemoveFavorite={vi.fn()} />);
-    expect(await screen.findByText('Cindy AI · 1K 上下文')).toBeTruthy();
+    expect(await screen.findByText('Emma AI · 1K 上下文')).toBeTruthy();
     expect(getModelContextLimit).toHaveBeenCalledWith({ providerId: 'xd', agent, modelId: capability.wireModelId });
     getModelContextLimit.mockResolvedValue({ limit: null, isCustomized: false,
       codexContext: { contextWindow: 1_048_576 } });
     await act(async () => { changed?.(); });
-    expect(screen.queryByText('Cindy AI · 1K 上下文')).toBeNull();
-    expect(screen.getByText(/Cindy AI · 1M 上下文/)).toBeTruthy();
+    expect(screen.queryByText('Emma AI · 1K 上下文')).toBeNull();
+    expect(screen.getByText(/Emma AI · 1M 上下文/)).toBeTruthy();
     rendered.unmount();
     expect(unsubscribe).toHaveBeenCalled();
     Reflect.deleteProperty(window, 'electronAPI');
@@ -136,7 +136,7 @@ describe('model harness choices', () => {
           wireModelId: capability.wireModelId,
         }}
         state="customized"
-        sourceLabel="Cindy AI"
+        sourceLabel="Emma AI"
         price={{
           kind: 'priced',
           current: {

@@ -25,7 +25,7 @@ const META = {
   role: 'delegation-request' as const,
   delegationId: 'delegation-1',
   fromBotId: 'bot-cindy',
-  fromBotName: 'Cindy',
+  fromBotName: 'Emma',
   toBotId: 'bot-planner',
   toBotName: 'Planner',
   parentSessionId: SESSION_ID,
@@ -96,7 +96,7 @@ describe('mapServerMessages — Bot collaboration', () => {
       agentMeta: {
         origin: {
           kind: 'session', senderSessionId: 'partner-session',
-          senderBotId: 'bot-cindy', senderBotName: 'Cindy',
+          senderBotId: 'bot-cindy', senderBotName: 'Emma',
         },
         sourcePlugin: { pluginId: 'plugin-1', name: 'Plugin' },
         sourceDevice: { deviceId: 'phone-1', platform: 'mobile' },

@@ -72,13 +72,13 @@ function projectNodeFor(session: Session, displayName: string): ProjectNode {
 /* ============================== tests ============================== */
 
 describe('buildSessionSourceLabelMap', () => {
-  it('labels pinned Cindy Make tasks with their feature name rather than a worktree id', () => {
+  it('labels pinned Emma Make tasks with their feature name rather than a worktree id', () => {
     const personal = {
       ...s({ id: 'personal', workingDir: '/managed/worktrees/run-id' }),
       source: 'cindy-make' as const,
     };
-    const map = buildSessionSourceLabelMap([personal], [], 'Dialogue', 'Cindy Make');
-    expect(map.get(personal.id)).toBe('Cindy Make');
+    const map = buildSessionSourceLabelMap([personal], [], 'Dialogue', 'Emma Make');
+    expect(map.get(personal.id)).toBe('Emma Make');
   });
 
 

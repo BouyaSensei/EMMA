@@ -46,7 +46,7 @@ describe('composerSuggestion', () => {
         {
           item: {
             type: 'plugin-command',
-            name: 'Cindy Art',
+            name: 'Emma Art',
             relPath: 'art',
             pluginId: 'cindy-art',
           },
@@ -63,7 +63,7 @@ describe('composerSuggestion', () => {
       'bot:Dash Bot',
       'browser-tab:Docs',
       'agent:reviewer',
-      'plugin-command:Cindy Art',
+      'plugin-command:Emma Art',
       'add-extra-dir',
     ]);
   });

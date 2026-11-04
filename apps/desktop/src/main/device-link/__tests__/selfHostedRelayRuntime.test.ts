@@ -225,7 +225,7 @@ it('reads the deployed relay status with the owner credential and rejects anothe
   expect(status.deploymentStatus).toEqual({ online: true, devices: 3, onlineDevices: 2, certificateExpiresAt: '2026-11-04T00:00:00.000Z' });
   expect(fetchMock).toHaveBeenCalledWith(
     'https://203.0.113.10/api/device-link/relay/admin/status',
-    expect.objectContaining({ headers: { authorization: 'CindyRelay fake-credential' } }),
+    expect.objectContaining({ headers: { authorization: 'EmmaRelay fake-credential' } }),
   );
   fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ relayId: 'another-relay', devices: 9 })));
   expect((await command({ type: 'deployment-status', relayId })).deploymentStatus).toEqual({ online: false });

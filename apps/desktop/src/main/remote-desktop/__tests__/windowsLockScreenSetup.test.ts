@@ -57,7 +57,7 @@ afterEach(() => {
 });
 // Set by Electron in a packaged app; the helper path is built from it.
 Object.defineProperty(process, 'resourcesPath', {
-  value: 'C:\\Program Files\\Cindy\\resources',
+  value: 'C:\\Program Files\\Emma\\resources',
   configurable: true,
 });
 
@@ -76,7 +76,7 @@ describe.skipIf(process.platform !== 'win32')('windows lock-screen setup diagnos
     );
     // Nothing that is not a step code may reach the log or the settings page,
     // since a path or account name there would leak machine content.
-    expect(readWindowsDesktopDetail('error C:\\Users\\someone\\Cindy failed')).toBeUndefined();
+    expect(readWindowsDesktopDetail('error C:\\Users\\someone\\Emma failed')).toBeUndefined();
     expect(readWindowsDesktopDetail('ready')).toBeUndefined();
     expect(readWindowsDesktopDetail(undefined)).toBeUndefined();
   });

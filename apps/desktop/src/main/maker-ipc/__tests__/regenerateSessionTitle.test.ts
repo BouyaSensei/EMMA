@@ -337,7 +337,7 @@ describe('regenerateMakerSessionTitle', () => {
     ).rejects.toThrow(/\[INTERNAL\]/);
   });
 
-  it.each(['研究Deepseek Harness对比Cindy', '字'.repeat(40), '😀'.repeat(40)])(
+  it.each(['研究Deepseek Harness对比Emma', '字'.repeat(40), '😀'.repeat(40)])(
     '接受正常标题及 40 个 Unicode 字符的边界: %s',
     async (generated) => {
       await expect(

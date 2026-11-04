@@ -281,7 +281,7 @@ describe('internal main-window navigation', () => {
     }
   });
 
-  it('still brings the main task forward when Cindy already has an active window', () => {
+  it('still brings the main task forward when Emma already has an active window', () => {
     const win = {
       isDestroyed: () => false, isVisible: () => true, isMinimized: () => false,
       focus: vi.fn(), moveTop: vi.fn(), setAlwaysOnTop: vi.fn(),

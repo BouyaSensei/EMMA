@@ -26,7 +26,7 @@ afterEach(() => {
   vi.mocked(spawn).mockReset();
 });
 
-describe('Cindy Make Git progress', () => {
+describe('Emma Make Git progress', () => {
   it('parses Git progress without exposing the raw line', () => {
     expect(parseSourceGitProgress('remote: Receiving objects:  42% (123/456)')).toEqual({
       stage: 'receiving',

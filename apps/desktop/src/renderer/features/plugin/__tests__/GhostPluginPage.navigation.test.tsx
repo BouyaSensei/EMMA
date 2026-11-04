@@ -60,7 +60,7 @@ const detail: PluginMarketDetail = {
   ghostId: 'navigation-plugin',
   name: 'Navigation Plugin',
   description: 'Navigation regression fixture',
-  author: 'Cindy',
+  author: 'Emma',
   scope: 'public',
   organizationId: null,
   defaultInstall: false,
@@ -230,7 +230,7 @@ it.each(['missing', 'disabled', 'failed'] as const)('preserves the draft when th
 });
 
 it('keeps linked computer and project scope in the page heading without changing recommendation', async () => {
-  Object.assign(window.electronAPI, { showOpenDirectoryDialog: vi.fn(async () => ({ canceled: false, path: '/fixture/Cindy' })) });
+  Object.assign(window.electronAPI, { showOpenDirectoryDialog: vi.fn(async () => ({ canceled: false, path: '/fixture/Emma' })) });
   Object.assign(window.electronAPI.ghosts, { workdirPrefsSync: vi.fn(() => ({ disabled: [] })) });
   render(page('/plugins'));
   const recommended = await screen.findByText(detail.name);
@@ -242,7 +242,7 @@ it('keeps linked computer and project scope in the page heading without changing
   fireEvent.click(await screen.findByRole('menuitem', { name: 'settings.ghosts.scopePicker.browse' }));
   await screen.findByText('settings.ghosts.projectBanner.desc');
   expect(screen.getByText(detail.name)).toBe(recommended);
-  expect(window.electronAPI.ghosts.workdirPrefsSync).toHaveBeenCalledWith('/fixture/Cindy');
+  expect(window.electronAPI.ghosts.workdirPrefsSync).toHaveBeenCalledWith('/fixture/Emma');
   fireEvent.click(screen.getByRole('button', { name: 'settings.ghosts.projectBanner.backToGlobal' }));
   expect(document.querySelector('[data-catalog-region="notice"]')).toBeNull();
   expect(screen.getByText(detail.name)).toBe(recommended);

@@ -123,7 +123,7 @@ const ACT_KINDS = [
 
 /** Tools that read page script state, network traffic or console output. */
 function readsPageState(request: BrowserControlRequest): boolean {
-  if (request.action === 'recipeCommand') return request.recipeCommand?.method !== 'Cindy.end';
+  if (request.action === 'recipeCommand') return request.recipeCommand?.method !== 'Emma.end';
   if (request.action === 'console' || request.action === 'requests' || request.action === 'responseBody') return true;
   const act = request.request as { kind?: unknown; fn?: unknown } | undefined;
   return request.action === 'act' && (act?.kind === 'evaluate' || (act?.kind === 'wait' && act.fn !== undefined));
@@ -145,7 +145,7 @@ function getRuntime(deps: BrowserMcpDeps, onDispatch?: () => void, scopeIsCurren
           ok: false,
           action: request.action,
           errorCode: 'BROWSER_RUNTIME_INVALID_REQUEST',
-          message: 'The owner just entered a password on this page through Cindy. Script evaluation, network and console reads are paused here until the tab leaves this page. Use snapshot or screenshot, or navigate on.',
+          message: 'The owner just entered a password on this page through Emma. Script evaluation, network and console reads are paused here until the tab leaves this page. Use snapshot or screenshot, or navigate on.',
           data: { reason: 'secret_entered' },
         };
       }
@@ -509,7 +509,7 @@ async function screenshotToolResult(
  * network reads, uploads, dialogs or trusted input); the hint tells the model
  * to involve the user rather than switch targets on its own.
  */
-const BACKEND_SWITCH_HINT = '当前浏览器后端不支持此操作。需要时请明确告知用户并建议改用 Cindy 专用浏览器(setBackend external),不要自行切换。';
+const BACKEND_SWITCH_HINT = '当前浏览器后端不支持此操作。需要时请明确告知用户并建议改用 Emma 专用浏览器(setBackend external),不要自行切换。';
 function unsupportedByBackend(args: Record<string, unknown>, deps: BrowserMcpDeps): string | undefined {
   const caps = deps.backendCapabilities?.();
   if (!caps) return undefined;

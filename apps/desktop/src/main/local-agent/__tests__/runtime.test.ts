@@ -10,7 +10,7 @@ import { createEventProjection } from '../runtime.js';
 import { localAgentModels, LOCAL_AGENT_ROUTE } from '../catalog.js';
 import type { ProviderView } from '@cindy/model-providers';
 
-describe('whole Cindy catalog projection', () => {
+describe('whole Emma catalog projection', () => {
   const provider = (id: string, patch: Partial<ProviderView> = {}) =>
     ({
       id,

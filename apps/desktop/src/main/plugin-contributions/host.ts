@@ -138,7 +138,7 @@ export function mapContributionError(error: unknown): never {
 
 function assertWritableInstance(): void {
   if (isPassiveSharedUserDataInstance())
-    throwIpcError('PRECONDITION_FAILED', 'Use the active Cindy instance for publishing');
+    throwIpcError('PRECONDITION_FAILED', 'Use the active Emma instance for publishing');
 }
 
 function assertClientPublishingTarget(plugin: Pick<wire.MyPluginSummary, 'publisherKind'>): void {

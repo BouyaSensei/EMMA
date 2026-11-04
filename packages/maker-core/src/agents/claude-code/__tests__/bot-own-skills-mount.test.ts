@@ -291,7 +291,7 @@ describe('Claude Code mounts the Bot\'s own learned Skills', () => {
     expect(options.plugins).toEqual([{ type: 'local', path: OWN_SKILL_ROOT }]);
   });
 
-  it('keeps global Cindy identity, roster, and user prompt out of Bot context', async () => {
+  it('keeps global Emma identity, roster, and user prompt out of Bot context', async () => {
     const options = await startBotSession({});
     const prompt = options.systemPrompt?.append ?? '';
     expect(prompt).toContain('BOT SOUL');
@@ -303,7 +303,7 @@ describe('Claude Code mounts the Bot\'s own learned Skills', () => {
 });
 
 
-describe('Cindy managed skills use Claude session plugins', () => {
+describe('Emma managed skills use Claude session plugins', () => {
   it('mounts managed skills for ordinary sessions without setting a global config directory', async () => {
     const options = await startBotSession({ ordinary: true, managed: true });
     expect(options.plugins).toHaveLength(1);
@@ -359,7 +359,7 @@ describe('managed skill command collisions', () => {
     await fs.mkdir(path.join(workingDir, '.git'));
     return workingDir;
   }
-  it('keeps user /learn and exposes Cindy under its full native name', async () => {
+  it('keeps user /learn and exposes Emma under its full native name', async () => {
     const configDir = await makeTempDir();
     process.env.CLAUDE_CONFIG_DIR = configDir;
     const userSkill = path.join(configDir, 'skills', 'learn');

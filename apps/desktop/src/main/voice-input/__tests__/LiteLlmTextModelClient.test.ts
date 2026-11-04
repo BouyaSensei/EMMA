@@ -38,7 +38,7 @@ describe('LiteLlmTextModelClient', () => {
     vi.useRealTimers();
   });
 
-  it('reports the Cindy AI key when the gateway proxy rejects it with HTTP 401', async () => {
+  it('reports the Emma AI key when the gateway proxy rejects it with HTTP 401', async () => {
     undiciFetchMock.mockResolvedValueOnce(new Response(JSON.stringify({
       error: { message: 'invalid key' },
     }), { status: 401 }));

@@ -37,18 +37,18 @@ async function seedPersonal(target: string, commit: string) {
   const directory = versionDirectory(h.profile, target);
   const runtime = path.join(directory, 'runtime');
   await mkdir(path.join(runtime, 'resources'), { recursive: true });
-  await writeFile(path.join(runtime, 'Cindy.exe'), 'application');
+  await writeFile(path.join(runtime, 'Emma.exe'), 'application');
   writeVersionJson(path.join(directory, 'version.json'), {
     protocol: 1,
     id: target,
     profile: h.original.profile,
     title: 'Old task title',
-    version: `Cindy Make ${target.slice(0, 8)}`,
+    version: `Emma Make ${target.slice(0, 8)}`,
     commit,
     builtAt: '2026-09-22T12:00:00+08:00',
     platform: process.platform,
     arch: process.arch,
-    executable: path.join('runtime', 'Cindy.exe'),
+    executable: path.join('runtime', 'Emma.exe'),
     resources: path.join('runtime', 'resources'),
     executableHash: 'a'.repeat(64),
     applicationHash: 'a'.repeat(64),
@@ -68,7 +68,7 @@ beforeEach(async () => {
     protocol: 1,
     version: '0.1.99',
     commit: 'a'.repeat(40),
-    profile: { userData: h.profile, region: 'global', appName: 'Cindy', passive: false },
+    profile: { userData: h.profile, region: 'global', appName: 'Emma', passive: false },
     executable,
     resources: h.profile,
     appPath: h.profile,

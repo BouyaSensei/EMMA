@@ -285,7 +285,7 @@ describe('scanAllSkills', () => {
     tempRoots.push(root);
     const builtIn = path.join(root, 'user-data', 'system-skills', 'cindy-skill-creator');
     const userSkill = path.join(root, 'home', '.agents', 'skills', 'cindy-skill-creator');
-    for (const [skillPath, description] of [[builtIn, 'Cindy copy'], [userSkill, 'User copy']] as const) {
+    for (const [skillPath, description] of [[builtIn, 'Emma copy'], [userSkill, 'User copy']] as const) {
       fs.mkdirSync(skillPath, { recursive: true });
       fs.writeFileSync(path.join(skillPath, 'SKILL.md'), `---\nname: cindy-skill-creator\ndescription: ${description}\n---\nBody\n`);
     }
@@ -310,7 +310,7 @@ describe('scanAllSkills', () => {
     expect(result.skills.find((skill) => skill.builtIn)).toMatchObject({
       name: 'cindy-skill-creator',
       scope: 'global',
-      description: 'Cindy copy',
+      description: 'Emma copy',
       builtIn: true,
       canUninstall: false,
       cindyEnabled: true,

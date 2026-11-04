@@ -375,7 +375,7 @@ describe('ErrorBanner OpenAI connection recovery', () => {
     },
   );
 
-  it('opens ChatGPT App without starting Cindy OAuth for an invalidated system-shared login', async () => {
+  it('opens ChatGPT App without starting Emma OAuth for an invalidated system-shared login', async () => {
     mocks.getState.mockResolvedValue({
       authenticated: false,
       errorReason: 'token_revoked',
@@ -474,7 +474,7 @@ describe('ErrorBanner OpenAI connection recovery', () => {
     expect(screen.getByRole('button', { name: 'chat.errorBanner.retry' })).toBeTruthy();
   });
 
-  it('opens the ChatGPT App instead of starting Cindy OAuth for system-shared recovery', async () => {
+  it('opens the ChatGPT App instead of starting Emma OAuth for system-shared recovery', async () => {
     mocks.getState.mockResolvedValue({
       authenticated: false,
       errorReason: 'token_revoked',
@@ -500,7 +500,7 @@ describe('ErrorBanner OpenAI connection recovery', () => {
     expect(screen.queryByRole('button', { name: 'chat.errorBanner.retry' })).toBeNull();
   });
 
-  it('does not start Cindy OAuth after opening ChatGPT App for system-shared recovery', async () => {
+  it('does not start Emma OAuth after opening ChatGPT App for system-shared recovery', async () => {
     mocks.getState.mockResolvedValue({
       authenticated: false,
       errorReason: 'token_revoked',
@@ -526,7 +526,7 @@ describe('ErrorBanner OpenAI connection recovery', () => {
     expect(screen.queryByRole('button', { name: 'chat.errorBanner.retry' })).toBeNull();
   });
 
-  it('uses Cindy OAuth for an invalidated instance-isolated login', async () => {
+  it('uses Emma OAuth for an invalidated instance-isolated login', async () => {
     mocks.getState.mockResolvedValue({
       authenticated: false,
       errorReason: 'token_revoked',
@@ -1036,7 +1036,7 @@ describe('ErrorBanner OpenAI connection recovery', () => {
     expect(mocks.triggerLogin).not.toHaveBeenCalled();
   });
 
-  it('starts Cindy login when an authenticated system-shared hint cannot be verified', async () => {
+  it('starts Emma login when an authenticated system-shared hint cannot be verified', async () => {
     mocks.getState.mockResolvedValue({
       authenticated: true,
       identity: 'user@example.com',

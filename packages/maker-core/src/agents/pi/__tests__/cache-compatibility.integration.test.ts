@@ -70,7 +70,7 @@ export default function(pi) {
       await ctx.modelRegistry.refresh({ allowNetwork: false });
       const savedConfig = ctx.modelRegistry.getRegisteredProviderConfig(model.provider);
       let installed;
-      const adapter = await registerCindyNativeProviderAdapters({
+      const adapter = await registerEmmaNativeProviderAdapters({
         ...pi, on: (event, fn) => { if(event === 'session_start') installed = fn; },
       }, { accepts: m => m.provider === model.provider, ownRegistry() {},
         wrap: (m,o,invoke) => { wraps++; return invoke(o); } });

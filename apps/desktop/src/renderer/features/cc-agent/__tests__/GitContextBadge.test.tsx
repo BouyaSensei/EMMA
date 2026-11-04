@@ -52,7 +52,7 @@ vi.mock('sortablejs', () => ({
 const dialogueSession = {
   id: 'session-1',
   workspaceKind: 'dialogue',
-  workingDir: '/Users/me/Cindy/dialogues/abc',
+  workingDir: '/Users/me/Emma/dialogues/abc',
   remoteHostId: null,
 } as Session;
 

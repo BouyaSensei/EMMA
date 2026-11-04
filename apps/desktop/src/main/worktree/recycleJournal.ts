@@ -48,7 +48,7 @@ export function recycleJournalRoot(): string {
 }
 
 function sharedJournalLocationsRoot(): string {
-  return path.join(app.getPath('appData'), 'Cindy', 'shared-worktree-recycle-journals');
+  return path.join(app.getPath('appData'), 'Emma', 'shared-worktree-recycle-journals');
 }
 
 /** Keep publishing locators for older clients that may still borrow across profiles. */

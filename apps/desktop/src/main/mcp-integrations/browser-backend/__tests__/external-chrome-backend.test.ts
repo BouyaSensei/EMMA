@@ -58,7 +58,7 @@ function createHarness(initialRunning = false) {
     },
     closeAdoptedBrowser,
     isBrowserGone,
-    managedUserDataDir: '/managed/browser/Cindy/user-data',
+    managedUserDataDir: '/managed/browser/Emma/user-data',
   });
   return {
     backend,
@@ -127,7 +127,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
     expect(initial.call.mock.calls.map(([req]) => req.action)).toEqual(['status', 'status']);
     expect(closeAdoptedBrowser).toHaveBeenCalledWith(
       'http://127.0.0.1:18800',
-      '/managed/browser/Cindy/user-data',
+      '/managed/browser/Emma/user-data',
     );
     expect(created).toHaveLength(1);
     expect(created[0].route).toEqual({ mode: 'direct' });
@@ -147,7 +147,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       createRuntime: () => fakeRuntime(),
       closeAdoptedBrowser,
       isBrowserGone: vi.fn(async () => true),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
 
     const started = await backend.call({ action: 'start' });
@@ -376,7 +376,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       },
       closeAdoptedBrowser,
       isBrowserGone: vi.fn(async () => true),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
 
     // Cold start: no explicit `start` and no prior verified stop — `open`
@@ -420,7 +420,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       createRuntime: () => fakeRuntime(),
       closeAdoptedBrowser,
       isBrowserGone: vi.fn(async () => true),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
 
     await backend.call({ action: 'start' });
@@ -463,7 +463,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       },
       closeAdoptedBrowser,
       isBrowserGone: vi.fn(async () => true),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
 
     await expect(backend.call({ action: 'snapshot' })).resolves.toMatchObject({ ok: false });
@@ -505,7 +505,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       createProxyAuth: () => auth,
       isBrowserGone,
       closeAdoptedBrowser,
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
 
     await backend.call({
@@ -560,7 +560,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       // process as alive-but-unreadable.
       isBrowserGone: vi.fn(async () => !launched),
       closeAdoptedBrowser: vi.fn(async () => false),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
     await backend.call({
       action: 'start',
@@ -618,7 +618,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       createProxyAuth: () => ({ start: vi.fn(async () => {}), dispose: vi.fn(async () => {}) }),
       isBrowserGone: vi.fn(async () => !launched),
       closeAdoptedBrowser: vi.fn(async () => false),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
     await backend.call({ action: 'start', proxyServer: 'http://proxy.test:8080' });
 
@@ -676,7 +676,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       },
       isBrowserGone: vi.fn(async () => false),
       closeAdoptedBrowser: vi.fn(async () => false),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
     await backend.call({ action: 'start', proxyServer: 'http://proxy.test:8080' });
 
@@ -736,7 +736,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       createRuntime: () => fakeRuntime(),
       closeAdoptedBrowser,
       isBrowserGone: vi.fn(async () => true),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
 
     const stopped = await backend.call({ action: 'stop' });
@@ -764,7 +764,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
     const backend = new ExternalChromeBackend(runtime, fakeLogger(), {
       createRuntime: () => fakeRuntime(),
       closeAdoptedBrowser: vi.fn(async () => false),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
       isBrowserGone: vi.fn(async () => true),
     });
 
@@ -794,7 +794,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       createRuntime: () => fakeRuntime(),
       closeAdoptedBrowser,
       terminateManagedPortOwner,
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
       isBrowserGone: vi.fn(async () => false),
       cdpHttpUrl: 'http://127.0.0.1:18800',
     });
@@ -808,7 +808,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
     expect(terminateManagedPortOwner).toHaveBeenCalledWith({
       cdpHttpUrl: 'http://127.0.0.1:18800',
       cdpPort: 18800,
-      userDataDir: '/managed/browser/Cindy/user-data',
+      userDataDir: '/managed/browser/Emma/user-data',
     });
     // A verified stop must release the block, otherwise the next start is
     // refused with "route is unknown after a failed restart".
@@ -834,7 +834,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       },
       closeAdoptedBrowser,
       terminateManagedPortOwner,
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
       isBrowserGone: vi.fn(async () => false),
       cdpHttpUrl: 'http://127.0.0.1:18800',
     });
@@ -860,7 +860,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       createRuntime: () => fakeRuntime(),
       closeAdoptedBrowser: vi.fn(async () => false),
       terminateManagedPortOwner: vi.fn(async () => false),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
       isBrowserGone: vi.fn(async () => false),
       cdpHttpUrl: 'http://127.0.0.1:18800',
     });
@@ -924,7 +924,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       createProxyAuth: () => auth,
       isBrowserGone: vi.fn(async () => !launched), // alive after launch
       closeAdoptedBrowser: vi.fn(async () => false),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
     await backend.call({
       action: 'start',
@@ -963,7 +963,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       // Gone before the first start (so it launches), alive after.
       isBrowserGone: vi.fn(async () => created.length === 0),
       closeAdoptedBrowser: vi.fn(async () => true),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
     const start = {
       action: 'start' as const,
@@ -1001,7 +1001,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       createRuntime: () => runtime,
       isBrowserGone: vi.fn(async () => false), // alive, route unknown
       closeAdoptedBrowser: vi.fn(async () => true),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
 
     const status = await backend.call({ action: 'status' });
@@ -1028,7 +1028,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       createRuntime: () => fakeRuntime(),
       isBrowserGone: vi.fn(async () => false), // alive
       closeAdoptedBrowser: vi.fn(async () => true),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
 
     const navigated = await backend.call({ action: 'open', url: 'https://example.test/' } as BrowserControlRequest);
@@ -1064,7 +1064,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       createRuntime: () => runtime,
       isBrowserGone: vi.fn(async () => !running),
       closeAdoptedBrowser: vi.fn(async () => true),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
 
     await backend.call({ action: 'open', url: 'https://example.test/' } as BrowserControlRequest);
@@ -1236,7 +1236,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       createProxyAuth: () => auth,
       isBrowserGone: vi.fn(async () => !launched), // still alive after launch
       closeAdoptedBrowser: vi.fn(async () => false),
-      managedUserDataDir: '/managed/browser/Cindy/user-data',
+      managedUserDataDir: '/managed/browser/Emma/user-data',
     });
     await backend.call({
       action: 'start',
@@ -1443,9 +1443,9 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
     expect(auth.dispose).not.toHaveBeenCalled();
   });
 
-  it('attaches the proxy guard to the live Cindy-real identity, not the isolated default', async () => {
+  it('attaches the proxy guard to the live Emma-real identity, not the isolated default', async () => {
     let cdpHttpUrl = 'http://127.0.0.1:18800';
-    let managedUserDataDir = '/managed/browser/Cindy/user-data';
+    let managedUserDataDir = '/managed/browser/Emma/user-data';
     const auth = { start: vi.fn(async () => {}), dispose: vi.fn(async () => {}) };
     const closeAdoptedBrowser = vi.fn(async () => true);
     const backend = new ExternalChromeBackend(fakeRuntime(), fakeLogger(), {
@@ -1459,7 +1459,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
 
     // wrapRuntimeWithRealProfile relocates off 18800 after construction.
     cdpHttpUrl = 'http://127.0.0.1:18801';
-    managedUserDataDir = '/managed/browser/Cindy-real/user-data';
+    managedUserDataDir = '/managed/browser/Emma-real/user-data';
     await backend.call({
       action: 'start',
       proxyServer: 'http://proxy-a.test:8080',
@@ -1469,7 +1469,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
     expect(closeAdoptedBrowser).not.toHaveBeenCalled();
   });
 
-  it('closes an inherited process using the live Cindy-real identity', async () => {
+  it('closes an inherited process using the live Emma-real identity', async () => {
     const closeAdoptedBrowser = vi.fn(async () => true);
     const backend = new ExternalChromeBackend(fakeRuntime(true), fakeLogger(), {
       createRuntime: () => fakeRuntime(),
@@ -1477,7 +1477,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
       closeAdoptedBrowser,
       isBrowserGone: vi.fn(async () => false),
       cdpHttpUrl: () => 'http://127.0.0.1:18801',
-      managedUserDataDir: () => '/managed/browser/Cindy-real/user-data',
+      managedUserDataDir: () => '/managed/browser/Emma-real/user-data',
     });
 
     await backend.call({
@@ -1487,7 +1487,7 @@ describe('ExternalChromeBackend proxy lifecycle', () => {
 
     expect(closeAdoptedBrowser).toHaveBeenCalledWith(
       'http://127.0.0.1:18801',
-      '/managed/browser/Cindy-real/user-data',
+      '/managed/browser/Emma-real/user-data',
     );
   });
 });

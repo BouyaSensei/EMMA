@@ -125,7 +125,7 @@ describe('BRAND_IDENTITY invariants', () => {
 });
 
 describe('区域解析与派生', () => {
-  it('resolveCindyRegion:空值 → 默认 global;合法值归一化;非法值抛错', () => {
+  it('resolveEmmaRegion:空值 → 默认 global;合法值归一化;非法值抛错', () => {
     expect(resolveCindyRegion(undefined)).toBe('global');
     expect(resolveCindyRegion(null)).toBe('global');
     expect(resolveCindyRegion('')).toBe('global');
@@ -133,7 +133,7 @@ describe('区域解析与派生', () => {
     expect(resolveCindyRegion('cn')).toBe('cn');
     expect(resolveCindyRegion('global')).toBe('global');
     expect(resolveCindyRegion('GLOBAL')).toBe('global');
-    expect(() => resolveCindyRegion('us')).toThrow(/Invalid Cindy region/);
+    expect(() => resolveCindyRegion('us')).toThrow(/Invalid (?:Emma|Cindy) region/);
   });
 
   it('brandAppId / brandBundleIdPrefix 按区域取值,默认 global', () => {

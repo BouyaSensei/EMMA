@@ -20,7 +20,7 @@ function ghost(
     secrets: [
       {
         key: 'cindy_identity',
-        label: 'Cindy Enterprise Identity',
+        label: 'Emma Enterprise Identity',
         source: 'oidc-token',
         inject: {
           header: 'Authorization',

@@ -229,8 +229,8 @@ export async function captureWorktreeContent(
     const tree = contents.trim();
     // Retain both trees through the snapshot ref, including staged-only bytes.
     const identity = {
-      GIT_AUTHOR_NAME: 'Cindy', GIT_AUTHOR_EMAIL: 'worktree@localhost',
-      GIT_COMMITTER_NAME: 'Cindy', GIT_COMMITTER_EMAIL: 'worktree@localhost',
+      GIT_AUTHOR_NAME: 'Emma', GIT_AUTHOR_EMAIL: 'worktree@localhost',
+      GIT_COMMITTER_NAME: 'Emma', GIT_COMMITTER_EMAIL: 'worktree@localhost',
     };
     const commitOptions = { extraEnv: identity };
     const { stdout: indexCommit } = await gitExec(

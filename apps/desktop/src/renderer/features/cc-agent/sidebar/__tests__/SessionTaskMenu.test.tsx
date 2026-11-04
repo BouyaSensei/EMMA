@@ -24,7 +24,7 @@ const state = vi.hoisted(() => ({
 }));
 vi.mock('../sessionNotificationMute', () => ({ setSessionNotificationsMuted: state.setMuted }));
 vi.mock('react-i18next', () => ({
-  useTranslation: () => ({ t: (key: string, values?: { title: string; link: string }) => key === 'sharedTask.invitationMessage' ? `Join ${values?.title}\n${values?.link}\nOpen Cindy on mobile.` : key.startsWith('taskMigration.') ? key : key.split('.').at(-1) }),
+  useTranslation: () => ({ t: (key: string, values?: { title: string; link: string }) => key === 'sharedTask.invitationMessage' ? `Join ${values?.title}\n${values?.link}\nOpen Emma on mobile.` : key.startsWith('taskMigration.') ? key : key.split('.').at(-1) }),
 }));
 vi.mock('@/features/device-link/remoteProjectsStore', () => ({
   remoteProjectsStore: { removeDevice: state.removeDevice, getDeviceName: () => undefined },
@@ -369,7 +369,7 @@ it('copies the public link and joining instructions from the quick sharing subme
     : { available: true, detail: { sharedTaskId: 'share', status: 'active', title: 'Shared task' } });
   render(<Harness />); openMenu(); await openSharingSubmenu();
   fireEvent.click(screen.getByRole('menuitem', { name: 'invite' }));
-  await waitFor(() => expect(state.writeClipboard).toHaveBeenCalledWith(`Join Shared task\n${invitationLink}\nOpen Cindy on mobile.`));
+  await waitFor(() => expect(state.writeClipboard).toHaveBeenCalledWith(`Join Shared task\n${invitationLink}\nOpen Emma on mobile.`));
 });
 
 it('reports clipboard failure separately and allows retrying', async () => {

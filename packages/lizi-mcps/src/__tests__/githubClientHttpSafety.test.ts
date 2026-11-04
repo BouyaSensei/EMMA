@@ -31,7 +31,7 @@ afterEach(() => {
 
 // Unit: GitHub requires User-Agent to identify the calling application. Cover
 // REST, GraphQL and download redirects, which have separate request builders.
-it('identifies Cindy on each GitHub API transport without changing authentication', async () => {
+it('identifies Emma on each GitHub API transport without changing authentication', async () => {
   const sent: Headers[] = [];
   const fetchImpl: typeof fetch = async (url, init) => {
     sent.push(new Headers(init?.headers));
@@ -45,7 +45,7 @@ it('identifies Cindy on each GitHub API transport without changing authenticatio
   await client.getArtifactDownloadUrl(1);
   expect(sent).toHaveLength(3);
   for (const headers of sent) {
-    expect(headers.get('user-agent')).toBe('Cindy (+https://cindy.app)');
+    expect(headers.get('user-agent')).toBe('Emma (+https://cindy.app)');
     expect(headers.get('authorization')).toBe('Bearer fixture-token');
   }
 });

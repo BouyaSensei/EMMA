@@ -116,7 +116,7 @@ function serverCatalog(args: {
   } as Catalog;
 }
 
-describe('Cindy Server Pi Gateway catalog authority', () => {
+describe('Emma Server Pi Gateway catalog authority', () => {
   it('uses a registry-linked server preset before any exact namespaced alternative', () => {
     const catalog = serverCatalog({
       gatewayModelId: 'moonshot/kimi-k3',
@@ -161,7 +161,7 @@ describe('Cindy Server Pi Gateway catalog authority', () => {
     expect(resolveCatalogPiGatewayModelApi(catalog, 'same-id')).toBeUndefined();
   });
 
-  it('fails closed when Cindy Server retires an exact XD Registry identity', () => {
+  it('fails closed when Emma Server retires an exact XD Registry identity', () => {
     const catalog = serverCatalog({
       gatewayModelId: 'moonshot/kimi-k3',
       routes: [{ providerId: 'moonshot-kimi-global', modelId: 'kimi-k3' }],
@@ -239,7 +239,7 @@ describe('Pi Gateway version-matched local supplement catalog', () => {
     expect(resolveBundledPiGatewayModelProfile(modelId)).toMatchObject({ api });
   });
 
-  it('can supplement every current Gateway identity when Cindy Server has no exact declaration', () => {
+  it('can supplement every current Gateway identity when Emma Server has no exact declaration', () => {
     const resolved = Object.entries(currentGatewayModelsByApi).flatMap(([api, modelIds]) =>
       modelIds.map((modelId) => ({
         modelId,

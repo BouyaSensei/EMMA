@@ -125,7 +125,7 @@ describe('native provider auth legacy binding', () => {
     });
   });
 
-  it('migrates an old Cindy xAI token as explicit provider OAuth, never CLI inheritance', () => {
+  it('migrates an old Emma xAI token as explicit provider OAuth, never CLI inheritance', () => {
     migrateLegacyNativeProviderAuthBindings('owner-a', { xai: true });
     expect(getNativeProviderAuthSource('xai')).toBe('explicit-provider-oauth');
     expect(isNativeProviderAuthSelfAuthorized('xai')).toBe(true);
@@ -879,7 +879,7 @@ describe('凭证来路(selfAuthorized)—— 显式授权 vs 自动继承', () =
     expect(isNativeProviderAuthSelfAuthorized('openai')).toBe(false);
   });
 
-  it('登出清掉来路 —— 之后残留凭证对 Cindy 重新是「外部已有的」', () => {
+  it('登出清掉来路 —— 之后残留凭证对 Emma 重新是「外部已有的」', () => {
     bindNativeProviderAuth('anthropic');
     expect(isNativeProviderAuthSelfAuthorized('anthropic')).toBe(true);
 

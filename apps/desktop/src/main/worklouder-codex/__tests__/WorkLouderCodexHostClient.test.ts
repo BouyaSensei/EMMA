@@ -84,7 +84,7 @@ describe('WorkLouderCodexHostClient', () => {
       vi.useRealTimers();
     }
   });
-  it('does not load the optional native SDK for an idle Cindy', () => {
+  it('does not load the optional native SDK for an idle Emma', () => {
     const resolveSdk = vi.fn(() => null);
     const client = new WorkLouderCodexHostClient({
       resolveSdk,

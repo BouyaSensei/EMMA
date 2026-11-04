@@ -135,7 +135,7 @@ describe('RsbWebviewBackend — bundled recipe sessions', () => {
       bridge: { getHostWebContents: () => null, logger: logger() }, logger: logger(),
     });
     try {
-      const begin = await backend.call({ action: 'recipeCommand', targetId: 't', recipeCommand: { method: 'Cindy.begin' } });
+      const begin = await backend.call({ action: 'recipeCommand', targetId: 't', recipeCommand: { method: 'Emma.begin' } });
       expect(begin.ok).toBe(true);
       const sessionId = (begin.data as { sessionId: string }).sessionId;
       const request = { action: 'recipeCommand' as const, targetId: 't', recipeCommand: { method: 'DOM.getDocument', sessionId } };
@@ -145,7 +145,7 @@ describe('RsbWebviewBackend — bundled recipe sessions', () => {
       expect(send.mock.calls.filter(([method]) => method === 'DOM.getDocument')).toHaveLength(1);
       activeSession = 'owner';
       const before = listeners.size;
-      expect((await backend.call({ ...request, recipeCommand: { method: 'Cindy.end', sessionId } })).ok).toBe(true);
+      expect((await backend.call({ ...request, recipeCommand: { method: 'Emma.end', sessionId } })).ok).toBe(true);
       expect(listeners.size).toBeLessThan(before);
     } finally { await backend.dispose(); }
   });

@@ -98,7 +98,7 @@ it('maps a negative-origin rotated monitor without sending clicks to its neighbo
 it('reads physical modes while phone-fit hides the source from the active layout', async () => {
   const virtual = {
     ...monitor,
-    name: 'CindyRemote-1234567812345678',
+    name: 'EmmaRemote-1234567812345678',
     width: 800,
     height: 600,
     scale: 1,

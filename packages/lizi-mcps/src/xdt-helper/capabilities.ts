@@ -40,7 +40,7 @@ export const CAPABILITIES: readonly CapabilityEntry[] = [
     oneLiner: 'Grok 有浏览器跳转和设备短码两种登录方式；agent 可发授权页与短码并查询完成状态。',
     detail: [
       '浏览器跳转登录在「设置 → 模型供应商」的 Grok 连接中可用；仅伙伴对话可调用 cindy 网关的 connect_account({kind:"host", id:"grok"}) 弹出连接卡，普通任务请使用设置页或下述设备码登录。',
-      '设备码登录适合远程协助：agent 通过 cindy_helper 的 ask_owner（kind="connect"，service="grok"）取得 xAI 授权页和短码，发给用户；用户在授权页输入短码并确认，Cindy 在本机自动轮询并保存凭证。',
+      '设备码登录适合远程协助：agent 通过 cindy_helper 的 ask_owner（kind="connect"，service="grok"）取得 xAI 授权页和短码，发给用户；用户在授权页输入短码并确认，Emma 在本机自动轮询并保存凭证。',
       'agent 可用 get_grok_login_status 查询连接状态，用户要求停止时可用 cancel_grok_device_login。长期 access token 和 refresh token 不会出现在工具返回值或聊天里；不要要求用户粘贴长期凭证。',
     ].join(' '),
   },
@@ -49,7 +49,7 @@ export const CAPABILITIES: readonly CapabilityEntry[] = [
     title: `${BRAND_NAME} 自身信息(产品身份 / 开源仓库 / 源码位置)`,
     oneLiner: `${BRAND_NAME} 是什么、谁做的、开不开源、源码在哪、agent 跑在哪、版本号怎么查, 以及模型接入(官方服务 / 复用 Coding Plan / 自带 API key / 本地模型)与分区域官网下载定价。`,
     detail: [
-      `【是什么】${BRAND_NAME} 是 XD Inc. 出品的开源 AI 助手(open-source AI assistant), 以桌面 / 移动客户端形态交付, 源码 https://github.com/makecindy/cindy (Apache-2.0)。官网分区域: 中国大陆 https://cindy.cn, 国际版 https://cindy.app —— 给下载 / 定价链接前先确认用户所在区域, 不要一律给国际版。`,
+      `【是什么】${BRAND_NAME} 是开源 AI 助手(open-source AI assistant), Cindy 的开源分支, 以桌面 / 移动客户端形态交付, 源码 https://github.com/BouyaSensei/EMMA (Apache-2.0)。官网: 国际版 https://emma.app,大陆版 https://emma.cn —— 给下载 / 定价链接前先确认用户所在区域。`,
       `【身份归本条, 执行位置不归】问"你是谁 / 你是什么"以本条为准, 不要用训练数据猜, 也不要凭工作目录路径或工具名反推。但 ${BRAND_NAME} 只是编排方(管会话、工具、上下文与 memory; 底层 harness 是 Claude Code 或 Codex, 可中途切换且上下文连续), 不代表代码在哪执行: agent 进程与 workdir 可能在本机, 也可能在 SSH 远程工作区的远端主机(文件与进程都在远端), 或经设备互联隧道驱动的被控桌面端。问"你跑在哪 / 文件在哪台机器"时以当前会话实际工作区为准, 拿不准就说明, 不要断言。`,
       `【源码范围】该仓库是客户端本体(desktop、mobile 及共享 packages 的 pnpm monorepo), 服务端不在其中也不开源。安装版不携带源码, agent 侧无法推断用户是否 clone 过、clone 在哪: 要读改源码就让用户给路径或用工程模式打开, 不要假设固定路径, 更不要因为工作目录里出现品牌名就断定当前目录是源码仓库。`,
       `【查源码排障】帮助文档(get_capabilities scope=help)没写到、或要确认 ${BRAND_NAME} 某个入口或行为的实际实现时, 可以只读查看 GitHub 上与用户版本对应的源码: 每个发布版本都有 tag(如 v0.1.118-beta; 当前版本号用 check_app_update 的 currentVersion 取), 用 gh 或网页按 tag 读取, 不要拿最新 main 对照旧版本。回答时说明结论来自源码; 服务端行为不在仓库里, 查不到就直说。`,
@@ -185,7 +185,7 @@ export const CAPABILITIES: readonly CapabilityEntry[] = [
       '整理出对维护者有用的标题与正文,默认概括并脱敏;功能建议不写源码级方案。对话里的图不会传到 GitHub,不要声称截图已附。',
       '整理出结构化标题与正文后调用 submit_github_issue(cindy_helper 的 feedback 类目);用户明确同意公开相关日志时传 include_related_logs=true,系统自动生成独立的「相关日志」模块,并通过日志来源/字段白名单、脱敏和长度限制。',
       '提交前 App 内弹系统确认卡片,用户可编辑标题/正文、确认或取消;',
-      '不需要安装或配置 GitHub 插件:默认由 Cindy 官方 Bot 提交;当前已配置且可用的 GitHub 账号只作为确认卡里的额外身份选项。',
+      '不需要安装或配置 GitHub 插件:默认由 Emma 官方 Bot 提交;当前已配置且可用的 GitHub 账号只作为确认卡里的额外身份选项。',
       `客户端版本 / OS / Harness / 模型 ID / 界面语言由系统作为「提交时的任务环境」自动附加(OS 来自提交客户端本机,Harness / 模型是当前任务快照,不一定是出问题的那个)。用户说明的实际故障环境按需写进正文。最终创建到 ${BRAND_NAME} 官方 GitHub 仓库。创建后会返回 issue 链接,并可继续协助用户从源码复现、修复 Bug、开发功能和准备 PR。`,
     ].join(' '),
   },
@@ -232,10 +232,10 @@ export const CAPABILITIES: readonly CapabilityEntry[] = [
   {
     key: 'memory-system',
     title: '记忆系统',
-    oneLiner: '「Cindy」记忆(按工作目录跨 Claude Code / Codex / Pi 共享)或各 Agent 原生记忆二选一,agent 可经 cindy_memory 工具读写。',
+    oneLiner: '「Emma」记忆(按工作目录跨 Claude Code / Codex / Pi 共享)或各 Agent 原生记忆二选一,agent 可经 cindy_memory 工具读写。',
     detail: [
-      '入口:设置 →「个性化」→「记忆」。「Cindy」总开关(默认开)启用按工作目录共享的记忆,同一目录下 Claude Code、Codex 与 Pi 的任务共用;开着时 Claude Code / Codex 原生记忆开关置灰,关掉后各自用原生记忆。「Pi」选项需要 Cindy 记忆开启,会把长任务的压缩摘要存进 Cindy 记忆。各项可单独重置,重置不可撤销。改设置一般在新的 Agent 会话生效。',
-      'Cindy 记忆是本机 user-data 下的 markdown 条目(frontmatter + 正文,自动维护 MEMORY.md 索引),不在代码仓库里,换电脑不会迁移。',
+      '入口:设置 →「个性化」→「记忆」。「Emma」总开关(默认开)启用按工作目录共享的记忆,同一目录下 Claude Code、Codex 与 Pi 的任务共用;开着时 Claude Code / Codex 原生记忆开关置灰,关掉后各自用原生记忆。「Pi」选项需要 Emma 记忆开启,会把长任务的压缩摘要存进 Emma 记忆。各项可单独重置,重置不可撤销。改设置一般在新的 Agent 会话生效。',
+      'Emma 记忆是本机 user-data 下的 markdown 条目(frontmatter + 正文,自动维护 MEMORY.md 索引),不在代码仓库里,换电脑不会迁移。',
       'agent 通过 cindy_memory 工具操作:memory_list / read / search / write / delete,以及 memory_consolidate(瘦身)、memory_review(归纳)、session_search(跨历史任务全文搜索)。',
       '系统提示自动注入记忆使用规则,模型主动决定何时存何时取。记忆不是任务内的对话记录,也不是「个性化」里的自定义指令。',
     ].join(' '),
@@ -253,7 +253,7 @@ export const CAPABILITIES: readonly CapabilityEntry[] = [
   {
     key: 'feishu-integration',
     title: '飞书集成(基础接入)',
-    oneLiner: '飞书 / Lark 机器人(私聊与群聊使用 Cindy、任务完成通知);飞书数据读写由企业档 xd-feishu 插件经 ghost 网关提供。',
+    oneLiner: '飞书 / Lark 机器人(私聊与群聊使用 Emma、任务完成通知);飞书数据读写由企业档 xd-feishu 插件经 ghost 网关提供。',
     detail: [
       `飞书已不是 ${BRAND_NAME} 的登录方式(用 ${BRAND_NAME} 账号登录)。机器人在 设置 →「IM 机器人」→「个人」→「飞书 / Lark 机器人」配置:填自建应用的 App ID / App Secret 绑定,再私聊机器人一次完成主人绑定;可开「任务完成通知」(窗口失焦时私聊推送)与上下线「消息通知」。群里 @ 机器人会开话题回复,读群上下文需在飞书开放平台额外开通群消息权限。`,
       '出站通道 cindy_feishu_bot:普通桌面任务里经其 list_tools / call_tool 调 send_message_to_user / send_file_to_user,发到机器人主人的私聊(用户明确要求「发飞书给我」时才用);飞书轮次内另有作用域钉在当前对话的 send_text / send_markdown / send_file / 表情 / get_chat / get_message / 置顶 / call_api 等直通工具。',
@@ -328,9 +328,9 @@ export const CAPABILITIES: readonly CapabilityEntry[] = [
   {
     key: 'im-channels',
     title: 'IM 机器人渠道',
-    oneLiner: '在 Slack、Telegram、X、个人微信、企业微信、飞书 / Lark、钉钉、Discord 里使用 Cindy;设置 →「IM 机器人」配置。',
+    oneLiner: '在 Slack、Telegram、X、个人微信、企业微信、飞书 / Lark、钉钉、Discord 里使用 Emma;设置 →「IM 机器人」配置。',
     detail: [
-      '设置 →「IM 机器人」分两区:「官方」由 Cindy 提供并维护(Slack、Telegram、X 等卡片),无需自建机器人或凭证,按引导连接;「个人」用用户自己的账号或机器人:个人微信(扫码)、企业微信智能机器人、飞书 / Lark 机器人、钉钉机器人、Discord 机器人、Telegram 机器人,每个渠道的凭证、Agent / 模型与权限设置独立保存。可见渠道可能随账号与构建不同,以设置页实际显示为准。',
+      '设置 →「IM 机器人」分两区:「官方」由 Emma 提供并维护(Slack、Telegram、X 等卡片),无需自建机器人或凭证,按引导连接;「个人」用用户自己的账号或机器人:个人微信(扫码)、企业微信智能机器人、飞书 / Lark 机器人、钉钉机器人、Discord 机器人、Telegram 机器人,每个渠道的凭证、Agent / 模型与权限设置独立保存。可见渠道可能随账号与构建不同,以设置页实际显示为准。',
       '在 IM 里直接发消息即进入对应任务;常用命令有 /new、/stop、/model、/permission、/settings、/ctr(接管桌面任务,见 mobile-takeover)、/exctr、/help,各渠道支持程度不同。',
       '官方渠道(Slack / Telegram / X)的任务里,文字回复直接输出即可自动回到当前对话;发文件在最终回复里写 [文件名](xdt-file:///绝对路径)(文件须在当前工作目录内),图片直接引用受管地址。',
     ].join(' '),
@@ -340,7 +340,7 @@ export const CAPABILITIES: readonly CapabilityEntry[] = [
     title: '远程连接(手机 / 其他电脑控制,SSH 远端主机)',
     oneLiner: '同账号的手机与其他电脑可远程操控这台桌面上的任务;也可经 SSH 让 agent 在远端主机上运行。',
     detail: [
-      '入口:设置 →「远程连接」。同一 Cindy 账号登录的设备自动出现,无需手动配对;每台设备有「我控制它」与「允许它控制本机」两个独立开关,本机另有允许被控制的总开关。手机 App 只做控制端,任务与数据都在被控电脑上。',
+      '入口:设置 →「远程连接」。同一 Emma 账号登录的设备自动出现,无需手动配对;每台设备有「我控制它」与「允许它控制本机」两个独立开关,本机另有允许被控制的总开关。手机 App 只做控制端,任务与数据都在被控电脑上。',
       '控制端可查看与推进被控电脑上的任务(发消息、审批、切模型等),账号密钥与全局设置等不开放给控制端。主列表标题「全部任务 ▾」可切换只看本机或某台远程电脑。',
       'SSH 远端主机:在同一页添加主机(也读取 ~/.ssh/config),可在远端安装 Claude Code / Codex / Pi(未安装时首条消息自动安装)并新建远端任务,agent 进程与文件都在远端。',
       'agent 侧跨电脑能力(查任务、给另一台电脑的任务发消息、管定时任务等)见 self-management。',

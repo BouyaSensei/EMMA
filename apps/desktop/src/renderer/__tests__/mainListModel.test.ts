@@ -92,7 +92,7 @@ const NO_PRIORITY = {
   attentionSessionIds: new Set<string>(),
 };
 
-describe('Cindy Make sidebar group', () => {
+describe('Emma Make sidebar group', () => {
   it('preserves empty saved projects and ordinary tasks in mixed projects while disabled', () => {
     feature.enabled = false;
     const updatedAt = '2026-10-12T00:00:00Z';
@@ -146,7 +146,7 @@ describe('Cindy Make sidebar group', () => {
       const first = make('first', '2026-09-17T01:00:00Z');
       const second = make('second', '2026-09-17T02:00:00Z');
       const waiting = make('waiting', '2026-09-17T03:00:00Z', { workingDir: null });
-      const ordinary = session({ updatedAt: '2026-09-17T00:00:00Z', title: 'Cindy Make' });
+      const ordinary = session({ updatedAt: '2026-09-17T00:00:00Z', title: 'Emma Make' });
       const entries = buildMainListEntries({
         projects: [project('first', [first]), project('second', [second])],
         dialogues: [ordinary],
@@ -156,7 +156,7 @@ describe('Cindy Make sidebar group', () => {
         sortBy: 'recency',
         manualProjectOrder: [],
       });
-      expect(labels(entries)).toEqual(['cindy-make-group', 's:Cindy Make']);
+      expect(labels(entries)).toEqual(['cindy-make-group', 's:Emma Make']);
       expect(getMainListEntrySessions(entries[0]).map((value) => value.id)).toEqual([
         'waiting',
         'second',
@@ -209,7 +209,7 @@ describe('Cindy Make sidebar group', () => {
   });
 
   it.each(['recency', 'created', 'priority'] as const)(
-    'keeps idle Cindy Make first under %s, custom project order and device grouping',
+    'keeps idle Emma Make first under %s, custom project order and device grouping',
     (sortBy) => {
       const local = make('local', '2026-09-17T01:00:00Z');
       const remote = make('remote', '2026-09-17T01:00:00Z', { deviceLinkDeviceId: 'remote-device' });
@@ -249,7 +249,7 @@ describe('Cindy Make sidebar group', () => {
     },
   );
 
-  it('separates local and remote Cindy Make roots by device', () => {
+  it('separates local and remote Emma Make roots by device', () => {
     const local = make('local', '2026-09-17T01:00:00Z');
     const remote = make('remote', '2026-09-17T02:00:00Z', { deviceLinkDeviceId: 'remote-device' });
     const sections = splitEntriesByDevice(
@@ -340,7 +340,7 @@ describe('buildMainListEntries — 混排(recency)', () => {
     });
     const scheduleInfo = {
       scheduleId: 'schedule-cindy-check',
-      scheduleName: '自动检查 Cindy',
+      scheduleName: '自动检查 Emma',
       unreadRunIds: [],
       hasUnreadRun: false,
       hasUnreadFailedRun: false,
@@ -361,7 +361,7 @@ describe('buildMainListEntries — 混排(recency)', () => {
       ]),
     });
 
-    expect(labels(entries)).toEqual(['auto:自动检查 Cindy', 's:manual']);
+    expect(labels(entries)).toEqual(['auto:自动检查 Emma', 's:manual']);
     const automationGroup = entries[0];
     expect(automationGroup.kind).toBe('automation-group');
     if (automationGroup.kind !== 'automation-group') throw new Error('expected automation group');
@@ -388,7 +388,7 @@ describe('buildMainListEntries — 混排(recency)', () => {
     });
     const scheduleInfo = {
       scheduleId: 'schedule-cindy-check',
-      scheduleName: '自动检查 Cindy',
+      scheduleName: '自动检查 Emma',
       unreadRunIds: [],
       hasUnreadRun: false,
       hasUnreadFailedRun: false,
@@ -408,7 +408,7 @@ describe('buildMainListEntries — 混排(recency)', () => {
       ]),
     });
 
-    expect(labels(entries)).toEqual(['auto:自动检查 Cindy']);
+    expect(labels(entries)).toEqual(['auto:自动检查 Emma']);
     const automationGroup = entries[0];
     expect(automationGroup.kind).toBe('automation-group');
     if (automationGroup.kind !== 'automation-group') throw new Error('expected automation group');
@@ -439,7 +439,7 @@ describe('buildMainListEntries — 混排(recency)', () => {
     });
     const scheduleInfo = {
       scheduleId: 'schedule-cindy-check',
-      scheduleName: '自动检查 Cindy',
+      scheduleName: '自动检查 Emma',
       unreadRunIds: [],
       hasUnreadRun: false,
       hasUnreadFailedRun: false,
@@ -459,7 +459,7 @@ describe('buildMainListEntries — 混排(recency)', () => {
       ]),
     });
 
-    expect(labels(entries)).toEqual(['auto:自动检查 Cindy', 'dlg-group']);
+    expect(labels(entries)).toEqual(['auto:自动检查 Emma', 'dlg-group']);
     const automationGroup = entries[0];
     expect(automationGroup.kind).toBe('automation-group');
     if (automationGroup.kind !== 'automation-group') throw new Error('expected automation group');

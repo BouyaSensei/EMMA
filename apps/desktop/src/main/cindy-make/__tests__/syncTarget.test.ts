@@ -31,7 +31,7 @@ describe('task preparation and builds', () => {
 });
 
 describe('official version Sync moves to', () => {
-  it('follows the latest release while its database migrations match the installed Cindy', async () => {
+  it('follows the latest release while its database migrations match the installed Emma', async () => {
     await expect(pickSyncTarget(deps())).resolves.toEqual({ ref: 'v1.3.0', commit: LATEST });
   });
 

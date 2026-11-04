@@ -337,7 +337,7 @@ describe('Offline device header names', () => {
   });
 });
 
-describe('Cindy Make sidebar entry', () => {
+describe('Emma Make sidebar entry', () => {
   it.each([false, true])('hides the label, old tasks and creation entry with device grouping %s when disabled', (groupDevice) => {
     feature.enabled = false;
     render(<ProjectsSection {...makeProps(groupDevice, false)} />);

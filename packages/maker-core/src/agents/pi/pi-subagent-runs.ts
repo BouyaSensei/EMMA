@@ -2456,7 +2456,7 @@ async function acquirePiSubagentResumeClaim(
       ...(holder.hostStartTimeSec !== undefined ? { startTimeSec: holder.hostStartTimeSec } : {}),
     })) {
       throw new PiSubagentResumeClaimedError(
-        'Another running Cindy instance is already resuming this Subagent generation.',
+        'Another running Emma instance is already resuming this Subagent generation.',
       );
     }
     if (attempt === 0) {
@@ -2807,7 +2807,7 @@ async function resumeClaimedPiSubagentRun(
     });
     const agentHome = piSubagentAgentHomeFromRunRoot(root);
     if (isPiSubagentLaunchFenceActive(agentHome, process.pid)) {
-      throw new Error('Cindy is restarting for an update; retry this resume shortly.');
+      throw new Error('Emma is restarting for an update; retry this resume shortly.');
     }
     if (isPiSubagentDeletedTombstonePresent(agentHome, path.basename(root))) {
       throw new Error('The parent task was deleted; this resume will not start.');
@@ -2837,7 +2837,7 @@ async function resumeClaimedPiSubagentRun(
     // before spawn so a deleted parent never starts a runner. Refusal falls
     // into the rollback below.
     if (isPiSubagentLaunchFenceActive(agentHome, process.pid)) {
-      throw new Error('Cindy is restarting for an update; retry this resume shortly.');
+      throw new Error('Emma is restarting for an update; retry this resume shortly.');
     }
     if (isPiSubagentDeletedTombstonePresent(agentHome, path.basename(root))) {
       throw new Error('The parent task was deleted; this resume will not start.');
@@ -2878,7 +2878,7 @@ export async function resumePiSubagentRun(
   // directory; the fence lives one level up, next to every session's runs.
   const agentHome = piSubagentAgentHomeFromRunRoot(root);
   if (isPiSubagentLaunchFenceActive(agentHome, process.pid)) {
-    throw new Error('Cindy is restarting for an update; retry this resume shortly.');
+    throw new Error('Emma is restarting for an update; retry this resume shortly.');
   }
   if (isPiSubagentDeletedTombstonePresent(agentHome, path.basename(root))) {
     throw new Error('The parent task was deleted; this resume will not start.');
@@ -3364,7 +3364,7 @@ async function readRecoveryProcessInventory(deadline: number): Promise<string[] 
         "Add-Type -TypeDefinition @'",
         'using System;',
         'using System.Runtime.InteropServices;',
-        'public static class CindyRecoveryProcessProtection {',
+        'public static class EmmaRecoveryProcessProtection {',
         '  [DllImport("kernel32.dll", SetLastError = true)]',
         '  private static extern IntPtr OpenProcess(uint access, bool inherit, uint pid);',
         '  [DllImport("kernel32.dll", SetLastError = true)]',
@@ -3384,7 +3384,7 @@ async function readRecoveryProcessInventory(deadline: number): Promise<string[] 
         // Exits were already retired above. Only a still-live PID remains, and
         // only OS-confirmed antimalware may be dropped without a command line.
         '  foreach ($number in $stillLive) {',
-        '    if ([CindyRecoveryProcessProtection]::IsAntimalware([uint32]$number)) { $count-- } else { $complete = $false }',
+        '    if ([EmmaRecoveryProcessProtection]::IsAntimalware([uint32]$number)) { $count-- } else { $complete = $false }',
         '  }',
         '}',
         // ConvertTo-Json unwraps a one-element array and can emit null for an

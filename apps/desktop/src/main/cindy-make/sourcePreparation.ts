@@ -16,7 +16,7 @@ import { CINDY_PERSONAL_BRANCH } from './sourcePaths.js';
 import { PERSONAL_UPSTREAM_REF } from './sourceContent.js';
 import { initializePendingBuilds } from './pendingBuild.js';
 import { checkMakeToolVersion, untilAborted } from './doctor.js';
-export const CINDY_SOURCE_REPOSITORY = 'https://github.com/makecindy/cindy.git';
+export const CINDY_SOURCE_REPOSITORY = 'https://github.com/BouyaSensei/EMMA.git';
 export { makeSourceRoot, makeSourceCheckoutPath } from './sourcePaths.js';
 
 const SOURCE_STATUS_FILE = 'source-status.json';

@@ -386,7 +386,7 @@ export class GhostBrowserExtensionSlot {
       // even after the cause, such as busy ports, is gone. Rebuild it from the same request path the
       // plugin already retries on HOST_NOT_READY; there is no timer.
       this.rebuild(entry);
-      return fail('HOST_NOT_READY', 'Cindy 正在重新启动浏览器扩展桥接,请稍后重试');
+      return fail('HOST_NOT_READY', 'Emma 正在重新启动浏览器扩展桥接,请稍后重试');
     }
     try {
       switch (req.kind) {

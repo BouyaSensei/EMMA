@@ -121,7 +121,7 @@ describe('resolveNewMakerDefaultTuple', () => {
       expected: { vendor: 'pi', providerId: 'xai', model: 'grok-4.6', effort: 'high' },
     },
     {
-      name: 'Cindy Gateway（CN / Global）',
+      name: 'Emma Gateway（CN / Global）',
       source: provider({
         id: 'xd',
         access: 'managed',
@@ -140,7 +140,7 @@ describe('resolveNewMakerDefaultTuple', () => {
     expect(resolve([source])).toEqual(expected);
   });
 
-  it('Sol → Opus → Cindy Auto，与来源清单顺序无关', () => {
+  it('Sol → Opus → Emma Auto，与来源清单顺序无关', () => {
     const gateway = provider({
       id: 'xd',
       access: 'managed',
@@ -268,7 +268,7 @@ describe('resolveNewMakerDefaultTuple', () => {
     });
   });
 
-  it('Cindy Auto 不依赖旧 GLM 的默认标记', () => {
+  it('Emma Auto 不依赖旧 GLM 的默认标记', () => {
     const gateway = provider({
       id: 'xd',
       access: 'managed',
@@ -279,7 +279,7 @@ describe('resolveNewMakerDefaultTuple', () => {
     expect(resolve([gateway])).toMatchObject({ providerId: 'xd', model: 'auto', vendor: 'pi' });
   });
 
-  it('Cindy Auto 没有 Pi 路由时不伪造 Pi 候选', () => {
+  it('Emma Auto 没有 Pi 路由时不伪造 Pi 候选', () => {
     const gateway = provider({
       id: 'xd',
       access: 'managed',
@@ -290,7 +290,7 @@ describe('resolveNewMakerDefaultTuple', () => {
     expect(resolve([gateway])).toBeNull();
   });
 
-  it('Cindy Auto 沿用实际下发的输入能力，不靠图片字段决定默认身份', () => {
+  it('Emma Auto 沿用实际下发的输入能力，不靠图片字段决定默认身份', () => {
     const gateway = provider({
       id: 'xd',
       access: 'managed',
@@ -338,7 +338,7 @@ describe('resolveNewMakerDefaultTuple', () => {
       .toMatchObject({ providerId: 'xd', model: 'auto' });
   });
 
-  describe('服务端标记的 Cindy Auto（模型组 Auto）', () => {
+  describe('服务端标记的 Emma Auto（模型组 Auto）', () => {
     function pool(
       id: string,
       models: CatalogModel[],
@@ -349,7 +349,7 @@ describe('resolveNewMakerDefaultTuple', () => {
     const groupAuto = (newSessionDefault?: CatalogModel['newSessionDefault']) =>
       model('auto/group-1', 'high', newSessionDefault);
 
-    it('目标是平台模型：跟随 Cindy AI 下被标记的组 Auto，不再用预设 auto', () => {
+    it('目标是平台模型：跟随 Emma AI 下被标记的组 Auto，不再用预设 auto', () => {
       const gateway = provider({
         id: 'xd',
         access: 'managed',
@@ -381,7 +381,7 @@ describe('resolveNewMakerDefaultTuple', () => {
       expect(resolve([byok])).toMatchObject({ vendor: 'pi', providerId: 'org-pool' });
     });
 
-    it('Cindy AI 与号池短暂各标一个默认时以 Cindy AI 为准，与来源列表顺序无关', () => {
+    it('Emma AI 与号池短暂各标一个默认时以 Emma AI 为准，与来源列表顺序无关', () => {
       const gateway = provider({
         id: 'xd',
         access: 'managed',
@@ -422,7 +422,7 @@ describe('resolveNewMakerDefaultTuple', () => {
       }
     });
 
-    it('订阅等内置非 Cindy AI 来源里被标记的 auto/... 不当组 Auto', () => {
+    it('订阅等内置非 Emma AI 来源里被标记的 auto/... 不当组 Auto', () => {
       const gateway = provider({ id: 'xd', access: 'managed', models: { pi: [model('auto')] } });
       // 订阅来源（内置、非 Cindy AI）里恰好有个被标记的 auto/...：不参与 Auto 规则。
       const openai = provider({

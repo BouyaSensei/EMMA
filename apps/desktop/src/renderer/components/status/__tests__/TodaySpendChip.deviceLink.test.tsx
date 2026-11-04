@@ -298,8 +298,8 @@ describe('TodaySpendChip device-link remote sessions', () => {
 
   it('默认路由远程会话路由观察值为 gateway 时按网关形态渲染被控端配额镜像', () => {
     mocks.remoteRoute = 'gateway';
-    mocks.localProviders = [{ id: 'xd', name: 'Cindy AI · 个人' }];
-    mocks.deviceProviders = [{ id: 'xd', name: 'Cindy AI · 心动' }];
+    mocks.localProviders = [{ id: 'xd', name: 'Emma AI · 个人' }];
+    mocks.deviceProviders = [{ id: 'xd', name: 'Emma AI · 心动' }];
     mocks.remoteClaudeQuota = {
       spend: 120,
       maxBudget: 3000,
@@ -313,8 +313,8 @@ describe('TodaySpendChip device-link remote sessions', () => {
     expect(container.textContent).toContain('今日');
     expect(container.textContent).not.toContain('剩余 ');
     fireEvent.click(screen.getByRole('button', { name: 'quotaCard.usageTitle' }));
-    expect(screen.getByText('Cindy AI · 心动')).toBeTruthy();
-    expect(screen.queryByText('Cindy AI · 个人')).toBeNull();
+    expect(screen.getByText('Emma AI · 心动')).toBeTruthy();
+    expect(screen.queryByText('Emma AI · 个人')).toBeNull();
   });
 
   it('远程 codex 会话按订阅形态渲染被控端账号窗口(组合 payload 选桶)', () => {

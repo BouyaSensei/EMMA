@@ -8,7 +8,7 @@ let sqlite: Database.Database;
 let createdAt: number;
 let db: Pick<DbClient, 'queryOne' | 'query'>;
 const card = (id = 'job', runSequence = 1): BotCollaborationMeta => ({ v: 1, role: 'delegation-result',
-  delegationId: id, fromBotId: 'bot', fromBotName: 'Cindy', toBotId: null, toBotName: '',
+  delegationId: id, fromBotId: 'bot', fromBotName: 'Emma', toBotId: null, toBotName: '',
   parentSessionId: 'chat', childSessionId: 'child', objective: 'Prepare report',
   result: { title: 'Report', runSequence, status: 'completed', text: 'Frozen result', artifacts: [] } });
 function row(id: string, role: string, content: string, meta: object = {}, session = 'chat') {

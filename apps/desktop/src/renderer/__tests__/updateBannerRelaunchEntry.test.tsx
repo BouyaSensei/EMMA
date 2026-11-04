@@ -183,7 +183,7 @@ describe('UpdateBanner relaunch entry', () => {
     fireEvent.click(screen.getByRole('button', { name: 'update.banner.ariaExpanded' }));
     await screen.findByText('update.linuxInstallation.title');
     fireEvent.click(screen.getByRole('button', { name: 'update.linuxInstallation.guide' }));
-    expect(openExternal).toHaveBeenCalledWith('https://github.com/makecindy/cindy/blob/main/docs/linux.md');
+    expect(openExternal).toHaveBeenCalledWith('https://github.com/BouyaSensei/EMMA/blob/main/docs/linux.md');
     expect(anyActivityBlockingRelaunch).not.toHaveBeenCalled();
     expect(relaunchToUpdate).not.toHaveBeenCalled();
     document.documentElement.classList.remove('dark');
@@ -425,13 +425,13 @@ describe('UpdateBanner relaunch activity summary', () => {
     return (value) => settle(value);
   }
 
-  const namedHint = "Restarting will interrupt Cindy and Mika's replies and a background command.";
+  const namedHint = "Restarting will interrupt Emma and Mika's replies and a background command.";
 
   it('names every interrupting activity and can still be cancelled', async () => {
     withDescribe(async () => ({
       busy: true,
       categories: ['background-command', 'companion'],
-      companionNames: ['Cindy', 'Mika'],
+      companionNames: ['Emma', 'Mika'],
     }));
     render(<UpdateBanner isCollapsed={false} />);
     fireEvent.click(screen.getByRole('button', { name: 'update.banner.ariaExpanded' }));
@@ -468,7 +468,7 @@ describe('UpdateBanner relaunch activity summary', () => {
   });
 
   it('relaunches immediately when the summary says nothing is running', async () => {
-    withDescribe(async () => ({ busy: false, categories: ['companion'], companionNames: ['Cindy'] }));
+    withDescribe(async () => ({ busy: false, categories: ['companion'], companionNames: ['Emma'] }));
     render(<UpdateBanner isCollapsed={false} />);
     fireEvent.click(screen.getByRole('button', { name: 'update.banner.ariaExpanded' }));
     await waitFor(() => expect(relaunchToUpdate).toHaveBeenCalledTimes(1));
@@ -559,12 +559,12 @@ describe('formatRelaunchActivityHint builds a complete sentence', () => {
     })).toBe('Restarting will interrupt a background command.');
     expect(formatRelaunchActivityHint(t, {
       categories: ['companion'],
-      companionNames: ['Cindy'],
-    })).toBe("Restarting will interrupt Cindy's reply.");
+      companionNames: ['Emma'],
+    })).toBe("Restarting will interrupt Emma's reply.");
     expect(formatRelaunchActivityHint(t, {
       categories: ['companion', 'background-command'],
-      companionNames: ['Cindy', 'Mika'],
-    })).toBe("Restarting will interrupt Cindy and Mika's replies and a background command.");
+      companionNames: ['Emma', 'Mika'],
+    })).toBe("Restarting will interrupt Emma and Mika's replies and a background command.");
     expect(formatRelaunchActivityHint(t, {
       categories: ['companion', 'conversation', 'background-command'],
       companionNames: [],
@@ -594,12 +594,12 @@ describe('formatRelaunchActivityHint builds a complete sentence', () => {
     })).toBe('再起動すると、バックグラウンドコマンドが中断されます。');
     expect(formatRelaunchActivityHint(t, {
       categories: ['companion'],
-      companionNames: ['Cindy'],
-    })).toBe('再起動すると、仲間 Cindyの返信が中断されます。');
+      companionNames: ['Emma'],
+    })).toBe('再起動すると、仲間 Emmaの返信が中断されます。');
     expect(formatRelaunchActivityHint(t, {
       categories: ['companion'],
-      companionNames: ['Cindy', 'Mika'],
-    })).toBe('再起動すると、仲間 CindyとMikaの返信が中断されます。');
+      companionNames: ['Emma', 'Mika'],
+    })).toBe('再起動すると、仲間 EmmaとMikaの返信が中断されます。');
   });
 
   it('keeps the Chinese warning readable for one or more teammates', () => {
@@ -618,7 +618,7 @@ describe('formatRelaunchActivityHint builds a complete sentence', () => {
     });
     expect(formatRelaunchActivityHint(t, {
       categories: ['companion', 'conversation', 'background-command'],
-      companionNames: ['Cindy', 'Mika'],
-    })).toBe('重启会中断伙伴 Cindy、Mika 的回复、正在进行的对话、后台命令。');
+      companionNames: ['Emma', 'Mika'],
+    })).toBe('重启会中断伙伴 Emma、Mika 的回复、正在进行的对话、后台命令。');
   });
 });

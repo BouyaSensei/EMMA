@@ -4,13 +4,13 @@
  * 为什么需要专门一测:这一节的文案里有两样东西**没有任何编译期约束**,而写错的后果
  * 都是用户可见的 ——
  *
- *   1. **bot handle `@askmycindy` 硬编码在各 locale 里。** 它不来自 binding:这一节
+ *   1. **bot handle `@askmyemma` 硬编码在各 locale 里。** 它不来自 binding:这一节
  *      在用户还没绑定时就要显示(评估阶段最需要看到风险), 那时候拿不到 scopeName。
  *      改 handle 时所有语言都得改, 漏一份就会让那个语言的用户去 @ 一个不存在的账号。
  *      (硬编码是安全的: cn 与 global 两份 endpoint manifest 的 xHookWsUrl 指向同一个
  *      x-hook 服务, 也就是同一个 bot。)
  *   2. **`/删除` 只出现在中文说明, 且不翻译命令本身。** 服务端接受 `/删除`,
- *      不接受繁体 `/刪除`。所有语言均展示正文中必须输入的 `@askmycindy /delete`。
+ *      不接受繁体 `/刪除`。所有语言均展示正文中必须输入的 `@askmyemma /delete`。
  *
  * 三组文案本身的准确性由 XUsageGuide 的注释与 HookConnectionsSection 的用例守着;
  * 这里只钉这两条「跨语言必须一致 / 必须不一致」的契约。
@@ -24,7 +24,7 @@ import ko from '../i18n/locales/ko/common.json';
 import zhCN from '../i18n/locales/zh-CN/common.json';
 import zhTW from '../i18n/locales/zh-TW/common.json';
 
-const BOT_HANDLE = '@askmycindy';
+const BOT_HANDLE = '@askmyemma';
 
 type GuideCopy = {
   usageLabel: string;

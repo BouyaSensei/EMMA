@@ -42,7 +42,7 @@ const LEGACY_REVIEW_FAILURE_CODE_BY_ERROR = new Map<string, ReviewFailureCode>([
   ['Reviewer returned no visible conclusion', 'no-visible-result'],
   ['Reviewer task was closed before it finished', 'reviewer-closed'],
   ['Reviewer was cancelled before it started', 'cancelled-before-start'],
-  ['Review was interrupted when Cindy closed. Run /review again.', 'interrupted'],
+  ['Review was interrupted when Emma closed. Run /review again.', 'interrupted'],
   [
     'The source task workspace changed while Review was running. Run /review again in the current workspace.',
     'source-workspace-changed',

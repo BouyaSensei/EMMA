@@ -42,7 +42,7 @@ vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key: string, options?: { voice?: string }) =>
       key === 'settings.providers.xd.title'
-        ? 'Cindy AI'
+        ? 'Emma AI'
         : options?.voice
           ? `${key}: ${options.voice}`
           : key,
@@ -608,7 +608,7 @@ it('shows a useful empty state without requesting a microphone or inventing mode
   view.unmount();
   models = [{ id: 'tts', name: 'Speech', defaultVoice: 'alloy' }];
   renderSettings();
-  await screen.findByRole('option', { name: 'Speech · Cindy AI' });
+  await screen.findByRole('option', { name: 'Speech · Emma AI' });
   expect(screen.queryByText('bots.voiceMode.noModelsSupportedProtocols')).toBeNull();
   expect(screen.queryByRole('button', { name: 'bots.voiceMode.openProviders' })).toBeNull();
   expect(screen.getByText('bots.voiceMode.settingsHint')).toBeTruthy();
@@ -660,7 +660,7 @@ it.each(['xd', undefined])(
     renderSettings();
     const field = await screen.findByRole('combobox', { name: 'bots.voiceMode.model' });
     await waitFor(() => expect((field as HTMLSelectElement).disabled).toBe(false));
-    expect(within(field).getByRole('option', { name: 'Eleven v3 · Cindy AI' })).toBeTruthy();
+    expect(within(field).getByRole('option', { name: 'Eleven v3 · Emma AI' })).toBeTruthy();
     expect(within(field).getByRole('option', { name: 'Eleven v3 · 我的 ElevenLabs' })).toBeTruthy();
     expect(within(field).queryByRole('option', { name: 'Eleven v3 · XD Gateway' })).toBeNull();
     expect(window.electronAPI.voiceConversation.setPreference).not.toHaveBeenCalled();

@@ -36,12 +36,12 @@ describe('CLI_COMMAND_NAME 跟随 edition 品牌', () => {
 
 describe('resolveBundledCliPath', () => {
   it('由 resourcesPath 推出包内 cli/cindy', () => {
-    const resourcesPath = '/Applications/Cindy.app/Contents/Resources';
+    const resourcesPath = '/Applications/Emma.app/Contents/Resources';
     expect(resolveBundledCliPath(resourcesPath)).toBe(path.join(resourcesPath, 'cli', 'cindy'));
   });
 
   it('路径含空格也正确', () => {
-    const resourcesPath = '/Users/a/My Apps/Cindy.app/Contents/Resources';
+    const resourcesPath = '/Users/a/My Apps/Emma.app/Contents/Resources';
     expect(resolveBundledCliPath(resourcesPath)).toBe(path.join(resourcesPath, 'cli', 'cindy'));
   });
 });
@@ -49,23 +49,23 @@ describe('resolveBundledCliPath', () => {
 describe('buildInstallShellCommand', () => {
   it('mkdir -p 链接目录、拒绝真实目录后 ln -sfn 目标到 source', () => {
     const cmd = buildInstallShellCommand(
-      '/Applications/Cindy.app/Contents/Resources/cli/cindy',
+      '/Applications/Emma.app/Contents/Resources/cli/cindy',
       CLI_LINK_PATH,
     );
     expect(cmd).toBe(
-      `mkdir -p '/usr/local/bin' && if [ -d '/usr/local/bin/emma' ] && [ ! -L '/usr/local/bin/emma' ]; then echo '/usr/local/bin/emma is a directory' >&2; exit 1; fi && ln -sfn '/Applications/Cindy.app/Contents/Resources/cli/cindy' '/usr/local/bin/emma'`,
+      `mkdir -p '/usr/local/bin' && if [ -d '/usr/local/bin/emma' ] && [ ! -L '/usr/local/bin/emma' ]; then echo '/usr/local/bin/emma is a directory' >&2; exit 1; fi && ln -sfn '/Applications/Emma.app/Contents/Resources/cli/cindy' '/usr/local/bin/emma'`,
     );
   });
 
   it('用 -sfn 而非 -sf(macOS 上替换指向目录的旧 symlink,不解引用进目录)', () => {
-    const cmd = buildInstallShellCommand('/App/Cindy.app/Contents/Resources/cli/cindy', CLI_LINK_PATH);
+    const cmd = buildInstallShellCommand('/App/Emma.app/Contents/Resources/cli/cindy', CLI_LINK_PATH);
     expect(cmd).toContain(`ln -sfn `);
     expect(cmd).not.toContain(`ln -sf `);
   });
 
   it('含单引号的路径被安全转义', () => {
-    const cmd = buildInstallShellCommand(`/Users/o'brien/Cindy.app/Contents/Resources/cli/cindy`, CLI_LINK_PATH);
-    expect(cmd).toContain(`'/Users/o'\\''brien/Cindy.app/Contents/Resources/cli/cindy'`);
+    const cmd = buildInstallShellCommand(`/Users/o'brien/Emma.app/Contents/Resources/cli/cindy`, CLI_LINK_PATH);
+    expect(cmd).toContain(`'/Users/o'\\''brien/Emma.app/Contents/Resources/cli/cindy'`);
   });
 });
 

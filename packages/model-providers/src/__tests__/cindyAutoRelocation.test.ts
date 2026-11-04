@@ -28,7 +28,7 @@ function provider(id: string, source: ProviderSource, modelIds: string[], connec
 
 const AUTO = 'auto/group-1';
 
-describe('Cindy Auto 身份', () => {
+describe('Emma Auto 身份', () => {
   it('预设 auto 与 auto/<组ID> 都算，前缀相近的模型不算', () => {
     expect(isCindyAutoModelId('auto')).toBe(true);
     expect(isCindyAutoModelId(AUTO)).toBe(true);
@@ -37,7 +37,7 @@ describe('Cindy Auto 身份', () => {
     }
   });
 
-  it('只有 Cindy AI 与企业号池算 Cindy 下发的来源', () => {
+  it('只有 Emma AI 与企业号池算 Emma 下发的来源', () => {
     expect(isCindyDistributedProvider(provider('xd', 'builtin', []))).toBe(true);
     expect(isCindyDistributedProvider(provider('org-pool', 'organization', []))).toBe(true);
     expect(isCindyDistributedProvider(provider('xd', 'user', []))).toBe(false);
@@ -46,8 +46,8 @@ describe('Cindy Auto 身份', () => {
   });
 });
 
-describe('effectiveSourceIdForModel：Auto 跨 Cindy 来源改道', () => {
-  it('号池 → Cindy AI、Cindy AI → 号池都跟着走', () => {
+describe('effectiveSourceIdForModel：Auto 跨 Emma 来源改道', () => {
+  it('号池 → Emma AI、Emma AI → 号池都跟着走', () => {
     const toPlatform = [provider('xd', 'builtin', ['auto', AUTO]), provider('org-pool', 'organization', ['pool-model'])];
     expect(effectiveSourceIdForModel(toPlatform, 'org-pool', AUTO, 'pi')).toBe('xd');
     const toPool = [provider('xd', 'builtin', ['auto']), provider('org-pool', 'organization', ['pool-model', AUTO])];
@@ -89,7 +89,7 @@ describe('effectiveSourceIdForModel：Auto 跨 Cindy 来源改道', () => {
   });
 });
 
-describe('movedCindyAutoSourceId：已保存 / 运行中的路由', () => {
+describe('movedEmmaAutoSourceId：已保存 / 运行中的路由', () => {
   const toPool = [provider('xd', 'builtin', ['auto']), provider('org-pool', 'organization', [AUTO])];
 
   it('挪动后给出新来源，没挪动给 null', () => {
@@ -98,14 +98,14 @@ describe('movedCindyAutoSourceId：已保存 / 运行中的路由', () => {
     expect(movedCindyAutoSourceId(toPool, { agent: 'pi', model: 'auto', providerId: 'xd' })).toBeNull();
   });
 
-  it('Pi 的 null 就是 Cindy AI；其它引擎的 null 不推断', () => {
+  it('Pi 的 null 就是 Emma AI；其它引擎的 null 不推断', () => {
     expect(movedCindyAutoSourceId(toPool, { agent: 'pi', model: AUTO, providerId: null })).toBe('org-pool');
     expect(movedCindyAutoSourceId(toPool, { agent: 'codex', model: AUTO, providerId: null })).toBeNull();
   });
 });
 
 describe('负向与回归', () => {
-  it('订阅等内置非 Cindy AI 来源里的 auto/... 不当组 Auto：不从它挪走，也不挪到它', () => {
+  it('订阅等内置非 Emma AI 来源里的 auto/... 不当组 Auto：不从它挪走，也不挪到它', () => {
     const fromSubscription = [provider('openai', 'builtin', ['other']), provider('xd', 'builtin', [AUTO])];
     expect(effectiveSourceIdForModel(fromSubscription, 'openai', AUTO, 'pi')).toBeNull();
     expect(movedCindyAutoSourceId(fromSubscription, { agent: 'pi', model: AUTO, providerId: 'openai' })).toBeNull();

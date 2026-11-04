@@ -44,7 +44,7 @@ function snapshot(over: Partial<MyIssuesSnapshot> = {}): MyIssuesSnapshot {
     items: [
       {
         number: 1061,
-        url: 'https://github.com/makecindy/cindy/issues/1061',
+        url: 'https://github.com/BouyaSensei/EMMA/issues/1061',
         title: '账号 A 的 issue 标题',
         type: 'bug',
         state: 'open',

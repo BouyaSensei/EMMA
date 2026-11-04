@@ -39,7 +39,7 @@ const BUILTIN_META: BuiltinPluginMeta[] = [
   { id: 'ssh',          name: 'SSH Remote',   description: 'Run commands on configured SSH hosts via the built-in connection pool (aliases, ssh-agent/keys) — nothing installed remotely' },
   { id: 'memory',       name: 'Maker Memory', description: 'Cross-agent long-term memory for persistent context across sessions' },
   { id: 'docs',         name: 'Document Toolkit', description: 'Turn content into real files — PDF, Word, Excel, and PowerPoint — and read them back to verify the result. No extra software to install.' },
-  { id: 'xdt_helper',   name: 'Cindy Helper', description: 'Host capability disclosure — tells agents what tools and models are available' },
+  { id: 'xdt_helper',   name: 'Emma Helper', description: 'Host capability disclosure — tells agents what tools and models are available' },
   { id: 'collab',       name: 'Collab Mode',  description: 'Multi-worker collaboration (Orca team) — start_team / create_worker / send_to_worker etc.' },
   { id: 'lsp',          name: 'LSP',          description: 'TypeScript LSP queries (Beta — gated by Settings → Experimental → LSP Mode)' },
   // xd_service 已于 2026-07-13 退役:Pages 能力(含部署)整体迁入内置意识

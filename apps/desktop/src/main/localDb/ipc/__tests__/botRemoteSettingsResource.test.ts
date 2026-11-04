@@ -4,14 +4,14 @@ import { createBotRemoteSettingsResource, type BotRemoteSettingsDeps } from '../
 function fixture() {
   let owner = 'owner-a';
   let time = 1;
-  const source = { id: 'bot-a', name: 'Cindy', description: 'Assistant', avatar: '', avatarColor: 'teal', status: 'active', canonicalSessionId: 'canonical-a', lastMessagePreview: null, lastMessageAt: null, lastMessageRole: null, needsAttention: false, hiddenAt: null, pinnedAt: null, activityAt: 1, currentVersion: 3, updatedAt: 1 };
+  const source = { id: 'bot-a', name: 'Emma', description: 'Assistant', avatar: '', avatarColor: 'teal', status: 'active', canonicalSessionId: 'canonical-a', lastMessagePreview: null, lastMessageAt: null, lastMessageRole: null, needsAttention: false, hiddenAt: null, pinnedAt: null, activityAt: 1, currentVersion: 3, updatedAt: 1 };
   const settings = { source, identity: 'User-maintained personality', userContext: 'Prefers concise replies', memory: true, permissions: 'ask', modelChain: [{ harness: 'pi' as const, model: 'user-selected-model', providerId: 'connected-source', effort: 'high', fastMode: true }], followsDefault: false, skills: ['reference'], connections: ['connection'], toolsets: [], systemPrompt: 'PRIVATE', homeDir: '/PRIVATE', credentials: 'PRIVATE' };
   const deps: BotRemoteSettingsDeps = {
     owner: () => owner, assertOwner: captured => { if (captured !== owner) throw new Error('OWNER_CHANGED'); },
     read: vi.fn(async () => settings), update: vi.fn(async () => { source.currentVersion++; }),
     lifecycle: vi.fn(async (_id, _op, _name, guard) => { await guard(); return {}; }),
     skills: vi.fn(async () => [{ slug: 'learned', name: 'Learned', description: 'Real skill', updatedAt: 1 }]),
-    directHistory: vi.fn(async () => 'Cindy: hello'), now: () => time,
+    directHistory: vi.fn(async () => 'Emma: hello'), now: () => time,
   };
   const host = createBotRemoteSettingsResource(deps);
   const context = { controllerDeviceId: 'phone-a' };
@@ -39,7 +39,7 @@ describe('opaque teammate settings actions', () => {
     expect(resource.blocks?.find(block => block.id === 'models')?.data).toMatchObject({ acceptsModelSelection: true });
     expect(resource.blocks?.find(block => block.id === 'models')?.fallbackMarkdown).toContain('user-selected-model · connected-source · pi · high · Fast: true');
     expect(resource.blocks?.find(block => block.id === 'skills')?.fallbackMarkdown).toContain('Learned');
-    expect(resource.blocks?.find(block => block.id === 'direct')?.fallbackMarkdown).toBe('Cindy: hello');
+    expect(resource.blocks?.find(block => block.id === 'direct')?.fallbackMarkdown).toBe('Emma: hello');
   });
   it('saves through the existing profile version service without model or credential overrides', async () => {
     const f = fixture(); const resource = await f.get();
@@ -107,8 +107,8 @@ describe('opaque teammate settings actions', () => {
   it('uses the registered lifecycle coordinator and does not leak raw cleanup errors', async () => {
     const f = fixture(); const resource = await f.get();
     vi.mocked(f.deps.lifecycle).mockResolvedValueOnce({ warnings: ['PRIVATE/path/token'] });
-    const result = await f.host.invoke(f.context, f.request(actionId(resource, 'delete'), { confirmName: 'Cindy' }));
-    expect(f.deps.lifecycle).toHaveBeenCalledWith('bot-a', 'delete', 'Cindy', expect.any(Function));
+    const result = await f.host.invoke(f.context, f.request(actionId(resource, 'delete'), { confirmName: 'Emma' }));
+    expect(f.deps.lifecycle).toHaveBeenCalledWith('bot-a', 'delete', 'Emma', expect.any(Function));
     expect(JSON.stringify(result)).not.toContain('PRIVATE');
     expect(result.effects.some(effect => effect.kind === 'refresh-resource')).toBe(false);
   });

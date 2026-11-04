@@ -13,7 +13,7 @@ const UNSIGNED: GhostTrustInfo = {
 };
 const OFFICIAL: GhostTrustInfo = {
   level: 'cindy-official', publisherSigned: true, publisherVerified: true,
-  reviewed: true, publisherName: 'Cindy Plugin Market',
+  reviewed: true, publisherName: 'Emma Plugin Market',
 };
 const SIGNED: GhostTrustInfo = {
   level: 'verified-publisher', publisherSigned: true, publisherVerified: true,
@@ -85,7 +85,7 @@ describe('local update provenance independent of legacy privileges', () => {
 
   it('does not treat an arbitrary new verified publisher or official-looking display name as continuity', () => {
     const facts = input();
-    facts.inspectedPackage.trust = { ...SIGNED, publisherName: 'Cindy Plugin Market' };
+    facts.inspectedPackage.trust = { ...SIGNED, publisherName: 'Emma Plugin Market' };
     expect(classifyGhostLocalUpdateSource(facts).sourceChanged).toBe(true);
   });
 

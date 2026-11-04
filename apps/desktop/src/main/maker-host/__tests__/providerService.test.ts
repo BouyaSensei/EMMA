@@ -14,7 +14,7 @@ describe('createProviderService', () => {
   it('projects the live membership name without changing routes, models or custom names', async () => {
     let user: XdOrgIdentity | null = { membershipKind: 'personal', orgName: null, orgSlug: null };
     const labels: Record<string, string> = {
-      'settings.providers.xd.title': 'Cindy AI',
+      'settings.providers.xd.title': 'Emma AI',
       'settings.providers.xd.personal': '个人',
       'settings.providers.xd.xdOrganization': '心动',
       'settings.providers.xd.organization': '企业',
@@ -26,24 +26,24 @@ describe('createProviderService', () => {
     });
     const read = async () => (await svc.listProviders({ snapshotOnly: true })).find(p => p.id === 'xd')!;
     const personal = await read();
-    expect(personal.name).toBe('Cindy AI · 个人');
+    expect(personal.name).toBe('Emma AI · 个人');
     expect(personal.logoKind).toBe('cindy');
     user = { membershipKind: 'org', orgSlug: 'xd', orgName: '心动网络' };
     const xd = await read();
-    expect(xd).toEqual({ ...personal, name: 'Cindy AI · 心动', logoKind: 'xd' });
+    expect(xd).toEqual({ ...personal, name: 'Emma AI · 心动', logoKind: 'xd' });
     user = { membershipKind: 'org', orgSlug: 'other', orgName: ' Example Studio ' };
-    expect((await read()).name).toBe('Cindy AI · Example Studio');
+    expect((await read()).name).toBe('Emma AI · Example Studio');
     expect((await read()).logoKind).toBe('cindy');
     user = { membershipKind: 'org', orgSlug: null, orgName: '心动网络' };
-    expect((await read()).name).toBe('Cindy AI · 心动');
+    expect((await read()).name).toBe('Emma AI · 心动');
     expect((await read()).logoKind).toBe('xd');
     user = { membershipKind: 'org', orgSlug: 'other', orgName: '心动网络' };
-    expect((await read()).name).toBe('Cindy AI · 心动网络');
+    expect((await read()).name).toBe('Emma AI · 心动网络');
     expect((await read()).logoKind).toBe('cindy');
     user = { membershipKind: 'org', orgSlug: null, orgName: null };
-    expect((await read()).name).toBe('Cindy AI · 企业');
+    expect((await read()).name).toBe('Emma AI · 企业');
     user = null;
-    expect((await read()).name).toBe('Cindy AI');
+    expect((await read()).name).toBe('Emma AI');
     expect((await read()).logoKind).toBe('cindy');
     expect(BUNDLED_CATALOG.providers.find(p => p.id === 'xd')?.name).toBe('XD Gateway');
   });

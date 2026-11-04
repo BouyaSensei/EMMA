@@ -21,7 +21,7 @@ afterEach(() => __testing.reset());
 afterAll(() => fs.rmSync(tmpDir, { recursive: true, force: true }));
 
 describe('provider-order-store', () => {
-  it('seeds an empty order with Cindy AI without creating a preference file', () => {
+  it('seeds an empty order with Emma AI without creating a preference file', () => {
     expect(readProviderOrder()).toEqual(['xd']);
     expect(fs.existsSync(path.join(tmpDir, 'provider-order-prefs.json'))).toBe(false);
   });

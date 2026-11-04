@@ -16,7 +16,7 @@ import {
 const noopLog = { info: vi.fn(), warn: vi.fn() };
 
 describe('matchDialogueWorkspacePath', () => {
-  const root = path.join(path.sep, 'data', 'Cindy', 'dialogues');
+  const root = path.join(path.sep, 'data', 'Emma', 'dialogues');
 
   it('matches the app-managed <root>/<day>/<sessionId> shape', () => {
     const dir = path.join(root, '2026-06-22', '829cdef6-abc');
@@ -52,15 +52,15 @@ describe('matchDialogueWorkspacePath', () => {
 
 describe('buildLegacyDialogueRoots', () => {
   it('derives sibling legacy dialogues roots from current userData', () => {
-    const userData = path.join(path.sep, 'data', 'Cindy');
+    const userData = path.join(path.sep, 'data', 'Emma');
     expect(buildLegacyDialogueRoots(userData, ['xdt-maker'])).toEqual([
       path.join(path.sep, 'data', 'xdt-maker', 'dialogues'),
     ]);
   });
 
   it('drops a legacy name identical to the current userData dir', () => {
-    const userData = path.join(path.sep, 'data', 'Cindy');
-    expect(buildLegacyDialogueRoots(userData, ['Cindy'])).toEqual([]);
+    const userData = path.join(path.sep, 'data', 'Emma');
+    expect(buildLegacyDialogueRoots(userData, ['Emma'])).toEqual([]);
   });
 });
 
@@ -106,9 +106,9 @@ describe('sweepLegacyDialogueWorkingDirs', () => {
   // Windows 上用带盘符的真实绝对路径:storage 规范形只对 windows-path-like
   // 的输入做反斜杠归一(见 normalizeWorkingDirForStorage)。
   const isWin = process.platform === 'win32';
-  const userData = isWin ? 'C:\\data\\Cindy' : '/data/Cindy';
+  const userData = isWin ? 'C:\\data\\Emma' : '/data/Emma';
   const legacyRootStored = isWin ? 'C:/data/xdt-maker/dialogues' : '/data/xdt-maker/dialogues';
-  const currentRootStored = isWin ? 'C:/data/Cindy/dialogues' : '/data/Cindy/dialogues';
+  const currentRootStored = isWin ? 'C:/data/Emma/dialogues' : '/data/Emma/dialogues';
 
   function makeFakeDb(rows: Array<{ id: string; working_dir: string }>) {
     const execCalls: Array<{ sql: string; params: unknown[] }> = [];
@@ -203,7 +203,7 @@ describe('sweepLegacyDialogueWorkingDirs', () => {
     const result = await sweepLegacyDialogueWorkingDirs({
       db,
       userDataDir: userData,
-      legacyUserDataDirNames: ['Cindy'],
+      legacyUserDataDirNames: ['Emma'],
       log: noopLog,
       ...noDiskFs,
     });
@@ -223,7 +223,7 @@ describe('sweepLegacyDialogueWorkingDirs', () => {
     const result = await sweepLegacyDialogueWorkingDirs({
       db,
       userDataDir: userData,
-      legacyUserDataDirNames: ['Cindy'],
+      legacyUserDataDirNames: ['Emma'],
       currentDialoguesRoot: ownerRoot,
       additionalLegacyDialogueRoots: [oldRoot],
       log: noopLog,

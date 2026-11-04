@@ -46,12 +46,12 @@ describe('splitGroupDnd', () => {
     expect(isSplitGroupComposerDropTarget(document.createElement('div'))).toBe(false);
   });
 
-  it('只接受 Cindy 任务拖拽 MIME', () => {
+  it('只接受 Emma 任务拖拽 MIME', () => {
     expect(hasSplitGroupSessionType([SPLIT_GROUP_SESSION_MIME])).toBe(true);
     expect(hasSplitGroupSessionType(['Files', 'text/plain'])).toBe(false);
   });
 
-  it('只写入 Cindy 专用 MIME，避免系统把任务拖拽落成桌面文件', () => {
+  it('只写入 Emma 专用 MIME，避免系统把任务拖拽落成桌面文件', () => {
     const values = new Map<string, string>();
     const dataTransfer = {
       effectAllowed: 'none',

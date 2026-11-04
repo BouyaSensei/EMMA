@@ -233,7 +233,7 @@ function serverSummary(overrides: Partial<VisiblePluginSummary> = {}): VisiblePl
     ghostId: 'server-plugin',
     name: 'Server Plugin',
     description: 'Server description',
-    author: 'Cindy',
+    author: 'Emma',
     scope: 'public',
     organizationId: null,
     defaultInstall: false,
@@ -1440,7 +1440,7 @@ describe('PluginMarketService 自定义市场 detail/install', () => {
       version: '1.0.0',
       manifestCap: ghostManifest('cindy-github'),
     });
-    expect(runtime.install.mock.calls[0]?.[1]).not.toHaveProperty('officialCindyGithub');
+    expect(runtime.install.mock.calls[0]?.[1]).not.toHaveProperty('officialEmmaGithub');
   });
 
   it('rejects install when the selected release no longer matches', async () => {

@@ -537,7 +537,7 @@ export function subagentSpawnResultIndicatesRunning(
   // child is still running. Treat it like the structured Codex V1 receipt so a
   // paired stale `running` update does not close the task prematurely.
   if (toolName === PI_SUBAGENT_TOOL_NAME
-    && trimmed === 'Cindy subagent launched. The agent is working in the background.') {
+    && trimmed === 'Emma subagent launched. The agent is working in the background.') {
     return true;
   }
   // Claude Code 2.1.280 appends a notice to the first line (`Async agent

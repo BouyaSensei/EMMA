@@ -23,7 +23,7 @@ describe('default companion provisioning', () => {
     await provisionDefaultBot({ ...input, hasBotHistory: async () => false });
     expect(create).not.toHaveBeenCalled();
   });
-  it('records deletion before initialization so a removed Cindy cannot return', async () => {
+  it('records deletion before initialization so a removed Emma cannot return', async () => {
     const create = vi.fn();
     await markDefaultBotOffered(root);
     await provisionDefaultBot({ ownerRoot: root, assertOwner: () => {}, hasBotHistory: async () => false, create });

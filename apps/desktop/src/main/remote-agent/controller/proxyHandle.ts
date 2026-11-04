@@ -540,8 +540,8 @@ export function createRemoteAgentHandle(deps: RemoteHandleDeps): RemoteAgentHand
     ...optional('getContextUsage', (async () => call('getContextUsage')) as AgentSessionHandle['getContextUsage']),
     ...optional('getCodexContextWindowInfo', (async () =>
       call('getCodexContextWindowInfo')) as AgentSessionHandle['getCodexContextWindowInfo']),
-    ...optional('useCindyAutoReviewFallback', async () => {
-      await callIfLive('useCindyAutoReviewFallback');
+    ...optional('useEmmaAutoReviewFallback', async () => {
+      await callIfLive('useEmmaAutoReviewFallback');
       deps.onAutoReviewFallback?.();
     }),
     ...optional('previewRewindFiles', (async (userUuid: string) =>

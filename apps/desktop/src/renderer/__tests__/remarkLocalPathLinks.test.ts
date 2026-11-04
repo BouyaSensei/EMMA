@@ -168,7 +168,7 @@ describe('remarkLocalPathLinks', () => {
 
   it('含空格路径的中段不动 —— 切出的后缀是错误目标', () => {
     // 左边界不挡空格,正则会从空格后重新起匹配(review 实捉)。
-    expect(linkUrls(runOnText('日志在 C:\\Program Files\\Cindy\\app.log'))).toEqual([]);
+    expect(linkUrls(runOnText('日志在 C:\\Program Files\\Emma\\app.log'))).toEqual([]);
     expect(linkUrls(runOnText('见 /Users/me/My Folder/a.txt'))).toEqual([]);
     // 「前片段不以扩展名收尾」不能省:空格相邻的两条真路径必须都保住。
     expect(linkUrls(runOnText('修改了 src/a.ts src/b.ts'))).toEqual(['src/a.ts', 'src/b.ts']);

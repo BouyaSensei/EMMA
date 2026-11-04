@@ -6,7 +6,7 @@ import { openMakeToolsDirectory } from '../toolsDirectory.js';
 // All filesystem calls are injected; these tests never touch a user profile.
 const userData = path.join(os.tmpdir(), 'cindy-make-folder-test');
 
-describe('Cindy Make tools directory', () => {
+describe('Emma Make tools directory', () => {
   it('creates a missing managed tools directory before opening it', async () => {
     const lstat = vi
       .fn()

@@ -63,8 +63,8 @@ describe('classifyConnectFailure', () => {
     expect(classifyConnectFailure(undefined).code).toBe('SSH_CONNECT_FAILED');
   });
 
-  it('surfaces the explicit Cindy authentication subset error', () => {
-    const err = new Error('SSH config authentication is outside Cindy\'s supported subset: IdentityAgent none');
+  it('surfaces the explicit Emma authentication subset error', () => {
+    const err = new Error('SSH config authentication is outside Emma\'s supported subset: IdentityAgent none');
     (err as { code?: string }).code = SSH_CONFIG_AUTH_UNSUPPORTED_CODE;
     expect(classifyConnectFailure(err)).toMatchObject({
       code: 'SSH_CONFIG_AUTH_UNSUPPORTED',

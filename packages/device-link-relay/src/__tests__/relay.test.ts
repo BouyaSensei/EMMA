@@ -117,7 +117,7 @@ async function api(
   options: { credential?: string; body?: unknown; headers?: Record<string, string> } = {},
 ): Promise<{ status: number; json: any }> {
   const headers: Record<string, string> = { ...options.headers };
-  if (options.credential) headers.authorization = `CindyRelay ${options.credential}`;
+  if (options.credential) headers.authorization = `EmmaRelay ${options.credential}`;
   if (options.body !== undefined) headers['content-type'] = 'application/json';
   const res = await fetch(`${base}${pathname}`, {
     method,
@@ -206,7 +206,7 @@ function openSocket(base: string, authorization?: string): { ws: WebSocket; peer
 }
 
 async function connect(h: Harness, credential: string, remoteControlEnabled: boolean): Promise<Peer> {
-  const { ws, peer } = openSocket(h.base, `CindyRelay ${credential}`);
+  const { ws, peer } = openSocket(h.base, `EmmaRelay ${credential}`);
   await new Promise<void>((resolve, reject) => {
     ws.once('open', () => resolve());
     ws.once('unexpected-response', (_req, res) => reject(new Error(`upgrade rejected ${res.statusCode}`)));
@@ -315,11 +315,11 @@ describe('device-link relay wire contract', () => {
     expect(response.status).toBe(200);
     expect(await response.text()).toBe('test-answer');
   });
-  it('authenticates with CindyRelay credentials only and binds identity to the credential', async () => {
+  it('authenticates with EmmaRelay credentials only and binds identity to the credential', async () => {
     const h = await setup();
     // 没有凭证、凭证错误、用 Bearer 方案(可能是误发的账号 token)都在升级阶段 401。
     expect(await upgradeStatus(h.base)).toBe(401);
-    expect(await upgradeStatus(h.base, `CindyRelay ${'x'.repeat(43)}`)).toBe(401);
+    expect(await upgradeStatus(h.base, `EmmaRelay ${'x'.repeat(43)}`)).toBe(401);
     expect(await upgradeStatus(h.base, `Bearer ${h.ownerCredential}`)).toBe(401);
 
     const owner = await connect(h, h.ownerCredential, true);
@@ -373,7 +373,7 @@ describe('device-link relay wire contract', () => {
 
   it('closes on protocol version mismatch with a reason clients classify as version', async () => {
     const h = await setup();
-    const { ws, peer } = openSocket(h.base, `CindyRelay ${h.ownerCredential}`);
+    const { ws, peer } = openSocket(h.base, `EmmaRelay ${h.ownerCredential}`);
     await new Promise((resolve) => ws.once('open', resolve));
     peer.send({ v: 2, kind: 'hello', payload: {} });
     const closed = await peer.closed;
@@ -494,7 +494,7 @@ describe('pairing and administration', () => {
     const removed = await api(h.base, 'DELETE', '/api/device-link/devices/member-b', { credential: h.ownerCredential });
     expect(removed.json).toEqual({ deviceId: 'member-b', deleted: true });
     expect((await socketB.closed).code).toBe(4410);
-    expect(await upgradeStatus(h.base, `CindyRelay ${memberB}`)).toBe(401);
+    expect(await upgradeStatus(h.base, `EmmaRelay ${memberB}`)).toBe(401);
     // 成员可以让自己退出。
     expect((await api(h.base, 'DELETE', '/api/device-link/devices/member-a', { credential: memberA })).status).toBe(200);
   });

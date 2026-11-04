@@ -569,7 +569,7 @@ export function RightSidebarShell({
   const handleAdd = useCallback(
     (kind: TabKindId) => {
       if (kind === 'cindy-make' && !CINDY_MAKE_ENABLED) {
-        log.warn('handleAdd ignored: Cindy Make is disabled');
+        log.warn('handleAdd ignored: Emma Make is disabled');
         return;
       }
       if (!sessionId) {

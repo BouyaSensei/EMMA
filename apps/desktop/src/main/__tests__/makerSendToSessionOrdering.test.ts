@@ -45,7 +45,7 @@ const useOrcaWorkerSelectionSourcePath = resolve(__dirname, '..', '..', 'rendere
 const useOrcaWorkerSelectionSource = readFileSync(useOrcaWorkerSelectionSourcePath, 'utf8').replace(/\r\n?/g, '\n');
 
 describe('sendToSession ordering', () => {
-  it('guards Cindy Make direct sends without reentering the session send lock', () => {
+  it('guards Emma Make direct sends without reentering the session send lock', () => {
     const block = extractBetween(source, 'async function sendUserMessageWithAwaitedGitBaseline', 'async function sendToSessionInternal');
     expect(block).toContain('cindyMakeManager.isTaskPreparing(session.id)');
     expectOrder(block, 'await assertCindyMakeTaskReady(session.id)', 'const dispatch = async');

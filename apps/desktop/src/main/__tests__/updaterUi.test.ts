@@ -99,13 +99,13 @@ describe('updater failure retry UI', () => {
   it('localizes progress and failures while preserving native diagnostics', async () => {
     const ui = createUi('fr-CA');
     await new Promise<void>((resolve) => setImmediate(resolve));
-    expect(ui.elements.get('title')!.textContent).toBe('Mise à jour de Cindy');
+    expect(ui.elements.get('title')!.textContent).toBe('Mise à jour de Emma');
     ui.status({ phase: 'extracting', progress: 42, message: 'native diagnostic' });
     expect(ui.elements.get('message')!.textContent).toBe('Extraction de la mise à jour… 42%');
-    ui.status({ phase: 'failed', error: 'EACCES: C:\\Cindy', can_retry: false });
+    ui.status({ phase: 'failed', error: 'EACCES: C:\\Emma', can_retry: false });
     expect(ui.elements.get('error-text')!.textContent).toContain('journaux');
     expect(ui.elements.get('error-details')!.hidden).toBe(false);
-    expect(ui.elements.get('error-diagnostic')!.textContent).toBe('EACCES: C:\\Cindy');
+    expect(ui.elements.get('error-diagnostic')!.textContent).toBe('EACCES: C:\\Emma');
     ui.status({ phase: 'failed', error: 'processes_running', can_retry: true });
     expect(ui.elements.get('error-details')!.hidden).toBe(true);
     expect(ui.elements.get('btn-retry')!.hidden).toBe(false);
@@ -113,7 +113,7 @@ describe('updater failure retry UI', () => {
     // its retry copy without indexing an absent standalone phase catalog.
     for (const [locale, retry] of [['zh-Hant-x-lzh', '再試'], ['zh-Hans-x-lzh', '再试']]) {
       const classical = createUi(locale);
-      expect(classical.elements.get('title')!.textContent).toBe('Cindy 更新');
+      expect(classical.elements.get('title')!.textContent).toBe('Emma 更新');
       expect(classical.elements.get('btn-retry')!.textContent).toBe(retry);
     }
   });
@@ -232,12 +232,12 @@ describe('updater failure retry UI', () => {
     );
   });
 
-  it('asks the user to close Cindy when retry finds running installation processes', async () => {
+  it('asks the user to close Emma when retry finds running installation processes', async () => {
     const ui = createUi();
     await new Promise<void>((resolve) => setImmediate(resolve));
     ui.status({ phase: 'failed', can_retry: true, error: 'processes_running' });
     const message =
-      'Close Cindy and any processes running from its installation folder, then retry';
+      'Close Emma and any processes running from its installation folder, then retry';
     expect(ui.elements.get('error-text')!.textContent).toBe(message);
     const pending = ui.elements.get('btn-retry')!.click!();
     ui.rejectRetry('processes_running');

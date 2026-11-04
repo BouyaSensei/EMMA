@@ -264,7 +264,7 @@ async function prepare(capability: MediaCapability = 'image.generate'): Promise<
   return result.invocation_id as string;
 }
 
-describe('Cindy Core media invocation state and security boundary', () => {
+describe('Emma Core media invocation state and security boundary', () => {
   beforeEach(() => {
     mocks.recordBilling.mockReset().mockResolvedValue(undefined);
     mocks.finishBilling.mockReset();
@@ -927,7 +927,7 @@ describe('Cindy Core media invocation state and security boundary', () => {
     expect(mocks.providerInvoke).not.toHaveBeenCalled();
   });
 
-  it('本机模式不向 Cindy 网关申请 Guide', async () => {
+  it('本机模式不向 Emma 网关申请 Guide', async () => {
     mocks.localMode = true;
     await expect(callCindyMedia({ action: 'prepare', providerId: 'xd', modelId: 'image-model', capability: 'image.generate' }))
       .resolves.toMatchObject({ ok: false, errorCode: 'CONNECTION_UNAVAILABLE' });
@@ -935,7 +935,7 @@ describe('Cindy Core media invocation state and security boundary', () => {
     expect(mocks.outboundFetch).not.toHaveBeenCalled();
   });
 
-  it('旧调用未传 providerId 时裸 ID 唯一升级且同名来源优先 Cindy AI', async () => {
+  it('旧调用未传 providerId 时裸 ID 唯一升级且同名来源优先 Emma AI', async () => {
     const model = {
       id: 'openai/gpt-image-2',
       name: 'GPT Image 2',
@@ -1602,7 +1602,7 @@ describe('Cindy Core media invocation state and security boundary', () => {
     [401, 1],
     [400, 0],
     [403, 0],
-  ] as const)('网关 HTTP %s 时按 Cindy AI Key 失效上报 %s 次', async (status, reports) => {
+  ] as const)('网关 HTTP %s 时按 Emma AI Key 失效上报 %s 次', async (status, reports) => {
     mocks.reportKeyRejected.mockClear();
     mocks.guide.mockResolvedValue(
       resolvedGuide(

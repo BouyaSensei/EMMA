@@ -16,7 +16,7 @@ import { encodeCallbackData, encodeMessageId } from '../codec.js';
 import { TelegramIM, type TelegramGroupWindowEntry } from '../index.js';
 import { PROCESSING_REACTION_POOL } from '../reactionPool.js';
 
-const BOT = { id: 999, is_bot: true, first_name: 'Cindy', username: 'my_cindy_bot' };
+const BOT = { id: 999, is_bot: true, first_name: 'Emma', username: 'my_cindy_bot' };
 const OWNER_ID = '111';
 
 interface FakeApi extends TelegramApiClient {
@@ -412,9 +412,9 @@ describe('TelegramIM', () => {
     await connect();
     api.pushUpdates([
       // 显示名 Cindy ≠ username my_cindy_bot: 手打 @Cindy 没有 mention entity
-      groupMessage({ text: '@Cindy 你在?', fromId: 111, messageId: 30 }),
+      groupMessage({ text: '@Emma 你在?', fromId: 111, messageId: 30 }),
       groupMessage({ text: 'cindy 帮我看看这个', fromId: 222, messageId: 31 }),
-      groupMessage({ text: '我问过 Cindy 了不用管', fromId: 111, messageId: 32 }),
+      groupMessage({ text: '我问过 Emma 了不用管', fromId: 111, messageId: 32 }),
       groupMessage({ text: '明确召唤', fromId: 111, messageId: 34, mentionBot: true }),
     ]);
     await vi.waitFor(() => expect(events).toHaveLength(2));
@@ -507,14 +507,14 @@ describe('TelegramIM', () => {
     api.pushUpdates([groupMessage({ text: '这是啥项目', fromId: 222, messageId: 40, mentionBot: true })]);
     await vi.waitFor(() => expect(events).toHaveLength(1));
     expect(events[0].senderId).toBe('g/-100200');
-    const sent = await im.sendText('g/-100200', '这是 Cindy 呀');
+    const sent = await im.sendText('g/-100200', '这是 Emma 呀');
     const answerId = Number(sent.messageId.split('|')[1]);
     const replyTo = {
       message_id: answerId,
-      from: { id: BOT.id, is_bot: true, first_name: 'Cindy' },
+      from: { id: BOT.id, is_bot: true, first_name: 'Emma' },
       chat: { id: -100200, type: 'supergroup' as const },
       date: nowSec(150),
-      text: '这是 Cindy 呀',
+      text: '这是 Emma 呀',
     };
     // 成员回复 bot → 同一条群 lane
     api.pushUpdates([
@@ -1335,7 +1335,7 @@ describe('TelegramIM', () => {
           text: '按这个继续',
           reply_to_message: {
             message_id: 40,
-            from: { id: BOT.id, is_bot: true, first_name: 'Cindy' },
+            from: { id: BOT.id, is_bot: true, first_name: 'Emma' },
             chat: { id: 111, type: 'private' },
             date: nowSec(1_000),
             text: '方案 A: 先改 transport',
@@ -1346,7 +1346,7 @@ describe('TelegramIM', () => {
     await vi.waitFor(() => expect(events).toHaveLength(1));
     expect(events[0].replyContext).toEqual({
       messageId: '40',
-      author: 'Cindy',
+      author: 'Emma',
       text: '方案 A: 先改 transport',
       isBot: true,
     });

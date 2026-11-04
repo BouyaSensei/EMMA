@@ -24,7 +24,7 @@ vi.mock('@/lib/toast', () => ({ toast: { error: m.toastError } }));
 vi.mock('../botStore', async (importOriginal) => ({
   ...(await importOriginal<typeof import('../botStore')>()),
   useBotProfiles: () => [
-    { id: 'cindy-default', name: 'Cindy' },
+    { id: 'cindy-default', name: 'Emma' },
     { id: 'bot-b', name: 'Bea' },
   ],
 }));
@@ -62,7 +62,7 @@ function settingsFor(botId: string, onAllow = vi.fn()) {
     <div data-testid={botId}>
       <BotAutonomySettings
         botId={botId}
-        botName={botId === 'bot-b' ? 'Bea' : 'Cindy'}
+        botName={botId === 'bot-b' ? 'Bea' : 'Emma'}
         allowSchedulerFollow={false}
         onAllowSchedulerFollowChange={onAllow}
       />
@@ -97,16 +97,16 @@ it('moves follow-up to this teammate, tells where it came from, and turns the pr
   await waitFor(() => expect(mainSwitch('cindy-default').getAttribute('aria-checked')).toBe('true'));
   const bea = within(screen.getByTestId('bot-b'));
   expect(mainSwitch('bot-b').getAttribute('aria-checked')).toBe('false');
-  expect(bea.getByText('bots.autonomy.heldBy:Cindy')).toBeTruthy();
+  expect(bea.getByText('bots.autonomy.heldBy:Emma')).toBeTruthy();
   // 别的伙伴才有「它开的任务也交给 Cindy 跟进」；负责的伙伴自己没有。
-  fireEvent.click(bea.getByRole('switch', { name: 'bots.autonomy.allowSchedulerFollow.title:Cindy' }));
+  fireEvent.click(bea.getByRole('switch', { name: 'bots.autonomy.allowSchedulerFollow.title:Emma' }));
   expect(onAllow).toHaveBeenCalledWith(true);
   expect(within(screen.getByTestId('cindy-default')).queryByRole('switch', { name: /allowSchedulerFollow/ })).toBeNull();
 
   fireEvent.click(mainSwitch('bot-b'));
   await waitFor(() => expect(mainSwitch('bot-b').getAttribute('aria-checked')).toBe('true'));
   expect(host.setSettings).toHaveBeenCalledWith({ schedulerBotId: 'bot-b' });
-  expect(bea.getByText('bots.autonomy.movedFrom:Cindy')).toBeTruthy();
+  expect(bea.getByText('bots.autonomy.movedFrom:Emma')).toBeTruthy();
   expect(mainSwitch('cindy-default').getAttribute('aria-checked')).toBe('false');
   expect(bea.queryByRole('switch', { name: /allowSchedulerFollow/ })).toBeNull();
 
@@ -122,11 +122,11 @@ it('moves follow-up to this teammate, tells where it came from, and turns the pr
 it('disables taking over follow-up and explains why when this teammate\'s follow Skill is off', async () => {
   render(
     <div data-testid="cindy-default">
-      <BotAutonomySettings botId="cindy-default" botName="Cindy" allowSchedulerFollow={false}
+      <BotAutonomySettings botId="cindy-default" botName="Emma" allowSchedulerFollow={false}
         onAllowSchedulerFollowChange={vi.fn()} followOff />
     </div>,
   );
-  await waitFor(() => expect(screen.getByText('bots.systemSkills.followOffHint:Cindy')).toBeTruthy());
+  await waitFor(() => expect(screen.getByText('bots.systemSkills.followOffHint:Emma')).toBeTruthy());
   expect(mainSwitch('cindy-default').hasAttribute('disabled')).toBe(true);
   fireEvent.click(mainSwitch('cindy-default'));
   expect(m.confirm).not.toHaveBeenCalled();
@@ -233,7 +233,7 @@ it('keeps the invitation available when saving fails', async () => {
 it('follows a change made elsewhere (another window or the agent) through the host push', async () => {
   override = 'cindy-default';
   render(settingsFor('bot-b'));
-  await waitFor(() => expect(screen.getByText('bots.autonomy.heldBy:Cindy')).toBeTruthy());
+  await waitFor(() => expect(screen.getByText('bots.autonomy.heldBy:Emma')).toBeTruthy());
   override = 'bot-b';
   await act(async () => { listeners.forEach((cb) => cb({})); });
   await waitFor(() => expect(mainSwitch('bot-b').getAttribute('aria-checked')).toBe('true'));

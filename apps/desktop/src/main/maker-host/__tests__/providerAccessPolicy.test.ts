@@ -74,7 +74,7 @@ function catalog(): Catalog {
 }
 
 describe('provider access policy', () => {
-  it('hides Cindy AI only for account-free local sessions', () => {
+  it('hides Emma AI only for account-free local sessions', () => {
     expect(isProviderSelectable('xd', { canUseCindyGateway: false })).toBe(false);
     expect(isProviderSelectable('xd', { canUseCindyGateway: true })).toBe(true);
     expect(isProviderSelectable('xd', {})).toBe(true);
@@ -90,7 +90,7 @@ describe('provider access policy', () => {
     ]);
   });
 
-  it('preserves the original catalog for every Cindy account session', () => {
+  it('preserves the original catalog for every Emma account session', () => {
     const input = catalog();
     expect(filterProviderCatalogForAccount(input, { canUseCindyGateway: true })).toBe(input);
     expect(filterProviderCatalogForAccount(input, {})).toBe(input);

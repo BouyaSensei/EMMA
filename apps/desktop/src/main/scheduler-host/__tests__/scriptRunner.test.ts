@@ -282,7 +282,7 @@ describe('ScriptScheduleRunner', () => {
     );
   });
 
-  it('starts with the legacy protocol, then responds with the Cindy protocol selected by a new client', async () => {
+  it('starts with the legacy protocol, then responds with the Emma protocol selected by a new client', async () => {
     const child = childProcess();
     spawnMock.mockReturnValue(child);
     const hostFrames: string[] = [];

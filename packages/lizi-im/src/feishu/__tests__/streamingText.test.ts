@@ -100,7 +100,7 @@ describe('feishu streaming text', () => {
 
     const card = mocks.patchCardRaw.mock.calls[0][1];
     expect(requestBytes(card)).toBeLessThanOrEqual(FEISHU_CARD_REQUEST_MAX_BYTES);
-    expect(markdownContent(card)).toContain('完整内容仍可在 Cindy 桌面端查看');
+    expect(markdownContent(card)).toContain('完整内容仍可在 Emma 桌面端查看');
   });
 
   // Regression: an oversized intermediate frame used to bypass the final-card byte cap.
@@ -117,7 +117,7 @@ describe('feishu streaming text', () => {
       expect(mocks.patchCardRaw).toHaveBeenCalledTimes(1);
       const card = mocks.patchCardRaw.mock.calls[0][1];
       expect(requestBytes(card)).toBeLessThanOrEqual(FEISHU_CARD_REQUEST_MAX_BYTES);
-      expect(markdownContent(card)).toContain('完整内容仍可在 Cindy 桌面端查看');
+      expect(markdownContent(card)).toContain('完整内容仍可在 Emma 桌面端查看');
       expect(mocks.sendCardRaw).toHaveBeenCalledTimes(1);
     } finally { vi.useRealTimers(); }
   });

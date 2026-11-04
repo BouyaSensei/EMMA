@@ -387,7 +387,7 @@ describe('todos moving with the companion', () => {
     const { file } = await fixture();
     const store = createBotTodoStore(file, async () => ({}));
     const mine = await store.patch({ ...p, key: 'quote:1' });
-    const theirs = { ...mine, id: 'todo:theirs', title: '另一个 Cindy 的' };
+    const theirs = { ...mine, id: 'todo:theirs', title: '另一个 Emma 的' };
     await store.importItems([theirs], []);
     await store.importItems([theirs], []);
     const items = (await store.read()).items;

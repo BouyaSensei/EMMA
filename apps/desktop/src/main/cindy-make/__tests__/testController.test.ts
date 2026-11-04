@@ -94,7 +94,7 @@ function harness(initial: Partial<CindyMakeCompletionMeta> = {}) {
 }
 afterEach(() => vi.useRealTimers());
 
-describe('Main-owned Cindy Make test lifecycle', () => {
+describe('Main-owned Emma Make test lifecycle', () => {
   it('saves specific build failures and removes old diagnostics on a fresh attempt', async () => {
     const h = harness();
     await h.controller.act('session', 'completion', 'build');
@@ -308,7 +308,7 @@ describe('Main-owned Cindy Make test lifecycle', () => {
 
 const installer: PersonalArtifact = {
   artifactDirectory: 'completion-output',
-  artifactName: 'Cindy.exe',
+  artifactName: 'Emma.exe',
   sha256: 'f'.repeat(64),
   commit: 'b'.repeat(40),
 };

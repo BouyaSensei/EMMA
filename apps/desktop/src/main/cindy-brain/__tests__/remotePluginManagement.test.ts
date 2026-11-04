@@ -261,8 +261,8 @@ describe('remote plugin management receipt boundaries', () => {
   function projectsFixture() {
     const f = fixture();
     const projects = [
-      { id: 'project-a', name: 'Cindy', path: '/host/project-a', workdir: '/host/project-a' },
-      { id: 'project-b', name: 'Cindy', workdir: 'C:\\host\\project-b' },
+      { id: 'project-a', name: 'Emma', path: '/host/project-a', workdir: '/host/project-a' },
+      { id: 'project-b', name: 'Emma', workdir: 'C:\\host\\project-b' },
     ];
     const disabled = new Map<string, string[]>();
     f.deps.projects = {
@@ -307,8 +307,8 @@ describe('remote plugin management receipt boundaries', () => {
     const f = projectsFixture();
     const value = (await f.invoke('snapshot', {})) as unknown as { projects: unknown[] };
     expect(value.projects).toEqual([
-      { id: 'project-a', name: 'Cindy', path: '/host/project-a' },
-      { id: 'project-b', name: 'Cindy' },
+      { id: 'project-a', name: 'Emma', path: '/host/project-a' },
+      { id: 'project-b', name: 'Emma' },
     ]);
     expect(value.projects[0]).not.toHaveProperty('workdir');
     const old = await fixture().invoke('snapshot', {});
@@ -348,8 +348,8 @@ describe('remote plugin management receipt boundaries', () => {
     expect((await f.invoke('snapshot', {})) as unknown as { projects: unknown[] }).toHaveProperty(
       'projects',
       [
-        { id: 'project-a', name: 'Cindy', path: '/host/project-a' },
-        { id: 'project-b', name: 'Cindy' },
+        { id: 'project-a', name: 'Emma', path: '/host/project-a' },
+        { id: 'project-b', name: 'Emma' },
       ],
     );
     await expect(f.read(browsed.id)).rejects.toThrow();

@@ -1,6 +1,6 @@
 /** Runs inside unmodified Pi, after every extension payload hook. */
 export const PI_CACHE_RECOVERY_SOURCE = String.raw`
-function installCindyCacheRecovery(pi) {
+function installEmmaCacheRecovery(pi) {
   const supported = (api) => api === 'openai-completions' || api === 'openai-responses';
   const fields = ['prompt_cache_key', 'prompt_cache_retention'];
   const ownedRegistries = new WeakSet();

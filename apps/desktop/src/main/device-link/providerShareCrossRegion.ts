@@ -213,7 +213,7 @@ export async function crossRegionOfIntent(intent: ProviderShareInvitationIntent,
   try {
     base = await peerApiBase(region);
   } catch {
-    throwIpcError('REGION_MISMATCH', 'This link belongs to another Cindy service');
+    throwIpcError('REGION_MISMATCH', 'This link belongs to another Emma service');
   }
   if (providerShareLinkRegion(intent, { peer: base }) !== 'peer') throwIpcError('INVALID_PARAMS', 'Unknown provider share service');
   return region;

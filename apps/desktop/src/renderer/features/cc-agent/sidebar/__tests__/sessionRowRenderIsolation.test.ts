@@ -191,7 +191,7 @@ afterEach(() => {
 
 // ── 不变量 1:memo 包裹(结构断言 + 源码断言双保险) ──────────────────────────
 
-describe('SessionItem — Cindy Make preparation', () => {
+describe('SessionItem — Emma Make preparation', () => {
   it('keeps a personal build running outside an Agent turn without waking unrelated rows', () => {
     let state: CindyMakeGlobalState = {};
     const listeners = new Set<() => void>();

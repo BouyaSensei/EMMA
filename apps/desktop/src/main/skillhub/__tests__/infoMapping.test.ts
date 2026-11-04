@@ -57,13 +57,13 @@ describe('mapHubSkillInfoToDesktopInfo', () => {
       description: 'Organization skill',
       version: '1.0.0',
       owner: { type: 'org', slug: 'acme', name: 'Acme' },
-      publisher: { name: 'Cindy Publisher' },
+      publisher: { name: 'Emma Publisher' },
       visibility: 'public',
       updatedAt: '2026-09-02T00:00:00.000Z',
     });
 
     expect(info.authorName).toBe('Acme');
-    expect(info.publisherName).toBe('Cindy Publisher');
+    expect(info.publisherName).toBe('Emma Publisher');
   });
 
   it('preserves Hub ownership, visibility, and review status needed by My Published management', () => {

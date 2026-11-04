@@ -81,7 +81,7 @@ describe('owner-bound companion previews', () => {
     expect(h.generate).not.toHaveBeenCalled();
     expect(h.catalog).not.toHaveBeenCalled();
   });
-  it('uses the latest Cindy selection for refinement and does not retry on another route', async () => {
+  it('uses the latest Emma selection for refinement and does not retry on another route', async () => {
     const preview = await generateBotCreationDraft({ prompt: 'Practice English', modelRoute }, []);
     h.generate.mockResolvedValueOnce({ ok: false, reason: 'no_candidate' });
     const updated = { agentKind: 'codex', providerId: 'openai', model: 'different-model' };

@@ -193,7 +193,7 @@ function errorCodeOf(body: Record<string, unknown> | null): string | undefined {
 export async function fetchRelayInfo(fetchFn: RelayFetch, baseUrl: string, signal?: AbortSignal): Promise<RelayInfo> {
   const { ok, body } = await call(fetchFn, `${baseUrl}${API_PREFIX}/relay/info`, { method: 'GET', signal });
   if (!ok || !body || typeof body.relayId !== 'string' || typeof body.name !== 'string') {
-    throw new RelayJoinError('NOT_A_RELAY', 'address is not a Cindy relay');
+    throw new RelayJoinError('NOT_A_RELAY', 'address is not a Emma relay');
   }
   if (
     body.protocolVersion !== 1 ||
@@ -262,7 +262,7 @@ export async function waitForRelayApproval(
       result = await call(
         fetchFn,
         `${link.baseUrl}${API_PREFIX}/relay/pair/${encodeURIComponent(request.requestId)}?wait=20`,
-        { method: 'GET', headers: { 'X-Cindy-Relay-Poll-Token': request.pollToken }, signal: options.signal },
+        { method: 'GET', headers: { 'X-Emma-Relay-Poll-Token': request.pollToken }, signal: options.signal },
       );
     } catch (error) {
       // 等待期间网络抖一下不算失败;连续多次连不上才放弃。
@@ -331,7 +331,7 @@ export async function fetchRelayCertificates(
 ): Promise<unknown[]> {
   const { ok, status, body } = await call(fetchFn, `${baseUrl}${API_PREFIX}/relay/certs`, {
     method: 'GET',
-    headers: { Authorization: `CindyRelay ${credential}` },
+    headers: { Authorization: `EmmaRelay ${credential}` },
     signal,
   });
   if (!ok || !body || !Array.isArray(body.certs)) throw new RelayJoinError('FAILED', `certificate list unavailable (${status})`);

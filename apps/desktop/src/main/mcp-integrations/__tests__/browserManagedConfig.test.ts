@@ -56,13 +56,13 @@ describe('managed browser runtime config', () => {
     });
   });
 
-  it('points the CDP guard at Cindy-real and a relocated port', () => {
+  it('points the CDP guard at Emma-real and a relocated port', () => {
     expect(managedBrowserGuardIdentity({
       runtimeDir: '/runtime',
       useRealProfile: false,
     })).toEqual({
       cdpHttpUrl: 'http://127.0.0.1:18800',
-      managedUserDataDir: nodePath.join('/runtime', 'browser', 'Cindy', 'user-data'),
+      managedUserDataDir: nodePath.join('/runtime', 'browser', 'Emma', 'user-data'),
     });
     expect(managedBrowserGuardIdentity({
       runtimeDir: '/runtime',
@@ -70,19 +70,19 @@ describe('managed browser runtime config', () => {
       cdpPort: 18801,
     })).toEqual({
       cdpHttpUrl: 'http://127.0.0.1:18801',
-      managedUserDataDir: nodePath.join('/runtime', 'browser', 'Cindy-real', 'user-data'),
+      managedUserDataDir: nodePath.join('/runtime', 'browser', 'Emma-real', 'user-data'),
     });
   });
 
-  it('labels both isolated and snapshot profiles Cindy on the Chrome chip', () => {
+  it('labels both isolated and snapshot profiles Emma on the Chrome chip', () => {
     const isolated = buildManagedConfig().browser;
-    expect(isolated?.defaultProfile).toBe('Cindy');
-    expect(isolated?.profiles?.Cindy?.displayName).toBe('Cindy');
+    expect(isolated?.defaultProfile).toBe('Emma');
+    expect(isolated?.profiles?.Emma?.displayName).toBe('Emma');
 
     const snapshot = buildManagedConfig({ useRealProfile: true }).browser;
-    expect(snapshot?.defaultProfile).toBe('Cindy-real');
-    expect(snapshot?.profiles?.['Cindy-real']?.displayName).toBe('Cindy');
-    expect(Object.keys(snapshot?.profiles ?? {})).toEqual(['Cindy-real']);
+    expect(snapshot?.defaultProfile).toBe('Emma-real');
+    expect(snapshot?.profiles?.['Emma-real']?.displayName).toBe('Emma');
+    expect(Object.keys(snapshot?.profiles ?? {})).toEqual(['Emma-real']);
   });
 
   it('maps an explicit proxy server to a PAC-only Chrome launch', () => {

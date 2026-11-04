@@ -260,7 +260,7 @@ export function createByokRuntime(
         try {
           onCindyAutoModelsChanged?.();
         } catch {
-          log.warn('Cindy Auto refresh notification failed');
+          log.warn('Emma Auto refresh notification failed');
         }
       }
     },

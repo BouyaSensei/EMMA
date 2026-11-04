@@ -75,7 +75,7 @@ describe('Pi package list parser', () => {
 });
 
 describe('Pi package runtime compatibility', () => {
-  it('reports whether Cindy Pi satisfies package peer requirements', () => {
+  it('reports whether Emma Pi satisfies package peer requirements', () => {
     expect(evaluatePiRuntimeRequirements({
       '@earendil-works/pi-coding-agent': '>=0.84.1 <0.85.0',
       unrelated: '^1.0.0',
@@ -99,7 +99,7 @@ describe('Pi package runtime compatibility', () => {
     ]);
   });
 
-  it('keeps invalid ranges or unknown Cindy versions visible as unknown', () => {
+  it('keeps invalid ranges or unknown Emma versions visible as unknown', () => {
     expect(evaluatePiRuntimeRequirements({
       '@mariozechner/pi-tui': 'not-a-semver-range',
     }, '0.83.0')[0]).toMatchObject({

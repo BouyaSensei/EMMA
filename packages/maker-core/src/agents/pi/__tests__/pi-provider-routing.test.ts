@@ -3300,7 +3300,7 @@ describe("Pi provider-aware model routing", () => {
         if (modelId !== "shared-model") return null;
         return {
           id: modelId,
-          displayName: "Shared through Cindy",
+          displayName: "Shared through Emma",
           contextWindow: 200_000,
           efforts: ["minimal", "low", "high"] as const,
           defaultEffort: "high" as const,
@@ -5513,7 +5513,7 @@ describe("Pi provider-aware model routing", () => {
     }
   });
 
-  it('keeps a learned inherited window below a later Cindy working-window override', async () => {
+  it('keeps a learned inherited window below a later Emma working-window override', async () => {
     let workingWindow: number | undefined;
     const deps = byomDeps(async () => ({ providers: [
       { id: 'native-a', name: 'Current', baseUrl: 'http://a.test', api: 'openai-completions',
@@ -6789,7 +6789,7 @@ describe("Pi provider-aware model routing", () => {
     await handle.close();
   });
 
-  it("executes only runtime-confirmed commands from enabled Cindy-managed Pi packages", async () => {
+  it("executes only runtime-confirmed commands from enabled Emma-managed Pi packages", async () => {
     const packageRoot = path.join(agentHome, "managed-package");
     const extensionPath = path.join(packageRoot, "extensions", "index.ts");
     mkdirSync(path.dirname(extensionPath), { recursive: true });
@@ -8209,7 +8209,7 @@ describe("Pi provider-aware model routing", () => {
     expect(contextWrites).toHaveLength(4);
   });
 
-  it("puts a deterministic Cindy extension bundle hash into remote spawn env", async () => {
+  it("puts a deterministic Emma extension bundle hash into remote spawn env", async () => {
     const remoteStub: import("../transport.js").PiTransport = {
       writeLine: async () => {},
       onLine: () => () => {},

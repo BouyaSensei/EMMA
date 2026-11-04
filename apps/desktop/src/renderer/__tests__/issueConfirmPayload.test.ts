@@ -78,7 +78,7 @@ describe('parseIssueEnvRegion', () => {
 
 describe('parseIssueSuggestedPublicName', () => {
   it('trims a valid single-line public name', () => {
-    expect(parseIssueSuggestedPublicName('  Cindy User  ')).toBe('Cindy User');
+    expect(parseIssueSuggestedPublicName('  Emma User  ')).toBe('Emma User');
   });
 
   it('drops empty, over-long, control-character and line-separator values', () => {

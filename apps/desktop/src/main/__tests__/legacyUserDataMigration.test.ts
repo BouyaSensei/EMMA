@@ -21,7 +21,7 @@ import {
 } from '../legacyUserDataMigration';
 
 const BASE = path.join(path.sep, 'base');
-const USER_DATA = path.join(BASE, 'Cindy');
+const USER_DATA = path.join(BASE, 'Emma');
 const LEGACY = path.join(BASE, 'xdt-maker');
 const nodeRequire = createRequire(import.meta.url);
 
@@ -511,7 +511,7 @@ describe('runLegacyUserDataMigration', () => {
     expect(memfs.has(path.join(USER_DATA, 'dialogues'))).toBe(false);
   });
 
-  it('agent 浏览器 profile:browser/XDMaker 复制为 browser/Cindy,缓存目录与 Singleton 锁跳过', async () => {
+  it('agent 浏览器 profile:browser/XDMaker 复制为 browser/Emma,缓存目录与 Singleton 锁跳过', async () => {
     const memfs = createMemFs();
     memfs.addDir(USER_DATA);
     memfs.addDir(LEGACY);
@@ -526,7 +526,7 @@ describe('runLegacyUserDataMigration', () => {
     const result = await runLegacyUserDataMigration('u1', deps);
 
     expect(result).toMatchObject({ status: 'migrated', browserProfileCopied: true });
-    const newProfile = path.join(USER_DATA, 'browser-runtime', 'browser', 'Cindy');
+    const newProfile = path.join(USER_DATA, 'browser-runtime', 'browser', 'Emma');
     // 登录态文件随迁到新品牌目录名下。
     expect(memfs.read(path.join(newProfile, 'user-data', 'Local State'))).toBe('local-state');
     expect(memfs.read(path.join(newProfile, 'user-data', 'Default', 'Cookies'))).toBe('cookies');
@@ -591,7 +591,7 @@ describe('shouldSkipLegacyMigrationForDevSandbox', () => {
     expect(
       shouldSkipLegacyMigrationForDevSandbox({
         isPackaged: false,
-        envUserDataDir: path.join(BASE, 'Cindy-dev'),
+        envUserDataDir: path.join(BASE, 'Emma-dev'),
       }),
     ).toBe(true);
   });

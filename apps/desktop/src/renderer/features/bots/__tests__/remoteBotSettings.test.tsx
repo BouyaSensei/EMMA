@@ -74,7 +74,7 @@ const bot = {
   id: 'bot',
   deviceId: 'host',
   deviceName: 'Remote Mac',
-  name: 'Cindy',
+  name: 'Emma',
   avatar: '',
   avatarColor: '',
   description: '',
@@ -91,7 +91,7 @@ const resource = (
 ) => ({
   ref: { collectionId: 'teammates', kind: 'bot', id: 'bot' },
   revision,
-  display: { title: 'Cindy' },
+  display: { title: 'Emma' },
   links: [],
   actions: [
     {

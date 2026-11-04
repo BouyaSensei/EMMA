@@ -32,7 +32,7 @@ function client(fetch: AuthFetch = vi.fn(async () => response(200, {}))) {
   });
 }
 
-describe("CindyAuthClient", () => {
+describe("EmmaAuthClient", () => {
   it.each(["request", "response"] as const)("reports the original %s error before mapping it", async (stage) => {
     const original = new TypeError("socket closed", { cause: new Error("proxy rejected CONNECT") });
     const onRequestError = vi.fn();
@@ -336,7 +336,7 @@ describe("CindyAuthClient", () => {
             id: "m1",
             kind: "personal",
             role: "owner",
-            displayName: "Cindy",
+            displayName: "Emma",
             email: null,
             orgId: null,
             orgName: null,
@@ -353,7 +353,7 @@ describe("CindyAuthClient", () => {
           passportId: "p1",
           kind: "personal",
           role: "owner",
-          displayName: "Cindy",
+          displayName: "Emma",
           email: null,
           orgId: null,
           orgName: null,
@@ -872,7 +872,7 @@ describe("reduceAuthFlow", () => {
             id: "m1",
             kind: "personal",
             role: "owner",
-            displayName: "Cindy",
+            displayName: "Emma",
             email: null,
             orgId: null,
             orgName: null,

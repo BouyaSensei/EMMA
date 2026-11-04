@@ -706,7 +706,7 @@ export class BrowserExtensionBridge {
     ) {
       return this.send(
         res,
-        failure('SESSION_CHANGED', 'Reconnect the Cindy browser extension.'),
+        failure('SESSION_CHANGED', 'Reconnect the Emma browser extension.'),
         409,
       );
     }
@@ -717,7 +717,7 @@ export class BrowserExtensionBridge {
           res,
           failure(
             'PAIRING_REQUIRED',
-            'Reconnect the Cindy browser extension before starting learning.',
+            'Reconnect the Emma browser extension before starting learning.',
           ),
           403,
         );
@@ -758,7 +758,7 @@ export class BrowserExtensionBridge {
           res,
           failure(
             'PAIRING_REQUIRED',
-            'Reconnect the Cindy browser extension before starting learning.',
+            'Reconnect the Emma browser extension before starting learning.',
           ),
           403,
         );
@@ -1032,7 +1032,7 @@ export class BrowserExtensionBridge {
 
   private startFailure(e: unknown): BrowserExtensionFailure {
     const code = (e as NodeJS.ErrnoException)?.code;
-    if (this.closed) return failure('BRIDGE_STOPPED', 'This browser connection was closed. Check Cindy Chrome is enabled.');
+    if (this.closed) return failure('BRIDGE_STOPPED', 'This browser connection was closed. Check Emma Chrome is enabled.');
     return failure(
       code === 'BRIDGE_PORTS_BUSY'
         ? 'BRIDGE_PORTS_BUSY'
@@ -1202,7 +1202,7 @@ export class BrowserExtensionBridge {
           candidates.length > 1 && !payload.browser ? 'BROWSER_REQUIRED' : 'EXTENSION_DISCONNECTED',
           candidates.length > 1
             ? 'Choose a browser connection id; never guess the account/profile.'
-            : 'Open Cindy Chrome settings to install, enable or reconnect the extension.',
+            : 'Open Emma Chrome settings to install, enable or reconnect the extension.',
         ),
         clients: candidates.map((c) => this.publicClient(c)),
       };

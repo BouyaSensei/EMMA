@@ -83,7 +83,7 @@ describe('WechatBotSection', () => {
   // exposing independent model defaults or replacing another teammate's connection.
   it('adopts an already connected WeChat account without reauthorizing it', async () => {
     mocks.state = { phase: 'connected', bound: true, queuedTasks: 0 };
-    render(<WechatBotSection expanded onToggle={vi.fn()} companion={{ id: 'bot-cindy', name: 'Cindy' }} />);
+    render(<WechatBotSection expanded onToggle={vi.fn()} companion={{ id: 'bot-cindy', name: 'Emma' }} />);
     expect(screen.queryByTestId('defaults')).toBeNull();
     expect(document.getElementById(`${searchTarget}-trigger`)).toBeNull();
     expect(screen.getByRole('region').getAttribute('id')).toBe('companion-im-wechat-panel');
@@ -96,13 +96,13 @@ describe('WechatBotSection', () => {
   it("for a teammate on another computer keeps assignment and unbind here but sends authorization to that computer", () => {
     mocks.state = { phase: 'connected', bound: true, queuedTasks: 0 };
     mocks.companionBotId = 'bot-cindy';
-    const { rerender } = render(<WechatBotSection expanded onToggle={vi.fn()} companion={{ id: 'bot-cindy', name: 'Cindy' }}
+    const { rerender } = render(<WechatBotSection expanded onToggle={vi.fn()} companion={{ id: 'bot-cindy', name: 'Emma' }}
       host={{ name: 'Studio', api: {} as never }} />);
     // Re-binding opens a browser on the computer that runs WeChat: not offered here.
     expect(screen.queryByRole('button', { name: 'settings.wechatBot.actions.rebind' })).toBeNull();
     expect(screen.getByRole('button', { name: 'settings.wechatBot.actions.unbind' })).toBeTruthy();
     mocks.state = { phase: 'disconnected', bound: false, queuedTasks: 0 };
-    rerender(<WechatBotSection expanded onToggle={vi.fn()} companion={{ id: 'bot-cindy', name: 'Cindy' }}
+    rerender(<WechatBotSection expanded onToggle={vi.fn()} companion={{ id: 'bot-cindy', name: 'Emma' }}
       host={{ name: 'Studio', api: {} as never }} />);
     expect(screen.queryByRole('button', { name: 'settings.wechatBot.actions.connect' })).toBeNull();
     expect(screen.getByText('bots.remoteSettings.finishOnHost')).toBeTruthy();
@@ -111,7 +111,7 @@ describe('WechatBotSection', () => {
   it('does not expose authorization or unbind controls for another teammate', () => {
     mocks.state = { phase: 'connected', bound: true, queuedTasks: 0 };
     mocks.companionBotId = 'bot-other';
-    render(<WechatBotSection expanded onToggle={vi.fn()} companion={{ id: 'bot-cindy', name: 'Cindy' }} />);
+    render(<WechatBotSection expanded onToggle={vi.fn()} companion={{ id: 'bot-cindy', name: 'Emma' }} />);
     expect(screen.getByText('settings.wechatBot.companion.other')).toBeTruthy();
     expect(screen.getAllByRole('button')).toHaveLength(1);
     expect(screen.getByRole('button').getAttribute('aria-controls')).toBe('companion-im-wechat-panel');
@@ -119,7 +119,7 @@ describe('WechatBotSection', () => {
 
   it('does not open authorization if assigning the teammate fails', async () => {
     mocks.setCompanion.mockResolvedValue(false);
-    render(<WechatBotSection expanded onToggle={vi.fn()} companion={{ id: 'bot-cindy', name: 'Cindy' }} />);
+    render(<WechatBotSection expanded onToggle={vi.fn()} companion={{ id: 'bot-cindy', name: 'Emma' }} />);
     fireEvent.click(screen.getByRole('button', { name: 'settings.wechatBot.actions.connect' }));
     await waitFor(() => expect(mocks.setCompanion).toHaveBeenCalledWith('bot-cindy'));
     expect(mocks.authorize).not.toHaveBeenCalled();
@@ -178,7 +178,7 @@ describe('WechatBotSection', () => {
     expect(mocks.cancelAuthorization).toHaveBeenCalledTimes(1);
   });
 
-  it('confirms unbind while retaining existing Cindy history', async () => {
+  it('confirms unbind while retaining existing Emma history', async () => {
     mocks.state = {
       phase: 'needs_reauth',
       bound: true,

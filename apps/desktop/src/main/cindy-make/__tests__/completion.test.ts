@@ -146,7 +146,7 @@ describe('completion branch protection', () => {
       const git = vi.fn(async () => branch);
       await expect(
         collectCindyMakeChanges(git, 'profile', 'profile/cindy-make/worktrees/run'),
-      ).rejects.toThrow('Unexpected Cindy Make worktree');
+      ).rejects.toThrow('Unexpected Emma Make worktree');
       expect(git).toHaveBeenCalledTimes(1);
     },
   );

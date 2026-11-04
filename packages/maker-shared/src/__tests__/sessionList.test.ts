@@ -126,7 +126,7 @@ describe('sessionList', () => {
     const now = new Date('2026-01-01T00:10:00.000Z').getTime();
     const sentinel = session('s-sentinel', {
       title: 'New Maker',
-      workingDir: '/Users/dash/Code/Cindy/cindy',
+      workingDir: '/Users/dash/Code/Emma/cindy',
     });
 
     expect(
@@ -137,11 +137,11 @@ describe('sessionList', () => {
       toRemoteSessionListItem(sentinel, now, undefined, 0, null, null, 'Untitled session').title,
     ).toBe('Untitled session');
     // 调用方没给文案时回落既有链(workingDir),而不是悄悄显示中文。
-    expect(toRemoteSessionListItem(sentinel, now).title).toBe('/Users/dash/Code/Cindy/cindy');
+    expect(toRemoteSessionListItem(sentinel, now).title).toBe('/Users/dash/Code/Emma/cindy');
 
     // 空标题(非哨兵)不受影响,仍走既有兜底链。
     const emptyTitle = toRemoteSessionListItem(
-      session('s-empty', { title: '', workingDir: '/Users/dash/Code/Cindy/cindy' }),
+      session('s-empty', { title: '', workingDir: '/Users/dash/Code/Emma/cindy' }),
       now,
       undefined,
       0,
@@ -149,7 +149,7 @@ describe('sessionList', () => {
       null,
       '未命名任务',
     );
-    expect(emptyTitle.title).toBe('/Users/dash/Code/Cindy/cindy');
+    expect(emptyTitle.title).toBe('/Users/dash/Code/Emma/cindy');
   });
 
   it('buildRemoteSessionSections 把 unnamedLabel 透传到列表行', () => {

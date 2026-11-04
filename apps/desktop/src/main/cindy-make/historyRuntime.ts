@@ -1191,7 +1191,7 @@ export async function generateHistoryPersonalVersion(
       }
     })
     .catch(() => {
-      log.warn('Could not persist Cindy Make build result');
+      log.warn('Could not persist Emma Make build result');
     })
     .finally(() => {
       if (buildJob === job) buildJob = undefined;

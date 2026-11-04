@@ -6,7 +6,7 @@ const pullRequest = (number = 12) => ({
   number,
   title: 'Scrolling flickers',
   state: 'open',
-  html_url: `https://github.com/makecindy/cindy/pull/${number}`,
+  html_url: `https://github.com/BouyaSensei/EMMA/pull/${number}`,
   pull_request: {},
   body: 'A short reproduction',
   updated_at: '2026-09-08T08:00:00Z',
@@ -20,15 +20,15 @@ const page = (items: unknown[] = []) => ({
 const json = (value: unknown, status = 200) => new Response(JSON.stringify(value), { status });
 afterEach(() => vi.useRealTimers());
 
-describe('Cindy upstream search', () => {
-  it('extracts bounded literal terms from requests and confines every request to Cindy', async () => {
+describe('Emma upstream search', () => {
+  it('extracts bounded literal terms from requests and confines every request to Emma', async () => {
     expect(upstreamSearchTerms('我希望修复消息流闪烁')).toEqual(['消息', '闪烁']);
     const fetch = vi.fn(async () => json(page()));
     await searchCindyUpstream('scrolling repo:elsewhere/private OR is:closed', signal(), { fetch });
     expect(fetch.mock.calls.length).toBeLessThanOrEqual(6);
     for (const [url, init] of fetch.mock.calls as unknown as [string, RequestInit][]) {
       expect(new URL(url).searchParams.get('q')).toMatch(
-        /^repo:makecindy\/cindy is:pr is:(open|merged) in:title,body "[\p{L}\p{N}]+"$/u,
+        /^repo:BouyaSensei\/EMMA is:pr is:(open|merged) in:title,body "[\p{L}\p{N}]+"$/u,
       );
       expect(init.headers).not.toHaveProperty('authorization');
     }
@@ -106,7 +106,7 @@ describe('Cindy upstream search', () => {
             merged: true,
             state: 'closed',
             merge_commit_sha: commit,
-            base: { repo: { full_name: 'makecindy/cindy' } },
+            base: { repo: { full_name: 'BouyaSensei/EMMA' } },
           }),
     );
     const result = await searchCindyUpstream('scrolling', signal(), {
@@ -124,8 +124,8 @@ describe('Cindy upstream search', () => {
       .filter(([url]) => url.includes('/search/issues'))
       .map(([url]) => new URL(url).searchParams.get('q'));
     expect(queries).toEqual([
-      'repo:makecindy/cindy is:pr is:open in:title,body "scrolling"',
-      'repo:makecindy/cindy is:pr is:merged in:title,body "scrolling"',
+      'repo:BouyaSensei/EMMA is:pr is:open in:title,body "scrolling"',
+      'repo:BouyaSensei/EMMA is:pr is:merged in:title,body "scrolling"',
     ]);
   });
   it('times out detail lookup rather than reporting unknown candidates as a completed query', async () => {

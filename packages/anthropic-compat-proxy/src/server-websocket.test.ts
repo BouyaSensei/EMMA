@@ -210,7 +210,7 @@ describe('anthropic-compat-proxy websocket upgrades', () => {
       }, signal: controller.signal }),
     });
     const client = await openUpgrade(proxy.url, '/codex/responses', Buffer.alloc(0), [
-      'Authorization: Bearer client-placeholder', 'X-Cindy-Pi-Session-Token: fixture-local-secret',
+      'Authorization: Bearer client-placeholder', 'X-Emma-Pi-Session-Token: fixture-local-secret',
     ]);
     expect(client.head).toContain('101 Switching Protocols');
     expect(upstream.requests[0].url).toBe('/codex/responses');

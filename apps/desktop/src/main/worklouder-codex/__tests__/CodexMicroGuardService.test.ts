@@ -20,7 +20,7 @@ const PAUSED = { supported: true, enabled: false, status: 'paused', restartRequi
 function fixture(legacy = false) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'cindy-guard-service-'));
   roots.push(root);
-  const supportPath = path.join(root, 'CindyCodexMicroGuard', 'aaaaaaaaaaaa');
+  const supportPath = path.join(root, 'EmmaCodexMicroGuard', 'aaaaaaaaaaaa');
   const store = new CodexMicroGuardStore(supportPath);
   const runner = new GuardEnvironmentRunner(legacy ? seedLegacyGuard(store) : null);
   const environment = { NODE_OPTIONS: runner.nodeOptions ?? '' };

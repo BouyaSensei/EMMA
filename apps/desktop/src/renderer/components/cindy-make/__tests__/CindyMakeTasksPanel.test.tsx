@@ -61,7 +61,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('Cindy Make settings task list', () => {
+describe('Emma Make settings task list', () => {
   it('shows one detail for many tasks, with search and no completed preparation steps', () => {
     render(<CindyMakeTasksPanel reports={Array.from({ length: 100 }, (_, i) => report(i))} />);
     expect(screen.getByText('Request 0')).toBeTruthy();

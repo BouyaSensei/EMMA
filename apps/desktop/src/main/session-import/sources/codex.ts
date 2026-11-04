@@ -511,7 +511,7 @@ async function verify(m: NativeMaterialization): Promise<VerifyOutcome> {
       .filter((f) => codexRolloutIdentity(f.file)?.threadId === m.sdkSessionId.toLowerCase() && !isZstdPath(f.file));
     file = hits.sort((a, b) => b.mtimeMs - a.mtimeMs)[0]?.file ?? '';
   }
-  if (!file) return { ok: false, reason: 'native-unloadable', detail: 'rollout missing in Cindy codex home' };
+  if (!file) return { ok: false, reason: 'native-unloadable', detail: 'rollout missing in Emma codex home' };
   const first = parseJsonLine((await readFirstLine(file)) ?? '');
   const id = first && isRecord(first.payload) ? str(first.payload.id).toLowerCase() : '';
   if (first?.type !== 'session_meta' || id !== m.sdkSessionId.toLowerCase()) {

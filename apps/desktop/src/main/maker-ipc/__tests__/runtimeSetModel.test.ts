@@ -619,7 +619,7 @@ describe('applyRuntimeSetModelChange', () => {
     expect(getSessionProvider(sessionId)).toBe('xd');
   });
 
-  it('keeps an idle Cindy Codex thread local when its independent subagent is incompatible', async () => {
+  it('keeps an idle Emma Codex thread local when its independent subagent is incompatible', async () => {
     const sessionId = rememberSession('runtime-set-model-cindy-local-compaction');
     setSessionProvider(sessionId, 'xd');
     const setModel = vi.fn(async () => {});

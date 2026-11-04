@@ -56,7 +56,7 @@ const waits: CindyMakeSyncWaiting[] = [
 ];
 
 describe('Sync status line', () => {
-  it('says which official version Sync reached and what waits for a Cindy update', async () => {
+  it('says which official version Sync reached and what waits for a Emma update', async () => {
     await show({ done: { at: 1, ref: 'v1.2.0', held: 'v1.3.0' } });
     expect(screen.getByText('已同步到官方 v1.2.0')).toBeTruthy();
     expect(screen.getByText(/官方 v1\.3\.0 已发布/)).toBeTruthy();
@@ -133,7 +133,7 @@ describe('Sync status line', () => {
     expect(container.textContent).toContain(zhCN.cindyMake.sync.errors.github);
   });
 
-  it('explains a personal version already ahead of this computer’s Cindy', async () => {
+  it('explains a personal version already ahead of this computer’s Emma', async () => {
     const { container } = await show({ done: { at: 1, ahead: true } });
     expect(container.textContent).toContain(zhCN.cindyMake.sync.doneCurrent);
     expect(container.textContent).toContain(zhCN.cindyMake.sync.ahead);

@@ -775,7 +775,7 @@ export function initDeviceLinkService(options: DeviceLinkServiceOptions = {}): v
     directRuntime: desktopDirectRuntime,
     getWsUrl: wsUrl,
     // 自建中转用中转凭证(CindyRelay),官方中转用账号 token(Bearer);两者每次建连前同一轮取值。
-    authorizationScheme: () => (activeSelfHostedRelay() ? 'CindyRelay' : 'Bearer'),
+    authorizationScheme: () => (activeSelfHostedRelay() ? 'EmmaRelay' : 'Bearer'),
     // 自建中转:每条对端消息签名,收到的对端消息核对签名(中转无法冒充设备);官方中转返回 null,行为不变。
     frameAuth: currentRelayFrameAuth,
     getToken: async () => {

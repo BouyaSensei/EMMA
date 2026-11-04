@@ -828,7 +828,7 @@ describe('doctor card interactions', () => {
             source: {
               status: 'ready',
               branch: 'cindy-make/task-run',
-              path: 'C:/Cindy/worktrees/task-run',
+              path: 'C:/Emma/worktrees/task-run',
             },
           },
         }}
@@ -836,7 +836,7 @@ describe('doctor card interactions', () => {
     );
     expect(screen.getByText('cindyMake.code.taskName')).toBeTruthy();
     expect(screen.getByText('cindyMake.code.workspace')).toBeTruthy();
-    expect(screen.getByText('C:/Cindy/worktrees/task-run')).toBeTruthy();
+    expect(screen.getByText('C:/Emma/worktrees/task-run')).toBeTruthy();
     expect(screen.getByText('cindyMake.code.preparingNpmDependencies')).toBeTruthy();
     expect(screen.queryByText('修复消息流闪烁')).toBeNull();
     expect(screen.queryByText('cindyMakeDoctor.scope')).toBeNull();

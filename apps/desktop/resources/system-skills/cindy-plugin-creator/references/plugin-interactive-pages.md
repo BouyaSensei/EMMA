@@ -8,7 +8,7 @@
 [示例目录](examples/interactive-pages/README.md)，字段、文件和 SDK 方法查
 [按需参考](examples/interactive-pages/REFERENCE.md)。
 
-**版本提示**：本章标准 SDK 导入和加载器整页替换要求 Cindy **0.1.122-beta 或更新版本**，
+**版本提示**：本章标准 SDK 导入和加载器整页替换要求 Emma **0.1.122-beta 或更新版本**，
 插件声明 `minCindyVersion: "0.1.122-beta"`，执行端、手机和远程查看端都需升级。
 
 ### 1. 先选界面，再选首屏来源
@@ -24,7 +24,7 @@
 | --- | --- | --- |
 | 后端生成完整 HTML | 界面随意图变化，希望修改后端就能更新界面 | loader 的 open_view |
 | 包内静态 HTML | 小表单、固定图表，界面和插件一起发布 | static |
-| Cindy 对话中的 AI 生成完整 HTML | 用户临时需要组合界面，数据由既有工具提供 | loader 的 show_page |
+| Emma 对话中的 AI 生成完整 HTML | 用户临时需要组合界面，数据由既有工具提供 | loader 的 show_page |
 
 后端可选：插件也可以只用自己的存储（[library §4.10.1](plugin-files-and-library.md)）
 自闭环，页面写法不变。无论首屏由谁生成，之后页面脚本都查询 JSON、更新局部，遵守同样的
@@ -41,7 +41,7 @@
 ghost_forge_pack({ dir: '<插件源码目录的绝对路径>' });
 // 用户明确要求安装后，使用同一个源码目录。
 ghost_forge_install({ dir: '<插件源码目录的绝对路径>' });
-// 然后在 Cindy 中说：“打开记录页面”。
+// 然后在 Emma 中说：“打开记录页面”。
 ```
 
 默认示例不上传真实文件。操作顺序和接后端的方法见[示例说明](examples/interactive-pages/README.md)。
@@ -130,7 +130,7 @@ app.ontoolresult = async result => {
 await app.connect();
 ```
 
-生成的页面用同一个标准 import，创建自己的 App 并 connect。SDK 由 Cindy 为所有页面
+生成的页面用同一个标准 import，创建自己的 App 并 connect。SDK 由 Emma 为所有页面
 提供并随宿主升级，不用 CDN，不写死 SDK 地址；自带 SDK 的页面仍可用自己的副本。
 
 生成的页面不要等初始 `ontoolresult` 再渲染：加载器已接收它，重新连接不会
@@ -216,12 +216,12 @@ innerHTML 只接转义过动态值的可信模板，不接普通数据。片段�
 校验：只允许相对路径、固定前缀，不接受完整网址、父目录或编码绕过。后端继续
 验证当前用户对记录的权限，路径白名单不能代替后端鉴权。
 
-凭证只由 main.js 发起的 cindy.fetch 使用，值由 Cindy 注入；页面和 main.js 都不要
+凭证只由 main.js 发起的 cindy.fetch 使用，值由 Emma 注入；页面和 main.js 都不要
 尝试读回。声明方式见[网络 §4.7](plugin-network.md)。
 
 页面选文件：pick_files 写入 Library，再 upload_files 上传。接收用户在对话里发的表格，
 必须用声明了 `cindy_handoff_files` 的工具（0.1.122-beta 起，规则见
-[§4.10.3](plugin-files-and-library.md)）：AI 用 ghost_call 的 attachments 交给它 → Cindy
+[§4.10.3](plugin-files-and-library.md)）：AI 用 ghost_call 的 attachments 交给它 → Emma
 存副本，插件只收到 `handoff:` 引用 → 首屏只显示名称和大小，按钮带上引用 → 用户点击时
 插件用 `upload.handoff` 上传，或页面在本机读取。工具说明写明「用户在对话里发的文件，
 用 ghost_call 的 attachments 交给本工具」。没声明就只能走 `ghost_call.dir`：一次性票据
@@ -242,7 +242,7 @@ innerHTML 只接转义过动态值的可信模板，不接普通数据。片段�
 | 必须做到 | 原因和写法 |
 | --- | --- |
 | 每个页面只创建一个 App | 所有交互共用该实例；替换文档前关闭旧实例 |
-| 直接导入 Cindy 提供的 SDK | 写 `import { App } from '@modelcontextprotocol/ext-apps'`；不写 importmap，不从 CDN 或其他地址加载 SDK |
+| 直接导入 Emma 提供的 SDK | 写 `import { App } from '@modelcontextprotocol/ext-apps'`；不写 importmap，不从 CDN 或其他地址加载 SDK |
 | 页面不接触凭证 | 经 main.js 的 cindy.fetch 代发，不将 token 放进 HTML、日志或结果 |
 | 表单走桥接 | submit 中先 preventDefault()，再调用工具；不用原生 action |
 | 数据用 textContent | 生成页面的一方（插件、后端或 AI）转义动态值，不把用户数据拼进脚本或事件属性 |

@@ -13,7 +13,7 @@ const cleanGit = () =>
     stdout: args[0] === 'rev-parse' ? commit : '',
   }));
 
-describe('Cindy Make running source identity', () => {
+describe('Emma Make running source identity', () => {
   it.each([
     [false, '0.0.0', 'dev'],
     [true, '1.2.3-beta.1', 'beta'],

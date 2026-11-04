@@ -111,7 +111,7 @@ describe('端点清单弹框文案', () => {
       reason: 'fetch-failed:ERR_CONNECTION_RESET',
       source: 'https://cdn.example.com/endpoint.json',
       diagnosis: 'proxy=DIRECT dns=ok(1.2.3.4)',
-      logPath: '/Users/example/Library/Logs/Cindy/capture.json',
+      logPath: '/Users/example/Library/Logs/Emma/capture.json',
       offlineSavedAt: null,
     });
     expect(content.detail).not.toContain('{{');

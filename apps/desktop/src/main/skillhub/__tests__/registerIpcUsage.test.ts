@@ -294,7 +294,7 @@ describe('registerSkillhubIpc usage handlers', () => {
     vi.mocked(BrowserWindow.getAllWindows).mockReset().mockReturnValue([]);
   });
 
-  it('blocks publishing a Cindy built-in Skill at the Main boundary', async () => {
+  it('blocks publishing a Emma built-in Skill at the Main boundary', async () => {
     const builtInRoot = path.join(fixtureRoot, 'system-skills', 'cindy-skill-creator');
     const builtInFile = path.join(builtInRoot, 'SKILL.md');
     fs.mkdirSync(builtInRoot, { recursive: true });

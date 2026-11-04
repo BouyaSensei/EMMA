@@ -56,7 +56,7 @@ function codexProvider(id: string, name: string, disabled = false): ProviderView
 
 beforeEach(() => {
   mocks.row = { agentKind: 'codex', model: 'gpt-6-astra', providerId: null };
-  mocks.providers = [codexProvider('openai', 'OpenAI'), codexProvider('xd', 'Cindy AI')];
+  mocks.providers = [codexProvider('openai', 'OpenAI'), codexProvider('xd', 'Emma AI')];
   mocks.live = undefined;
 });
 
@@ -67,19 +67,19 @@ describe('resolveSessionErrorContext', () => {
 
   it('keeps naming the implicit default when its copy was disabled while the task runs', async () => {
     // 新路由口径会剔除停用拷贝、落到 Cindy AI —— 说明会把 OpenAI 的花费上限归给别家。
-    mocks.providers = [codexProvider('openai', 'OpenAI', true), codexProvider('xd', 'Cindy AI')];
+    mocks.providers = [codexProvider('openai', 'OpenAI', true), codexProvider('xd', 'Emma AI')];
     await expect(resolveSessionErrorContext('s1')).resolves.toMatchObject({ providerLabel: 'OpenAI' });
   });
 
   it('keeps naming an explicit source whose model was disabled while the task runs', async () => {
     mocks.row = { agentKind: 'codex', model: 'gpt-6-astra', providerId: 'openai' };
-    mocks.providers = [codexProvider('openai', 'OpenAI', true), codexProvider('xd', 'Cindy AI')];
+    mocks.providers = [codexProvider('openai', 'OpenAI', true), codexProvider('xd', 'Emma AI')];
     await expect(resolveSessionErrorContext('s1')).resolves.toMatchObject({ providerLabel: 'OpenAI' });
   });
 
   it('prefers the in-memory source over the stored one', async () => {
     mocks.live = 'xd';
-    await expect(resolveSessionErrorContext('s1')).resolves.toMatchObject({ providerLabel: 'Cindy AI' });
+    await expect(resolveSessionErrorContext('s1')).resolves.toMatchObject({ providerLabel: 'Emma AI' });
   });
 
   it('keeps task identity and the model ID when catalog metadata is missing', async () => {

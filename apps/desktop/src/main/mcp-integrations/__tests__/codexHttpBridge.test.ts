@@ -1603,7 +1603,7 @@ describe('codexHttpBridge', () => {
     expect(await readRpcResponse(callResp)).toMatchObject({
       result: {
         isError: true,
-        content: [{ type: 'text', text: expect.stringContaining('verified Cindy session') }],
+        content: [{ type: 'text', text: expect.stringContaining('verified Emma session') }],
       },
     });
   });

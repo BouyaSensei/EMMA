@@ -2,7 +2,7 @@
 
 新建与管理普通任务见独立章节 §4.11.3，可调用 `ghost_forge_guide({section:"4.11.3"})` 读取。
 
-`main.js` 可把文字作为**普通用户消息**交给 Cindy Agent，支持用户点卡片后让 Agent 继续。
+`main.js` 可把文字作为**普通用户消息**交给 Emma Agent，支持用户点卡片后让 Agent 继续。
 消息不进入系统提示词，也不修改该会话里其它插件或 Agent 的长期规则。
 
 最安全、也是默认的用法，是消费 `card-action` 事件里的真实用户点击票：
@@ -126,14 +126,14 @@ const q = await cindy.agent.queryErrand({ jobId: r.jobId });
 被唤起时活着,也没有定时器。要做出「每小时帮我看一眼,有事就点亮插件入口」这种效果,
 正确的分工是:
 
-    插件不是执行者,而是**定时任务的目标**。执行者是 Cindy 的 AI。
+    插件不是执行者,而是**定时任务的目标**。执行者是 Emma 的 AI。
 
 完整回路(以「Codex 重置提醒」为例):
 
 1. 用户在你的面板上点一个选项,比如「重置时间快到了提醒我」;
 2. 你调 `cindy.agent.requestSchedule(...)`,请主机**打开预填好的新建自动化面板**;
 3. 用户在面板上选个模型(或就用默认)→ **亲手点保存**。任务这才存在;
-4. 到点了,Cindy 起一轮 AI 去干活:查本机重置时间、看 X 上的相关发帖、**判断**要不要
+4. 到点了,Emma 起一轮 AI 去干活:查本机重置时间、看 X 上的相关发帖、**判断**要不要
    提醒——这些判断是 AI 做的,不是你做的;
 5. 那一轮 AI **调用你申报的 tool**(§3)把结果交给你,你在 tool 里更新自己的数据;
 6. 你顺手发一个未读角标(§4.9.1),用户的插件入口和图标上就亮起点;
@@ -214,9 +214,9 @@ const r = await cindy.agent.requestSchedule({
 插件需要向项目、已有任务或伙伴投递内容时，使用独立的 `cindy.targets`（仅本机 Desktop 逻辑页，需要同时声明并获批 `agent.tasks: true` 与独立的 `agent.targets: true`）。先检查 `typeof cindy.targets?.list === 'function'`；旧客户端没有此入口，不调用私有 IPC 或自动改投别处。Host 只提供查询、解析和投递；选择 UI、临时选择及固定目标配置由插件自己维护。独立权限 `agent:targets` 会在既有安装/更新确认中展示；旧 tasks 批准和历史未知字段不授予目标访问。缺新批准只阻止新接口，首次调用复用既有宿主确认，不影响旧插件能力。
 
 - `list({targetKind:'project'|'task'|'bot'})`：返回 `{targets:[{kind,id,label,detail}]}`，只含本机可用目标的名称和目录/说明，不含消息历史。插件可自行搜索和展示列表，最近活动只用于排序。
-- `resolve({target:{kind,id}})`：复核已保存或本次选择的目标，返回最新 `{kind,id,label,detail}`。只查询，不创建任务、不打开 UI、不保存绑定；固定目标失效返回 TARGET_UNAVAILABLE，不自动替换。插件可将 `{kind,id}` 存入自己的配置。project 的 id 是 Cindy 已有项目目录，task/bot 的 id 是任务/伙伴标识。
+- `resolve({target:{kind,id}})`：复核已保存或本次选择的目标，返回最新 `{kind,id,label,detail}`。只查询，不创建任务、不打开 UI、不保存绑定；固定目标失效返回 TARGET_UNAVAILABLE，不自动替换。插件可将 `{kind,id}` 存入自己的配置。project 的 id 是 Emma 已有项目目录，task/bot 的 id 是任务/伙伴标识。
 - `send({target:{kind,id},requestKey,text,context?,title?,autoTitle?,route?,permissionMode?,delivery?,attachments?})`：直接指定目标，Host 当次复核。project 在目录中新建普通任务，可传统一模型目录的 route 和已授权范围内的 permissionMode；task/bot 沿用接收方模型、权限、目录，不接受 route 或 permissionMode。`delivery` 为 `queue | steer`，缺省 queue；project 不接受 steer。steer 尝试同轮注入，不停止当前轮，空闲或插话暂不可用时入队。返回 `{taskId,accepted:true,delivery:"queue"|"steer"}` 表示实际接受路径，不表示执行完成。筛查拒绝返回 DELIVERY_REJECTED，不入队重试；ACK 未知返回 DELIVERY_UNCERTAIN，不得换键重发。不开放读取任意任务历史或改模。
-- 同一次 send 重试沿用相同 requestKey、target、内容和 delivery（缺省与 queue 等价）；同键参数变化返回 REQUEST_KEY_CONFLICT。Host 在执行前持久保留投递回执，重启后已接受的请求返回原结果，未确定结果的请求返回 DELIVERY_UNCERTAIN，不再次创建或投递。普通投递回执不保存正文或附件字节；显式委派另保存下述有界执行范围。不要通过更换 requestKey 绕过未知结果，应先让用户在 Cindy 检查。
+- 同一次 send 重试沿用相同 requestKey、target、内容和 delivery（缺省与 queue 等价）；同键参数变化返回 REQUEST_KEY_CONFLICT。Host 在执行前持久保留投递回执，重启后已接受的请求返回原结果，未确定结果的请求返回 DELIVERY_UNCERTAIN，不再次创建或投递。普通投递回执不保存正文或附件字节；显式委派另保存下述有界执行范围。不要通过更换 requestKey 绕过未知结果，应先让用户在 Emma 检查。
 - `cancel({requestKey})`：使本次请求及迟到的发送失效，仅撤回本插件该请求尚未执行的输入；不会停止接收方其他输入，也不保证撤销已经开始的工作。新操作使用新的 requestKey。
 - `tasks.send` 和 `targets.send` 均支持可选 `attachments:[{base64,name?}]`：只接收插件提供的图片字节，不接受本机路径、URL、媒体 URI 或自报 MIME。Host 检测 PNG/JPEG/WebP，最多 4 张、合计 20 MiB。先检查 `tasks.capabilities().messageAttachments.kinds` 包含 image；旧客户端不支持时停止，不静默丢图或改投临时路径。截图进既有 cindy-media，作为消息附件展示并进入模型输入；不需要额外声明 media.deposit。附件内容及名称参与幂等签名，更换附件不能复用同键。
 - 所有插件的两种发送入口共用 40 MiB 在途附件额度；超额在解码和写回执前返回可重试的 `TASK_BUSY`。等待已有请求结束后沿用原 requestKey 重试，不自动改投或丢图。
@@ -395,10 +395,10 @@ instanceId、generation、outcome（completed/failed/cancelled/interrupted）及
 旧 tasks/targets 批准和历史未知字段不授予查看权限；拒绝或确认界面不可用时返回 `PERMISSION_DENIED`，不得自动循环重试。
 先检查 `typeof cindy.observe?.projectTasks === 'function'`；旧客户端没有此入口时隐藏相关界面，不调用私有 IPC。Mobile 插件页面返回 `UNSUPPORTED_CAPABILITY`。
 
-- `projectTasks({project})`：project 为 Cindy 已登记、目录仍存在的本机项目路径（可用 `cindy.targets.list({targetKind:'project'})` 或用户选择获得）。
+- `projectTasks({project})`：project 为 Emma 已登记、目录仍存在的本机项目路径（可用 `cindy.targets.list({targetKind:'project'})` 或用户选择获得）。
   返回 `{tasks:[{id,title,agentKind,archived,status,lastActivityAt}]}`，按最近活动倒序，最多 200 条；包含已归档任务和该项目 worktree 下的任务。
   `status` 为 `running | awaiting | error | done | idle`，与侧边栏右侧状态同源（团队主任务同样带上本机 Worker 的出错/待处理）；`lastActivityAt` 为毫秒时间戳。
   用户拒绝首次确认后，可在插件详情页点「确认任务查看权限」重新允许；插件不要反复调用来触发确认。
   不含消息、计划、文件或费用；不含对话、伙伴、Worker、隐藏、远程及其他电脑上的任务。未登记或已删除的项目返回 `TARGET_UNAVAILABLE`。
-- `openTask({taskId})`：在主窗口打开该任务；Cindy 未在前台时不抢焦点。只接受 `projectTasks` 能列出的任务，否则返回 `TARGET_UNAVAILABLE`。返回 `{opened:true}`。
+- `openTask({taskId})`：在主窗口打开该任务；Emma 未在前台时不抢焦点。只接受 `projectTasks` 能列出的任务，否则返回 `TARGET_UNAVAILABLE`。返回 `{opened:true}`。
 - 只读，不能发送消息、修改、归档或停止任务；需要这些操作请改用 `cindy.tasks` / `cindy.targets` 并声明对应权限。状态变化不推送，插件自行按需刷新。

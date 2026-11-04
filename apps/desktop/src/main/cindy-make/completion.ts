@@ -112,11 +112,11 @@ export async function collectCindyMakeChanges(
       await realpath(path.join(makeSourceCheckoutPath(userData), '.git')),
     )
   )
-    throw new Error('Unexpected Cindy Make worktree');
+    throw new Error('Unexpected Emma Make worktree');
   const { commit, tree } = await commitLocalFiles(
     git,
     worktree,
-    'Cindy Make: complete personal change',
+    'Emma Make: complete personal change',
   );
   await git(['update-ref', taskContentRef(runId, 'complete'), tree], worktree);
   await git(['update-ref', taskCommitRef(runId), commit], worktree);

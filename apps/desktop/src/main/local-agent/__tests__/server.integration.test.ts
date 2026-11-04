@@ -593,7 +593,7 @@ describe('local application authorization and lifecycle', () => {
     const f = await fixture();
     for (const client of [
       { id: '../other', name: 'Notes' },
-      { id: 'notes', name: '\u202eCindy' },
+      { id: 'notes', name: '\u202eEmma' },
       { id: 'notes', name: ' ' },
     ]) {
       expect((await f.rpc('connect/start', { client })).error).toBeDefined();

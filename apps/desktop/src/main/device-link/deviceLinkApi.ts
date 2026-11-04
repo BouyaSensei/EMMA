@@ -40,7 +40,7 @@ export function deviceLinkApiFetch<T>(
   return serverApiFetch<T>(apiPath, {
     ...opts,
     baseUrl: relay.baseUrl,
-    authorization: `CindyRelay ${relay.credential}`,
+    authorization: `EmmaRelay ${relay.credential}`,
     skipAutoRefresh: true,
     skipSessionInvalidation: true,
   });

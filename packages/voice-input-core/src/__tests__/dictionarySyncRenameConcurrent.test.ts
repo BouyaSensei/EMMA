@@ -61,7 +61,7 @@ describe('并发改名', () => {
 
   it('反复改名再改回来也不涨', () => {
     let state = seedTerm(createEmptySyncState(), createHlcClock('node-a', 1_000), {
-      text: 'Cindy',
+      text: 'Emma',
       source: 'manual',
       stage: 'entry',
       count: 4,
@@ -72,12 +72,12 @@ describe('并发改名', () => {
     for (let round = 0; round < 5; round += 1) {
       const forward = renameTerm(state, clock, {
         termKey: 'cindy',
-        nextText: 'Cindy 客户端',
+        nextText: 'Emma 客户端',
         nowMs: 2_000 + round * 10,
       });
       const backward = renameTerm(forward.state, forward.clock, {
         termKey: 'cindy 客户端',
-        nextText: 'Cindy',
+        nextText: 'Emma',
         nowMs: 2_005 + round * 10,
       });
       state = backward.state;
@@ -85,13 +85,13 @@ describe('并发改名', () => {
     }
 
     const entries = materializeDictionary(state).entries;
-    expect(entries.map((entry) => entry.text)).toEqual(['Cindy']);
+    expect(entries.map((entry) => entry.text)).toEqual(['Emma']);
     expect(entries[0].frequency).toBe(4);
   });
 
   it('改名到一个已存在的词上,两边证据相加(那是两批独立证据)', () => {
     let state = seedTerm(createEmptySyncState(), createHlcClock('node-a', 1_000), {
-      text: 'Cindy',
+      text: 'Emma',
       source: 'manual',
       stage: 'entry',
       count: 3,
@@ -107,11 +107,11 @@ describe('并发改名', () => {
 
     const renamed = renameTerm(state, createHlcClock('node-a', 2_000), {
       termKey: 'sindy',
-      nextText: 'Cindy',
+      nextText: 'Emma',
       nowMs: 2_000,
     });
     const entries = materializeDictionary(renamed.state).entries;
-    expect(entries.map((entry) => entry.text)).toEqual(['Cindy']);
+    expect(entries.map((entry) => entry.text)).toEqual(['Emma']);
     expect(entries[0].frequency).toBe(5);
   });
 });

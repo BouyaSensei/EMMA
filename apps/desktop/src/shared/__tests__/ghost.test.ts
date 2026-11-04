@@ -215,7 +215,7 @@ describe('ghost · 清单校验', () => {
     expect(validateGhostManifest({ ...goodManifest(), version: 'v'.repeat(33) }).ok).toBe(false);
   });
 
-  it('minCindyVersion 缺省兼容旧插件，声明时只接受 SemVer', () => {
+  it('minEmmaVersion 缺省兼容旧插件，声明时只接受 SemVer', () => {
     expect(validateGhostManifest(goodManifest()).ok).toBe(true);
     const declared = validateGhostManifest({ ...goodManifest(), minCindyVersion: '1.2.3' });
     expect(declared.ok && declared.manifest.minCindyVersion).toBe('1.2.3');
@@ -1067,7 +1067,7 @@ describe('ghost · Manifest v3 直接能力声明', () => {
     );
   });
 
-  it('拒绝 v3 slots、缺 minCindyVersion 和 false 布尔能力，但不设置统一版本下限', () => {
+  it('拒绝 v3 slots、缺 minEmmaVersion 和 false 布尔能力，但不设置统一版本下限', () => {
     const base = {
       schemaVersion: 3,
       minCindyVersion: '0.1.61',
@@ -4101,7 +4101,7 @@ describe('ghost · 2026-07-23 通用能力四件套(session-context / pick / pre
     );
   });
 
-  it('v2 ios-simulator 槽不强制补写最低 Cindy 版本', () => {
+  it('v2 ios-simulator 槽不强制补写最低 Emma 版本', () => {
     const r = validateGhostManifest({
       ...goodChipManifest(),
       slots: ['panel', 'ios-simulator'],

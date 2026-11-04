@@ -143,8 +143,8 @@ const SUPPLIER_OPTIONS: AuxiliaryModelOption[] = [
 const AUTOMATIC_OPTIONS: AuxiliaryModelOption[] = AUTO_AUXILIARY_MODEL_CHAIN.map(
   (id, index) => ({
     id,
-    label: ['DeepSeek V4 Flash', 'Hy3', 'Qwen3.8 Flash'][index]! + ' · Cindy AI',
-    group: 'Cindy AI',
+    label: ['DeepSeek V4 Flash', 'Hy3', 'Qwen3.8 Flash'][index]! + ' · Emma AI',
+    group: 'Emma AI',
     providerId: 'xd',
     agentKind: 'codex',
     modelId: ['deepseek/deepseek-v4-flash', 'tencent/hy3', 'qwen/qwen3.8-flash'][index]!,
@@ -223,24 +223,24 @@ describe('AuxiliaryModelSection', () => {
         providers: [{ id: 'xd', name } as import('@cindy/model-providers').ProviderView],
       });
     };
-    publishName('Cindy AI · 个人');
+    publishName('Emma AI · 个人');
     render(<AuxiliaryModelSection />);
     await selectMode('settings.auxiliaryModels.customize');
     const panel = () => screen.getByTestId('settings.auxiliaryModels.preferred.ariaLabel:panel').textContent;
-    expect(panel()).toContain('Cindy AI · 个人');
-    await act(async () => publishName('Cindy AI · Personal'));
-    expect(panel()).toContain('Cindy AI · Personal');
+    expect(panel()).toContain('Emma AI · 个人');
+    await act(async () => publishName('Emma AI · Personal'));
+    expect(panel()).toContain('Emma AI · Personal');
     expect(h.set).not.toHaveBeenCalled();
     expect(screen.getByTestId('settings.auxiliaryModels.preferred.ariaLabel:value').textContent).toBe(AUTO_AUXILIARY_MODEL_CHAIN[0]);
 
     let finishSave!: (next: AuxiliaryModelSettingsState) => void;
     h.set.mockImplementationOnce(() => new Promise<AuxiliaryModelSettingsState>(resolve => { finishSave = resolve; }));
     fireEvent.click(screen.getByRole('button', { name: 'settings.auxiliaryModels.preferred.ariaLabel:select' }));
-    await act(async () => publishName('Cindy AI · 心动'));
-    expect(panel()).toContain('Cindy AI · 心动');
+    await act(async () => publishName('Emma AI · 心动'));
+    expect(panel()).toContain('Emma AI · 心动');
     await act(async () => finishSave(state({ models: [PREFERRED_PIN], options: OPTIONS })));
-    expect(panel()).toContain('Cindy AI · 心动');
-    expect(screen.getByTestId(`settings.auxiliaryModels.preferred.ariaLabel:option:${AUTO_AUXILIARY_MODEL_CHAIN[0]}`).getAttribute('data-label')).toContain('Cindy AI · 心动');
+    expect(panel()).toContain('Emma AI · 心动');
+    expect(screen.getByTestId(`settings.auxiliaryModels.preferred.ariaLabel:option:${AUTO_AUXILIARY_MODEL_CHAIN[0]}`).getAttribute('data-label')).toContain('Emma AI · 心动');
     expect(screen.getByTestId('settings.auxiliaryModels.preferred.ariaLabel:value').textContent).toBe(PREFERRED_PIN);
     expect(h.get).toHaveBeenCalledTimes(1);
   });
@@ -306,7 +306,7 @@ describe('AuxiliaryModelSection', () => {
     expect(screen.getAllByText('settings.auxiliaryModels.customize')).toHaveLength(1);
     expect(
       screen.getByTestId('settings.auxiliaryModels.preferred.ariaLabel:panel').textContent,
-    ).toBe('true:Cindy AI,OpenRouter,Anthropic');
+    ).toBe('true:Emma AI,OpenRouter,Anthropic');
     expect(h.set).not.toHaveBeenCalled();
   });
 
@@ -336,7 +336,7 @@ describe('AuxiliaryModelSection', () => {
     expect(h.set).not.toHaveBeenCalled();
   });
 
-  it('does not seed Cindy AI defaults while signed out', async () => {
+  it('does not seed Emma AI defaults while signed out', async () => {
     h.authMode = 'signed-out';
     render(<AuxiliaryModelSection />);
 

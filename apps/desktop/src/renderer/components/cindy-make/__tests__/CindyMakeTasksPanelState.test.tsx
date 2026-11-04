@@ -45,7 +45,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('Cindy Make task list completion', () => {
+describe('Emma Make task list completion', () => {
   it.each(['end'] as const)(
     'removes a successful %s without waiting for another snapshot or reopening Settings',
     async (action) => {

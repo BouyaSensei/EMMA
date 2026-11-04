@@ -21,7 +21,7 @@ function makeParams(overrides: Partial<LinuxUpdateScriptParams> = {}): LinuxUpda
     debPath: '/tmp/cindy-0.0.2-amd64.deb',
     sha256: STAGED_SHA,
     sizeBytes: STAGED_SIZE,
-    exePath: '/usr/lib/cindy/Cindy',
+    exePath: '/usr/lib/cindy/Emma',
     lockFilePath: '/tmp/cindy-update.lock',
     logPath: '/tmp/cindy-update.log',
     ...overrides,
@@ -31,7 +31,7 @@ function makeParams(overrides: Partial<LinuxUpdateScriptParams> = {}): LinuxUpda
 describe('shellSingleQuote', () => {
   it('wraps paths in single quotes and escapes embedded quotes', () => {
     expect(shellSingleQuote(`/tmp/cindy's.deb`)).toBe(`'/tmp/cindy'\\''s.deb'`);
-    expect(shellSingleQuote('/usr/lib/cindy/Cindy')).toBe(`'/usr/lib/cindy/Cindy'`);
+    expect(shellSingleQuote('/usr/lib/cindy/Emma')).toBe(`'/usr/lib/cindy/Emma'`);
   });
 });
 
@@ -40,13 +40,13 @@ describe('buildLinuxUpdateScript structure', () => {
 
   it('uses the embedded transaction and stable launcher for a managed user install', () => {
     const portable = buildLinuxUpdateScript(makeParams({
-      userInstallation: { prefix: '/home/user/Cindy', current: 'releases/1.0.0-aaa', region: 'global', version: '1.0.1' },
+      userInstallation: { prefix: '/home/user/Emma', current: 'releases/1.0.0-aaa', region: 'global', version: '1.0.1' },
       relaunchArgs: ['--password-store=gnome-libsecret'],
     }));
     expect(portable).not.toContain('PKEXEC=');
     expect(portable).not.toContain('apt-get install');
     expect(portable).toContain('cindy-user-install --apply');
-    expect(portable).toContain("nohup '/home/user/Cindy/current/Cindy' '--password-store=gnome-libsecret'");
+    expect(portable).toContain("nohup '/home/user/Emma/current/Emma' '--password-store=gnome-libsecret'");
     expect(portable).toContain('flock -n 9');
     expect(portable).toContain('INSTALL_EXIT=$?');
     if (process.platform !== 'win32') execFileSync('bash', ['-n'], { input: portable });
@@ -163,14 +163,14 @@ describe('buildLinuxUpdateScript structure', () => {
 
   it('relaunches the previous binary if install fails', () => {
     expect(script).toContain('INSTALL FAILED — relaunching previous binary');
-    expect(script).toContain(`nohup '/usr/lib/cindy/Cindy' >/dev/null 2>&1 &`);
+    expect(script).toContain(`nohup '/usr/lib/cindy/Emma' >/dev/null 2>&1 &`);
   });
 
   it('releases the lock before relaunch and verifies by spawned child pid', () => {
     // 先放锁再拉起:新进程不会卡在 bootstrap 等自己的锁,2s 启动窗口后
     // 按启动的子 PID(kill -0)验证,等锁的旧实例不会被误判。
     const rmIdx = script.indexOf(`rm -f '/tmp/cindy-update.lock'`);
-    const nohupIdx = script.indexOf(`nohup '/usr/lib/cindy/Cindy' >/dev/null 2>&1 &`);
+    const nohupIdx = script.indexOf(`nohup '/usr/lib/cindy/Emma' >/dev/null 2>&1 &`);
     expect(rmIdx).toBeGreaterThan(-1);
     expect(nohupIdx).toBeGreaterThan(rmIdx);
     expect(script).toContain('LAUNCHED_PID=$!');

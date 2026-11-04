@@ -115,7 +115,7 @@ const COMPUTER_TOOL_DEFINITIONS: readonly ComputerToolDef[] = [
   {
     name: 'launch_app',
     description:
-      'Launch or locate an application without stealing focus. Prefer bundle_id when known. On an explicit name-resolution failure, Cindy tries a unique exact-name bundle from list_apps once; for a plain name it can also locate a unique running process through list_windows (e.g. {"process_name":"Simulator"}). Located is not newly launched; URL, launch-option and new-instance requests are never replaced by locating.',
+      'Launch or locate an application without stealing focus. Prefer bundle_id when known. On an explicit name-resolution failure, Emma tries a unique exact-name bundle from list_apps once; for a plain name it can also locate a unique running process through list_windows (e.g. {"process_name":"Simulator"}). Located is not newly launched; URL, launch-option and new-instance requests are never replaced by locating.',
     inputShape: {
       name: z.string().optional(),
       bundle_id: z.string().optional(),
@@ -269,7 +269,7 @@ const COMPUTER_TOOL_DEFINITIONS: readonly ComputerToolDef[] = [
   {
     name: 'set_value',
     description:
-      'Set a text field value through accessibility, without focus or keystrokes. Preferred for Electron/browser/web-content text fields (verified on Cindy\'s own composer: the field updates and its send button enables) and for minimized/background fields. Requires element_token from the latest get_window_state (query:"AXTextArea" or "AXTextField" finds it). Replaces the whole value; confirm with observe:{}.',
+      'Set a text field value through accessibility, without focus or keystrokes. Preferred for Electron/browser/web-content text fields (verified on Emma\'s own composer: the field updates and its send button enables) and for minimized/background fields. Requires element_token from the latest get_window_state (query:"AXTextArea" or "AXTextField" finds it). Replaces the whole value; confirm with observe:{}.',
     inputShape: {
       pid: z.number().int().positive(),
       window_id: z.number().int().nonnegative(),
@@ -407,7 +407,7 @@ export const COMPUTER_TOOLS: readonly ComputerToolDef[] =
           ...(POSTCHECK_ACTION_TOOLS.has(tool.name)
             ? {
                 postcondition: POSTCONDITION.optional().describe(
-                  "Optional expected final state, using verify_state predicates. Cindy checks it once after delivery (requires an exact window). Without it, unknown delivery gets one fresh observation but is never declared successful. Actions are never replayed automatically.",
+                  "Optional expected final state, using verify_state predicates. Emma checks it once after delivery (requires an exact window). Without it, unknown delivery gets one fresh observation but is never declared successful. Actions are never replayed automatically.",
                 ),
                 observe: z.object({
                   ...WINDOW_READ_SCOPE,

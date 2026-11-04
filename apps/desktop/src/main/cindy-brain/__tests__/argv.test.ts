@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { findCindyFileInArgv } from '../argv';
 
-describe('findCindyFileInArgv · 双击 .cindy 的启动参数识别', () => {
+describe('findEmmaFileInArgv · 双击 .cindy 的启动参数识别', () => {
   it('冷启动形态:exe 后跟文件路径', () => {
     expect(findCindyFileInArgv(['app.exe', 'C:\\Users\\a\\Desktop\\hello.cindy'])).toBe(
       'C:\\Users\\a\\Desktop\\hello.cindy',

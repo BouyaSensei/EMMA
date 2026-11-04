@@ -20,7 +20,7 @@ vi.mock('react-i18next', async (importOriginal) => ({
   useTranslation: () => ({
     t: (key: string, options?: Record<string, string>) => {
       const translations: Record<string, string> = {
-        'settings.providers.xd.title': 'Cindy AI',
+        'settings.providers.xd.title': 'Emma AI',
         'newChat.modelSelector.trigger.placeholder': '选择模型',
         'newChat.modelSelector.trigger.aria': `Select model. Current: ${options?.model ?? ''}`,
         'newChat.modelSelector.trigger.ariaWithEffort': `Select model. Current: ${options?.model ?? ''}, effort: ${options?.effort ?? ''}`,
@@ -107,7 +107,7 @@ const providersRef = vi.hoisted(() => {
   const DEFAULT_PROVIDERS = [
     {
       id: 'xd',
-      name: 'Cindy AI',
+      name: 'Emma AI',
       source: 'builtin',
       agents: ['codex'],
       auth: { method: 'api-key' },

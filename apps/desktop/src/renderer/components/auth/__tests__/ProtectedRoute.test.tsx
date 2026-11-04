@@ -79,7 +79,7 @@ describe('ProtectedRoute', () => {
     expect(screen.queryByTestId('app-shell')).toBeNull();
   });
 
-  it('lets local mode enter the app without a Cindy account', () => {
+  it('lets local mode enter the app without a Emma account', () => {
     authState.current = {
       mode: 'local',
       isInitializing: false,

@@ -281,7 +281,7 @@ async function writeClaudeJsonlInConfigDir(
 
 // ── tests ──────────────────────────────────────────────────────────────────
 
-describe('disabled Cindy Make fork boundaries', () => {
+describe('disabled Emma Make fork boundaries', () => {
   const cases = ['cindy-make', 'cindy-make-merge'].flatMap((source) =>
     [MAKER_INVOKE.FORK, MAKER_INVOKE.FORK_STRIP_ENCRYPTED].flatMap((channel) =>
       ['orchestration', 'legacy IPC'].map((entryPoint) => ({ source, channel, entryPoint })),

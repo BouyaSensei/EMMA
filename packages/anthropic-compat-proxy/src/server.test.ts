@@ -3175,7 +3175,7 @@ describe('anthropic-compat-proxy localHandler(路由决策交本地 handler,不�
               headers: { 'x-native-route': 'openai' },
               models: [{
                 id: 'gpt-cindy-zstd-test',
-                name: 'GPT Cindy zstd test',
+                name: 'GPT Emma zstd test',
                 reasoning: false,
                 input: ['text'],
                 contextWindow: 128_000,

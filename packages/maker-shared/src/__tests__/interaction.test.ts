@@ -68,7 +68,7 @@ describe('interaction shared model', () => {
       { text: 'src/app.ts:10-20', href: 'src/app.ts:10-20' }, { text: ' 和 ' },
       { text: '实现', href: 'src/app.ts:10-20' },
     ]);
-    const spacedPath = String.raw`C:\Program Files\Cindy\app.log`;
+    const spacedPath = String.raw`C:\Program Files\Emma\app.log`;
     expect(splitQuestionReferences(spacedPath)).toEqual([{ text: spacedPath }]);
     expect(splitQuestionReferences('`' + spacedPath + '`')).toEqual([{ text: spacedPath, href: spacedPath }]);
     expect(splitQuestionReferences('请查看 /tmp\n然后查看 notes.txt')).toEqual([
@@ -853,7 +853,7 @@ describe('interaction shared model', () => {
       revision: 2,
       ghost: {
         id: 'cindy-web-search',
-        name: ' Cindy Web Search ',
+        name: ' Emma Web Search ',
         iconDataUrl: 'data:image/png;base64,AAAA',
       },
       intro: ' 需要一个搜索 API key ',
@@ -891,7 +891,7 @@ describe('interaction shared model', () => {
     });
 
     expect(presentation).toEqual({
-      ghostName: 'Cindy Web Search',
+      ghostName: 'Emma Web Search',
       iconDataUrl: 'data:image/png;base64,AAAA',
       intro: '需要一个搜索 API key',
       satisfiedCount: 1,

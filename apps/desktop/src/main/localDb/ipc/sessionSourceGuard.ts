@@ -25,13 +25,13 @@ export function assertRendererSessionSourceAllowed(input: {
     );
   }
   if (!CINDY_MAKE_ENABLED) {
-    throwIpcError('UNSUPPORTED_CAPABILITY', 'Cindy Make is currently unavailable');
+    throwIpcError('UNSUPPORTED_CAPABILITY', 'Emma Make is currently unavailable');
   }
   if (normalizeRemoteHostId(typeof input.remoteHostId === 'string' ? input.remoteHostId : null)) {
-    throwIpcError('UNSUPPORTED_CAPABILITY', 'Cindy Make tasks are local-only');
+    throwIpcError('UNSUPPORTED_CAPABILITY', 'Emma Make tasks are local-only');
   }
   const requested = normalizeWorkingDirForStorage(input.workingDir);
   if (!requested || !isCindyMakeWorktreePath(input.userData, requested)) {
-    throwIpcError('INVALID_PARAMS', 'Cindy Make tasks can only use a managed task worktree');
+    throwIpcError('INVALID_PARAMS', 'Emma Make tasks can only use a managed task worktree');
   }
 }

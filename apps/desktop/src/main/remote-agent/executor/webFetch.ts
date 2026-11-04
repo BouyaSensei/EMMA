@@ -261,7 +261,7 @@ export async function fetchWebPage(fetchImpl: GuardedFetch, request: WebFetchReq
           signal,
           headers: {
             accept: 'text/html,application/xhtml+xml,text/plain;q=0.9,application/json;q=0.8,*/*;q=0.5',
-            'user-agent': 'Mozilla/5.0 (compatible; Cindy WebFetch)',
+            'user-agent': 'Mozilla/5.0 (compatible; Emma WebFetch)',
           },
         },
         () => signal.throwIfAborted(),

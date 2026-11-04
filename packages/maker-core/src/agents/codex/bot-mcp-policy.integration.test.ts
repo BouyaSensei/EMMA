@@ -86,7 +86,7 @@ it.skipIf(!binaryPath).each([
     const handle = await agent.startSession({
       sessionId: `mcp-fixture-${external}`, model: 'gpt-6-astra', workingDir,
       permissionMode: 'bypassPermissions', makerMemoryEnabled: false,
-      botProfilePrompt: 'You are a test teammate inside Cindy.',
+      botProfilePrompt: 'You are a test teammate inside Emma.',
       botRuntimeProfile: {
         botId: 'fixture', profileVersion: 1,
         skillPolicy: { mode: 'allowlist', configured: [], catalog: [] },

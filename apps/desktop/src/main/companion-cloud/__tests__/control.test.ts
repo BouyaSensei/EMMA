@@ -466,7 +466,7 @@ describe('switch home from any computer', () => {
     expect(homeLink.handOver).not.toHaveBeenCalled();
   });
 
-  it('does not offer a move when the home runs an older Cindy', async () => {
+  it('does not offer a move when the home runs an older Emma', async () => {
     const homeLink = link(1);
     const t = setup({ home: 'laptop', devices: [device('laptop')], homeLink });
     expect(await t.runtime.homeChoices('bot_mia')).toEqual({ homeDeviceId: 'laptop', homeName: 'laptop', mode: 'unavailable', reason: 'HOME_OUTDATED', targets: [] });
@@ -609,7 +609,7 @@ describe('review fixes', () => {
     expect(t.local.host.updateProfile).not.toHaveBeenCalled();
   });
 
-  it('rejects a hand-over target whose Cindy cannot take a companion over', async () => {
+  it('rejects a hand-over target whose Emma cannot take a companion over', async () => {
     const t = setup({ home: 'desk', devices: [device('laptop')], probe: async () => false });
     expect(await t.runtime.transfer('bot_mia', 'laptop')).toEqual({ ok: false, code: 'TARGET_UNAVAILABLE' });
     expect(await t.runtime.transferTargets()).toEqual([]);
@@ -689,7 +689,7 @@ describe('installation guard', () => {
       && (call.data as { value: { installationId: string } }).value.installationId === 'install-a')).toBe(true);
   });
 
-  it('deletes only the local copy when the installation check shows another Cindy here runs it', async () => {
+  it('deletes only the local copy when the installation check shows another Emma here runs it', async () => {
     const t = guarded({ installationId: 'install-b', deviceId: 'desk' });
     // Deleted before the check finished: confirm first, never disable the other installation's companion.
     await t.runtime.retire('bot_mia');
@@ -794,7 +794,7 @@ describe('installation guard', () => {
   });
 });
 
-describe('merging copies of Cindy', () => {
+describe('merging copies of Emma', () => {
   function mergeSetup(options: { sourceHome: string; flush?: ReturnType<typeof vi.fn>; turnActive?: () => boolean;
     canonicalSession?: CompanionCloudHost['canonicalSession']; paused?: (botId: string) => boolean }) {
     const order: string[] = [];
@@ -811,8 +811,8 @@ describe('merging copies of Cindy', () => {
       throw new Error(`unexpected ${method} ${route}`);
     } });
     t.actors.splice(0, t.actors.length,
-      { id: 'actor-keep', kind: 'bot', externalId: 'cindy-default', name: 'Cindy', avatar: null, homeDeviceId: 'desk' },
-      { id: 'actor-from', kind: 'bot', externalId: 'bot_lap', name: 'Cindy', avatar: null, homeDeviceId: options.sourceHome });
+      { id: 'actor-keep', kind: 'bot', externalId: 'cindy-default', name: 'Emma', avatar: null, homeDeviceId: 'desk' },
+      { id: 'actor-from', kind: 'bot', externalId: 'bot_lap', name: 'Emma', avatar: null, homeDeviceId: options.sourceHome });
     return { ...t, order, flush };
   }
 
@@ -840,7 +840,7 @@ describe('merging copies of Cindy', () => {
     expect(t.flush).not.toHaveBeenCalled();
   });
 
-  it('leaves the copies active when the kept Cindy has no task here to take the conversation', async () => {
+  it('leaves the copies active when the kept Emma has no task here to take the conversation', async () => {
     const t = mergeSetup({ sourceHome: 'laptop', canonicalSession: async () => null });
     expect(await t.runtime.mergeCindy('cindy-default', ['bot_lap'])).toMatchObject({ ok: false });
     expect(t.order).toEqual(['flush']);
@@ -888,7 +888,7 @@ describe('merging copies of Cindy', () => {
 });
 
 // Filtering still needs Cindy's identity after all cloud copies have already been merged.
-it('lists a single remaining Cindy by profile identity, without running a merge', async () => {
+it('lists a single remaining Emma by profile identity, without running a merge', async () => {
   const t = setup({ home: 'laptop', handler: (route, method) => {
     if (route === '/preferences' && method === 'GET') return [{ key: 'companion.profile.v1', value: { ...MIA, templateId: 'cindy' }, revision: 1 }];
     throw new Error(`unexpected ${method} ${route}`);

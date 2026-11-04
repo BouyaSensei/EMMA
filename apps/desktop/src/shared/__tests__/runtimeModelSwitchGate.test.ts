@@ -51,12 +51,12 @@ describe('assessRuntimeModelSwitchGate', () => {
       want: { skipRebuild: true, defer: false },
     },
     {
-      name: 'Cindy/unverified target window idle → fail-open hot apply',
+      name: 'Emma/unverified target window idle → fail-open hot apply',
       input: { ...base, verifiedTargetWindow: null },
       want: { skipRebuild: true, defer: false },
     },
     {
-      name: 'Cindy/unverified target window running → fail-open hot apply',
+      name: 'Emma/unverified target window running → fail-open hot apply',
       input: { ...base, verifiedTargetWindow: null, inTurn: true },
       want: { skipRebuild: true, defer: false },
     },

@@ -95,7 +95,7 @@ describe('namespace delivery contract', () => {
       plugins: [namespaceFixtures[0]!.plugin],
       nextCursor: null,
       currentOrganization: { organizationId: 'org-example', orgSlug: 'acme', pluginPrefix: null },
-      organizationAccessError: { code, message: '请升级 Cindy' },
+      organizationAccessError: { code, message: '请升级 Emma' },
     };
     expect(parseListPluginsResponse(response)).toMatchObject({
       plugins: [{ id: namespaceFixtures[0]!.plugin.id, scope: 'public' }],
@@ -106,7 +106,7 @@ describe('namespace delivery contract', () => {
 
   it('rejects an enterprise access error that still carries enterprise data', () => {
     const currentOrganization = { organizationId: 'org-example', orgSlug: 'acme', pluginPrefix: null };
-    const organizationAccessError = { code: 'PLUGIN_NAMESPACE_CLIENT_REQUIRED', message: '请升级 Cindy' };
+    const organizationAccessError = { code: 'PLUGIN_NAMESPACE_CLIENT_REQUIRED', message: '请升级 Emma' };
     const base = { schemaVersion: 2, nextCursor: null, currentOrganization, organizationAccessError };
     expect(() => parseListPluginsResponse({
       ...base,

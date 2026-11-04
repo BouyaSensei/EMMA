@@ -64,7 +64,7 @@ vi.mock('../versionStartup.js', () => ({
   rememberOriginalVersion: h.rememberOriginal,
   currentVersionProfile: () => ({
     userData: h.profile,
-    appName: 'Cindy',
+    appName: 'Emma',
     region: 'global',
     passive: false,
   }),
@@ -109,7 +109,7 @@ import { cindyMakeManager } from '../manager';
 const installer = {
   commit: 'b'.repeat(40),
   artifactDirectory: 'completion-output',
-  artifactName: 'Cindy.exe',
+  artifactName: 'Emma.exe',
   sha256: 'f'.repeat(64),
 };
 const dialect = new SQLiteSyncDialect();
@@ -204,7 +204,7 @@ beforeEach(() => {
 });
 afterEach(() => cindyMakeTestController.stopAll());
 
-describe('Cindy Make test IPC ownership and persistence', () => {
+describe('Emma Make test IPC ownership and persistence', () => {
   it.each(['start', 'build'] as const)(
     'prepares a fresh result and directly runs the requested %s action',
     async (action) => {

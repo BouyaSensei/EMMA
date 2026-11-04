@@ -81,7 +81,7 @@ describe('scanLocalCliAuth', () => {
     await expect(scanLocalCliAuth(deps)).rejects.toThrow('EACCES');
   });
 
-  it('未登录时不探测共用性,sharedWithCindy 恒 false', async () => {
+  it('未登录时不探测共用性,sharedWithEmma 恒 false', async () => {
     let asked = 0;
     const r = await scanLocalCliAuth(
       depsWith([], [], false, () => {
@@ -93,7 +93,7 @@ describe('scanLocalCliAuth', () => {
     expect(asked).toBe(0);
   });
 
-  it('已登录但 Cindy 用的是另一份凭证 → sharedWithCindy=false', async () => {
+  it('已登录但 Emma 用的是另一份凭证 → sharedWithEmma=false', async () => {
     // 回归 PR #1076 review:本机 codex 登录着账号 A、Cindy 的 codex-home 显式登录账号 B 时,
     // installed/loggedIn 都为 true,但 reconcile 刻意让两份凭证各管各 —— 不能据此说「已继承」。
     const r = await scanLocalCliAuth(
@@ -103,7 +103,7 @@ describe('scanLocalCliAuth', () => {
     expect(codex).toMatchObject({ installed: true, loggedIn: true, sharedWithCindy: false });
   });
 
-  it('deps 判定为「自己在 Cindy 里授权过」时不算继承', async () => {
+  it('deps 判定为「自己在 Emma 里授权过」时不算继承', async () => {
     // 回归 PR #1076 review 第三轮：用户在 Cindy 里亲自完成 Claude.ai 授权后，token 写进
     // 与本机 CLI 相同的凭证库。共用存储只证明账号相同，证不出凭证先于 Cindy 存在 ——
     // 此时说「已沿用本机登录、无需额外授权」，而那次授权正是他刚做的。
@@ -116,7 +116,7 @@ describe('scanLocalCliAuth', () => {
     });
   });
 
-  it('已登录且确为同一份凭证 → sharedWithCindy=true', async () => {
+  it('已登录且确为同一份凭证 → sharedWithEmma=true', async () => {
     const r = await scanLocalCliAuth(
       depsWith(['.codex'], [join('.codex', 'auth.json')], true, () => true),
     );

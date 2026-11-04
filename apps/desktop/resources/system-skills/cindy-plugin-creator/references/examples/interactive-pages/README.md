@@ -2,16 +2,16 @@
 
 先读[编写指南 §4.23](../../plugin-interactive-pages.md)，需要字段或方法时查[参考](REFERENCE.md)。
 这些都是作者源码，不会自动安装或发布。使用标准 SDK 导入，不需要构建 SDK。
-示例最低 Cindy 版本为 **0.1.122-beta**（loader 从宿主读取页面手册，为 **0.1.123-beta**），执行端和查看端都需要支持此版本能力。
+示例最低 Emma 版本为 **0.1.122-beta**（loader 从宿主读取页面手册，为 **0.1.123-beta**），执行端和查看端都需要支持此版本能力。
 `ghost_forge_scaffold` 的 `withUi: true` 采用 static 示例；省略最低版本时默认为上述要求，
 声明更低版本会被拒绝，更高版本会保留。四种基础模板的原工具照常可用。
 
 | 目录 | 用途 |
 | --- | --- |
-| `loader/` | 后端或 Cindy AI 生成完整页面；页面脚本查询 JSON、保存记录、切换内容 |
+| `loader/` | 后端或 Emma AI 生成完整页面；页面脚本查询 JSON、保存记录、切换内容 |
 | `static/` | 包内静态表单，打开后编辑并保存 |
 | `files/` | 按需裁剪的文件、进度、导出、消息及显示能力示例 |
-| `PAGE-GENERATION.md` | 《Cindy MCP Apps 页面生成手册》，交给生成页面的 LLM；宿主用 `ghost_forge_guide({section:"pages"})` 提供同一份，loader 的 show_page 说明指向它 |
+| `PAGE-GENERATION.md` | 《Emma MCP Apps 页面生成手册》，交给生成页面的 LLM；宿主用 `ghost_forge_guide({section:"pages"})` 提供同一份，loader 的 show_page 说明指向它 |
 
 每个目录的 ghost.json、main.js、ui/page.html 构成独立插件。files 另有 settings.html
 和 settings.js，用来配置自己的后端凭证；其中网络和文件操作不是默认自动执行的。
@@ -20,7 +20,7 @@ loader 中的模拟后端是 main.js 的 mockBackend、fullPage 和 viewFragment
 
 ## 跑起来
 
-1. 复制一个目录到自己的源码区，确认运行的 Cindy 支持本章能力。
+1. 复制一个目录到自己的源码区，确认运行的 Emma 支持本章能力。
 2. 调用 `ghost_forge_pack({dir})` 生成包。取得安装指示后再调 `ghost_forge_install({dir})`。
 3. 使用 loader 时说“打开记录页面”；AI 调用 open_view，未知意图按总览打开。
 4. 查询列表后填写标题，点保存；再切换 Form、Chart。查询不改变输入，保存只更新结果。
@@ -73,7 +73,7 @@ ghost_call({ ghost_id: 'interactive-loader', tool: 'import_file', args: {},
   attachments: ['<用户在对话里发的文件>'] });
 ```
 
-Cindy 存一份副本，main.js 只在 `args.cindy_handoff_files` 收到
+Emma 存一份副本，main.js 只在 `args.cindy_handoff_files` 收到
 `[{ref:'handoff:<uuid>',name,mimeType,size,…}]`，不读取文件内容，只把 ref、name、mimeType、
 size 交给后端生成文件页：首屏只显示名称和大小，按钮写 `data-file-ref`。用户点击后页面调用
 `upload_files({files:[ref], path:'/api/imports/stage'})`，main.js 用 `upload: { handoff: [ref] }`
@@ -83,7 +83,7 @@ HANDOFF_UNAVAILABLE，提示用户重新发送。限额和有效期见 [§4.10.3
 
 ### 没有交接时：dir 交接单文件
 
-插件没声明交接，或 Cindy 早于 0.1.122-beta 时，AI 从用户附件取得执行电脑上的单文件路径，调用：
+插件没声明交接，或 Emma 早于 0.1.122-beta 时，AI 从用户附件取得执行电脑上的单文件路径，调用：
 
 ```js
 ghost_call({

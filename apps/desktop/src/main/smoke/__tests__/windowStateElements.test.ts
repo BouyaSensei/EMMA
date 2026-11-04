@@ -3,8 +3,8 @@ import { windowStateElements } from '../windowStateElements.js';
 
 // Rows copied from a real cua-driver 0.37.0 read of the smoke fixture window.
 const REAL_MARKDOWN = [
-  '- [0] AXWindow "Cindy Computer Use Smoke" [actions=[raise]]',
-  '  - [1] AXWebArea "Cindy Computer Use Smoke"',
+  '- [0] AXWindow "Emma Computer Use Smoke" [actions=[raise]]',
+  '  - [1] AXWebArea "Emma Computer Use Smoke"',
   '    - [4] AXStaticText = "Smoke message"',
   '    - [5] AXTextArea (Smoke message) [actions=[press]]',
   '    - [6] AXButton "Increment smoke count" [actions=[press]]',

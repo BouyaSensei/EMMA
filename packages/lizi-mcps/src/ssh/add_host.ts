@@ -29,7 +29,7 @@ export function registerSshAddHostTool(
     description:
       '把一台 SSH 主机添加到这台电脑的「设置 → 远程连接」（写入本机 ~/.ssh/cindy.conf，终端 `ssh <alias>` 同样可用），' +
       '添加后自动试连一次并返回结果；之后 ssh_exec 和 SSH 远程任务都能使用它。' +
-      '认证只支持 ssh-agent（默认）或未加密的私钥文件，Cindy 不保存密码。' +
+      '认证只支持 ssh-agent（默认）或未加密的私钥文件，Emma 不保存密码。' +
       PASSWORD_LOGIN_HINT,
     inputShape: {
       alias: z.string().trim().min(1).describe('主机别名（SSH Host 名），不能含空格或通配符，例如 "nas"'),
@@ -74,7 +74,7 @@ export function registerSshAddHostTool(
           case 'SSH_CONFIG_RELOAD_REQUIRED':
             return errorPayload(
               'SSH_CONFIG_RELOAD_REQUIRED',
-              '主机已写入 SSH 配置，但 Cindy 刷新连接池失败。调用 ssh_reload_config 重新读取后再用。',
+              '主机已写入 SSH 配置，但 Emma 刷新连接池失败。调用 ssh_reload_config 重新读取后再用。',
             );
           default:
             return errorPayload('SSH_CONFIG_WRITE_FAILED', `添加主机失败：${detail}`);

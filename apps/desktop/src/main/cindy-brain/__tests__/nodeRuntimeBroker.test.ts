@@ -168,11 +168,11 @@ describe('nodeRuntimeBroker owner boundary races', () => {
     const broker = new GhostNodeRuntimeBroker({
       getGhost: () => ghost,
       spawnProcess,
-      startBlockedReason: (id) => (id === 'node-ghost' ? 'restart Cindy' : null),
+      startBlockedReason: (id) => (id === 'node-ghost' ? 'restart Emma' : null),
     });
     try {
       await expect(broker.handleRequest('node-ghost', rpcRequest('blocked'))).resolves.toMatchObject({ ok: false });
-      await expect(broker.startForRecovery(ghost)).rejects.toThrow('restart Cindy');
+      await expect(broker.startForRecovery(ghost)).rejects.toThrow('restart Emma');
       expect(spawnProcess).not.toHaveBeenCalled();
     } finally {
       broker.destroyAll();
@@ -1868,7 +1868,7 @@ describe('nodeRuntimeBroker · 意外死亡诊断(2026-07-26)', () => {
     const pending = broker.handleRequest('node-ghost', rpcRequest('slow'));
     await vi.waitFor(() => expect(child.received).toHaveLength(1));
     child.stderr.write(
-      'Error: ENOENT /Users/jane/Library/Application Support/Cindy/plugins/demo/worker.cjs\n',
+      'Error: ENOENT /Users/jane/Library/Application Support/Emma/plugins/demo/worker.cjs\n',
     );
     await vi.waitFor(() => expect(warn).toHaveBeenCalled());
     child.emit('exit', 1, null);
@@ -2275,12 +2275,12 @@ describe('nodeRuntimeBroker · 权限与协议', () => {
     const init = child.received[0];
     expect(init).toMatchObject({
       method: 'initialize',
-      params: { clientInfo: { name: 'Cindy' } },
+      params: { clientInfo: { name: 'Emma' } },
     });
     broker.destroyAll();
   });
 
-  it('Node notification 只转交给 main.js；反向 RPC 请求 Cindy 恒回 -32601', async () => {
+  it('Node notification 只转交给 main.js；反向 RPC 请求 Emma 恒回 -32601', async () => {
     const events: unknown[] = [];
     const ghost = fakeGhost();
     const child = makeAutoReplyProcess();

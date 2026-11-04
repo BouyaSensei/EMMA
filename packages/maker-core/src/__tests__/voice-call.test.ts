@@ -9,7 +9,7 @@ function setup(
   const changed = vi.fn();
   const call = new VoiceCallContext({
     callId: "call-1",
-    identity: "Cindy",
+    identity: "Emma",
     reference: "Previous context",
     generate,
     handoff,
@@ -33,7 +33,7 @@ describe("independent voice call", () => {
     expect(JSON.parse(generate.mock.calls[1][0]).conversation[0].text).toBe(
       "My name is Pat.",
     );
-    expect(generate.mock.calls[1][1]).toContain("Cindy");
+    expect(generate.mock.calls[1][1]).toContain("Emma");
   });
 
   it("hands off the original only once and treats the model text as a supplement", async () => {

@@ -7,7 +7,7 @@ import {
 } from '../managedWorktreePaths';
 
 describe('managed worktree paths', () => {
-  it('uses the Cindy-branded directory for newly created worktrees', () => {
+  it('uses the Emma-branded directory for newly created worktrees', () => {
     expect(MANAGED_WORKTREE_DIR_NAME).toBe('.cindy-worktrees');
   });
 

@@ -35,14 +35,14 @@ describe('toMessageAutomationOrigin', () => {
         senderSessionId: 'bot-task',
         senderSessionTitle: 'Weekly feedback',
         senderBotId: 'bot-1',
-        senderBotName: 'Cindy',
+        senderBotName: 'Emma',
       }),
     ).toEqual({
       kind: 'session',
       senderSessionId: 'bot-task',
       senderSessionTitle: 'Weekly feedback',
       senderBotId: 'bot-1',
-      senderBotName: 'Cindy',
+      senderBotName: 'Emma',
     });
   });
 

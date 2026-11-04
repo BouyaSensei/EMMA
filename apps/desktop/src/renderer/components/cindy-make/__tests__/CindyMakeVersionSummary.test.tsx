@@ -63,7 +63,7 @@ async function show(
 
 afterEach(cleanup);
 
-describe('Cindy Make version summary', () => {
+describe('Emma Make version summary', () => {
   it('describes the personal version in plain words without hashes or branches', async () => {
     const { container } = await show({ changes: 3 });
     expect(screen.getByText('官方 v0.9.3 ＋ 你的 3 项修改')).toBeTruthy();

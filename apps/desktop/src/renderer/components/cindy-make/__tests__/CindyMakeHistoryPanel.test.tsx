@@ -270,7 +270,7 @@ describe('Make history controls', () => {
     expect(f.read).toHaveBeenCalled();
   });
 
-  it('offers submitting a finished change to Cindy and shows where its pull request stands', async () => {
+  it('offers submitting a finished change to Emma and shows where its pull request stands', async () => {
     const A = 'a'.repeat(40);
     const B = 'b'.repeat(40);
     const finished = { id: 'round-a', reportedAt: 1, baseTree: A, tree: B };
@@ -420,7 +420,7 @@ describe('Make history controls', () => {
       items: [],
       busy: false,
       canBuild: true,
-      build: { status: 'ready', buildId: 'build', artifactName: 'Cindy.exe' },
+      build: { status: 'ready', buildId: 'build', artifactName: 'Emma.exe' },
     });
     render(<CindyMakeHistoryPanel />);
     fireEvent.click(await screen.findByRole('button', { name: 'cindyMake.history.openInstaller' }));

@@ -13,7 +13,7 @@ function item(over: Partial<MyIssueItem> = {}): MyIssueItem {
   const number = over.number ?? 1061;
   return {
     number,
-    url: `https://github.com/makecindy/cindy/issues/${number}`,
+    url: `https://github.com/BouyaSensei/EMMA/issues/${number}`,
     title: '标题',
     type: 'bug',
     state: 'open',
@@ -36,7 +36,7 @@ describe('normalizeSnapshotItems', () => {
     const [normalized] = normalizeSnapshotItems([
       item({ number: 42, url: 'https://evil.example.com/phish' }),
     ]);
-    expect(normalized.url).toBe('https://github.com/makecindy/cindy/issues/42');
+    expect(normalized.url).toBe('https://github.com/BouyaSensei/EMMA/issues/42');
   });
 
   it('丢掉形状不对的条目', () => {

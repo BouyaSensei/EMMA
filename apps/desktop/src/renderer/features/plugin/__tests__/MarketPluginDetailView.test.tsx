@@ -37,7 +37,7 @@ const detail: PluginMarketDetail = {
   ghostId: 'google-calendar',
   name: 'Google Calendar',
   description: 'Connect Google Calendar',
-  author: 'Cindy',
+  author: 'Emma',
   scope: 'public',
   organizationId: null,
   defaultInstall: false,

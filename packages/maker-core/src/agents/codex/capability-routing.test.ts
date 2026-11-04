@@ -238,7 +238,7 @@ describe('buildCodexSessionCapabilityRoutingPolicy', () => {
     })).toBe(policy);
   });
 
-  it('removes only unavailable Cindy-host replacements for remote Codex', () => {
+  it('removes only unavailable Emma-host replacements for remote Codex', () => {
     expect(buildCodexSessionCapabilityRoutingPolicy(policy, {
       cindyHostReplacementsAvailable: false,
     })).toEqual({

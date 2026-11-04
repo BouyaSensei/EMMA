@@ -205,7 +205,7 @@ describe('listAvailableMediaModels', () => {
     ]);
     expect(serverApiFetchMock).toHaveBeenCalledWith(
       '/api/model-access/models?schemaVersion=5',
-      expect.objectContaining({ headers: { 'X-Cindy-Model-Capabilities': 'display_pricing' } }),
+      expect.objectContaining({ headers: { 'X-Emma-Model-Capabilities': 'display_pricing' } }),
     );
   });
 
@@ -229,7 +229,7 @@ describe('listAvailableMediaModels', () => {
     });
   });
 
-  it('只用 modelId 获取 Cindy Server Guide', async () => {
+  it('只用 modelId 获取 Emma Server Guide', async () => {
     serverApiFetchMock.mockResolvedValueOnce({
       modelId: 'image-with-guide',
       guide: {

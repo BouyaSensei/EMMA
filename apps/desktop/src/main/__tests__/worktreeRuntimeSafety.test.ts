@@ -64,7 +64,7 @@ describe('worktree runtime evidence and physical locks', () => {
     expect(await readWorktreeRuntimePaths()).toEqual(new Set());
     expect(notify).toHaveBeenCalledOnce();
     expect(await hasGitLock()).toBe(false);
-    await expect(fs.stat(path.join(state.root, 'app-data', 'Cindy', 'shared-worktree-runtime-leases')))
+    await expect(fs.stat(path.join(state.root, 'app-data', 'Emma', 'shared-worktree-runtime-leases')))
       .rejects.toMatchObject({ code: 'ENOENT' });
   });
 
@@ -309,7 +309,7 @@ describe('worktree runtime evidence and physical locks', () => {
     expect(await readWorktreeRuntimePaths()).toEqual(new Set());
   });
 
-  it('keeps a real legacy Cindy instance protective', async () => {
+  it('keeps a real legacy Emma instance protective', async () => {
     await fs.writeFile(path.join(state.root, '.dev-instances', '4242.json'),
       JSON.stringify({ pid: 4242, startedAtMs: t0 + 100_000 }));
     vi.spyOn(process, 'kill').mockReturnValue(true);
@@ -343,7 +343,7 @@ describe('worktree runtime evidence and physical locks', () => {
       expect(await readWorktreeRuntimePaths()).toBeNull();
     });
 
-    it.each([null, { ...identity, executablePath: '/opt/Cindy.app/Contents/MacOS/Cindy' }])
+    it.each([null, { ...identity, executablePath: '/opt/Emma.app/Contents/MacOS/Emma' }])
       ('does not waive the lock when identity becomes unavailable or a runtime replaces the process: %j', async (latest) => {
         readIdentity.mockResolvedValueOnce(identity).mockResolvedValueOnce(latest);
         expect(await readWorktreeRuntimePaths()).toBeNull();
@@ -365,11 +365,11 @@ describe('worktree runtime evidence and physical locks', () => {
     });
   });
 
-  it('keeps a replacement Cindy protective before its new registration is published', async () => {
+  it('keeps a replacement Emma protective before its new registration is published', async () => {
     await fs.writeFile(path.join(state.root, '.dev-instances', '4242.json'),
       JSON.stringify({ pid: 4242, startedAtMs: t0 + 1 }));
     vi.spyOn(process, 'kill').mockReturnValue(true);
-    readIdentity.mockResolvedValue({ startedAtMs: t0 + 100_000, executablePath: path.join(state.root, 'Cindy.exe') });
+    readIdentity.mockResolvedValue({ startedAtMs: t0 + 100_000, executablePath: path.join(state.root, 'Emma.exe') });
     expect(await readWorktreeRuntimePaths()).toBeNull();
   });
 
@@ -450,7 +450,7 @@ describe('worktree runtime evidence and physical locks', () => {
       await ownedBy(lease, 4242, hourMs);
       expect(await readWorktreeRuntimePaths()).toEqual(protectedPath);
       await ownedBy(lease, 4242, hourMs + 1_000);
-      readIdentity.mockResolvedValueOnce({ startedAtMs: Date.now() - 2 * hourMs, executablePath: path.join(state.root, 'Cindy.exe') });
+      readIdentity.mockResolvedValueOnce({ startedAtMs: Date.now() - 2 * hourMs, executablePath: path.join(state.root, 'Emma.exe') });
       expect(await readWorktreeRuntimePaths()).toEqual(protectedPath);
 
       await ownedBy(lease, 4242, hourMs + 2_000);
@@ -467,7 +467,7 @@ describe('worktree runtime evidence and physical locks', () => {
       const lease = (await acquireWorktreeRuntimeLease('one', worktree))!;
       vi.spyOn(process, 'kill').mockReturnValue(true);
       // The owner was born by a fast clock, so its OS birth is later than every heartbeat since.
-      const owner = { startedAtMs: Date.now() + hourMs, executablePath: path.join(state.root, 'Cindy.exe') };
+      const owner = { startedAtMs: Date.now() + hourMs, executablePath: path.join(state.root, 'Emma.exe') };
       await ownedBy(lease, 4242, 2 * hourMs, { processIdentity: owner });
       readIdentity.mockResolvedValueOnce(owner);
       expect(await readWorktreeRuntimePaths()).toEqual(new Set([await physicalWorktreeKey(worktree)]));
@@ -522,7 +522,7 @@ describe('worktree runtime evidence and physical locks', () => {
       vi.spyOn(process, 'kill').mockReturnValue(true);
       expect(await readWorktreeRuntimePaths()).toEqual(new Set());
       // A runtime born before the registration is that instance, whatever the boot estimate says.
-      readIdentity.mockResolvedValueOnce({ startedAtMs: Date.now() - 2 * hourMs, executablePath: path.join(state.root, 'Cindy.exe') });
+      readIdentity.mockResolvedValueOnce({ startedAtMs: Date.now() - 2 * hourMs, executablePath: path.join(state.root, 'Emma.exe') });
       expect(await readWorktreeRuntimePaths()).toBeNull();
     });
   });

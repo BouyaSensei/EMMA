@@ -650,7 +650,7 @@ describe('Pi package executable-code boundary', () => {
     expect(installed.packages).toMatchObject([{ source, enabled: true }]);
   });
 
-  it('feeds installed roots to Pi native discovery without requiring Cindy approval', async () => {
+  it('feeds installed roots to Pi native discovery without requiring Emma approval', async () => {
     const { root, source } = await createPackage();
     const store = await import('../pi-package-store.js');
 
@@ -3488,7 +3488,7 @@ describe('Pi package executable-code boundary', () => {
   it.each([
     ['transient I/O', 'EIO'],
     ['permission', 'EACCES'],
-  ])('fails local projection closed through a %s Cindy-state read failure', async (_label, code) => {
+  ])('fails local projection closed through a %s Emma-state read failure', async (_label, code) => {
     const { source } = await createSkillOnlyPackage('npm:disabled-skill-package');
     const sibling = 'npm:sibling-disabled';
     const stateDir = path.join(runtime.userData, 'pi-package-home');
@@ -3534,7 +3534,7 @@ describe('Pi package executable-code boundary', () => {
     await expect(fs.readFile(stateFile, 'utf8')).resolves.toBe(persistedState);
   });
 
-  it('fails local projection closed for corrupt Cindy state without overwriting it', async () => {
+  it('fails local projection closed for corrupt Emma state without overwriting it', async () => {
     const { source } = await createSkillOnlyPackage('npm:corrupt-state-skill-package');
     const stateDir = path.join(runtime.userData, 'pi-package-home');
     const stateFile = path.join(stateDir, 'cindy-package-state.json');
@@ -4695,7 +4695,7 @@ describe('Pi package executable-code boundary', () => {
     });
     expect(listener).toHaveBeenCalledTimes(1);
     expect(loggerRuntime.warn).toHaveBeenCalledWith(
-      'Pi package mutation succeeded; Cindy list projection unavailable',
+      'Pi package mutation succeeded; Emma list projection unavailable',
       { action: 'set-enabled', failureCategory: 'projection-unavailable' },
     );
 
@@ -4764,7 +4764,7 @@ describe('Pi package executable-code boundary', () => {
     expect(runtime.spawns.find(({ args }) => args.includes('install'))?.args).toContain(source);
   });
 
-  it('reports oversized Cindy analysis without disabling Pi-native package roots', async () => {
+  it('reports oversized Emma analysis without disabling Pi-native package roots', async () => {
     const createLaunchPackage = async (
       source: string,
       kind: 'skill' | 'mixed',
@@ -5053,7 +5053,7 @@ describe('Pi package executable-code boundary', () => {
     });
   });
 
-  it('lets Pi load theme-only packages despite Cindy TUI compatibility limits', async () => {
+  it('lets Pi load theme-only packages despite Emma TUI compatibility limits', async () => {
     const root = await fs.mkdtemp(path.join(os.tmpdir(), 'cindy-pi-package-theme-only-'));
     roots.push(root);
     const source = 'npm:theme-only';
@@ -5173,7 +5173,7 @@ describe('Pi package executable-code boundary', () => {
     await mutateAuthorized(store, { action: 'install', source: unsafeSource });
 
     expect(loggerRuntime.warn).toHaveBeenCalledWith(
-      'Pi package installed; Cindy post-install analysis unavailable',
+      'Pi package installed; Emma post-install analysis unavailable',
       { action: 'install', failureCategory: 'projection-unavailable' },
     );
     const warnings = JSON.stringify(loggerRuntime.warn.mock.calls);

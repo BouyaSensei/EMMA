@@ -25,7 +25,7 @@ describe("saved account metadata", () => {
           avatarUrl: "https://example.com/user.png",
           email: "cao@example.com",
           orgId: "org-1",
-          orgName: "Cindy",
+          orgName: "Emma",
           orgLogoUrl: "https://example.com/org.png",
         },
         "passport-1",
@@ -33,7 +33,7 @@ describe("saved account metadata", () => {
     ).toMatchObject({
       kind: "org",
       displayName: "Cao Jianbo",
-      orgName: "Cindy",
+      orgName: "Emma",
       orgLogoUrl: "https://example.com/org.png",
     });
   });

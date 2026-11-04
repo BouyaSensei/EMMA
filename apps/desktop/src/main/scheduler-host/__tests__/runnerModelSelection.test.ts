@@ -933,7 +933,7 @@ describe('MakerScheduleRunner model selection', () => {
       expect(h.send).not.toHaveBeenCalled();
     });
 
-    it('Pi 空模型按同一已连接来源解析 model + providerId，不能落到 Cindy 的 Sonnet 路由', async () => {
+    it('Pi 空模型按同一已连接来源解析 model + providerId，不能落到 Emma 的 Sonnet 路由', async () => {
       const h = createSessionHarness();
       const resolveDefaultModelRoute = vi.fn(async () => ({
         model: 'byom/llama-4',

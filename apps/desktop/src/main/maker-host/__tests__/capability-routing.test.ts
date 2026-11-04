@@ -18,7 +18,7 @@ function codexPluginRoutes(cindyBrowserEnabled: boolean, codexBrowserUseAvailabl
 }
 
 describe('buildDesktopCapabilityRoutingPolicy', () => {
-  it('disables both official Codex browser surfaces when Cindy Browser is enabled', () => {
+  it('disables both official Codex browser surfaces when Emma Browser is enabled', () => {
     const routes = codexPluginRoutes(true);
 
     expect(routes.map((route) => route.source.id)).toEqual([
@@ -45,7 +45,7 @@ describe('buildDesktopCapabilityRoutingPolicy', () => {
     ]);
   });
 
-  it('also disables the privileged Browser MCP surface when Cindy Browser owns the capability', () => {
+  it('also disables the privileged Browser MCP surface when Emma Browser owns the capability', () => {
     const routes = buildDesktopCapabilityRoutingPolicy({
       cindyBrowserEnabled: true,
       codexBrowserUseAvailable: true,
@@ -104,7 +104,7 @@ describe('buildDesktopCapabilityRoutingPolicy', () => {
     )).toBe(false);
   });
 
-  it('drops the node_repl MCP route when Cindy Browser owns the capability but the companion was not provisioned', () => {
+  it('drops the node_repl MCP route when Emma Browser owns the capability but the companion was not provisioned', () => {
     const policy = buildDesktopCapabilityRoutingPolicy({
       cindyBrowserEnabled: true,
       codexBrowserUseAvailable: false,
@@ -122,7 +122,7 @@ describe('buildDesktopCapabilityRoutingPolicy', () => {
     }));
   });
 
-  it('keeps remote Chrome available without claiming the local Cindy Browser replacement', () => {
+  it('keeps remote Chrome available without claiming the local Emma Browser replacement', () => {
     const policy = buildDesktopCapabilityRoutingPolicy({
       cindyComputerAvailable: false,
       cindyBrowserEnabled: true,

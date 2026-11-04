@@ -429,7 +429,7 @@ describe('Codex system credential suppression marker', () => {
     });
   });
 
-  it('persists an unknown-source invalidation without system auth until Cindy writes a new token', () => {
+  it('persists an unknown-source invalidation without system auth until Emma writes a new token', () => {
     const { codexHome, systemAuth, localAuth } = fixture();
     fs.mkdirSync(codexHome, { recursive: true });
     fs.writeFileSync(localAuth, JSON.stringify({ tokens: { access_token: 'legacy-local' } }));
@@ -672,7 +672,7 @@ describe('Codex system credential suppression marker', () => {
     });
   });
 
-  it('reclassifies a shared invalidation as isolated after an explicit Cindy login', async () => {
+  it('reclassifies a shared invalidation as isolated after an explicit Emma login', async () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), 'xdt-codex-shared-to-isolated-'));
     dirs.push(root);
     h.userDataDir = path.join(root, 'user-data');
@@ -2421,7 +2421,7 @@ describe('Codex system credential suppression marker', () => {
     await expect(adapter.getAccessToken()).resolves.toBeNull();
   });
 
-  it('preserves an in-flight Cindy F2 login when an F1 host reports a late invalidation', async () => {
+  it('preserves an in-flight Emma F2 login when an F1 host reports a late invalidation', async () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), 'xdt-codex-stale-host-login-'));
     dirs.push(root);
     h.userDataDir = path.join(root, 'user-data');

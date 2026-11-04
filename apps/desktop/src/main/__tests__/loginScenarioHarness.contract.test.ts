@@ -39,7 +39,7 @@ describe('authManager 注入点(静态源码断言)', () => {
     expect(authManagerSource).toContain('scenario: process.env.XDT_LOGIN_SCENARIO');
   });
 
-  it('注入形态 = 真实 CindyAuthClient + fetch 构造参数(scenarioFetch ?? 真 fetch)', () => {
+  it('注入形态 = 真实 EmmaAuthClient + fetch 构造参数(scenarioFetch ?? 真 fetch)', () => {
     expect(authManagerSource).toContain(
       'fetch: scenarioFetch ?? (async (input, init) => net.fetch(input, init as RequestInit))',
     );

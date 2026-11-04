@@ -40,7 +40,7 @@ async function probe(): Promise<string | null> {
       const script = `Add-Type -TypeDefinition @'
 using System;
 using System.Runtime.InteropServices;
-public static class CindySchemaBootIdentity {
+public static class EmmaSchemaBootIdentity {
   [DllImport("ntdll.dll")]
   private static extern int NtQuerySystemInformation(int kind, IntPtr buffer, int size, out int returned);
   public static string Read() {
@@ -52,7 +52,7 @@ public static class CindySchemaBootIdentity {
     } finally { Marshal.FreeHGlobal(buffer); }
   }
 }
-'@; [CindySchemaBootIdentity]::Read()`;
+'@; [EmmaSchemaBootIdentity]::Read()`;
       value = (
         await run(
           path.join(

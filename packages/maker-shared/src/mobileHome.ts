@@ -393,7 +393,7 @@ function buildProjectGroups(
         sessionCount: group.reduce((sum, item) => sum + (item.automationGroup?.sessionCount ?? 1), 0),
         sessions: group,
         subtitle: [deviceName, workingDir].filter(Boolean).join(' · '),
-        title: cindyMake ? 'Cindy Make' : resolveProjectAliasForSessions(
+        title: cindyMake ? 'Emma Make' : resolveProjectAliasForSessions(
           projectMembers.get(key) ?? [],
           projectAliases,
         ) ?? projectTitle(workingDir),
@@ -802,13 +802,13 @@ function noDeviceEmptyText(context: MobileHomeNoDeviceContext): { title: string;
       };
     case 'offline':
       return {
-        title: '打开电脑上的 Cindy',
-        copy: '连接过的电脑现在都不在线。在电脑上打开 Cindy 并保持登录，手机会自动连上。',
+        title: '打开电脑上的 Emma',
+        copy: '连接过的电脑现在都不在线。在电脑上打开 Emma 并保持登录，手机会自动连上。',
       };
     default:
       return {
-        title: '连接你电脑上的 Cindy',
-        copy: '目前 Cindy 都运行在你的电脑上，手机版通过远程访问来让你使用电脑上的 Agent。',
+        title: '连接你电脑上的 Emma',
+        copy: '目前 Emma 都运行在你的电脑上，手机版通过远程访问来让你使用电脑上的 Agent。',
       };
   }
 }

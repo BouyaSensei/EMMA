@@ -49,8 +49,8 @@ describe('decideProviderGroupFailure — that computer cannot be reached or cann
   it.each<[string, InterruptedTurnErrorSignals, ReturnType<typeof switchTo>]>([
     // 只是连接断了：先等它恢复，现读第一次就连得上算恢复。
     ['device unreachable', { message: '[REMOTE_AGENT_DEVICE_UNREACHABLE] unreachable' }, switchTo('unavailable', 'lost')],
-    ['Cindy restarted there (expired)', { message: '[REMOTE_AGENT_EXPIRED] session expired' }, switchTo('unavailable', 'lost')],
-    ['Cindy restarted there (not found)', { message: '[REMOTE_AGENT_NOT_FOUND] no such session' }, switchTo('unavailable', 'lost')],
+    ['Emma restarted there (expired)', { message: '[REMOTE_AGENT_EXPIRED] session expired' }, switchTo('unavailable', 'lost')],
+    ['Emma restarted there (not found)', { message: '[REMOTE_AGENT_NOT_FOUND] no such session' }, switchTo('unavailable', 'lost')],
     // 可能连不上：现读一次，确实连不上才等。
     ['reader gave up (2 minutes)', {
       message: '[REMOTE_AGENT_UNAVAILABLE] The computer running this agent is unreachable.',
@@ -65,7 +65,7 @@ describe('decideProviderGroupFailure — that computer cannot be reached or cann
     ['share paused', { message: '[REMOTE_AGENT_SHARE_PAUSED] paused' }, switchTo('unavailable')],
     ['share removed', { message: '[REMOTE_AGENT_SHARE_REMOVED] removed' }, switchTo('unavailable')],
     ['account changed there', { message: '[REMOTE_AGENT_ACCOUNT_CHANGED] changed' }, switchTo('unavailable')],
-    ['Cindy too old there', { message: '[REMOTE_AGENT_PEER_TOO_OLD] too old' }, switchTo('unavailable')],
+    ['Emma too old there', { message: '[REMOTE_AGENT_PEER_TOO_OLD] too old' }, switchTo('unavailable')],
     ['agent not installed there', { message: '[REMOTE_AGENT_UNSUPPORTED] codex is not available on this computer' }, switchTo('unavailable')],
     ['wrapped code in the middle', { message: 'open failed: [REMOTE_AGENT_DEVICE_UNREACHABLE] gone' }, switchTo('unavailable', 'lost')],
   ])('%s → switch (no cooling)', (_name, signals, expected) => {

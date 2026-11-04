@@ -3914,7 +3914,7 @@ if (
   if (!gotTheLock) {
     markDesktopDevStartupFailed(
       'SINGLE_INSTANCE_OWNED',
-      'Another Cindy instance already owns this single-instance lock scope.',
+      'Another Emma instance already owns this single-instance lock scope.',
       { userDataDir: realUserDataDir, lockScopeDir },
     );
     app.quit();
@@ -4619,7 +4619,7 @@ const registerIpcHandlers = () => {
     requirePersonalAccount: () => {
       requireAppCapability(
         'canUseCindyAccountServices',
-        'Billing requires a personal Cindy account.',
+        'Billing requires a personal Emma account.',
       );
       if (authManager.getAuthState().user?.membershipKind !== 'personal') {
         throwIpcError('PERMISSION_DENIED', 'Billing is only available to personal accounts.');
@@ -6380,7 +6380,7 @@ const registerIpcHandlers = () => {
 
   const requireCloudProfile = (): void => {
     if (!getAppCapabilities().canUseCindyAccountServices) {
-      throwIpcError('PERMISSION_DENIED', 'Profile editing requires a Cindy account.');
+      throwIpcError('PERMISSION_DENIED', 'Profile editing requires an Emma account.');
     }
   };
 
@@ -8079,7 +8079,7 @@ const registerIpcHandlers = () => {
       assertTrustedAppRendererEvent(event);
       assertCindyMakeEnabled();
       if (typeof enabled !== 'boolean')
-        throwIpcError('INVALID_PARAMS', 'Invalid Cindy Make setting');
+        throwIpcError('INVALID_PARAMS', 'Invalid Emma Make setting');
       return writeCindyMakeSyncLatestBeforeBuild(enabled);
     },
   );
@@ -8212,7 +8212,7 @@ const registerIpcHandlers = () => {
       }
       void refreshCindyMakeTaskIntegration();
     } catch {
-      throwIpcError('INTERNAL', 'Could not restore Cindy Make preparation state');
+      throwIpcError('INTERNAL', 'Could not restore Emma Make preparation state');
     }
     return cindyMakeManager.getState();
   });
@@ -8248,21 +8248,21 @@ const registerIpcHandlers = () => {
     assertCindyMakeEnabled();
     return startCindyMakeTask(input, event.sender.id).catch((error) => {
       if (error instanceof Error && error.message.startsWith('[')) throw error;
-      throwIpcError('INTERNAL', 'Could not start Cindy Make preparation');
+      throwIpcError('INTERNAL', 'Could not start Emma Make preparation');
     });
   });
   ipcMain.handle('app:cancel-cindy-make-task', async (event, runId: unknown) => {
     assertTrustedAppRendererEvent(event);
     assertCindyMakeEnabled();
     if (typeof runId !== 'string' || !CINDY_MAKE_RUN_ID_PATTERN.test(runId))
-      throwIpcError('INVALID_PARAMS', 'Invalid Cindy Make run');
+      throwIpcError('INVALID_PARAMS', 'Invalid Emma Make run');
     return { success: cindyMakeManager.cancel(runId, event.sender.id) === 'cancelled' };
   });
   ipcMain.handle('app:prepare-cindy-make-workspace', async (event, runId: unknown) => {
     assertTrustedAppRendererEvent(event);
     assertCindyMakeEnabled();
     if (typeof runId !== 'string' || !CINDY_MAKE_RUN_ID_PATTERN.test(runId))
-      throwIpcError('INVALID_PARAMS', 'Invalid Cindy Make run');
+      throwIpcError('INVALID_PARAMS', 'Invalid Emma Make run');
     const userData = app.getPath('userData');
     try {
       return await cindyMakeManager.withProject(makeSourceRoot(userData), async () => {
@@ -8276,7 +8276,7 @@ const registerIpcHandlers = () => {
         return prepareCindyMakeWorkspace(userData, runId, signal, { processEnvironment });
       });
     } catch {
-      throwIpcError('INTERNAL', 'Cindy Make workspace preparation failed');
+      throwIpcError('INTERNAL', 'Emma Make workspace preparation failed');
     }
   });
 
@@ -8298,7 +8298,7 @@ const registerIpcHandlers = () => {
       assertFocusedSender: (senderEvent) => {
         const win = BrowserWindow.fromWebContents(senderEvent.sender);
         if (!isFocusedAppContentWindow(win)) {
-          throwIpcError('PERMISSION_DENIED', '此操作只能在 Cindy 主窗口聚焦时发起');
+          throwIpcError('PERMISSION_DENIED', '此操作只能在 Emma 主窗口聚焦时发起');
         }
       },
       write: (text) =>

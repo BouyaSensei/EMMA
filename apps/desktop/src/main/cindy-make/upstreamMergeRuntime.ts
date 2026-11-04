@@ -56,7 +56,7 @@ import {
 } from './upstreamMerge.js';
 
 const log = createLogger('cindy-make');
-const OFFICIAL_URL = 'https://github.com/makecindy/cindy.git';
+const OFFICIAL_URL = 'https://github.com/BouyaSensei/EMMA.git';
 let controller: UpstreamMergeController | undefined;
 let syncTarget: (() => Promise<SyncTarget>) | undefined;
 let unavailable = false;

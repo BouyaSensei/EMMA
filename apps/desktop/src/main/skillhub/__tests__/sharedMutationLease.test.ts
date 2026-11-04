@@ -60,7 +60,7 @@ describe('shared Skill mutation lease', () => {
   ])('$outcome', async ({ elapsedMs, releaseOwner }) => {
     const first = (await acquireSharedSkillMutationLease(['startup-projection']))!;
     const key = createHash('sha256').update('startup-projection').digest('hex');
-    const lockPath = path.join(root, 'Cindy', 'shared-skill-mutation-locks', `${key}.lock`);
+    const lockPath = path.join(root, 'Emma', 'shared-skill-mutation-locks', `${key}.lock`);
     const ownerRecord = fs.readFileSync(lockPath, 'utf8');
     // Real filesystem exclusion, controlled deadline: Windows CI I/O can exceed
     // 500 ms even when the owner's release is scheduled after only 50 ms.
@@ -101,7 +101,7 @@ describe('shared Skill mutation lease', () => {
   it('contains a damaged durable barrier to its own resource name', async () => {
     const token = randomUUID();
     const key = createHash('sha256').update('damaged-receipt').digest('hex');
-    const file = path.join(root, 'Cindy', 'shared-skill-mutation-locks', 'pending', key, `${token}.json`);
+    const file = path.join(root, 'Emma', 'shared-skill-mutation-locks', 'pending', key, `${token}.json`);
     fs.mkdirSync(path.dirname(file), { recursive: true });
     fs.writeFileSync(file, '{');
     try {

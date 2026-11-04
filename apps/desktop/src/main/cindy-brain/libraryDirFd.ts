@@ -564,7 +564,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.Win32.SafeHandles;
 
-public static class CindyLibraryExistingOpen {
+public static class EmmaLibraryExistingOpen {
   private const uint FILE_READ_DATA = 0x00000001;
   private const uint FILE_READ_ATTRIBUTES = 0x00000080;
   private const uint SYNCHRONIZE = 0x00100000;
@@ -728,7 +728,7 @@ public static class CindyLibraryExistingOpen {
 '@
 try {
   $ghost = $env:CINDY_LIBRARY_GHOST_ID
-  $code = [CindyLibraryExistingOpen]::Run([string]$ghost)
+  $code = [EmmaLibraryExistingOpen]::Run([string]$ghost)
   exit $code
 } catch {
   exit 1
@@ -797,7 +797,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Win32.SafeHandles;
 
-public static class CindyLibraryInit {
+public static class EmmaLibraryInit {
   private const uint FILE_LIST_DIRECTORY = 0x00000001;
   private const uint FILE_ADD_FILE = 0x00000002;
   private const uint FILE_ADD_SUBDIRECTORY = 0x00000004;
@@ -998,7 +998,7 @@ public static class CindyLibraryInit {
 try {
   $ghost = $env:CINDY_LIBRARY_GHOST_ID
   $meta = $env:CINDY_LIBRARY_META_JSON
-  $code = [CindyLibraryInit]::Run([string]$ghost, [string]$meta)
+  $code = [EmmaLibraryInit]::Run([string]$ghost, [string]$meta)
   exit $code
 } catch {
   exit 1

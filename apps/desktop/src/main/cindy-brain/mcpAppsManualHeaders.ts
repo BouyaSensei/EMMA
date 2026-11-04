@@ -15,8 +15,8 @@ import { getPluginToolUi, pluginHasToolUi, pluginToolVisible } from '@cindy/plug
 import { assertPluginPageManualVersion, pluginPageManualCdnPath } from '../../shared/pluginPageManual.mjs';
 import type { InstalledGhost } from '../../shared/ghost.js';
 
-export const MCP_APPS_MANUAL_HEADER = 'Cindy-MCP-Apps-Manual';
-export const MCP_APPS_MANUAL_SHA256_HEADER = 'Cindy-MCP-Apps-Manual-Sha256';
+export const MCP_APPS_MANUAL_HEADER = 'Emma-MCP-Apps-Manual';
+export const MCP_APPS_MANUAL_SHA256_HEADER = 'Emma-MCP-Apps-Manual-Sha256';
 
 export interface McpAppsManualRef {
   url: string;
@@ -39,7 +39,13 @@ export function toolOpensMcpAppsPage(manifest: InstalledGhost['manifest'], tool:
  * manual 为 null 表示本跳不带（未选中、版本无关、找不到手册或目标主机未声明）。
  */
 export function applyMcpAppsManualHeaders(headers: Record<string, string>, manual: McpAppsManualRef | null): void {
-  const names = new Set([MCP_APPS_MANUAL_HEADER.toLowerCase(), MCP_APPS_MANUAL_SHA256_HEADER.toLowerCase()]);
+  // 同时剥除 Emma 与旧 Cindy 前缀的同名头,防止任一品牌的伪造头泄漏。
+  const names = new Set([
+    MCP_APPS_MANUAL_HEADER.toLowerCase(),
+    MCP_APPS_MANUAL_SHA256_HEADER.toLowerCase(),
+    'cindy-mcp-apps-manual',
+    'cindy-mcp-apps-manual-sha256',
+  ]);
   for (const name of Object.keys(headers)) {
     if (names.has(name.toLowerCase())) delete headers[name];
   }

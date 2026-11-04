@@ -57,7 +57,7 @@ function harness() {
   return { handlers, act };
 }
 
-describe('Cindy Make GitHub IPC gates', () => {
+describe('Emma Make GitHub IPC gates', () => {
   beforeEach(() => {
     feature.enabled = false;
   });

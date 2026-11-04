@@ -1,15 +1,15 @@
 ## 0a 先按宿主版本定位开源源码（tag / commit）
 
-编写、修改或回答插件宿主 API 问题时，先确定插件实际运行的 Cindy 版本，再核对该版本的
+编写、修改或回答插件宿主 API 问题时，先确定插件实际运行的 Emma 版本，再核对该版本的
 公开接口和实现。随包手册用于发现能力与理解契约；源码用于核实具体行为和手册疑点。
 官方客户端仓库是 https://github.com/makecindy/cindy，包含 desktop、mobile 和共享 packages；
 服务端不在此仓库中，客户端代码不能证明服务端已经部署某项能力。
 
 ### 先确定宿主和不可变的源码版本
 
-1. 确认插件会在哪台 Cindy 电脑运行。手机或远程设置页只是控制端时，应核对插件执行电脑，
+1. 确认插件会在哪台 Emma 电脑运行。手机或远程设置页只是控制端时，应核对插件执行电脑，
    不能拿手机应用、控制端电脑或底层 Claude Code / Codex / Pi 的版本代替宿主版本。
-2. 从已发现的只读宿主能力取得版本。当前 Cindy 可先发现
+2. 从已发现的只读宿主能力取得版本。当前 Emma 可先发现
    `cindy_helper.list_tools({category: 'app_update'})`，再通过 `call_tool` 调用
    `check_app_update`，读取 `currentVersion`。这一步不安装或重启应用；更新状态不受支持
    也可能仍有版本字段。该工具只查询其所在电脑，不要为它编造跨电脑参数。目标电脑的版本
@@ -38,7 +38,7 @@ git -C <source-repo> show '<full-commit>:apps/desktop/src/preload/ghostPreload.t
 
 证据链接使用 `https://github.com/makecindy/cindy/blob/<full-commit>/<repo-relative-path>#L<line>`。
 对结论有影响的手册、类型、实现和测试使用同一个 commit；从 main 看到的能力只能作为
-未来版本线索。当前工作目录的 HEAD 也需要与宿主构建核对，不能因为目录叫 Cindy 就认定匹配。
+未来版本线索。当前工作目录的 HEAD 也需要与宿主构建核对，不能因为目录叫 Emma 就认定匹配。
 
 ### 顺着公开入口核对实际行为
 

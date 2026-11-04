@@ -263,8 +263,8 @@ describe('teammate result attachment history', () => {
   it('loads frozen results from the sealed reply even when the receipt is outside the history page', async () => {
     const id = sid('result-attachment');
     const result = {
-      v: 1, role: 'delegation-result', delegationId: 'job', fromBotId: 'bot', fromBotName: 'Cindy',
-      toBotId: null, toBotName: 'Cindy', parentSessionId: id, childSessionId: 'child', objective: 'Report',
+      v: 1, role: 'delegation-result', delegationId: 'job', fromBotId: 'bot', fromBotName: 'Emma',
+      toBotId: null, toBotName: 'Emma', parentSessionId: id, childSessionId: 'child', objective: 'Report',
       result: { runSequence: 2, status: 'completed', title: 'Report', text: 'Saved', artifacts: [] },
     };
     transportMocks.listMessages.mockResolvedValueOnce([

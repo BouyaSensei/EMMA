@@ -169,7 +169,7 @@ describe('cc routingTransform — xAI 会话的辅助请求回落默认路由 (i
     expect(decision).toBeNull();
   });
 
-  it('无任何 Cindy 凭证的 claude-* 请求本地拒绝,绝不带着订阅凭证转发到 Anthropic', async () => {
+  it('无任何 Emma 凭证的 claude-* 请求本地拒绝,绝不带着订阅凭证转发到 Anthropic', async () => {
     // 订阅会话由 CLI 直连、从不经 proxy;走到这里的只可能是 env 不对的请求。
     gatewayKey = null;
     const transform = createModelRoutingTransform();
@@ -881,7 +881,7 @@ describe('pi routingTransform — xdt session header selects the Pi provider rou
     expect(response.body).toContain('pi_provider_mismatch');
   });
 
-  it('rejects a native provider header that does not match the Cindy session provider', async () => {
+  it('rejects a native provider header that does not match the Emma session provider', async () => {
     setSessionProvider('sess-pi', 'anthropic');
     registerPiProxySession('sess-pi', 'session-secret', () => 'anthropic');
     const decision = await createModelRoutingTransform()(

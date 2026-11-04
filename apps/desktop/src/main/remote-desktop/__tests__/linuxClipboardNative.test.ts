@@ -100,7 +100,7 @@ it('discards clipboard content if the compositor locks during a native read', as
   });
   await expect(readLinuxClipboardSnapshot()).rejects.toThrow('DESKTOP_CLIPBOARD_UNAVAILABLE');
 });
-it('reads all offered portable text alternatives while Cindy is unfocused', async () => {
+it('reads all offered portable text alternatives while Emma is unfocused', async () => {
   h.exec.mockImplementation(async (_tool, args: string[]) => ({
     stdout: Buffer.from(
       args.includes('--list-types')

@@ -17,7 +17,7 @@ describe("isShellDesktopInputCommand", () => {
     `osascript -e 'tell application "System Events" to keystroke "/pr "'`,
     `osascript -e 'tell application "System Events" to keystroke "v" using command down'`,
     `osascript -e 'tell application "System Events" to key code 36'`,
-    `osascript -e 'tell application "System Events" to tell process "Cindy" to click button 1 of window 1'`,
+    `osascript -e 'tell application "System Events" to tell process "Emma" to click button 1 of window 1'`,
     `printf '%s' 'hello' | pbcopy; osascript -e 'tell application "System Events" to keystroke "v" using {command down}'`,
     `cliclick c:1460,645`,
     `swift /tmp/click.swift 100 200 # CGEventPost(.cghidEventTap, e)`,
@@ -44,8 +44,8 @@ describe("isShellDesktopInputCommand", () => {
     `nircmd.exe sendkeypress ctrl+v`,
     `AutoHotkey.exe click.ahk`,
     // review round 16: System Events addressed by bundle id
-    `osascript -e 'tell application id "com.apple.systemevents" to tell process "Cindy" to set value of text field 1 of window 1 to "secret"'`,
-    `osascript -l JavaScript -e 'Application("com.apple.SystemEvents").processes.byName("Cindy").windows[0].buttons[0].click()'`,
+    `osascript -e 'tell application id "com.apple.systemevents" to tell process "Emma" to set value of text field 1 of window 1 to "secret"'`,
+    `osascript -l JavaScript -e 'Application("com.apple.SystemEvents").processes.byName("Emma").windows[0].buttons[0].click()'`,
     // review round 14: a read-only head told to run another program, or an env assignment that does
     `printf x > 'c:100,100'; rg --pre cliclick z 'c:100,100'`,
     `rg --pre=cliclick z f`,
@@ -64,8 +64,8 @@ describe("isShellDesktopInputCommand", () => {
     `sed -n 's/x/y/e;p' f.txt && cliclick c:1,1`,
     `sed --expression='1e cliclick c:1,1' f.txt`,
     // review round 9: writes through the accessibility tree are input too
-    `osascript -e 'tell application "System Events" to set value of text field 1 of window 1 of process "Cindy" to "secret"'`,
-    `osascript -e 'tell application "System Events" to tell process "Cindy" to perform action "AXPress" of button 1 of window 1'`,
+    `osascript -e 'tell application "System Events" to set value of text field 1 of window 1 of process "Emma" to "secret"'`,
+    `osascript -e 'tell application "System Events" to tell process "Emma" to perform action "AXPress" of button 1 of window 1'`,
     `osascript -e 'tell application "System Events" to set selected of row 2 of table 1 of window 1 of process "Finder" to true'`,
     // review round 8: the executable sits inside a wrapper's command string
     `bash -c 'cliclick c:1,1'`,
@@ -115,7 +115,7 @@ describe("isShellDesktopInputCommand", () => {
     `sed -n '$p' notes.md`,
     `osascript -e 'tell application id "com.apple.systemevents" to get the name of every process'`,
     // review round 9: reading accessibility values and process state stays allowed
-    `osascript -e 'tell application "System Events" to get value of text field 1 of window 1 of process "Cindy"'`,
+    `osascript -e 'tell application "System Events" to get value of text field 1 of window 1 of process "Emma"'`,
     `osascript -e 'tell application "System Events" to get the name of every process whose visible is true'`,
     // review round 8: read-only sed and other pure readers over files that mention the APIs
     `sed -n '/CGEventPost/p' apps/desktop/src/main/mcp-integrations/computer.ts`,

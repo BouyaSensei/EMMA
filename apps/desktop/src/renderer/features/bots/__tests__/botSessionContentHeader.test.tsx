@@ -40,8 +40,8 @@ const { BotSessionContentHeader } = await import('../BotSessionContentHeader');
 const { resetCompanionCloudStoreForTests } = await import('../companionCloudStore');
 
 const bot = { id: 'bot-1', name: '小可' };
-const localCindy = { id: 'local-cindy', name: 'Cindy', templateId: 'cindy', status: 'active' } as import('../botStore').BotProfile;
-const remoteCindy = { id: 'cindy-default', name: 'Cindy', deviceId: 'cloud', deviceName: 'Cloud',
+const localCindy = { id: 'local-cindy', name: 'Emma', templateId: 'cindy', status: 'active' } as import('../botStore').BotProfile;
+const remoteCindy = { id: 'cindy-default', name: 'Emma', deviceId: 'cloud', deviceName: 'Cloud',
   avatar: '', avatarColor: '', description: '', preview: '', activityAt: 0, sessionId: 'remote-chat', online: true };
 
 function appRegionOf(element: HTMLElement): string {
@@ -68,7 +68,7 @@ describe('BotSessionContentHeader', () => {
     expect(navigate).toHaveBeenCalledWith('/bots/bot-1/session/sess-1?settings=1');
   });
 
-  it('keeps computers out of the header even when Cindy runs on several computers', () => {
+  it('keeps computers out of the header even when Emma runs on several computers', () => {
     deviceData.local = [localCindy];
     deviceData.remote = [remoteCindy];
     render(<BotSessionContentHeader bot={localCindy} />);
@@ -94,7 +94,7 @@ describe('BotSessionContentHeader', () => {
     render(<BotSessionContentHeader bot={remoteCindy} />);
     expect(screen.queryByText('Cloud')).toBeNull();
     expect(screen.getAllByRole('button')).toHaveLength(3);
-    fireEvent.click(screen.getByRole('button', { name: 'Cindy' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Emma' }));
     expect(navigate).toHaveBeenCalledWith('/bots/remote/cloud/cindy-default?settings=1');
     expect(screen.getByRole('button', { name: 'bots.glance.open' }).dataset.cloudHome).toBe('false');
   });
@@ -149,7 +149,7 @@ describe('BotSessionContentHeader', () => {
 
   it('hands a cloud companion to 近况 as one teammate instead of listing per-computer copies', () => {
     resetCompanionCloudStoreForTests({ enabled: true, selfDeviceId: 'desk', humanActorId: 'human', demotedBotIds: [],
-      actors: [{ id: 'a-cindy', externalId: 'cindy-default', name: 'Cindy', avatar: null, homeDeviceId: 'cloud',
+      actors: [{ id: 'a-cindy', externalId: 'cindy-default', name: 'Emma', avatar: null, homeDeviceId: 'cloud',
         homeDevice: { deviceId: 'cloud', name: 'Cloud', online: true, isSelf: false } }] });
     deviceData.local = [localCindy];
     deviceData.remote = [remoteCindy];

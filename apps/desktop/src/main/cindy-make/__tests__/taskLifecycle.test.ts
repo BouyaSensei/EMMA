@@ -16,7 +16,7 @@ function fixture(runId = 'task-run') {
     originSessionId: 'origin',
     runId,
     request: 'fix scrolling',
-    title: 'Cindy Make: fix scrolling',
+    title: 'Emma Make: fix scrolling',
   };
   const report: MakeDoctorReport = {
     runId,
@@ -63,7 +63,7 @@ function sourceFixture() {
   };
 }
 
-describe('Main-owned Cindy Make task lifecycle', () => {
+describe('Main-owned Emma Make task lifecycle', () => {
   it('reserves one build across entry points and ignores an old release after retry', () => {
     const manager = new CindyMakeManager();
     const release = manager.claimPersonalBuild();

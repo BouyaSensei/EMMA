@@ -107,7 +107,7 @@ describe('sessionWorktreeInfo', () => {
   it('formats the composer chip as repo (worktree)', () => {
     expect(
       formatWorktreeChipText({
-        path: '/Users/dash/Code/Cindy/cindy/.cindy-worktrees/steady-goodall',
+        path: '/Users/dash/Code/Emma/cindy/.cindy-worktrees/steady-goodall',
         name: 'steady-goodall',
         branch: 'cindy/steady-goodall',
         source: 'managed',
@@ -116,7 +116,7 @@ describe('sessionWorktreeInfo', () => {
     ).toBe('cindy (steady-goodall)');
     expect(
       formatWorktreeChipText({
-        path: '/Users/dash/Code/Cindy/cindy-my-task',
+        path: '/Users/dash/Code/Emma/cindy-my-task',
         name: 'cindy-my-task',
         branch: 'dash/my-task',
         source: 'observed',

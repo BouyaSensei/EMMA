@@ -173,7 +173,7 @@ export class GhostModelPicker {
     // A legacy controller reconstructs a source-less answer from initial. A local namesake
     // would then pass availability, so do not deliver the remote initial to that controller.
     if ((options.initial as PluginModelPickerRoute | undefined)?.agentDeviceId && target.supportsRemoteRoutes !== true)
-      return fail('UNAVAILABLE', 'Update Cindy on the controller to edit a remote model selection');
+      return fail('UNAVAILABLE', 'Update Emma on the controller to edit a remote model selection');
     const requestCurrent = () => current() && (target.isCurrent?.() ?? true);
     const request: PluginModelPickerRequest = {
       requestId: randomUUID(),

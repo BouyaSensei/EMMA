@@ -91,7 +91,7 @@ async function fixture() {
         process.platform + '-' + process.arch,
       );
       await mkdir(artifacts, { recursive: true });
-      await writeFile(path.join(artifacts, 'Cindy.exe'), 'installer');
+      await writeFile(path.join(artifacts, 'Emma.exe'), 'installer');
       await writeFile(
         path.join(artifacts, 'build-info.json'),
         JSON.stringify({
@@ -105,7 +105,7 @@ async function fixture() {
           files: [
             {
               role: 'installer',
-              name: 'Cindy.exe',
+              name: 'Emma.exe',
               sha256: createHash('sha256').update('installer').digest('hex'),
             },
           ],
@@ -471,7 +471,7 @@ it('commits completed task files locally but refuses to commit on main', async (
     );
     expect(stagedCopies).toContain('staged-only revision');
     expect(await h.git(['log', '-1', '--format=%B'], h.workingDir)).toContain(
-      'Signed-off-by: Cindy Make <cindy-make@localhost.invalid>',
+      'Signed-off-by: Emma Make <cindy-make@localhost.invalid>',
     );
     expect(await collectCindyMakeChanges(h.git, h.userData, h.workingDir)).toEqual(facts);
     await h.git(['checkout', '-b', 'main'], h.workingDir);

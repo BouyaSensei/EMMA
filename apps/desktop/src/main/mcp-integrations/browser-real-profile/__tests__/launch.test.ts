@@ -59,7 +59,7 @@ describe('wrapRuntimeWithRealProfile', () => {
       const state = { running: false, starts: 0 };
       const warnings = [{ database: 'Login Data' as const, reason: 'locked' as const }];
       const snapshotResult = {
-        destDir: '/runtime/browser/Cindy-real/user-data',
+        destDir: '/runtime/browser/Emma-real/user-data',
         sourceKind: 'chrome' as const,
         sourceProfile: 'Default',
         filesCopied: ['Cookies'],
@@ -120,7 +120,7 @@ describe('wrapRuntimeWithRealProfile', () => {
         applyConfig: vi.fn(),
         resolveSource: () => chrome,
         snapshot: vi.fn().mockResolvedValue({
-          destDir: '/runtime/browser/Cindy-real/user-data',
+          destDir: '/runtime/browser/Emma-real/user-data',
           sourceKind: 'chrome',
           sourceProfile: 'Default',
           filesCopied: ['Cookies'],
@@ -153,7 +153,7 @@ describe('wrapRuntimeWithRealProfile', () => {
       const warnings = [{ database: 'Login Data' as const, reason: 'locked' as const }];
       let live = false;
       const snapshot = vi.fn().mockResolvedValue({
-        destDir: '/runtime/browser/Cindy-real/user-data',
+        destDir: '/runtime/browser/Emma-real/user-data',
         sourceKind: 'chrome',
         sourceProfile: 'Default',
         filesCopied: ['Cookies'],
@@ -169,7 +169,7 @@ describe('wrapRuntimeWithRealProfile', () => {
                   ? {
                       running: true,
                       pid: 4321,
-                      userDataDir: '/runtime/browser/Cindy-real/user-data',
+                      userDataDir: '/runtime/browser/Emma-real/user-data',
                     }
                   : { running: false },
               );
@@ -206,7 +206,7 @@ describe('wrapRuntimeWithRealProfile', () => {
       const warnings = [{ database: 'Web Data' as const, reason: 'copy-failed' as const }];
       let live = false;
       const snapshot = vi.fn().mockResolvedValue({
-        destDir: '/runtime/browser/Cindy-real/user-data',
+        destDir: '/runtime/browser/Emma-real/user-data',
         sourceKind: 'chrome',
         sourceProfile: 'Default',
         filesCopied: ['Cookies'],
@@ -222,7 +222,7 @@ describe('wrapRuntimeWithRealProfile', () => {
                   ? {
                       running: true,
                       pid: 4321,
-                      userDataDir: '/runtime/browser/Cindy-real/user-data',
+                      userDataDir: '/runtime/browser/Emma-real/user-data',
                     }
                   : { running: false },
               );
@@ -257,7 +257,7 @@ describe('wrapRuntimeWithRealProfile', () => {
     const warnings = [{ database: 'Login Data' as const, reason: 'locked' as const }];
     let live = false;
     const snapshot = vi.fn().mockResolvedValue({
-      destDir: '/runtime/browser/Cindy-real/user-data',
+      destDir: '/runtime/browser/Emma-real/user-data',
       sourceKind: 'chrome',
       sourceProfile: 'Default',
       filesCopied: ['Cookies'],
@@ -273,7 +273,7 @@ describe('wrapRuntimeWithRealProfile', () => {
                 ? {
                     running: true,
                     pid: 4321,
-                    userDataDir: '/runtime/browser/Cindy-real/user-data',
+                    userDataDir: '/runtime/browser/Emma-real/user-data',
                   }
                 : { running: false },
             );
@@ -315,7 +315,7 @@ describe('wrapRuntimeWithRealProfile', () => {
     const warnings = [{ database: 'Web Data' as const, reason: 'copy-failed' as const }];
     let live = false;
     const snapshot = vi.fn().mockResolvedValue({
-      destDir: '/runtime/browser/Cindy-real/user-data',
+      destDir: '/runtime/browser/Emma-real/user-data',
       sourceKind: 'chrome',
       sourceProfile: 'Default',
       filesCopied: ['Cookies'],
@@ -331,7 +331,7 @@ describe('wrapRuntimeWithRealProfile', () => {
                 ? {
                     running: true,
                     pid: 4321,
-                    userDataDir: '/runtime/browser/Cindy-real/user-data',
+                    userDataDir: '/runtime/browser/Emma-real/user-data',
                   }
                 : { running: false },
             );
@@ -368,7 +368,7 @@ describe('wrapRuntimeWithRealProfile', () => {
     const snapshot = vi
       .fn()
       .mockResolvedValueOnce({
-        destDir: '/runtime/browser/Cindy-real/user-data',
+        destDir: '/runtime/browser/Emma-real/user-data',
         sourceKind: 'chrome',
         sourceProfile: 'Default',
         filesCopied: ['Cookies'],
@@ -399,7 +399,7 @@ describe('wrapRuntimeWithRealProfile', () => {
   it('retains warnings when reopening the live browser without resnapshotting', async () => {
     let running = false;
     const snapshot = vi.fn().mockResolvedValue({
-      destDir: '/runtime/browser/Cindy-real/user-data',
+      destDir: '/runtime/browser/Emma-real/user-data',
       sourceKind: 'chrome',
       sourceProfile: 'Default',
       filesCopied: ['Cookies'],
@@ -412,7 +412,7 @@ describe('wrapRuntimeWithRealProfile', () => {
             return result(
               'status',
               running
-                ? { running: true, pid: 1234, userDataDir: '/runtime/browser/Cindy-real/user-data' }
+                ? { running: true, pid: 1234, userDataDir: '/runtime/browser/Emma-real/user-data' }
                 : { running: false },
             );
           running = true;
@@ -439,7 +439,7 @@ describe('wrapRuntimeWithRealProfile', () => {
     const inner = fakeInner({ running: false, starts: 0 });
     const applyConfig = vi.fn();
     const snapshot = vi.fn(async () => ({
-      destDir: '/runtime/browser/Cindy-real/user-data',
+      destDir: '/runtime/browser/Emma-real/user-data',
       sourceKind: 'chrome' as const,
       sourceProfile: 'Default',
       filesCopied: ['Local State'],
@@ -477,7 +477,7 @@ describe('wrapRuntimeWithRealProfile', () => {
           return result('status', {
             running: true,
             pid: 1234,
-            userDataDir: '/runtime/browser/Cindy/user-data',
+            userDataDir: '/runtime/browser/Emma/user-data',
           });
         }
         if (request.action === 'start') {
@@ -508,7 +508,7 @@ describe('wrapRuntimeWithRealProfile', () => {
           return result('status', {
             running: false,
             pid: 1234,
-            userDataDir: '/runtime/browser/Cindy-real/user-data',
+            userDataDir: '/runtime/browser/Emma-real/user-data',
           });
         }
         return result(request.action, {});
@@ -529,7 +529,7 @@ describe('wrapRuntimeWithRealProfile', () => {
     expect(snapshot).not.toHaveBeenCalled();
   });
 
-  it('keeps the isolated Cindy profile on the fixed CDP port', async () => {
+  it('keeps the isolated Emma profile on the fixed CDP port', async () => {
     let started = 0;
     const inner = {
       async call(request: BrowserControlRequest): Promise<BrowserControlResult> {
@@ -547,7 +547,7 @@ describe('wrapRuntimeWithRealProfile', () => {
     const pickCdpPort = vi.fn(async () => 18801);
     const wrapped = wrapRuntimeWithRealProfile(inner, {
       isEnabled: () => false,
-      getRuntimeDir: () => '/Users/dash/Library/Application Support/Cindy-dev2/browser-runtime',
+      getRuntimeDir: () => '/Users/dash/Library/Application Support/Emma-dev2/browser-runtime',
       applyConfig,
       pickCdpPort,
     });
@@ -642,14 +642,14 @@ describe('wrapRuntimeWithRealProfile', () => {
     expect(applyConfig).toHaveBeenCalledWith({ useRealProfile: false, cdpPort: 18800 });
   });
 
-  it('does not relocate isolated Cindy when leftover Chrome sits on 18800', async () => {
+  it('does not relocate isolated Emma when leftover Chrome sits on 18800', async () => {
     let started = 0;
     const inner = {
       async call(request: BrowserControlRequest): Promise<BrowserControlResult> {
         if (request.action === 'status') {
           return result('status', {
             running: true,
-            userDataDir: '/Users/dash/.xdt-maker/browser-runtime/browser/Cindy/user-data',
+            userDataDir: '/Users/dash/.xdt-maker/browser-runtime/browser/Emma/user-data',
           });
         }
         if (request.action === 'start') {
@@ -663,7 +663,7 @@ describe('wrapRuntimeWithRealProfile', () => {
     const pickCdpPort = vi.fn(async () => 18801);
     const wrapped = wrapRuntimeWithRealProfile(inner, {
       isEnabled: () => false,
-      getRuntimeDir: () => '/Users/dash/Library/Application Support/Cindy-dev2/browser-runtime',
+      getRuntimeDir: () => '/Users/dash/Library/Application Support/Emma-dev2/browser-runtime',
       applyConfig,
       pickCdpPort,
     });
@@ -682,7 +682,7 @@ describe('wrapRuntimeWithRealProfile', () => {
         if (request.action === 'status') {
           return result('status', {
             running: true,
-            userDataDir: '/Users/dash/.xdt-maker/browser-runtime/browser/Cindy-real/user-data',
+            userDataDir: '/Users/dash/.xdt-maker/browser-runtime/browser/Emma-real/user-data',
           });
         }
         if (request.action === 'stop') {
@@ -697,7 +697,7 @@ describe('wrapRuntimeWithRealProfile', () => {
       },
     };
     const snapshot = vi.fn(async () => ({
-      destDir: '/runtime/browser/Cindy-real/user-data',
+      destDir: '/runtime/browser/Emma-real/user-data',
       sourceKind: 'chrome' as const,
       sourceProfile: 'Default',
       filesCopied: ['Local State'],
@@ -727,7 +727,7 @@ describe('wrapRuntimeWithRealProfile', () => {
     });
   });
 
-  it('starts Cindy-real by name after config swap so a stale default Cindy does not miss it', async () => {
+  it('starts Emma-real by name after config swap so a stale default Emma does not miss it', async () => {
     let startedProfile: string | undefined;
     let statusProfile: string | undefined;
     const inner = {
@@ -738,12 +738,12 @@ describe('wrapRuntimeWithRealProfile', () => {
         }
         if (request.action === 'start') {
           startedProfile = request.profile;
-          if (request.profile !== 'Cindy-real') {
+          if (request.profile !== 'Emma-real') {
             return {
               ok: false,
               action: 'start',
               errorCode: 'BROWSER_RUNTIME_ACTION_FAILED',
-              message: 'Profile "Cindy" not found. Available profiles: Cindy-real',
+              message: 'Profile "Emma" not found. Available profiles: Emma-real',
             };
           }
           return result('start', { running: true });
@@ -757,7 +757,7 @@ describe('wrapRuntimeWithRealProfile', () => {
       applyConfig: vi.fn(),
       resolveSource: () => chrome,
       snapshot: vi.fn(async () => ({
-        destDir: '/runtime/browser/Cindy-real/user-data',
+        destDir: '/runtime/browser/Emma-real/user-data',
         sourceKind: 'chrome' as const,
         sourceProfile: 'Default',
         filesCopied: ['Local State'],
@@ -768,8 +768,8 @@ describe('wrapRuntimeWithRealProfile', () => {
     });
     const started = await wrapped.call({ action: 'start' });
     expect(started.ok).toBe(true);
-    expect(statusProfile).toBe('Cindy-real');
-    expect(startedProfile).toBe('Cindy-real');
+    expect(statusProfile).toBe('Emma-real');
+    expect(startedProfile).toBe('Emma-real');
   });
 
   it('snapshots before open so implicit ensureBrowserAvailable does not skip the copy', async () => {
@@ -787,7 +787,7 @@ describe('wrapRuntimeWithRealProfile', () => {
       },
     };
     const snapshot = vi.fn(async () => ({
-      destDir: '/runtime/browser/Cindy-real/user-data',
+      destDir: '/runtime/browser/Emma-real/user-data',
       sourceKind: 'chrome' as const,
       sourceProfile: 'Default',
       filesCopied: ['Local State'],
@@ -846,7 +846,7 @@ describe('wrapRuntimeWithRealProfile', () => {
     expect(applyConfig).not.toHaveBeenCalled();
   });
 
-  it('stops a remembered Cindy-real leftover before snapshotting after a crash', async () => {
+  it('stops a remembered Emma-real leftover before snapshotting after a crash', async () => {
     const innerState = { running: true, starts: 0, stops: 0 };
     const requests: BrowserControlRequest[] = [];
     const inner = {
@@ -868,7 +868,7 @@ describe('wrapRuntimeWithRealProfile', () => {
       },
     };
     const snapshot = vi.fn(async () => ({
-      destDir: '/runtime/browser/Cindy-real/user-data',
+      destDir: '/runtime/browser/Emma-real/user-data',
       sourceKind: 'chrome' as const,
       sourceProfile: 'Default',
       filesCopied: ['Local State'],
@@ -888,8 +888,8 @@ describe('wrapRuntimeWithRealProfile', () => {
     const started = await wrapped.call({ action: 'start' });
     expect(started.ok).toBe(true);
     expect(requests.slice(0, 2)).toEqual([
-      { action: 'status', profile: 'Cindy-real' },
-      { action: 'stop', profile: 'Cindy-real' },
+      { action: 'status', profile: 'Emma-real' },
+      { action: 'stop', profile: 'Emma-real' },
     ]);
     expect(innerState.stops).toBe(1);
     expect(innerState.starts).toBe(1);
@@ -948,7 +948,7 @@ describe('wrapRuntimeWithRealProfile', () => {
     const snapshot = vi.fn(async () => {
       enabled = false;
       return {
-        destDir: '/runtime/browser/Cindy-real/user-data',
+        destDir: '/runtime/browser/Emma-real/user-data',
         sourceKind: 'chrome' as const,
         sourceProfile: 'Default',
         filesCopied: ['Local State'],
@@ -972,12 +972,12 @@ describe('wrapRuntimeWithRealProfile', () => {
     expect(cleanup).toHaveBeenCalledWith('/runtime');
     expect(applyConfig).toHaveBeenCalledWith({ useRealProfile: false, cdpPort: 18800 });
     expect(applyConfig).not.toHaveBeenCalledWith(expect.objectContaining({ useRealProfile: true }));
-    expect(startedProfile).toBe('Cindy');
+    expect(startedProfile).toBe('Emma');
   });
 });
 
 describe('shouldStopRememberedLeftover', () => {
-  it('stops only a consent-on leftover on a remembered Cindy-real port', () => {
+  it('stops only a consent-on leftover on a remembered Emma-real port', () => {
     expect(
       shouldStopRememberedLeftover({
         enabled: true,
@@ -1025,11 +1025,11 @@ describe('shouldPrepareCopiedLogins', () => {
 });
 
 describe('withActiveBrowserProfile', () => {
-  it('pins Cindy-real when consent is on and leaves an explicit profile alone', () => {
-    expect(withActiveBrowserProfile({ action: 'start' }, true).profile).toBe('Cindy-real');
-    expect(withActiveBrowserProfile({ action: 'start' }, false).profile).toBe('Cindy');
-    expect(withActiveBrowserProfile({ action: 'tabs', profile: 'Cindy' }, true).profile).toBe(
-      'Cindy',
+  it('pins Emma-real when consent is on and leaves an explicit profile alone', () => {
+    expect(withActiveBrowserProfile({ action: 'start' }, true).profile).toBe('Emma-real');
+    expect(withActiveBrowserProfile({ action: 'start' }, false).profile).toBe('Emma');
+    expect(withActiveBrowserProfile({ action: 'tabs', profile: 'Emma' }, true).profile).toBe(
+      'Emma',
     );
   });
 });
@@ -1040,19 +1040,19 @@ describe('isOwnLiveManagedBrowser', () => {
     expect(isOwnLiveManagedBrowser({ running: true }, runtimeDir)).toBe(false);
     expect(
       isOwnLiveManagedBrowser(
-        { running: true, userDataDir: '/runtime/browser/Cindy/user-data' },
+        { running: true, userDataDir: '/runtime/browser/Emma/user-data' },
         runtimeDir,
       ),
     ).toBe(false);
     expect(
       isOwnLiveManagedBrowser(
-        { running: true, pid: 99, userDataDir: '/elsewhere/Cindy/user-data' },
+        { running: true, pid: 99, userDataDir: '/elsewhere/Emma/user-data' },
         runtimeDir,
       ),
     ).toBe(false);
     expect(
       isOwnLiveManagedBrowser(
-        { running: true, pid: 99, userDataDir: '/runtime/browser/Cindy/user-data' },
+        { running: true, pid: 99, userDataDir: '/runtime/browser/Emma/user-data' },
         runtimeDir,
       ),
     ).toBe(true);

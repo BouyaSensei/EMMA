@@ -31,7 +31,7 @@ describe('ollamaRuntime', () => {
     expect(status).toMatchObject({ kind: 'stopped', appInstalled: true });
   });
 
-  it('starts a Cindy sidecar when the official app is missing', async () => {
+  it('starts a Emma sidecar when the official app is missing', async () => {
     const spawnSidecar = vi.fn();
     let ready = false;
     const status = await startOfficialOllamaApp({

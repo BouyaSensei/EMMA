@@ -1565,7 +1565,7 @@ const TELEGRAM_CONFIRMED: ProviderBindStatusPayload = {
   attemptId: null,
   bindingId: 'binding-telegram-1',
   principalId: 'telegram-user-1',
-  principalName: 'Cindy User',
+  principalName: 'Emma User',
   scopeId: 'bot-1',
   scopeName: 'cindy_example_bot',
   connectUrl: null,
@@ -1584,7 +1584,7 @@ describe('Telegram provider capability, binding and prefs', () => {
       telegramBindingCache: {
         bindingId: 'binding-telegram-1',
         principalId: 'telegram-user-1',
-        principalName: 'Cindy User',
+        principalName: 'Emma User',
         scopeId: 'bot-1',
         scopeName: 'cindy_example_bot',
       },

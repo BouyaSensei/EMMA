@@ -15,7 +15,7 @@ describe('workflow-owned author presentation', () => {
   it('uses the verified public classification without inferring official status from a name', () => {
     const market = { ghostId: installed.manifest.id, namespace: null, scope: 'public',
       installState: 'installed', sourceType: 'server', version: '1.0.0', name: 'Example',
-      description: '', author: 'Cindy', publisherKind: 'personal', icon: null } as PluginMarketItem;
+      description: '', author: 'Emma', publisherKind: 'personal', icon: null } as PluginMarketItem;
     expect(toGhostPluginDetail(installed, marketPresentationForInstalledGhost(installed, market)).publisherKind).toBe('personal');
     expect(marketPresentationForInstalledGhost(installed, { ...market, sourceType: 'git-market' })?.publisherKind).toBeUndefined();
     expect(toGhostPluginDetail({ ...installed, namespace: 'example-org' }).publisherKind).toBeUndefined();

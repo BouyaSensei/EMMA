@@ -12,7 +12,7 @@ vi.mock('react-i18next', () => ({
       ({
         'settings.providers.anthropic.title': 'Anthropic',
         'settings.providers.openai.title': 'OpenAI',
-        'settings.providers.xd.title': 'Cindy AI',
+        'settings.providers.xd.title': 'Emma AI',
       })[key] ?? key,
   }),
 }));
@@ -101,7 +101,7 @@ describe('OneshotModelPinPicker shared A adapter', () => {
   it('keeps provider labels and returns the exact selected provider/Harness pin', async () => {
     const onChange = vi.fn();
     mount({ options: [...options, xdOption], onChange, groupByProvider: true });
-    expect(picker.providersOverride?.find(p => p.id === 'xd')?.name).toBe('Cindy AI');
+    expect(picker.providersOverride?.find(p => p.id === 'xd')?.name).toBe('Emma AI');
     expect(await picker.onUnifiedSelect!({ providerId: 'anthropic', modelId: 'claude-haiku-4-5',
       engine: 'cc', fast: false, favoriteUid: null })).toBe(true);
     expect(onChange).toHaveBeenCalledWith(ANTHROPIC_PIN);
@@ -109,12 +109,12 @@ describe('OneshotModelPinPicker shared A adapter', () => {
 
   // PR #7744: provider grouping must preserve the host's identity name rather than
   // replace it with the generic translated brand before reaching ModelSelector.
-  it('preserves an updated Cindy AI identity in the real picker adapter', () => {
-    const view = mount({ options: [{ ...xdOption, group: 'Cindy AI · 个人' }], groupByProvider: true });
-    expect(picker.providersOverride?.[0].name).toBe('Cindy AI · 个人');
-    view.rerender(<OneshotModelPinPicker defaultOptionLabel="Automatic" options={[{ ...xdOption, group: 'Cindy AI · 心动', logoKind: 'xd' }]}
+  it('preserves an updated Emma AI identity in the real picker adapter', () => {
+    const view = mount({ options: [{ ...xdOption, group: 'Emma AI · 个人' }], groupByProvider: true });
+    expect(picker.providersOverride?.[0].name).toBe('Emma AI · 个人');
+    view.rerender(<OneshotModelPinPicker defaultOptionLabel="Automatic" options={[{ ...xdOption, group: 'Emma AI · 心动', logoKind: 'xd' }]}
       onChange={vi.fn()} ariaLabel="Auxiliary model" groupByProvider />);
-    expect(picker.providersOverride?.[0].name).toBe('Cindy AI · 心动');
+    expect(picker.providersOverride?.[0].name).toBe('Emma AI · 心动');
     expect(picker.providersOverride?.[0].logoKind).toBe('xd');
   });
 

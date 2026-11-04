@@ -33,7 +33,7 @@ export class AppConnection {
   private createClient(): Client {
     const capabilities = this.config.plugin ? {} : this.peer?.capabilities() ?? {};
     const client = new Client(
-      { name: 'Cindy', version: '1.0.0' },
+      { name: 'Emma', version: '1.0.0' },
       {
         capabilities: {
           ...capabilities,

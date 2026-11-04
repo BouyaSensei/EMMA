@@ -11,7 +11,7 @@ describe('shared runtime capability discovery', () => {
   // Incident regression: visible native Apps returned UNKNOWN_CAPABILITY and
   // disappeared from the default Bot catalog. Existing tests only cover providers.
   // Unit tier, real catalog entry points with a read-only engine status fixture.
-  it('discovers native Apps without pretending Cindy registered its transport', async () => {
+  it('discovers native Apps without pretending Emma registered its transport', async () => {
     const runtime = { ...context, agentKind: 'codex' as const,
       vendorOptions: { [RUNTIME_MCP_NAMES_KEY]: [] } };
     const catalog = buildBotMcpCatalog({ ...runtime, providers: [], builtinNames: [], customServers: [] });

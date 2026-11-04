@@ -220,7 +220,7 @@ const marketPlugin: PluginMarketItem = {
   ghostId: 'google-calendar',
   name: 'Google Calendar',
   description: 'Connect Google Calendar',
-  author: 'Cindy',
+  author: 'Emma',
   scope: 'public',
   organizationId: null,
   defaultInstall: false,
@@ -508,7 +508,7 @@ describe('GhostPluginCard', () => {
   it('renders the Mermaid fallback symbol on the theme elevated surface', () => {
     const { container } = render(
       <GhostPluginCard
-        item={{ ...commandPlugin, id: 'cindy-mermaid', name: 'Cindy Mermaid' }}
+        item={{ ...commandPlugin, id: 'cindy-mermaid', name: 'Emma Mermaid' }}
         onPrimary={vi.fn()}
         onManage={vi.fn()}
       />,
@@ -673,7 +673,7 @@ describe('MarketPluginCard', () => {
       />,
     );
     const metadata = screen.getByText('settings.ghosts.page.origin.public').parentElement;
-    expect(metadata?.textContent).toBe('settings.ghosts.page.origin.public·Cindy·12,480 settings.ghosts.usage.downloadsValue');
+    expect(metadata?.textContent).toBe('settings.ghosts.page.origin.public·Emma·12,480 settings.ghosts.usage.downloadsValue');
     expect(screen.queryByText('v1.3.11')).toBeNull();
     expect(screen.queryByText('google-calendar')).toBeNull();
     expect(container.querySelector('button button')).toBeNull();
@@ -682,7 +682,7 @@ describe('MarketPluginCard', () => {
   it('keeps shared downloads in installed cards alongside exceptional authorization status', () => {
     render(<GhostPluginCard
       item={{ ...commandPlugin, oauthAuthorizationExpired: true }}
-      author="Cindy"
+      author="Emma"
       sourceLabel="Public"
       marketItem={{ ...marketPlugin, downloadStatistics: { requestCount: '0' } }}
       onPrimary={vi.fn()} onManage={vi.fn()}

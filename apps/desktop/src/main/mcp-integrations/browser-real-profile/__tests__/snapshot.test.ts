@@ -119,7 +119,7 @@ describe('lastUsedProfileName', () => {
 });
 
 describe('rewriteLocalStateForManagedDefault', () => {
-  it('points every selection field at Default and stamps the chip name Cindy', () => {
+  it('points every selection field at Default and stamps the chip name Emma', () => {
     const rewritten = JSON.parse(
       rewriteLocalStateForManagedDefault(
         JSON.stringify({
@@ -153,9 +153,9 @@ describe('rewriteLocalStateForManagedDefault', () => {
     expect(rewritten.profile.show_picker_on_startup).toBe(false);
     expect(Object.keys(rewritten.profile.info_cache)).toEqual(['Default']);
     expect(rewritten.profile.info_cache.Default).toMatchObject({
-      name: 'Cindy',
-      shortcut_name: 'Cindy',
-      user_name: 'Cindy',
+      name: 'Emma',
+      shortcut_name: 'Emma',
+      user_name: 'Emma',
     });
   });
 
@@ -168,7 +168,7 @@ describe('rewriteLocalStateForManagedDefault', () => {
 });
 
 describe('realProfileDestDir', () => {
-  it('is the Chrome user-data-dir under Cindy-real, not the profile wrapper', () => {
+  it('is the Chrome user-data-dir under Emma-real, not the profile wrapper', () => {
     expect(realProfileDestDir('/runtime')).toBe(
       path.join('/runtime', 'browser', REAL_MANAGED_PROFILE, 'user-data'),
     );
@@ -330,7 +330,7 @@ describe('snapshotRealProfile', () => {
     expect(destLocalState.os_crypt.keep).toBe(true);
     expect(destLocalState.profile.last_used).toBe('Default');
     expect(destLocalState.profile.last_active_profiles).toEqual(['Default']);
-    expect(destLocalState.profile.info_cache.Default.name).toBe('Cindy');
+    expect(destLocalState.profile.info_cache.Default.name).toBe('Emma');
     expect(destLocalState.profile.info_cache['Profile 6']).toBeUndefined();
   });
 
@@ -510,13 +510,13 @@ describe('snapshotRealProfile', () => {
     },
   );
 
-  it('refuses to write anywhere except Cindy-real/user-data', async () => {
+  it('refuses to write anywhere except Emma-real/user-data', async () => {
     const root = makeTempDir();
     const source = seedSource(root);
     await expect(
       snapshotRealProfile({
         source,
-        destDir: path.join(root, 'runtime', 'browser', 'Cindy'),
+        destDir: path.join(root, 'runtime', 'browser', 'Emma'),
         platform: 'darwin',
       }),
     ).rejects.toBeInstanceOf(RealProfileError);
@@ -910,7 +910,7 @@ describe('copied logins CDP port marker', () => {
 });
 
 describe('cleanupCopiedLoginsThen', () => {
-  it('runs persist only after Cindy-real is gone', () => {
+  it('runs persist only after Emma-real is gone', () => {
     const runtimeDir = makeTempDir();
     const profileDir = realProfileProfileDir(runtimeDir);
     fs.mkdirSync(path.join(profileDir, 'user-data'), { recursive: true });
@@ -945,7 +945,7 @@ describe('cleanupCopiedLoginsThen', () => {
 });
 
 describe('cleanupRealProfileSnapshots', () => {
-  it('deletes Cindy-real and leaves the isolated Cindy profile alone', () => {
+  it('deletes Emma-real and leaves the isolated Emma profile alone', () => {
     const runtimeDir = makeTempDir();
     const realDir = realProfileDestDir(runtimeDir);
     const profileDir = realProfileProfileDir(runtimeDir);

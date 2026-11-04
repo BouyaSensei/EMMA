@@ -13,7 +13,7 @@ describe('prIconSurface', () => {
     expect(prIconSurface({ themeIsDark: true, isActive: false })).toBe('dark');
   });
 
-  it('读不到实际明度时,选中按 Cindy 反相假设兜底', () => {
+  it('读不到实际明度时,选中按 Emma 反相假设兜底', () => {
     expect(prIconSurface({ themeIsDark: true, isActive: true })).toBe('light');
     expect(prIconSurface({ themeIsDark: false, isActive: true })).toBe('dark');
   });

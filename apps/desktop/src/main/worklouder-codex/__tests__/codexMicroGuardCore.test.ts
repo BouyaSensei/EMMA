@@ -328,7 +328,7 @@ describe('paused Codex Micro guard recovery', () => {
 });
 
 describe('legacy preload argument boundaries', () => {
-  const root = path.join(os.tmpdir(), 'CindyCodexMicroGuard');
+  const root = path.join(os.tmpdir(), 'EmmaCodexMicroGuard');
   const hook = path.join(root, 'aaaaaaaaaaaa', 'guard-hook.cjs');
   // Quoted NODE_OPTIONS strings escape Windows separators just as Node expects.
   const quotedHook = JSON.stringify(hook);

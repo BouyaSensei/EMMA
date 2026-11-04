@@ -33,7 +33,7 @@ function makeDeps(over: Partial<GithubIssueSubmitServiceDeps> = {}) {
     }),
   );
   const postIssue = vi.fn<GithubIssueSubmitServiceDeps['postIssue']>(async () => ({
-    githubIssue: { number: 80, url: 'https://github.com/makecindy/cindy/issues/80' },
+    githubIssue: { number: 80, url: 'https://github.com/BouyaSensei/EMMA/issues/80' },
   }));
   const deps: GithubIssueSubmitServiceDeps = {
     confirm,
@@ -170,7 +170,7 @@ describe('submitGithubIssueWithConfirm', () => {
     expect(res).toEqual({
       ok: true,
       issueNumber: 80,
-      issueUrl: 'https://github.com/makecindy/cindy/issues/80',
+      issueUrl: 'https://github.com/BouyaSensei/EMMA/issues/80',
       finalTitle: '用户改过的标题',
       editedByUser: true,
       privacyRedacted: false,
@@ -257,7 +257,7 @@ describe('submitGithubIssueWithConfirm', () => {
       uiLanguage: 'zh-CN',
     }));
     const postIssue = vi.fn<GithubIssueSubmitServiceDeps['postIssue']>(async () => ({
-      githubIssue: { number: 81, url: 'https://github.com/makecindy/cindy/issues/81' },
+      githubIssue: { number: 81, url: 'https://github.com/BouyaSensei/EMMA/issues/81' },
     }));
     const { deps } = makeDeps({ confirm, postIssue });
     const fakeApiKey = ['sk', 'abcdefghijklmnopqrstuvwx'].join('-');
@@ -470,7 +470,7 @@ describe('submitGithubIssueWithConfirm', () => {
     const record = onSubmitted.mock.calls[0]![0];
     expect(record).toMatchObject({
       number: 80,
-      url: 'https://github.com/makecindy/cindy/issues/80',
+      url: 'https://github.com/BouyaSensei/EMMA/issues/80',
       title: REQ.title,
       type: 'bug',
       identity: 'platform',
@@ -510,12 +510,12 @@ describe('submitGithubIssueWithConfirm', () => {
     const onSubmitted = vi.fn();
     const { deps } = makeDeps({
       postIssue: vi.fn(async () => ({
-        githubIssue: { number: 80, url: 'https://api.github.com/repos/makecindy/cindy/issues/80' },
+        githubIssue: { number: 80, url: 'https://api.github.com/repos/BouyaSensei/EMMA/issues/80' },
       })),
       onSubmitted,
     });
     await expect(submitGithubIssueWithConfirm(deps, REQ)).resolves.toMatchObject({ ok: true });
-    expect(onSubmitted.mock.calls[0]![0].url).toBe('https://github.com/makecindy/cindy/issues/80');
+    expect(onSubmitted.mock.calls[0]![0].url).toBe('https://github.com/BouyaSensei/EMMA/issues/80');
   });
 
   it('记账用的是用户确认版标题与类型,不是 agent 传入的', async () => {

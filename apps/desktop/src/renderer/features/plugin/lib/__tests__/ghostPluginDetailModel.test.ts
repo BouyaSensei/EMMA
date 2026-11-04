@@ -23,7 +23,7 @@ describe('local publishing availability shared by details and selection', () => 
       trust: { level: 'cindy-official', publisherSigned: true, publisherVerified: true, reviewed: true } };
     expect(localPublishingUnavailableKey(trusted, null)).toBe('officialGithubRequired');
     expect(localPublishingUnavailableKey(installed, { ...market, sourceType: 'local-market' })).toBeNull();
-    expect(localPublishingUnavailableKey({ ...installed, manifest: { ...installed.manifest, author: 'Cindy' } }, { ...market, publisherKind: 'personal' })).toBeNull();
+    expect(localPublishingUnavailableKey({ ...installed, manifest: { ...installed.manifest, author: 'Emma' } }, { ...market, publisherKind: 'personal' })).toBeNull();
   });
   it('keeps UI publishing unavailable for downloaded or unverified sources', () => {
     expect(localPublishingUnavailableKey({ ...installed, publishingSource: undefined })).toBe('sourceUnverified');

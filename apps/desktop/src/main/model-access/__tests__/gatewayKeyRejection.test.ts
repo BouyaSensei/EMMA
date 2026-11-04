@@ -83,7 +83,7 @@ describe('createGatewayKeyRejectionReporter', () => {
     const h = harness();
     h.report(KEY_A);
     expect(h.requestSync).toHaveBeenCalledTimes(1);
-    expect(h.log.info).toHaveBeenCalledWith('Cindy AI key rejected by gateway, re-syncing credentials');
+    expect(h.log.info).toHaveBeenCalledWith('Emma AI key rejected by gateway, re-syncing credentials');
     // 日志不得带 Key 本身。
     for (const call of [...h.log.info.mock.calls, ...h.log.warn.mock.calls]) {
       expect(JSON.stringify(call)).not.toContain(KEY_A);
@@ -297,7 +297,7 @@ describe('reportCurrentKey (agent turns that do not reveal the key they used)', 
   });
 });
 
-describe('reportCindyGatewayKeyRejected singleton', () => {
+describe('reportEmmaGatewayKeyRejected singleton', () => {
   afterEach(() => {
     defaults.providerDisabled = false;
     installCindyGatewayKeyRejectionReporter(null);
@@ -383,7 +383,7 @@ describe('bearerKeyFromHeaders', () => {
   });
 });
 
-describe('withCindyGatewayKeyRejectionReport', () => {
+describe('withEmmaGatewayKeyRejectionReport', () => {
   it('reports the bearer key of a 401 request and returns the response untouched', async () => {
     const response = new Response('denied', { status: 401 });
     const fetchImpl = vi.fn(async () => response) as unknown as typeof fetch;

@@ -92,7 +92,7 @@ export function askOwnerInputShape(kinds: readonly AskOwnerKind[] = ALL_KINDS) {
       title: HANDOFF_PURPOSE.optional().describe('fill / scan: one short sentence for the owner, e.g. "Sign in to Feishu to continue testing".'),
       note: HANDOFF_NOTE.optional().describe('fill / scan: optional extra context for the owner, shown labelled as from you.'),
       target: HANDOFF_TARGET.optional().describe('fill / scan: the window on this computer that shows the step.'),
-      complete_when: HANDOFF_COMPLETE_WHEN.optional().describe('fill / scan: optional signs that the step is done. Cindy also detects completion itself.'),
+      complete_when: HANDOFF_COMPLETE_WHEN.optional().describe('fill / scan: optional signs that the step is done. Emma also detects completion itself.'),
       timeout_minutes: HANDOFF_TIMEOUT.optional(),
     } : {}),
     ...(kinds.includes('scan') ? {
@@ -120,13 +120,13 @@ export function askOwnerDescription(kinds: readonly AskOwnerKind[], context: Pic
   }
   if (kinds.includes('fill')) {
     lines.push('- fill: only for what you must never see, in a window on this computer (`target`): a sign-in, or a password, API key, token or verification code. '
-      + 'The owner does a sign-in on the window itself; other secret fields get a form, and Cindy types the answer in. You never see the values. '
+      + 'The owner does a sign-in on the window itself; other secret fields get a form, and Emma types the answer in. You never see the values. '
       + 'Anything else the owner can tell you (an email address, a name, a street address) is not for fill: ask in your reply and enter it yourself. '
       + 'Buttons, options and consent pages are yours to handle.');
   }
   if (kinds.includes('scan')) {
     lines.push('- scan: they scan a sign-in QR code. Pass `target` when the code is in a window on this computer, or `image` '
-      + '(a screenshot) when it is not, for example a device simulator shown inside Cindy. Take the screenshot right before asking; codes expire.');
+      + '(a screenshot) when it is not, for example a device simulator shown inside Emma. Take the screenshot right before asking; codes expire.');
   }
   if (kinds.includes('connect')) {
     lines.push('- connect: they connect an account (`service`). Plugin accounts connect through connect_account on the cindy server.');

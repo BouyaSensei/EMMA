@@ -118,9 +118,9 @@ export function createGatewayKeyRejectionReporter(
   };
 
   const triggerSync = (): void => {
-    deps.log?.info('Cindy AI key rejected by gateway, re-syncing credentials');
+    deps.log?.info('Emma AI key rejected by gateway, re-syncing credentials');
     void deps.requestSync().catch((error: unknown) => {
-      warn('Cindy AI credentials re-sync after key rejection failed', error);
+      warn('Emma AI credentials re-sync after key rejection failed', error);
     });
   };
 
@@ -129,7 +129,7 @@ export function createGatewayKeyRejectionReporter(
     try {
       run();
     } catch (error) {
-      warn('Cindy AI key rejection report failed', error);
+      warn('Emma AI key rejection report failed', error);
     }
   };
 

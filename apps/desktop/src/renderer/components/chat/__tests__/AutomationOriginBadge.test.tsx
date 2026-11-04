@@ -105,7 +105,7 @@ describe('AutomationOriginBadge', () => {
           kind: 'session',
           senderSessionId: 'bot-task',
           senderBotId: 'bot-1',
-          senderBotName: 'Cindy',
+          senderBotName: 'Emma',
         }}
       />,
     );

@@ -17,7 +17,7 @@ vi.mock('@/lib/toast', () => ({ toast: { success: vi.fn(), error: vi.fn(), info:
 const preview = {
   shareId: 'share-1',
   providerId: 'xd',
-  providerLabel: 'Cindy AI',
+  providerLabel: 'Emma AI',
   deviceName: "Magi's Mac Mini",
   owner: { displayName: 'Magi', avatarUrl: null, region: 'global' as const },
   state: 'unused' as const,

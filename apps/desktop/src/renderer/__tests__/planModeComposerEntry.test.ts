@@ -138,7 +138,7 @@ describe('统一 composer 建议入口', () => {
         {
           item: {
             type: 'plugin-command',
-            name: 'Cindy Art',
+            name: 'Emma Art',
             relPath: 'art',
             pluginId: 'cindy-art',
           },
@@ -162,7 +162,7 @@ describe('统一 composer 建议入口', () => {
     );
 
     expect(screen.getByText('goal.newGoalMenuItem')).toBeTruthy();
-    expect(screen.getByText('Cindy Art')).toBeTruthy();
+    expect(screen.getByText('Emma Art')).toBeTruthy();
     const plan = screen.getByRole('menuitemcheckbox', { name: 'planMode.menuItem' });
     expect(plan.getAttribute('aria-checked')).toBe('true');
     // Shared menu row (DESIGN §4 Composer dropdown rows): 8px inner tier, the panel's glide

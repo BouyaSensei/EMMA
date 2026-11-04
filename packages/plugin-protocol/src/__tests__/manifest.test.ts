@@ -197,7 +197,7 @@ describe('Ghost manifest contract', () => {
     expect(result).toEqual({ ok: true, manifest: validManifest });
   });
 
-  it('keeps minCindyVersion optional for old plugins and validates declared versions', () => {
+  it('keeps minEmmaVersion optional for old plugins and validates declared versions', () => {
     expect(validateGhostManifest(validManifest)).toEqual({
       ok: true,
       manifest: validManifest,
@@ -211,7 +211,7 @@ describe('Ghost manifest contract', () => {
     }
   });
 
-  it('compares Cindy versions with SemVer precedence', () => {
+  it('compares Emma versions with SemVer precedence', () => {
     expect(compareCindyVersions('1.2.3', '1.2.3')).toBe(0);
     expect(compareCindyVersions('1.3.0', '1.2.9')).toBe(1);
     expect(compareCindyVersions('1.2.3-beta.2', '1.2.3-beta.10')).toBe(-1);
@@ -266,7 +266,7 @@ describe('Ghost manifest contract', () => {
         secrets: [
           {
             key: 'cindy_identity',
-            label: 'Cindy organization identity',
+            label: 'Emma organization identity',
             source: 'oidc-token',
             inject: {
               header: 'Authorization',
@@ -286,7 +286,7 @@ describe('Ghost manifest contract', () => {
           secrets: [
             {
               key: 'cindy_identity',
-              label: 'Cindy organization identity',
+              label: 'Emma organization identity',
               source: 'oidc-token',
               inject: {
                 header: 'Authorization',
@@ -313,7 +313,7 @@ describe('Ghost manifest contract', () => {
         secrets: [
           {
             key: 'cindy_identity',
-            label: 'Cindy organization identity',
+            label: 'Emma organization identity',
             source: 'oidc-token',
             inject: {
               header: 'Authorization',
@@ -834,7 +834,7 @@ describe('Ghost manifest contract', () => {
       id: 'full-helper',
       name: 'Full Helper',
       version: '2.0.0',
-      author: 'Cindy',
+      author: 'Emma',
       description: 'Exercises the shared manifest contract.',
       whenToUse: 'Use for representative protocol validation.',
       icon: 'assets/icon.png',
@@ -922,7 +922,7 @@ describe('Ghost manifest contract', () => {
       id: 'taptap-maker',
       name: 'TapTap Maker',
       version: '2.0.0',
-      author: 'Cindy',
+      author: 'Emma',
       icon: 'assets/icon.png',
       entry: 'main.js',
       settingsHtml: 'settings.html',
@@ -962,7 +962,7 @@ describe('Ghost manifest contract', () => {
     expect(result.manifest.card).toEqual({ externalLinks: true });
   });
 
-  it('keeps minCindyVersion optional for Host-owned slots', () => {
+  it('keeps minEmmaVersion optional for Host-owned slots', () => {
     const manifest = {
       ...validManifest,
       id: 'simulator-workflow',
@@ -1867,7 +1867,7 @@ describe('cindy 详单:media/text/embed/search 类目与 oneshotModel 校验', (
   const base = {
     schemaVersion: 2,
     id: 'cindy-full',
-    name: 'Cindy Full',
+    name: 'Emma Full',
     version: '1.0.0',
     entry: 'main.js',
     slots: ['cindy'],

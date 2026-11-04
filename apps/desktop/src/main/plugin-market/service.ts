@@ -1756,7 +1756,7 @@ export class PluginMarketService {
     const selected = catalog.find((candidate) => candidate.id === pluginId);
     if (!selected) throwListedPluginUnavailable(listed.organizationAccessError);
     if (!isGhostAvailableForActiveSession(selected.ghostId)) {
-      throwIpcError('PERMISSION_DENIED', 'This Plugin requires a Cindy account');
+      throwIpcError('PERMISSION_DENIED', 'This Plugin requires an Emma account');
     }
     const plugin = await this.api.detail(pluginId);
     requireSameMarketOwner(owner);

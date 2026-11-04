@@ -183,7 +183,7 @@ describe('name-only creation', () => {
     const first = render(<BotRosterView inline />);
     await waitFor(() => expect(mocks.galleryPortrait).toHaveBeenCalledWith(0));
     random.mockReturnValue(0.9999);
-    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Cindy' } });
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Emma' } });
     first.rerender(<BotRosterView inline />);
     expect(mocks.galleryPortrait).toHaveBeenCalledTimes(1);
     first.unmount();
@@ -198,9 +198,9 @@ describe('name-only creation', () => {
     fireEvent.click(screen.getByTestId('portrait'));
     await act(async () => complete('data:image/png;base64,cmFuZG9t'));
     expect(screen.getByTestId('portrait').textContent).toBe('data:image/png;base64,bWFudWFs');
-    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Cindy' } });
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Emma' } });
     fireEvent.click(screen.getByRole('button', { name: 'bots.guided.generate' }));
-    await waitFor(() => expect(mocks.addBotProfileAndWait).toHaveBeenCalledWith({ name: 'Cindy', description: '', avatarImageBase64: 'bWFudWFs', prepareInvitation: true }));
+    await waitFor(() => expect(mocks.addBotProfileAndWait).toHaveBeenCalledWith({ name: 'Emma', description: '', avatarImageBase64: 'bWFudWFs', prepareInvitation: true }));
   });
 
   it('creates immediately with the chosen portrait and without a draft/model override', async () => {

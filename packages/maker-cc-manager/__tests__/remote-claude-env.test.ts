@@ -8,7 +8,7 @@ import {
 } from '../src/remote-claude-env.js';
 
 describe('remote Claude environment', () => {
-  it('resolves the Cindy-managed config directory under the remote POSIX home', () => {
+  it('resolves the Emma-managed config directory under the remote POSIX home', () => {
     expect(resolveRemoteClaudeConfigDir('/Users/david')).toBe(
       '/Users/david/.xdt-server/v1/claude-home',
     );
@@ -17,7 +17,7 @@ describe('remote Claude environment', () => {
   it('replaces a Windows controller path without mutating the input env', () => {
     const controllerEnv = {
       ANTHROPIC_API_KEY: 'sk-gw',
-      CLAUDE_CONFIG_DIR: 'C:\\Users\\Admin\\AppData\\Roaming\\Cindy-dev2\\claude-home',
+      CLAUDE_CONFIG_DIR: 'C:\\Users\\Admin\\AppData\\Roaming\\Emma-dev2\\claude-home',
     };
 
     const remoteEnv = prepareRemoteClaudeEnv(controllerEnv, '/Users/david');

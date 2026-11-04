@@ -169,7 +169,7 @@ export function buildInputHandoffContinuation(result: HandoffResult): string {
     : result.status === 'succeeded'
     ? 'The owner\'s fields were typed in and confirmed. Check the current screen yourself and handle any buttons or options left; values they entered were not shared with you.'
     : result.failure === 'permission'
-      ? 'Cindy lacks macOS Accessibility permission for input handoff. Ask the owner to allow it on this computer, or continue another way.'
+      ? 'Emma lacks macOS Accessibility permission for input handoff. Ask the owner to allow it on this computer, or continue another way.'
     : result.failure === 'screen_locked'
       ? 'This computer\'s screen is locked (a display going to sleep locks it too), so nothing was read or typed. Ask the owner to wake and unlock it; request input handoff again only after they say it is unlocked.'
       : 'The handoff did not complete. Do not retry it automatically; tell the owner what is still needed or continue another way.';
@@ -261,14 +261,14 @@ export class InputHandoffService {
     const wanted = target.app?.trim().toLowerCase();
     // By name too: a dev or renamed build is not listed as "Cindy", and no other
     // visible window answered to it.
-    const namesHost = target.pid === this.deps.hostPid || (!!wanted && (/^cindy\b/.test(wanted)
+    const namesHost = target.pid === this.deps.hostPid || (!!wanted && (/^(?:cindy|emma)\b/i.test(wanted)
       || (!!host && (host.app.toLowerCase().includes(wanted) || host.bundleId.toLowerCase() === wanted))));
     const frontIsHost = !!host && target.pid === undefined && !wanted && list.frontmost === this.deps.hostPid;
     if (namesHost || frontIsHost) {
       return {
         errorCode: 'TARGET_IS_CINDY',
-        message: (frontIsHost ? 'Cindy itself is in front, and ' : '')
-          + 'Cindy\'s own window cannot be handed off. A screen shown inside Cindy (such as the device simulator) is not a '
+        message: (frontIsHost ? 'Emma itself is in front, and ' : '')
+          + 'Emma\'s own window cannot be handed off. A screen shown inside Emma (such as the device simulator) is not a '
           + 'window here: for a sign-in QR code on it, ask again with kind="scan" and `image` set to a fresh screenshot; '
           + 'for other fields there, tell the owner what is needed.',
       };
@@ -307,8 +307,8 @@ export class InputHandoffService {
     }
     if (found && 'error' in found) {
       return found.error === 'not_image'
-        ? { ok: false, errorCode: 'NOT_AN_IMAGE', message: 'That file is not a picture Cindy can read (use PNG or JPEG).' }
-        : { ok: false, errorCode: 'QR_UNREADABLE', message: 'Cindy could not read that picture right now. Tell the owner what is needed instead.' };
+        ? { ok: false, errorCode: 'NOT_AN_IMAGE', message: 'That file is not a picture Emma can read (use PNG or JPEG).' }
+        : { ok: false, errorCode: 'QR_UNREADABLE', message: 'Emma could not read that picture right now. Tell the owner what is needed instead.' };
     }
     const qr = found ? qrContent(found.text) : null;
     if (!found || !qr) {

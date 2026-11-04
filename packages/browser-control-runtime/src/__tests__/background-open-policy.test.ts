@@ -36,11 +36,11 @@ describe('background target navigation policy', () => {
     const url = 'http://127.0.0.1:3000/';
     const resolved = resolveBrowserConfig({
       enabled: true,
-      defaultProfile: 'Cindy',
+      defaultProfile: 'Emma',
       ssrfPolicy: { dangerouslyAllowPrivateNetwork: true },
       profiles: { Cindy: { driver: 'openclaw', cdpPort: 18800, color: '#00D9C5' } },
     });
-    const profile = resolveProfile(resolved, 'Cindy')!;
+    const profile = resolveProfile(resolved, 'Emma')!;
     const profileState: ProfileRuntimeState = { profile, running: null };
     const serverState: BrowserServerState = {
       port: 0,

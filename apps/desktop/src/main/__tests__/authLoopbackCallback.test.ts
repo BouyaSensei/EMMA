@@ -58,10 +58,10 @@ describe('auth loopback callback page', () => {
       htmlLang: 'zh-CN',
       variant: 'error',
       title: '登录未完成',
-      body: '请回到 Cindy 重新登录。',
-      action: { href: 'cindy://focus/desktop-login', label: '回到 Cindy' },
+      body: '请回到 Emma 重新登录。',
+      action: { href: 'cindy://focus/desktop-login', label: '回到 Emma' },
     });
-    expect(html).toContain('<a class="cta" href="cindy://focus/desktop-login">回到 Cindy</a>');
+    expect(html).toContain('<a class="cta" href="cindy://focus/desktop-login">回到 Emma</a>');
   });
 
   it('shows the raw error code on the error page and escapes injected markup', () => {
@@ -69,7 +69,7 @@ describe('auth loopback callback page', () => {
       htmlLang: 'en',
       variant: 'error',
       title: 'Sign-in not completed',
-      body: 'Please return to Cindy and sign in again.',
+      body: 'Please return to Emma and sign in again.',
       detail: '<script>alert(1)</script>',
     });
     expect(html).toContain('class="detail"');
@@ -149,7 +149,7 @@ describe('auth loopback dev bridge seam (v6.13)', () => {
       htmlLang: 'en',
       variant: 'error' in result ? 'error' : 'success',
       title: 'Sign-in not completed',
-      body: 'Please return to Cindy and sign in again.',
+      body: 'Please return to Emma and sign in again.',
       detail: 'error' in result ? result.error : undefined,
     });
 

@@ -114,7 +114,7 @@ const devNotificationIcon = !app.isPackaged
  *   - 'error'       — agent 本轮以报错结束
  *   - 'needs-reply' — agent 抛出 ask-user / permission / plan-review，等用户处理
  */
-const CLIENT_NOTIFICATION_NAME = 'Cindy';
+const CLIENT_NOTIFICATION_NAME = 'Emma';
 
 interface ShowSessionEventPayload {
   sessionId: string;
@@ -503,7 +503,7 @@ function showDesktopToast(safeTitle: string, kind: SessionEventKind, onClick: ()
 
   const avatar = avatarJpeg ? nativeImage.createFromBuffer(Buffer.from(avatarJpeg, 'base64')) : undefined;
   const notif = new Notification({
-    title: teammate && safeTitle.trim().toLowerCase() === 'cindy'
+    title: teammate && ['cindy', 'emma'].includes(safeTitle.trim().toLowerCase())
       ? CLIENT_NOTIFICATION_NAME : `${CLIENT_NOTIFICATION_NAME} · ${safeTitle}`,
     body,
     // silent 默认 false——发声音，与 Electron 默认一致。

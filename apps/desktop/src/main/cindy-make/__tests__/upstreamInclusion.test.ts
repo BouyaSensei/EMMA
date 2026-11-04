@@ -16,14 +16,14 @@ const candidate = (number = 1): MakeUpstreamItem => ({
   title: 'Related feature',
   kind: 'pr',
   state: 'open',
-  htmlUrl: 'https://github.com/makecindy/cindy/pull/' + number,
+  htmlUrl: 'https://github.com/BouyaSensei/EMMA/pull/' + number,
 });
 const detail = (number = 1, merged = true) => ({
   number,
   html_url: candidate(number).htmlUrl,
   merged,
   state: merged ? 'closed' : 'open',
-  base: { repo: { full_name: 'makecindy/cindy' } },
+  base: { repo: { full_name: 'BouyaSensei/EMMA' } },
   head: { sha: headCommit },
   merge_commit_sha: prCommit,
 });
@@ -54,7 +54,7 @@ describe('upstream PR inclusion', () => {
       expect(result.items).toEqual([]);
       expect(result.excludedIncluded).toBe(1);
       expect(read).toHaveBeenCalledWith(
-        'https://api.github.com/repos/makecindy/cindy/compare/' + prCommit + '...' + runtimeCommit,
+        'https://api.github.com/repos/BouyaSensei/EMMA/compare/' + prCommit + '...' + runtimeCommit,
       );
       expect(read.mock.calls.some(([url]) => /releases|tags|main/.test(url))).toBe(false);
     },

@@ -553,7 +553,7 @@ export function registerMakePptxTool(
         // 显示过**;正文框也伸出页底,长内容会被裁掉。LAYOUT_WIDE 才是 13.33 × 7.5。
         pptx.layout = 'LAYOUT_WIDE';
         if (title) pptx.title = title;
-        pptx.author = 'Cindy';
+        pptx.author = 'Emma';
 
         defineCindyPptxMasters(pptx, {
           theme: palette,

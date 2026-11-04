@@ -30,7 +30,7 @@ const loginHook = vi.hoisted(() => ({
 const CONSENT_TEXT: Record<string, string> = {
   'login.consentStatement': '我已阅读并同意 <terms>服务条款</terms> 和 <privacy>隐私协议</privacy>',
   'login.consentDialog.body':
-    '已阅读并同意 Cindy 的以下协议：<terms>服务条款</terms>、<privacy>隐私协议</privacy>',
+    '已阅读并同意 Emma 的以下协议：<terms>服务条款</terms>、<privacy>隐私协议</privacy>',
 };
 
 vi.mock('react-i18next', () => ({

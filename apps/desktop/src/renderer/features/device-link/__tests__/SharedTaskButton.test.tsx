@@ -12,7 +12,7 @@ import { toast } from '@/lib/toast';
 const state = vi.hoisted(() => ({ invoke: vi.fn(), openLink: vi.fn(), host: vi.fn(), account: vi.fn(), closeLink: vi.fn(), removeDevice: vi.fn(), resetFence: vi.fn(), findById: vi.fn(), rawSessions: vi.fn() }));
 vi.mock('@/lib/sessionsStore', () => ({ sessionsStore: { findById: state.findById } }));
 vi.mock('@/lib/sessionService', () => ({ get: vi.fn() }));
-vi.mock('react-i18next', () => ({ useTranslation: () => ({ t: (key: string, values?: { title: string; link: string }) => key === 'sharedTask.invitationMessage' ? `Join “${values?.title}”\n${values?.link}\nOpen the link, or copy it and open Cindy on mobile.` : key }) }));
+vi.mock('react-i18next', () => ({ useTranslation: () => ({ t: (key: string, values?: { title: string; link: string }) => key === 'sharedTask.invitationMessage' ? `Join “${values?.title}”\n${values?.link}\nOpen the link, or copy it and open Emma on mobile.` : key }) }));
 vi.mock('@/contexts/AuthContext', () => ({ useAuth: () => ({ dataOwnerId: 'owner', isAuthenticated: true }) }));
 vi.mock('@/lib/toast', () => ({ toast: { error: vi.fn(), success: vi.fn() } }));
 vi.mock('@/lib/remoteDataOwnerPushFence', () => ({ resetRemoteDataOwnerPushFence: state.resetFence, bindSharedTaskPushOwner: vi.fn() }));
@@ -88,7 +88,7 @@ it('distinguishes a clipboard failure from a request failure and allows retry', 
   const content = copy.mock.lastCall![0] as string;
   expect(content).toContain('Task A');
   expect(content).toContain(invitationLink);
-  expect(content).toContain('copy it and open Cindy on mobile');
+  expect(content).toContain('copy it and open Emma on mobile');
   expect(parseSharedTaskInvitation(content, 'https://relay.example.test')).toEqual({ ok: true, invitation: 'A'.repeat(43) });
 });
 it('copies a usable invitation when the task title contains a web link', async () => {

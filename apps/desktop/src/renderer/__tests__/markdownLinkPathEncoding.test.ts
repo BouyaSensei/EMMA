@@ -51,7 +51,7 @@ function renderLink(markdown: string): CapturedLink {
 
 describe('Markdown local link path encoding', () => {
   it('preserves a Windows backslash absolute link that urlTransform strips to ""', () => {
-    const path = 'C:\\Users\\test\\AppData\\Roaming\\Cindy\\dialogues\\random_coordinates.png';
+    const path = 'C:\\Users\\test\\AppData\\Roaming\\Emma\\dialogues\\random_coordinates.png';
     const { raw, href } = renderLink(`[查看图片 random_coordinates.png](${path})`);
 
     // 前提锁死:没有 raw 通道时这条链接必死(href 被清空)。这一断言失败说明

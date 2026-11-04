@@ -159,7 +159,7 @@ describe('sdk-handlers end-to-end', () => {
       model: 'm',
       env: {
         ANTHROPIC_API_KEY: 'sk-gw',
-        CLAUDE_CONFIG_DIR: 'C:\\Users\\Admin\\AppData\\Roaming\\Cindy-dev2\\claude-home',
+        CLAUDE_CONFIG_DIR: 'C:\\Users\\Admin\\AppData\\Roaming\\Emma-dev2\\claude-home',
       },
     });
 

@@ -39,7 +39,7 @@ vi.mock('react-i18next', async (importOriginal) => ({
         'newChat.modelSelector.unified.remoteFavoriteUnavailable': `${options?.source ?? ''} · 读不到`,
         'newChat.modelSelector.unified.railRemoteProviderGroup': `${options?.provider ?? ''} · ${options?.device ?? ''} · ${options?.group ?? ''}`,
         'settings.providers.remote.groupBadge': `供应商组 · ${options?.count ?? ''} 台电脑`,
-        'settings.providers.xd.title': 'Cindy AI',
+        'settings.providers.xd.title': 'Emma AI',
         'modelDescriptions.writingAndCoding': '用于内容写作、编程与问题分析。',
         'effortLevels.low': '低',
         'effortLevels.high': '高',
@@ -646,18 +646,18 @@ describe('收藏 / 全部聚合来源，供应商只筛自己的收藏', () => {
   });
 });
 
-describe('Cindy AI(xd)来源行：只有本机自己的 Cindy AI 保留简介(#6110)', () => {
+describe('Emma AI(xd)来源行：只有本机自己的 Emma AI 保留简介(#6110)', () => {
   const DESCRIPTION = '用于内容写作、编程与问题分析。';
   /** 分享者真实电脑名：界面任何位置都不能出现(provider-sharing.md §6)。 */
   const HOST_DEVICE_NAME = 'Magi-Secret-MacBook-Pro';
   const xdShare = {
-    shareId: 'magi', memberId: 'member-magi', providerId: 'xd', providerLabel: 'Cindy AI',
+    shareId: 'magi', memberId: 'member-magi', providerId: 'xd', providerLabel: 'Emma AI',
     hostDeviceId: 'host-magi', deviceName: HOST_DEVICE_NAME, status: 'active' as const, hostOnline: true,
     hostCapable: true, owner: { displayName: 'Magi', avatarUrl: null, region: 'global' as const },
   };
   const xdDevices = [...devices, { deviceId: 'share:magi', name: '来自 Magi 的分享' }];
   const xdProvider = (models: readonly (readonly [string, string])[], extra: Record<string, unknown> = {}) => ({
-    ...(catalogs.local[0] as Record<string, unknown>), id: 'xd', name: 'Cindy AI', ...extra,
+    ...(catalogs.local[0] as Record<string, unknown>), id: 'xd', name: 'Emma AI', ...extra,
     models: { 'claude-code': models.map(([id, name]) => ({ id, name, efforts: ['low', 'high'], defaultEffort: 'high' })) },
   });
   const LOCAL = 'GLM 5.3 Flash';
@@ -679,8 +679,8 @@ describe('Cindy AI(xd)来源行：只有本机自己的 Cindy AI 保留简介(#6
     expect(sourceOf(row)).toBe(label);
     expect(within(row).queryByText(DESCRIPTION)).toBeNull();
   };
-  const SHARED_LABEL = 'Cindy AI · 来自 Magi 的分享 · 供应商组 · 2 台电脑';
-  const REMOTE_LABEL = 'Cindy AI · Studio';
+  const SHARED_LABEL = 'Emma AI · 来自 Magi 的分享 · 供应商组 · 2 台电脑';
+  const REMOTE_LABEL = 'Emma AI · Studio';
 
   beforeEach(() => {
     saved = { local: [...catalogs.local], byDevice: { ...catalogs.byDevice } };
@@ -712,7 +712,7 @@ describe('Cindy AI(xd)来源行：只有本机自己的 Cindy AI 保留简介(#6
     Object.assign(catalogs.byDevice, saved.byDevice);
   });
 
-  it.each(['favorites', 'all'])('「%s」：分享来的与其他电脑上的 Cindy AI 显示来源，本机 Cindy AI 保留简介', async (rail) => {
+  it.each(['favorites', 'all'])('「%s」：分享来的与其他电脑上的 Emma AI 显示来源，本机 Emma AI 保留简介', async (rail) => {
     renderPanel({ devices: xdDevices });
     await clickRail(rail);
     expectSource(rowOf(favoritesGroup(), SHARED), SHARED_LABEL);
@@ -754,7 +754,7 @@ describe('Cindy AI(xd)来源行：只有本机自己的 Cindy AI 保留简介(#6
     expect(document.body.textContent).not.toContain(HOST_DEVICE_NAME);
   });
 
-  it('直接打开分享的目录(不经远程 Agent)时，分享的 Cindy AI 同样带来源', async () => {
+  it('直接打开分享的目录(不经远程 Agent)时，分享的 Emma AI 同样带来源', async () => {
     render(
       React.createElement(ModelSelectorContent, {
         remoteAgent: undefined,
@@ -770,11 +770,11 @@ describe('Cindy AI(xd)来源行：只有本机自己的 Cindy AI 保留简介(#6
     );
     await act(async () => {});
     await clickRail('all');
-    for (const row of rowsOf(list(), SHARED)) expectSource(row, 'Cindy AI');
+    for (const row of rowsOf(list(), SHARED)) expectSource(row, 'Emma AI');
     expect(document.body.textContent).not.toContain(HOST_DEVICE_NAME);
   });
 
-  it('远程控制被控电脑时，那台自己的 Cindy AI 仍按任务所在电脑的目录显示简介', async () => {
+  it('远程控制被控电脑时，那台自己的 Emma AI 仍按任务所在电脑的目录显示简介', async () => {
     catalogs.byDevice['device-b'] = [xdProvider([['glm-5.3-flash', LOCAL]])];
     render(
       React.createElement(ModelSelectorContent, {

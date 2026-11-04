@@ -64,7 +64,7 @@ const CONFIRMED: ProviderBindStatusPayload = {
   attemptId: null,
   bindingId: 'binding-1',
   principalId: 'telegram-user-1',
-  principalName: 'Cindy User',
+  principalName: 'Emma User',
   scopeId: 'bot-1',
   scopeName: 'cindy_example_bot',
   connectUrl: null,
@@ -94,7 +94,7 @@ function statusFor(state: ProviderBindStatusPayload['state']): ProviderBindStatu
       state,
       connectUrl: null,
       principalId: 'telegram-user-1',
-      principalName: 'Cindy User',
+      principalName: 'Emma User',
       actions: ['cancel'],
     };
   }
@@ -105,7 +105,7 @@ function statusFor(state: ProviderBindStatusPayload['state']): ProviderBindStatu
     attemptId: bindingTerminal ? null : PENDING.attemptId,
     bindingId: bindingTerminal ? 'binding-1' : null,
     principalId: bindingTerminal ? 'telegram-user-1' : null,
-    principalName: bindingTerminal ? 'Cindy User' : null,
+    principalName: bindingTerminal ? 'Emma User' : null,
     connectUrl: null,
     expiresAt: null,
     reason: `telegram-${state}`,

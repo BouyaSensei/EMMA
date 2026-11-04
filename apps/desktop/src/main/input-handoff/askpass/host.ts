@@ -47,7 +47,7 @@ export function askpassHelperScript(socketPath: string): string {
   const quoted = `'${socketPath.replace(/'/g, `'\\''`)}'`;
   return [
     '#!/bin/sh',
-    '# Cindy input handoff: asks the owner for the password this program needs.',
+    '# Emma input handoff: asks the owner for the password this program needs.',
     `sock=${quoted}`,
     `route="\${${INPUT_HANDOFF_ROUTE_ENV}:-}"`,
     '[ -n "$route" ] && [ -S "$sock" ] || exit 1',

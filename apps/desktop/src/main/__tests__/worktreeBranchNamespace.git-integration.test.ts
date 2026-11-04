@@ -30,7 +30,7 @@ function makeRepo(): string {
   const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'cindy-branch-namespace-'));
   tempDirs.push(repo);
   git(repo, 'init', '--initial-branch=main');
-  git(repo, 'config', 'user.name', 'Cindy Test');
+  git(repo, 'config', 'user.name', 'Emma Test');
   git(repo, 'config', 'user.email', 'cindy-test@example.invalid');
   fs.writeFileSync(path.join(repo, 'README.md'), 'test\n');
   git(repo, 'add', 'README.md');

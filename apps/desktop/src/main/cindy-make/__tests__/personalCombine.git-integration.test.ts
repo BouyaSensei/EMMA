@@ -48,7 +48,7 @@ async function fixture(sameFile: boolean, generic = false) {
     await git(
       [
         '-c',
-        `user.name=${task ? 'Cindy Make' : 'Test'}`,
+        `user.name=${task ? 'Emma Make' : 'Test'}`,
         '-c',
         `user.email=${task ? 'cindy-make@localhost.invalid' : 'test@example.invalid'}`,
         '-c',
@@ -56,7 +56,7 @@ async function fixture(sameFile: boolean, generic = false) {
         'commit',
         '-s',
         '-m',
-        task ? 'Cindy Make: complete personal change' : message,
+        task ? 'Emma Make: complete personal change' : message,
       ],
       cwd,
     );
@@ -139,7 +139,7 @@ it('keeps both computers’ changes through a conflict resolved in the isolated 
     await h.git(
       [
         '-c',
-        'user.name=Cindy Make',
+        'user.name=Emma Make',
         '-c',
         'user.email=cindy-make@localhost.invalid',
         '-c',
@@ -370,7 +370,7 @@ it('asks before adopting a fused conflict between commits that share the task id
     await h.git(
       [
         '-c',
-        'user.name=Cindy Make',
+        'user.name=Emma Make',
         '-c',
         'user.email=cindy-make@localhost.invalid',
         '-c',

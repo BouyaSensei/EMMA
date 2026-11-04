@@ -117,7 +117,7 @@ const registry = { getProvider() {}, getRegisteredNativeProvider() {} };
 let pendingTimers = 0;
 let calls = 0, pause = ${Boolean(options.pause)}, failWrite = ${Boolean(options.failWrite)};
 let releaseFailure = ${JSON.stringify(options.failRelease ?? '')};
-const api = runInNewContext(${JSON.stringify(PI_CACHE_RECOVERY_SOURCE + '\ninstallCindyCacheRecovery(pi)')}, {
+const api = runInNewContext(${JSON.stringify(PI_CACHE_RECOVERY_SOURCE + '\ninstallEmmaCacheRecovery(pi)')}, {
   ...fs, path, process: { pid: process.pid, platform: process.platform, uptime: () => process.uptime(), kill: (...a) => process.kill(...a),
     env: { PI_CODING_AGENT_DIR: '/fixture', CINDY_PI_CACHE_COMPAT_FILE: file } },
   createHash, randomUUID, Buffer, clearTimeout, Date,

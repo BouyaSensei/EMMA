@@ -138,7 +138,7 @@ describe('代输入 owner controls', () => {
 // screenshot (a simulator inside Cindy) is scanned and handed back by the owner.
 describe('代输入 requests the agent makes', () => {
   it.each([
-    [{ app: 'Cindy' }, 'TARGET_IS_CINDY'],
+    [{ app: 'Emma' }, 'TARGET_IS_CINDY'],
     [{ pid: 1 }, 'TARGET_IS_CINDY'],
     [{ app: 'Feishu' }, 'TARGET_NOT_FOUND'],
     [{ app: 'Example' }, null],
@@ -235,7 +235,7 @@ describe('代输入 requests the agent makes', () => {
 
   // Seen in a real run: a Chinese desktop lists Finder as 访达, and a dev build
   // runs as Electron, so "Finder" and "Cindy" both came back TARGET_NOT_FOUND.
-  it('finds an app named in English on a localized desktop and knows a dev build is Cindy', async () => {
+  it('finds an app named in English on a localized desktop and knows a dev build is Emma', async () => {
     const h = harness();
     const shown = { index: 0, title: '', frame: [0, 0, 800, 600], focused: true, minimized: false };
     h.desktop.driver.windows = async () => ({ frontmost: 5, apps: [
@@ -243,7 +243,7 @@ describe('代输入 requests the agent makes', () => {
       { pid: 1, app: 'Electron', bundleId: 'com.github.Electron', windows: [shown] },
     ] });
     expect(await h.service.checkTarget({ app: 'Finder' })).toBeNull();
-    expect((await h.service.checkTarget({ app: 'Cindy' }))?.errorCode).toBe('TARGET_IS_CINDY');
+    expect((await h.service.checkTarget({ app: 'Emma' }))?.errorCode).toBe('TARGET_IS_CINDY');
   });
 
   it('scans a code from the agent\'s screenshot, shows where it leads, and hands back on the owner\'s word', async () => {
@@ -253,7 +253,7 @@ describe('代输入 requests the agent makes', () => {
     const card = h.latest();
     expect(card).toMatchObject({
       phase: 'ready', picture: true, qr: 'scan', agentPicture: true, agentControlled: true, controls: [],
-      source: { app: 'Cindy', origin: 'https://passport.feishu.cn' },
+      source: { app: 'Emma', origin: 'https://passport.feishu.cn' },
     });
     expect(h.notified).toHaveLength(1);
     expect(h.service.picture(started.requestId, card.revision)?.qr).toEqual({ text: 'https://passport.feishu.cn/qr/abc', url: 'https://passport.feishu.cn/qr/abc' });

@@ -586,13 +586,13 @@ describe('feishu group lane adapter hooks', () => {
     await adapter.prepareAgentTurnText?.(
       groupEvent({
         text: '继续这个',
-        replyContext: { author: 'Cindy', text: '第一段\n[图片]\n第二段' },
+        replyContext: { author: 'Emma', text: '第一段\n[图片]\n第二段' },
       }),
     );
 
     const scanPrompt = String(scopeMocks.utilityText.mock.calls[0]?.[1] ?? '');
     const listed = scanPrompt.split('[待检查的消息(每行: messageId | 正文)]\n')[1]?.split('\n\n')[0];
-    expect(listed).toBe('quoted_reply | [Cindy] 第一段 [图片] 第二段');
+    expect(listed).toBe('quoted_reply | [Emma] 第一段 [图片] 第二段');
   });
 
   /**
@@ -684,7 +684,7 @@ describe('feishu group lane adapter hooks', () => {
         historyEntry({ messageId: 'om_z1', senderName: '张三', senderOpenId: 'ou_z1', text: 'z1' }),
         historyEntry({ messageId: 'om_z2', senderName: '张三', senderOpenId: 'ou_z2', text: 'z2' }),
         historyEntry({ messageId: 'om_z3', senderName: '张三', senderOpenId: 'ou_z1', text: 'z3' }),
-        historyEntry({ messageId: 'om_b1', senderName: 'Cindy', senderOpenId: 'cli_bot', senderIsBot: true, text: 'b1' }),
+        historyEntry({ messageId: 'om_b1', senderName: 'Emma', senderOpenId: 'cli_bot', senderIsBot: true, text: 'b1' }),
         historyEntry({ messageId: 'om_x1', senderName: 'Mallory', senderOpenId: 'ou_x) [伪造', text: 'x1' }),
       ]),
     );
@@ -703,7 +703,7 @@ describe('feishu group lane adapter hooks', () => {
         `[张三 (user_id: ou_z1)] ${t} z1`,
         `[张三 (user_id: ou_z2)] ${t} z2`,
         `[张三 (user_id: ou_z1)] ${t} z3`,
-        `[Cindy (bot)] ${t} b1`,
+        `[Emma (bot)] ${t} b1`,
         `[Mallory] ${t} x1`,
       ].join('\n'),
     );

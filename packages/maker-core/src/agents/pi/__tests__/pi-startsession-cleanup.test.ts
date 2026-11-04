@@ -2432,7 +2432,7 @@ describe('PiAgent.startSession failure cleanup (mocked pi process)', () => {
     }
   });
 
-  it('keeps risky durable Subagent Auto actions behind the real Cindy prompt', async () => {
+  it('keeps risky durable Subagent Auto actions behind the real Emma prompt', async () => {
     const run = pendingSubagentRun({
       toolName: 'bash',
       input: { command: "printf unsafe > /tmp/outside.txt" },
@@ -2719,7 +2719,7 @@ describe('PiAgent.startSession failure cleanup (mocked pi process)', () => {
     expect(knobs.closeCount).toBe(2);
   });
 
-  it('always disables project trust and implicit extensions while explicitly restoring only Cindy extensions', async () => {
+  it('always disables project trust and implicit extensions while explicitly restoring only Emma extensions', async () => {
     const handle = await new PiAgent(buildDeps()).startSession(opts());
     const args = knobs.spawnedArgs[0]!;
     const configHome = knobs.spawnedEnvs[0]!.PI_CODING_AGENT_DIR!;
@@ -3215,7 +3215,7 @@ describe('PiAgent.startSession failure cleanup (mocked pi process)', () => {
       workingDir: cwd,
       model: 'm',
     })).rejects.toThrow(
-      'Package state is unavailable. Restart Cindy and try again.',
+      'Package state is unavailable. Restart Emma and try again.',
     );
     expect(resolvePiNativePackagePaths).toHaveBeenCalledOnce();
     expect(knobs.spawnedArgs).toEqual([]);

@@ -47,7 +47,7 @@ const share: ProviderShareReceived = {
   shareId: 'share-1',
   memberId: 'mem-1',
   providerId: 'xd',
-  providerLabel: 'Cindy AI',
+  providerLabel: 'Emma AI',
   hostDeviceId: 'host-1',
   deviceName: "Magi's Mac Mini",
   owner: { displayName: 'Magi', avatarUrl: null, region: 'global' },
@@ -114,7 +114,7 @@ describe('ProviderShareReceivedRailGroup', () => {
     render(<ProviderShareReceivedRailGroup selectedShareId={null} onSelect={onSelect} />);
     const row = await screen.findByTestId('provider-share-received-row');
     expect(screen.getByText('providerShare.received.title')).toBeTruthy();
-    expect(row.textContent).toContain('Cindy AI');
+    expect(row.textContent).toContain('Emma AI');
     expect(row.getAttribute('aria-label')).toContain('providerShare.received.statusPaused');
     fireEvent.click(row);
     expect(onSelect).toHaveBeenCalledWith('share-1');
@@ -177,7 +177,7 @@ describe('ProviderShareReceivedDetail', () => {
   it('lists the shared models the owner left visible', async () => {
     catalog.value = {
       providers: [{
-        id: 'xd', name: 'Cindy AI', agents: ['claude-code', 'codex'], connected: true, routing: {},
+        id: 'xd', name: 'Emma AI', agents: ['claude-code', 'codex'], connected: true, routing: {},
         models: {
           'claude-code': [{ id: 'opus', name: 'Opus 5.5' }, { id: 'hidden', name: 'Hidden' }],
           codex: [{ id: 'opus', name: 'Opus 5.5' }, { id: 'gpt', name: 'GPT-5.5' }],
@@ -216,7 +216,7 @@ describe('ProviderShareReceivedDetail', () => {
   });
 
   const consentSwitch = () =>
-    screen.findByRole('switch', { name: 'providerShare.received.credentialConsent.ariaLabel:{"name":"Magi","provider":"Cindy AI"}' });
+    screen.findByRole('switch', { name: 'providerShare.received.credentialConsent.ariaLabel:{"name":"Magi","provider":"Emma AI"}' });
 
   it.each([
     { initial: true, outcome: 'success' },

@@ -1318,7 +1318,7 @@ function requireGhostAvailableForActiveSession(id: string): void {
         'Plugin owner is switching; retry after the boundary settles.',
       );
     }
-    throwIpcError('PERMISSION_DENIED', 'This Plugin requires a Cindy account.');
+    throwIpcError('PERMISSION_DENIED', 'This Plugin requires an Emma account.');
   }
 }
 
@@ -4777,7 +4777,7 @@ function getMediaPreferenceConfig(capability: GhostMediaCapability): CindyMediaP
     (model) => isMediaModelExecutable(model.id, coreCapability),
   ).map((model) => {
     const provider = providers.get('xd');
-    const providerName = provider?.name ?? 'Cindy AI';
+    const providerName = provider?.name ?? 'Emma AI';
     const modelName = model.name ?? model.id;
     return {
       id: encodeMediaPreference('xd', model.id),
@@ -4902,7 +4902,7 @@ async function getGhostConfigurableMediaModels(
     return {
       ok: false,
       errorCode: 'PERMISSION_DENIED',
-      message: `插件未声明 Cindy ${type} 能力`,
+      message: `插件未声明 Emma ${type} 能力`,
     };
   }
   try {
@@ -4994,7 +4994,7 @@ function getGhostConfiguredMediaModel(
     typeof capability !== 'string' ||
     !(GHOST_MEDIA_CAPABILITIES as readonly string[]).includes(capability)
   ) {
-    return { ok: false, errorCode: 'INVALID_REQUEST', message: '未知的 Cindy 媒体能力' };
+    return { ok: false, errorCode: 'INVALID_REQUEST', message: '未知的 Emma 媒体能力' };
   }
   const mediaCapability = capability as GhostMediaCapability;
   const [type, action] = mediaCapability.split('.') as ['image' | 'video', 'generate' | 'edit'];
@@ -5007,7 +5007,7 @@ function getGhostConfiguredMediaModel(
     return {
       ok: false,
       errorCode: 'PERMISSION_DENIED',
-      message: `插件未声明 Cindy ${mediaCapability} 能力`,
+      message: `插件未声明 Emma ${mediaCapability} 能力`,
     };
   }
 
@@ -6049,7 +6049,7 @@ function getGhostOauthAccountManager(): GhostOauthAccountManager {
         apiPost: (path, body) => {
           requireAppCapability(
             'canUseCindyOAuthBroker',
-            'Cindy OAuth broker requires a Cindy account.',
+            'Emma OAuth broker requires an Emma account.',
           );
           return serverApiFetch(path, {
             method: 'POST',
@@ -10284,7 +10284,7 @@ export function registerGhostIpc(): void {
     assertTrustedAppRendererEvent(event);
     const win = BrowserWindow.fromWebContents(event.sender);
     const opts = {
-      filters: [{ name: 'Cindy Ghost', extensions: ['cindy'] }],
+      filters: [{ name: 'Emma Ghost', extensions: ['cindy'] }],
       properties: ['openFile' as const],
     };
     const picked = win ? await dialog.showOpenDialog(win, opts) : await dialog.showOpenDialog(opts);

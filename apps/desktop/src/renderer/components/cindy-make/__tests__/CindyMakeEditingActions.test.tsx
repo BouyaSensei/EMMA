@@ -36,7 +36,7 @@ const actions = (key = 'task') => (
   <CindyMakeEditingActions key={key} sessionId={key} messageId="result" />
 );
 
-describe('on-demand Cindy Make checks', () => {
+describe('on-demand Emma Make checks', () => {
   it.each(['start', 'build'] as const)(
     'checks only when %s is clicked, coalesces double clicks and allows retry',
     async (action) => {

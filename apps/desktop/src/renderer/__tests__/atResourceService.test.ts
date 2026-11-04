@@ -274,7 +274,7 @@ describe('scanAtResources context providers', () => {
             windowId: 22,
             pid: 11,
             appName: 'Code.exe',
-            title: 'Cindy',
+            title: 'Emma',
           },
         ],
         unavailable: [],
@@ -303,13 +303,13 @@ describe('scanAtResources context providers', () => {
   it('strictly encodes Markdown delimiters in context reference links', async () => {
     const tabId = "tab-('!*)";
     const url = "https://example.com/docs_(v1)!'";
-    const appName = "Cindy ('!*)";
+    const appName = "Emma ('!*)";
     stubApi({
       workspace: { success: true, items: [] },
       context: {
         success: true,
         browserTabs: [{ tabId, title: 'Docs', url }],
-        desktopWindows: [{ windowId: 22, pid: 11, appName, title: 'Cindy' }],
+        desktopWindows: [{ windowId: 22, pid: 11, appName, title: 'Emma' }],
         unavailable: [],
       },
     });

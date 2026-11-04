@@ -12,7 +12,7 @@
   展示名与一句话用途填入下面模板后原样注入，不要临场追加文字、品牌或复杂场景：
 
   ```text
-  Create a polished square app icon for a Cindy plugin named "{{name}}". Purpose: {{one-sentence purpose}}. Show one clear, original visual metaphor for that purpose. Use a clean geometric composition, a restrained natural color palette, high contrast, and a centered subject with generous safe padding so it remains readable at 32–48 px. Use one symbol only on a simple solid or transparent background. No text, letters, numbers, UI mockups, scenes, baked-in rounded corners, trademarks, copied brand shapes, watermarks, heavy gradients, inner shadows, or photorealism. Output a 1024×1024 PNG.
+  Create a polished square app icon for a Emma plugin named "{{name}}". Purpose: {{one-sentence purpose}}. Show one clear, original visual metaphor for that purpose. Use a clean geometric composition, a restrained natural color palette, high contrast, and a centered subject with generous safe padding so it remains readable at 32–48 px. Use one symbol only on a simple solid or transparent background. No text, letters, numbers, UI mockups, scenes, baked-in rounded corners, trademarks, copied brand shapes, watermarks, heavy gradients, inner shadows, or photorealism. Output a 1024×1024 PNG.
   ```
 
   只尝试一次。图片能力不可用、超时或失败时不要重试，保留占位图/宿主默认图标继续。
@@ -146,7 +146,7 @@ plugin_id、release_id、sha256 和 revision；取消保留版本与记录，当
 昵称按相应版本提审时的账号信息保存，改名不改写旧快照。当前个人发布按单作者流程使用，不提供多人协作入口。
 隐藏平台展示署名不会清除作者写进源码、README 或包内的个人信息。
 历史内容和更新说明按对应版本的提审快照展示，不用当前本地包补写历史。
-可信官方来源固定署名 Cindy；组织插件沿用原有发布与署名规则。
+可信官方来源固定署名 Emma；组织插件沿用原有发布与署名规则。
 不把本地安装或提交资格当作作者身份。
 
 本地开发实例与发布目标独立：选择确切 local 实例后，投稿仍由真实市场的 ACL 决定；同名或相同作者显示名不证明发布权限。官方公共插件继续通过 GitHub 投稿。

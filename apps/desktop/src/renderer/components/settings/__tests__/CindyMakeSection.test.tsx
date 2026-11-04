@@ -215,7 +215,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('Settings > Cindy Make', () => {
+describe('Settings > Emma Make', () => {
   it('opens version control first and preserves the keyboard tab order and scoped creation action', async () => {
     const h = harness();
     const getVersions = vi.fn(async () => ({
@@ -1150,7 +1150,7 @@ describe('Settings > Cindy Make', () => {
     expect(h.starts().every(([name]) => name === 'cindy-make-doctor')).toBe(true);
   });
 
-  it('opens Cindy’s managed tools folder from the section header', async () => {
+  it('opens Emma’s managed tools folder from the section header', async () => {
     const h = harness();
     renderEnvironment(<CindyMakeSection />);
     await h.complete(h.starts()[0][1].doctorRunId!, '22.23.2');

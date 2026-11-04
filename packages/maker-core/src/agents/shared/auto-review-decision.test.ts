@@ -722,9 +722,9 @@ describe('user authorization across ordinary follow-ups', () => {
 });
 
 it.each([
-  ['auto', 'Cindy Auto-review denied this tool call'],
-  ['user', 'User denied this tool call via Cindy'],
-  ['system', 'Cindy could not approve this tool call'],
+  ['auto', 'Emma Auto-review denied this tool call'],
+  ['user', 'User denied this tool call via Emma'],
+  ['system', 'Emma could not approve this tool call'],
 ] as const)('keeps the %s denial source and bounds the explanation', (source, label) => {
   expect(formatPermissionDenial(source, '  Only inspect.  ')).toBe(label + ': Only inspect.');
   expect(formatPermissionDenial(source, ' ')).toBe(label + '.');

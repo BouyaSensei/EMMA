@@ -43,7 +43,7 @@ afterEach(() => {
   cleanup();
   vi.unstubAllGlobals();
 });
-describe('Cindy Make local versions', () => {
+describe('Emma Make local versions', () => {
   it('reports the current version inventory to its parent', async () => {
     const onState = vi.fn();
     render(<CindyMakeVersionsPanel onState={onState} />);

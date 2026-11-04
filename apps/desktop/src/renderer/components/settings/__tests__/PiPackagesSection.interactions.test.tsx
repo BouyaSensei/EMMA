@@ -363,7 +363,7 @@ describe('PiPackagesSection interaction state machine', () => {
     expect(toastMocks.error).not.toHaveBeenCalledWith('settings.piPackages.operationFailed');
   });
 
-  it('reports confirmed native install success when Cindy cannot project its enabled state', async () => {
+  it('reports confirmed native install success when Emma cannot project its enabled state', async () => {
     installElectronApi({
       mutatePiPackage: vi.fn(async () => ({
         available: false, packages: [], changed: true,
@@ -461,7 +461,7 @@ describe('PiPackagesSection interaction state machine', () => {
   it('shows the Main-sanitized actionable mutation failure', async () => {
     installElectronApi({
       mutatePiPackage: vi.fn(async () => {
-        throw new Error('[PI_PACKAGE_MUTATION_FAILED] restart Cindy and refresh extensions');
+        throw new Error('[PI_PACKAGE_MUTATION_FAILED] restart Emma and refresh extensions');
       }),
     });
     render(<PiPackagesSection />);
@@ -470,7 +470,7 @@ describe('PiPackagesSection interaction state machine', () => {
     fireEvent.click(screen.getAllByRole('switch')[0]!);
 
     await waitFor(() => expect(toastMocks.error).toHaveBeenCalledWith(
-      'restart Cindy and refresh extensions',
+      'restart Emma and refresh extensions',
     ));
   });
 

@@ -84,7 +84,7 @@ describe('local application task takeover', () => {
       live = undefined;
     };
     const send = createMakerSendTransaction(deps).sendToAgentAccepted(
-      'session-1', 'private Cindy input', { id: 'session-1', agentKind: 'codex', workingDir: '/repo' },
+      'session-1', 'private Emma input', { id: 'session-1', agentKind: 'codex', workingDir: '/repo' },
     );
     if (fails) await expect(send).rejects.toThrow('handoff unavailable');
     else {
@@ -2337,7 +2337,7 @@ describe('maker SEND transaction', () => {
   it('lazy-create adopts the DB working_dir when the caller-provided one is stale', async () => {
     // 场景:输入队列崩溃快照回放,createOpts 内嵌启动 sweep 改写前的老路径。
     const staleDir = '/data/xdt-maker/dialogues/2026-06-22/lazy-1';
-    const dbDir = '/data/Cindy/dialogues/2026-06-22/lazy-1';
+    const dbDir = '/data/Emma/dialogues/2026-06-22/lazy-1';
     const checkWorkDirExists = vi.fn(async (_sid: string, dir: string | undefined | null) => dir === dbDir);
     const { deps } = createDeps({
       getSession: vi.fn(() => undefined),
@@ -3461,7 +3461,7 @@ describe('message source notes', () => {
   });
 });
 
-describe('Cindy Make task note', () => {
+describe('Emma Make task note', () => {
   // Production dispatch contract: the side-chat boundary is wire-only and is resent after context reset.
   // Existing task-note tests do not cover fork isolation or the accepted-note cache (unit).
   it('isolates side-chat context without changing the visible question or adding a note every turn', async () => {

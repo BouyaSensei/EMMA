@@ -78,7 +78,7 @@ describe('round-trip: 每种消息构造后可被解析且等价', () => {
     const msg = roundTrip(
       makeHello({
         deviceId: 'dev-abc',
-        deviceName: 'Cindy',
+        deviceName: 'Emma',
         workspaces: ['cindy', 'blog'],
         agents: ['cc', 'codex'],
         lifecycleAnnouncement: false,

@@ -645,7 +645,7 @@ describe("cindy_ghosts · ghost_call(派活透传)", () => {
             id: "connect-account",
             requirement_refs: ["req-1"],
             title: "连接账号",
-            description: "授权 Cindy 使用您的 Gmail 账号。",
+            description: "授权 Emma 使用您的 Gmail 账号。",
             action_id: "action-1",
           },
         ],
@@ -664,7 +664,7 @@ describe("cindy_ghosts · ghost_call(派活透传)", () => {
             id: "connect-account",
             requirementRefs: ["req-1"],
             title: "连接账号",
-            description: "授权 Cindy 使用您的 Gmail 账号。",
+            description: "授权 Emma 使用您的 Gmail 账号。",
             actionId: "action-1",
           },
         ],
@@ -1857,7 +1857,7 @@ describe("formatGhostRoster(花名册快照:JSONL 召回数据源)", () => {
         id: "art",
         name: "画图",
         command: "画图",
-        recall: "用 Cindy 的图像能力\n画图与改图。",
+        recall: "用 Emma 的图像能力\n画图与改图。",
       },
       { id: "bare", name: "裸插件" },
     ]);
@@ -1867,7 +1867,7 @@ describe("formatGhostRoster(花名册快照:JSONL 召回数据源)", () => {
         id: "art",
         name: "画图",
         command: "画图",
-        recall: "用 Cindy 的图像能力 画图与改图。",
+        recall: "用 Emma 的图像能力 画图与改图。",
       }),
     );
     expect(text).toContain(
@@ -2178,7 +2178,7 @@ describe('connect_account transport', () => {
   });
 });
 
-describe('Cindy market MCP transport', () => {
+describe('Emma market MCP transport', () => {
   it('keeps discovery, installation, account connection and execution separate', async () => {
     const { Client } = await import('@modelcontextprotocol/sdk/client/index.js');
     const { InMemoryTransport } = await import('@modelcontextprotocol/sdk/inMemory.js');

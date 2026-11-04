@@ -255,7 +255,7 @@ export interface DeviceLinkLogger {
 }
 
 /** WebSocket 升级的认证方案,见 `DeviceLinkClientOptions.authorizationScheme`。 */
-export type DeviceLinkAuthorizationScheme = 'Bearer' | 'ProviderShareGuest' | 'CindyRelay';
+export type DeviceLinkAuthorizationScheme = 'Bearer' | 'ProviderShareGuest' | 'EmmaRelay';
 
 /**
  * 自建中转的设备签名钩子(docs/self-hosted-relay-plan.md §16,实现见 selfHostedRelayAuth.ts)。

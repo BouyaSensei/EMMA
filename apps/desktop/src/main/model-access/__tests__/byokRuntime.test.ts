@@ -472,7 +472,7 @@ describe('BYOK Main runtime', () => {
     expect(reloadCodex).toHaveBeenCalledTimes(5);
   });
 });
-describe('Cindy Auto moving between Cindy AI and the enterprise pool', () => {
+describe('Emma Auto moving between Emma AI and the enterprise pool', () => {
   function withModels(revision: string, ...ids: string[]) {
     const next = structuredClone(directory);
     next.revision = revision;
@@ -495,7 +495,7 @@ describe('Cindy Auto moving between Cindy AI and the enterprise pool', () => {
     return onCindyAutoModelsChanged;
   }
 
-  it('platform → pool: a newly listed pool Auto asks Cindy AI to refresh too', async () => {
+  it('platform → pool: a newly listed pool Auto asks Emma AI to refresh too', async () => {
     const notify = await syncTwice(
       withModels('1', 'byok/a/chat'),
       withModels('2', 'byok/a/chat', 'auto/group-a'),
@@ -503,7 +503,7 @@ describe('Cindy Auto moving between Cindy AI and the enterprise pool', () => {
     expect(notify).toHaveBeenCalledTimes(1);
   });
 
-  it('pool → platform: a pool Auto that disappeared asks Cindy AI to refresh too', async () => {
+  it('pool → platform: a pool Auto that disappeared asks Emma AI to refresh too', async () => {
     const notify = await syncTwice(
       withModels('1', 'byok/a/chat', 'auto/group-a'),
       withModels('2', 'byok/a/chat'),

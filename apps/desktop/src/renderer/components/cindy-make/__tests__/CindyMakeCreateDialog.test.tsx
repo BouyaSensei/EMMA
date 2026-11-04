@@ -71,7 +71,7 @@ afterEach(() => {
   setDataOwnerGeneration(null);
 });
 
-describe('Cindy Make creation from Settings', () => {
+describe('Emma Make creation from Settings', () => {
   it('focuses the requirements and creates nothing on opening or cancelling', () => {
     const view = openDialog();
     expect(document.activeElement).toBe(view.input);

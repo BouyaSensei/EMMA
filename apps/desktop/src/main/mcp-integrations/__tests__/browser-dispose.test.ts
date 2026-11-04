@@ -34,9 +34,9 @@ describe('stopRuntimeForQuit', () => {
       status: 200,
     }));
 
-    await stopRuntimeForQuit({ call }, fakeLogger(), 'Cindy-real');
+    await stopRuntimeForQuit({ call }, fakeLogger(), 'Emma-real');
 
-    expect(call).toHaveBeenCalledWith({ action: 'stop', profile: 'Cindy-real' });
+    expect(call).toHaveBeenCalledWith({ action: 'stop', profile: 'Emma-real' });
   });
 
   it('warns but does not throw when stop returns not-ok', async () => {

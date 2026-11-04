@@ -26,7 +26,7 @@ afterEach(() => {
 });
 
 describe('Pi Responses verbosity transform', () => {
-  it('adds low for a Cindy Codex GPT-5 gateway request', () => {
+  it('adds low for a Emma Codex GPT-5 gateway request', () => {
     const resolveProvider = vi.fn(() => 'xd');
     const transform = createPiResponsesVerbosityTransform(resolveProvider);
 

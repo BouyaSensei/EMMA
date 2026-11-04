@@ -79,7 +79,7 @@ describe('packaged Codex shell launcher', () => {
 });
 
 it('prepends only a Windows Codex package bin directory, never a system directory', () => {
-  const root = path.win32.join('C:\\', 'Cindy Data', 'codex-package', '0.159.2');
+  const root = path.win32.join('C:\\', 'Emma Data', 'codex-package', '0.159.2');
   vi.spyOn(fs, 'existsSync').mockImplementation((candidate) => candidate === path.win32.join(root, 'codex-package.json'));
   const binaryPath = path.win32.join(root, 'bin', 'codex.exe');
   expect(codexPackagePathPrepends(binaryPath, 'win32')).toEqual([path.win32.join(root, 'bin')]);

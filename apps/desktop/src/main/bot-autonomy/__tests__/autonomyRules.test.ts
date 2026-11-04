@@ -69,7 +69,7 @@ describe('who follows a task', () => {
   });
 
   it.each([
-    ['not customized → off even with active Cindy assistant', { customized: false, schedulerBotId: null }, { [DEFAULT_SCHEDULER_BOT_ID]: bot('active') }, null],
+    ['not customized → off even with active Emma assistant', { customized: false, schedulerBotId: null }, { [DEFAULT_SCHEDULER_BOT_ID]: bot('active') }, null],
     ['not customized, assistant paused → none', { customized: false, schedulerBotId: null }, { [DEFAULT_SCHEDULER_BOT_ID]: bot('paused') }, null],
     ['customized off stays off', { customized: true, schedulerBotId: null }, { [DEFAULT_SCHEDULER_BOT_ID]: bot('active') }, null],
     ['customized teammate', { customized: true, schedulerBotId: 'a' }, { a: bot('paused'), [DEFAULT_SCHEDULER_BOT_ID]: bot('active') }, 'a'],

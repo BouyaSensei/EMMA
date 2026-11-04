@@ -26,7 +26,7 @@ it('reconstructs undo only from a proven legacy integration and rejects a file-o
   const git = vi.fn(async (args: string[]) => {
     if (args[0] === 'rev-parse') return args[1].startsWith('c') ? 'd'.repeat(40) : 'e'.repeat(40);
     if (args.includes('--format=%P')) return 'f'.repeat(40) + ' ' + 'a'.repeat(40);
-    return 'Cindy Make: integrate personal feature';
+    return 'Emma Make: integrate personal feature';
   });
   const receipts = await readLegacyFeatureReceipts(record, git, 'source');
   expect(receipts).toEqual([

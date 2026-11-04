@@ -11,7 +11,7 @@ function errorEvent(data: Record<string, unknown>): AgentEvent {
 describe('isGatewayProxyTokenRecoveryErrorEventForProvider', () => {
   const tokenInvalid = errorEvent({ message: 'Authentication failed', reason: GATEWAY_PROXY_TOKEN_INVALID_REASON });
 
-  it('matches terminal key failures on Cindy AI sessions, including legacy sessions without a provider', () => {
+  it('matches terminal key failures on Emma AI sessions, including legacy sessions without a provider', () => {
     expect(isGatewayProxyTokenRecoveryErrorEventForProvider('xd', tokenInvalid)).toBe(true);
     expect(isGatewayProxyTokenRecoveryErrorEventForProvider(null, tokenInvalid)).toBe(true);
     expect(isGatewayProxyTokenRecoveryErrorEventForProvider(undefined, tokenInvalid)).toBe(true);

@@ -292,7 +292,7 @@ describe('detectCwd → isInsideWorktree (I-1 fix)', () => {
     expect(gitExecMock).toHaveBeenCalledTimes(12);
   });
 
-  it('returns isInsideWorktree=true for a Cindy-created worktree', async () => {
+  it('returns isInsideWorktree=true for a Emma-created worktree', async () => {
     const baseRepo = path.resolve('/tmp/repo');
     const wtPath = path.join(baseRepo, '.cindy-worktrees', 'jolly-turing');
     setupGitMock({

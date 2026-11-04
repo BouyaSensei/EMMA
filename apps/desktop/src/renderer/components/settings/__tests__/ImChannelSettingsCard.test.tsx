@@ -29,7 +29,7 @@ function HeaderActionHarness({ onAction }: { onAction: () => void }) {
     <ImChannelSettingsCard
       id="channel-action-test"
       title="Slack"
-      description="Cindy channel"
+      description="Emma channel"
       status={<span>Connected</span>}
       routeSummary={null}
       headerAction={

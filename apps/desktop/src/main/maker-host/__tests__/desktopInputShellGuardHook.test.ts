@@ -80,7 +80,7 @@ describe('createDesktopInputShellGuardHooks', () => {
   // 2026-10-31 sandbox run: with Computer Use off, the keystroke was not denied and
   // landed in the front window. Shell input is never the entry, so still deny; only
   // the reason changes to point at the setting instead of a tool that is absent.
-  it('still denies while Cindy Computer Use is disabled, pointing at the setting', async () => {
+  it('still denies while Emma Computer Use is disabled, pointing at the setting', async () => {
     const enabled = vi.fn(() => false);
     const hook = createDesktopInputShellGuardHooks(enabled).PreToolUse?.[0]?.hooks[0];
     if (!hook) throw new Error('expected guard hook');

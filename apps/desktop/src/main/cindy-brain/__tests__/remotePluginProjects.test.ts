@@ -12,15 +12,15 @@ vi.mock('../../appSessionState.js', () => ({ ownerScopedUserDataPath: () => 'unu
 beforeEach(() => stat.mockReset());
 
 it('keeps the selected Host path as display metadata and issues the same identity for normalized spellings', () => {
-  const workdir = path.resolve('target', 'Cindy');
+  const workdir = path.resolve('target', 'Emma');
   const project = projectPluginWorkdir(workdir);
-  expect(project).toMatchObject({ name: 'Cindy', path: workdir, workdir });
+  expect(project).toMatchObject({ name: 'Emma', path: workdir, workdir });
   expect(project.id).toMatch(/^[a-f0-9]{64}$/);
   expect(projectPluginWorkdir(workdir + path.sep).id).toBe(project.id);
 });
 
 it('resolves only an existing absolute directory on the Host before issuing a project id', async () => {
-  const workdir = path.resolve('target', 'Cindy');
+  const workdir = path.resolve('target', 'Emma');
   stat.mockResolvedValue({ isDirectory: () => true });
   expect(await resolvePluginWorkdir(workdir)).toEqual(projectPluginWorkdir(workdir));
   expect(stat).toHaveBeenCalledWith(workdir);

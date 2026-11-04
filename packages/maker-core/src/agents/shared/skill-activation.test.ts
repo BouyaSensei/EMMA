@@ -16,7 +16,7 @@ function skill(name: string, scope = 'global'): AgentCustomization {
   return { engine: 'claude-code', kind: 'skill', scope, name, absolutePath };
 }
 
-describe('Cindy-only Skill activation', () => {
+describe('Emma-only Skill activation', () => {
   it('matches SKILL.md and directory identities without disabling an independent same-name copy', () => {
     const global = skill('example');
     const project = skill('example', 'project');

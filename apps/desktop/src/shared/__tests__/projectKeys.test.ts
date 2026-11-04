@@ -4,7 +4,7 @@ import { projectKeyComparisonKey } from '../projectKeys';
 
 describe('projectKeyComparisonKey', () => {
   it('case-folds local Windows drive paths after normalizing separators', () => {
-    expect(projectKeyComparisonKey('local:C:\\Repo\\Cindy\\', 'win32')).toBe(
+    expect(projectKeyComparisonKey('local:C:\\Repo\\Emma\\', 'win32')).toBe(
       'local:c:/repo/cindy',
     );
     expect(projectKeyComparisonKey('local:c:/repo/cindy', 'win32')).toBe(
@@ -31,8 +31,8 @@ describe('projectKeyComparisonKey', () => {
     expect(projectKeyComparisonKey('local://mnt/Repo', 'darwin')).toBe(
       'local://mnt/Repo',
     );
-    expect(projectKeyComparisonKey('local:C:/Repo/Cindy', 'linux')).toBe(
-      'local:C:/Repo/Cindy',
+    expect(projectKeyComparisonKey('local:C:/Repo/Emma', 'linux')).toBe(
+      'local:C:/Repo/Emma',
     );
   });
 
@@ -40,11 +40,11 @@ describe('projectKeyComparisonKey', () => {
     expect(projectKeyComparisonKey('local:/Users/Lee/Repo', 'darwin')).toBe(
       'local:/Users/Lee/Repo',
     );
-    expect(projectKeyComparisonKey('remote:host-a:C:/Repo/Cindy', 'win32')).toBe(
-      'remote:host-a:C:/Repo/Cindy',
+    expect(projectKeyComparisonKey('remote:host-a:C:/Repo/Emma', 'win32')).toBe(
+      'remote:host-a:C:/Repo/Emma',
     );
-    expect(projectKeyComparisonKey('device:device-a:C:/Repo/Cindy', 'win32')).toBe(
-      'device:device-a:C:/Repo/Cindy',
+    expect(projectKeyComparisonKey('device:device-a:C:/Repo/Emma', 'win32')).toBe(
+      'device:device-a:C:/Repo/Emma',
     );
   });
 });

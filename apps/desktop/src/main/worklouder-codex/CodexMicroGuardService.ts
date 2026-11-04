@@ -128,7 +128,7 @@ function defaultSupportPath(): string {
     .update(app.getPath('userData'))
     .digest('hex')
     .slice(0, 12);
-  return path.join(os.homedir(), 'Library', 'CindyCodexMicroGuard', identity);
+  return path.join(os.homedir(), 'Library', 'EmmaCodexMicroGuard', identity);
 }
 
 function currentUid(): number {

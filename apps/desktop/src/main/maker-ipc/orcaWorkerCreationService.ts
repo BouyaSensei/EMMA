@@ -665,7 +665,7 @@ export function budgetModelRequiresApiKey(agent: AgentKind, model: string, hasAp
 }
 
 export function budgetModelRequiresApiKeyMessage(model: string): string {
-  return `模型 "${model}"（openai-codex/ 或 codex/ 路由）需要先在设置里连接 Cindy AI 才能使用。`;
+  return `模型 "${model}"（openai-codex/ 或 codex/ 路由）需要先在设置里连接 Emma AI 才能使用。`;
 }
 
 /** agent 的人类可读名,用于 preflight 失败信息。 */

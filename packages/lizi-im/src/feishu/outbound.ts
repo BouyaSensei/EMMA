@@ -61,16 +61,16 @@ Add-Type -TypeDefinition @'
 using System;
 using System.Text;
 using System.Runtime.InteropServices;
-public static class CindyHandlePath {
+public static class EmmaHandlePath {
   [DllImport("kernel32.dll", SetLastError=true, CharSet=CharSet.Unicode)]
   public static extern uint GetFinalPathNameByHandle(IntPtr handle, StringBuilder path, uint size, uint flags);
   [DllImport("kernel32.dll")]
   public static extern IntPtr GetStdHandle(int kind);
 }
 '@
-$handle = [CindyHandlePath]::GetStdHandle(-10)
+$handle = [EmmaHandlePath]::GetStdHandle(-10)
 $path = New-Object System.Text.StringBuilder 32768
-$length = [CindyHandlePath]::GetFinalPathNameByHandle($handle, $path, $path.Capacity, 0)
+$length = [EmmaHandlePath]::GetFinalPathNameByHandle($handle, $path, $path.Capacity, 0)
 if ($length -eq 0 -or $length -ge $path.Capacity) { exit 1 }
 [Console]::Out.Write($path.ToString())
 `;
@@ -94,7 +94,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
 
-public static class CindyHandleContainment {
+public static class EmmaHandleContainment {
   private const uint FILE_READ_ATTRIBUTES = 0x00000080;
   private const uint SYNCHRONIZE = 0x00100000;
   private const uint FILE_SHARE_ALL = 0x00000007;
@@ -284,7 +284,7 @@ public static class CindyHandleContainment {
 try {
   $json = [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($env:CINDY_HANDLE_SEGMENTS))
   $segments = @((ConvertFrom-Json -InputObject $json))
-  if ([CindyHandleContainment]::Check([string[]]$segments)) {
+  if ([EmmaHandleContainment]::Check([string[]]$segments)) {
     [Console]::Out.Write('1')
     exit 0
   }

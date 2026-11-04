@@ -49,7 +49,7 @@ function taskReport(sessionId: string): MakeDoctorReport {
   };
 }
 
-describe('read-only Main Cindy Make state', () => {
+describe('read-only Main Emma Make state', () => {
   it('tracks native task activity without changing the snapshot for irrelevant progress', () => {
     subscribe();
     const preparing = taskReport('preparing');

@@ -139,8 +139,8 @@ describe('ask_owner fill / scan / connect', () => {
       expect(grok.start).toHaveBeenCalledTimes(1);
 
       // Failures the host can see right away come back in this call.
-      start.mockResolvedValueOnce({ ok: false, errorCode: 'TARGET_IS_CINDY', message: 'That window is Cindy itself.' } as never);
-      expect(await call({ kind: 'fill', title: 'x', target: { app: 'Cindy' } })).toMatchObject({ ok: false, errorCode: 'TARGET_IS_CINDY' });
+      start.mockResolvedValueOnce({ ok: false, errorCode: 'TARGET_IS_CINDY', message: 'That window is Emma itself.' } as never);
+      expect(await call({ kind: 'fill', title: 'x', target: { app: 'Emma' } })).toMatchObject({ ok: false, errorCode: 'TARGET_IS_CINDY' });
       for (const args of [
         { kind: 'fill', target: { app: 'Chrome' } },
         { kind: 'fill', title: 'x' },

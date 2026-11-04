@@ -2069,7 +2069,7 @@ describe('远程 Agent:选模型时换 Agent 所在电脑', () => {
     const h = relocationHarness({ orcaRole: 'lead', agentDeviceId: 'office-pc' });
     vi.mocked(h.deps.closeSession).mockImplementationOnce(async () => {
       h.calls.push('close');
-      throw new Error('[REMOTE_AGENT_PEER_TOO_OLD] Cindy on the other computer is too old');
+      throw new Error('[REMOTE_AGENT_PEER_TOO_OLD] Emma on the other computer is too old');
     });
     await expect(
       performSessionAgentSwitch(h.deps, { ...backToTaskComputer, applyNow: true }),

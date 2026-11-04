@@ -46,7 +46,7 @@ const WINDOWS_PROBE_JOB_SOURCE = `
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-public static class CindyWindowsPathProbeJob {
+public static class EmmaWindowsPathProbeJob {
   [StructLayout(LayoutKind.Sequential)]
   struct BasicLimits {
     public long ProcessTime, JobTime;
@@ -155,7 +155,7 @@ export function buildWindowsPathKindProbeScript(
     "  Add-Type -TypeDefinition @'",
     WINDOWS_PROBE_JOB_SOURCE,
     "'@ -ErrorAction Stop",
-    '  [CindyWindowsPathProbeJob]::Attach()',
+    '  [EmmaWindowsPathProbeJob]::Attach()',
     '} catch {',
     `  [Console]::Out.WriteLine("${DIAGNOSTIC_PREFIX}\`tpath-process-job")`,
     '  exit 1',

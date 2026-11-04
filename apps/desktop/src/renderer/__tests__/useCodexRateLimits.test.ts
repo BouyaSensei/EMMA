@@ -267,7 +267,7 @@ describe('useCodexRateLimits', () => {
     expect(reader).toHaveBeenCalledTimes(2);
   });
 
-  it('isolates Cindy owner changes and late responses', async () => {
+  it('isolates Emma owner changes and late responses', async () => {
     let resolveOld!: (value: MobileCodexRateLimitsResult) => void;
     const reader = vi.fn().mockImplementationOnce(() => new Promise(resolve => { resolveOld = resolve; }))
       .mockImplementation(() => new Promise(() => {}));

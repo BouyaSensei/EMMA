@@ -57,7 +57,7 @@ function renderMemory(memoryEnabled = true) {
   render(
     <BotMemorySettings
       botId="bot-1"
-      botName="Cindy"
+      botName="Emma"
       memoryEnabled={memoryEnabled}
       onMemoryEnabledChange={onMemoryEnabledChange}
       aboutMe={{ value: '', onChange: vi.fn(), onBlur: vi.fn() }}
@@ -214,7 +214,7 @@ describe('BotMemorySettings', () => {
     });
     fireEvent.click(screen.getByRole('button', { name: 'bots.memory.done' }));
     expect(await screen.findByText('伙伴刚写的')).toBeTruthy();
-    expect(screen.getByText('bots.memory.changedTitle:{"name":"Cindy"}')).toBeTruthy();
+    expect(screen.getByText('bots.memory.changedTitle:{"name":"Emma"}')).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: 'bots.memory.keepMine' }));
     await waitFor(() => expect(api.update).toHaveBeenCalledTimes(2));
     expect(api.update).toHaveBeenLastCalledWith(

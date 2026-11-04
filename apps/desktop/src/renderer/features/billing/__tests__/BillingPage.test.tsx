@@ -2154,7 +2154,7 @@ describe('BillingPage plan change', () => {
     });
   });
 
-  it('refreshes when Cindy regains focus before the Stripe portal launch resolves', async () => {
+  it('refreshes when Emma regains focus before the Stripe portal launch resolves', async () => {
     const billing = install(billingMocks());
     let resolvePortal!: (result: BillingSubscriptionPortalResult) => void;
     billing.openSubscriptionPortal.mockImplementation(
@@ -3340,7 +3340,7 @@ describe('BillingPage order history', () => {
       );
       if (locale === 'zh-CN') {
         expect(policy).toBe(
-          'Cindy 个人版充值默认开具个人抬头发票，抬头可填写姓名或“个人”。如需开具企业抬头发票用于公司报销，请提供加盖公司公章的报销说明，并在说明中注明开票抬头。',
+          'Emma 个人版充值默认开具个人抬头发票，抬头可填写姓名或“个人”。如需开具企业抬头发票用于公司报销，请提供加盖公司公章的报销说明，并在说明中注明开票抬头。',
         );
       }
 

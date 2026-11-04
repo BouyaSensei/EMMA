@@ -121,7 +121,7 @@ describe('extractStep', () => {
       node('2', 'AXPopUpButton', { title: 'Region', value: 'Global', options: ['Global', 'China'] }),
       node('3', 'AXCheckBox', { title: 'Remember me', checked: false }),
       node('4', 'AXButton', { title: 'Continue' }),
-    ], { app: 'Cindy', bundleId: 'com.example.cindy' }));
+    ], { app: 'Emma', bundleId: 'com.example.cindy' }));
     expect(step.source.origin).toBeUndefined();
     expect(step.controls.map((control) => control.kind)).toEqual(['choice', 'choice', 'toggle', 'button']);
     const [method, region, remember] = step.controls as any[];

@@ -18,7 +18,7 @@ function firstPath(ui: React.ReactNode): string | null {
 describe('model mark semantics', () => {
   // User decision: use the existing themeable XD glyph only for host XD membership.
   // Unit: regression input is the same provider ID with personal vs XD presentation.
-  it('preserves the original XD glyph and theme color while other identities use Cindy', () => {
+  it('preserves the original XD glyph and theme color while other identities use Emma', () => {
     const xdPath = firstPath(<XDIncMark />);
     expect(firstPath(<ProviderMark providerId="xd" logoKind="xd" />)).toBe(xdPath);
     expect(firstPath(<ModelIconMark providerId="xd" logoKind="xd" />)).toBe(xdPath);

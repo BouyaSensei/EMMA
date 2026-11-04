@@ -92,7 +92,7 @@ describe('buildTextOneshotPinOptions', () => {
       catalogOf(
         provider({
           id: 'xd',
-          name: 'Cindy AI · 心动',
+          name: 'Emma AI · 心动',
           models: { codex: [chat('codex/gpt-5.5', { name: 'GPT 5.5 折扣' })] },
         }),
         provider({
@@ -109,8 +109,8 @@ describe('buildTextOneshotPinOptions', () => {
     expect(options).toEqual([
       {
         id: 'cat:xd:codex:codex/gpt-5.5',
-        label: 'Codex · GPT 5.5 折扣 · Cindy AI · 心动',
-        group: 'Cindy AI · 心动',
+        label: 'Codex · GPT 5.5 折扣 · Emma AI · 心动',
+        group: 'Emma AI · 心动',
         providerId: 'xd',
         agentKind: 'codex',
         modelId: 'codex/gpt-5.5',
@@ -335,8 +335,8 @@ describe('buildTextOneshotPinOptions', () => {
       undefined,
     );
     expect(options.map((o) => [o.id, o.label])).toEqual([
-      ['cat:xd:codex:gpt-5.5', 'Codex · GPT 5.5 · Cindy AI'],
-      ['cat:xd:claude-code:gpt-5.5', 'Claude Code · GPT 5.5 · Cindy AI'],
+      ['cat:xd:codex:gpt-5.5', 'Codex · GPT 5.5 · Emma AI'],
+      ['cat:xd:claude-code:gpt-5.5', 'Claude Code · GPT 5.5 · Emma AI'],
       ['cat:dual:codex:gpt-5.5', 'Codex · GPT 5.5 · Dual'],
       ['cat:dual:claude-code:gpt-5.5', 'Claude Code · GPT 5.5 · Dual'],
     ]);
@@ -365,7 +365,7 @@ describe('buildTextOneshotPinOptions', () => {
     );
 
     expect(options.map((o) => [o.id, o.label])).toEqual([
-      ['cat:xd:codex:gpt-5.5', 'Codex · GPT 5.5 · Cindy AI'],
+      ['cat:xd:codex:gpt-5.5', 'Codex · GPT 5.5 · Emma AI'],
     ]);
   });
 

@@ -74,7 +74,7 @@ function fakeControl(
     bridge: bridge as unknown as UserBrowserPageControl['bridge'],
     ghostId: 'my-browser',
     instanceId: 'my-browser',
-    pluginName: 'Cindy Chrome',
+    pluginName: 'Emma Chrome',
   };
   return { control, jobs, responses, tabs };
 }
@@ -895,7 +895,7 @@ describe('UserBrowserBackend · 读取与动作', () => {
       const b = backend(fake.control);
       await call(b, { action: 'tabs' });
       const refused = await call(b, { action: 'pdf', targetId: 't1' });
-      expect(refused).toMatchObject({ ok: false, message: expect.stringContaining('Cindy 专用浏览器') });
+      expect(refused).toMatchObject({ ok: false, message: expect.stringContaining('Emma 专用浏览器') });
       expect(refused.message).not.toContain('开启」');
     }
   });
@@ -921,22 +921,22 @@ describe('UserBrowserBackend · 读取与动作', () => {
     const b = backend(fake.control);
     await call(b, { action: 'tabs' });
     const scope = { targetId: 't1', __mcpSessionId: 's1' };
-    const begun = await call(b, { action: 'recipeCommand', ...scope, recipeCommand: { method: 'Cindy.begin' } });
+    const begun = await call(b, { action: 'recipeCommand', ...scope, recipeCommand: { method: 'Emma.begin' } });
     const sessionId = (begun.data as { sessionId: string }).sessionId;
     expect(fake.jobs.at(-1)).toEqual([
       'cdp',
       { url: 'https://example.test/a', browser: 'client-aaaaaaaa', tabId: 7, op: 'begin' },
     ]);
-    await call(b, { action: 'recipeCommand', ...scope, recipeCommand: { method: 'Cindy.captureStart', sessionId, params: { pattern: '/api' } } });
+    await call(b, { action: 'recipeCommand', ...scope, recipeCommand: { method: 'Emma.captureStart', sessionId, params: { pattern: '/api' } } });
     expect(
       await call(b, { action: 'recipeCommand', ...scope, recipeCommand: { method: 'Network.getCookies', sessionId, params: {} } }),
     ).toMatchObject({ ok: true, data: { cookies: [{ name: 'sid' }] } });
-    const read = await call(b, { action: 'recipeCommand', ...scope, recipeCommand: { method: 'Cindy.captureRead', sessionId } });
+    const read = await call(b, { action: 'recipeCommand', ...scope, recipeCommand: { method: 'Emma.captureRead', sessionId } });
     expect(read).toMatchObject({
       ok: true,
       data: { entries: [{ url: 'https://example.test/api', responseStatus: 200, captureComplete: true }] },
     });
-    await call(b, { action: 'recipeCommand', ...scope, recipeCommand: { method: 'Cindy.end', sessionId } });
+    await call(b, { action: 'recipeCommand', ...scope, recipeCommand: { method: 'Emma.end', sessionId } });
     expect(fake.jobs.at(-1)).toEqual([
       'cdp',
       { url: 'https://example.test/a', browser: 'client-aaaaaaaa', tabId: 7, op: 'end' },
@@ -957,7 +957,7 @@ describe('UserBrowserBackend · 读取与动作', () => {
     expect(fake.jobs.filter(([action]) => action === 'unmark')).toHaveLength(2);
   });
 
-  it('focus 只在 Cindy 窗口内切页并提醒,提示模型请用户切过去完成', async () => {
+  it('focus 只在 Emma 窗口内切页并提醒,提示模型请用户切过去完成', async () => {
     const fake = fakeControl({ version: '0.4.43' });
     fake.responses.set('focus', () => ({ ok: true, handoff: true }));
     const b = backend(fake.control);

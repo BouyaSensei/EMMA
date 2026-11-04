@@ -397,7 +397,7 @@ describe('XD 网关权威模型清单重建', () => {
     });
   });
 
-  it('按 Cindy Server > 本地 Pi 表 > Cindy AI Gateway 的顺序解析 API', () => {
+  it('按 Emma Server > 本地 Pi 表 > Emma AI Gateway 的顺序解析 API', () => {
     const catalog = JSON.parse(JSON.stringify(BUNDLED_CATALOG)) as typeof BUNDLED_CATALOG;
     catalog.presets = [
       ...(catalog.presets ?? []),
@@ -491,7 +491,7 @@ describe('XD 网关权威模型清单重建', () => {
     ]);
   });
 
-  it('Cindy Server 的精确 retired tombstone 会隐藏滞后的 Gateway Pi 成员', () => {
+  it('Emma Server 的精确 retired tombstone 会隐藏滞后的 Gateway Pi 成员', () => {
     const catalog = JSON.parse(JSON.stringify(BUNDLED_CATALOG)) as typeof BUNDLED_CATALOG;
     catalog.modelRegistry = {
       schemaVersion: 2,
@@ -521,7 +521,7 @@ describe('XD 网关权威模型清单重建', () => {
     expect(xdModels('codex').map((model) => model.id)).toEqual(['moonshot/kimi-k3']);
   });
 
-  it('Cindy AI Gateway 只决定账号成员，不会覆盖高优先级 API 或凭其它 agent 擅自投影', () => {
+  it('Emma AI Gateway 只决定账号成员，不会覆盖高优先级 API 或凭其它 agent 擅自投影', () => {
     setActiveCatalog(BUNDLED_CATALOG);
     setXdGatewayModels([
       {

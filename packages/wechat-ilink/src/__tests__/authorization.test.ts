@@ -25,7 +25,7 @@ describe("QR authorization", () => {
     });
     const transport = new TencentIlinkTransport({
       baseUrl: "https://ilinkai.weixin.qq.com",
-      botAgent: "Cindy/1.0.0",
+      botAgent: "Emma/1.0.0",
       fetch: fetchMock,
     });
 
@@ -65,7 +65,7 @@ describe("QR authorization", () => {
     ];
     const transport = new TencentIlinkTransport({
       baseUrl: "https://ilinkai.weixin.qq.com",
-      botAgent: "Cindy/1.0.0",
+      botAgent: "Emma/1.0.0",
       localTokens: async () => ["old-fake-token"],
       authorizationObserver: {
         onEvent: (event) => {
@@ -101,7 +101,7 @@ describe("QR authorization", () => {
         () =>
           new TencentIlinkTransport({
             baseUrl,
-            botAgent: "Cindy/1.0.0",
+            botAgent: "Emma/1.0.0",
             fetch: async () => jsonResponse({}),
           }),
       ).toThrowError(WechatIlinkError);
@@ -115,7 +115,7 @@ describe("QR authorization", () => {
     ];
     const transport = new TencentIlinkTransport({
       baseUrl: "https://ilinkai.weixin.qq.com",
-      botAgent: "Cindy/1.0.0",
+      botAgent: "Emma/1.0.0",
       fetch: async () => jsonResponse(responses.shift()),
     });
     const challenge = await transport.beginAuthorization(
@@ -133,7 +133,7 @@ describe("QR authorization", () => {
     ];
     const transport = new TencentIlinkTransport({
       baseUrl: "https://ilinkai.weixin.qq.com",
-      botAgent: "Cindy/1.0.0",
+      botAgent: "Emma/1.0.0",
       authorizationObserver: {
         requestVerificationCode: async () => "not-a-number",
       },

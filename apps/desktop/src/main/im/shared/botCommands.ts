@@ -315,7 +315,7 @@ const COMPANION_MANAGED_COMMANDS: ReadonlySet<string> = new Set(['project', 'mod
  * 拦截不能依赖文案包是否定义了这条提示, 否则没定义的渠道会把 /permission 等直接作用到伙伴任务上。
  */
 export const COMPANION_MANAGED_COMMAND_FALLBACK =
-  '🧭 这个连接已交给伙伴，模型、权限和工作目录跟随伙伴设置。请在 Cindy 的伙伴设置里修改。';
+  '🧭 这个连接已交给伙伴，模型、权限和工作目录跟随伙伴设置。请在 Emma 的伙伴设置里修改。';
 
 /** `cmd` 可带或不带开头的斜杠。 */
 export function isCompanionManagedCommand(cmd: string): boolean {

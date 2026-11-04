@@ -100,7 +100,7 @@ export function buildReviewArtifactConfirmDocument(
 </head>
 <body>
   <main aria-labelledby="review-confirm-title">
-    <p class="brand">Cindy</p>
+    <p class="brand">Emma</p>
     <h1 id="review-confirm-title">${escapeHtml(model.title)}</h1>
     <p class="message">${escapeHtml(model.message)}</p>
     <p class="detail">${escapeHtml(model.detail)}</p>

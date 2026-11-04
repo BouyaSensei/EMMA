@@ -59,7 +59,7 @@ beforeEach(() => {
 });
 
 describe('/cindy-make composer entry', () => {
-  it('stays out of the built-in catalog while Cindy Make is disabled', () => {
+  it('stays out of the built-in catalog while Emma Make is disabled', () => {
     const { registry } = makeHarness();
     expect(registry.list().some((command) => command.name === 'cindy-make')).toBe(false);
     expect(registry.list().some((command) => command.name === 'cindy-maker')).toBe(false);

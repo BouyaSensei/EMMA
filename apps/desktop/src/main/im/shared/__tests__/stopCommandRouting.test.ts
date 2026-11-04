@@ -210,7 +210,7 @@ describe('messageHandler !stop routing', () => {
     ['the owner in a group', { speaker: { id: 'owner', name: 'Owner', isOwner: true } }, true],
     ['a group member', { speaker: { id: 'guest', name: 'Guest', isOwner: false } }, false],
   ])('marks %s turns with the control-command owner check', async (_label, patch, owner) => {
-    deliver(makeEvent({ text: '更新 Cindy', ...patch } as Partial<IMMessageEvent>));
+    deliver(makeEvent({ text: '更新 Emma', ...patch } as Partial<IMMessageEvent>));
     await vi.waitFor(() => expect(runAgentTurn).toHaveBeenCalledTimes(1));
     expect(runAgentTurn.mock.calls[0][0].requesterIsOwner).toBe(owner);
   });
@@ -222,7 +222,7 @@ describe('messageHandler !stop routing', () => {
       confirmationSurface: 'channel',
       forceConfirmToolCall: () => false,
     }));
-    deliver(makeEvent({ text: '更新 Cindy' }));
+    deliver(makeEvent({ text: '更新 Emma' }));
     await vi.waitFor(() => expect(runAgentTurn).toHaveBeenCalledTimes(1));
     expect(runAgentTurn.mock.calls[0][0].requesterIsOwner).toBe(false);
   });

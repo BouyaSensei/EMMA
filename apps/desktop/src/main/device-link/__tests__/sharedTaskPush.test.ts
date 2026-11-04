@@ -157,7 +157,7 @@ describe('shared task guests never see the owner private message sources', () =>
     senderSessionId: 'owner-private-task',
     senderSessionTitle: 'Owner private plan',
     senderBotId: 'bot-1',
-    senderBotName: 'Cindy',
+    senderBotName: 'Emma',
     displayText: 'please review',
   };
   const message = {
@@ -166,7 +166,7 @@ describe('shared task guests never see the owner private message sources', () =>
       origin: privateOrigin,
       // Host-internal agent-facing copy used for overflow replay. Rows written before the
       // unified source note may still carry the old hand-written teammate prefix.
-      agentFacingWireContent: { type: 'user', content: '[来自 Cindy 的补充]\n\nplease review' },
+      agentFacingWireContent: { type: 'user', content: '[来自 Emma 的补充]\n\nplease review' },
     },
   };
   const privateText = /Cindy|owner-private-task|Owner private plan|bot-1/;
@@ -194,9 +194,9 @@ describe('shared task guests never see the owner private message sources', () =>
     // persisted body may reach a guest.
     const interjection = {
       clientId: 'q1',
-      text: '[来自 Cindy 的补充]\n\nplease review',
+      text: '[来自 Emma 的补充]\n\nplease review',
       persistedContent: 'please review',
-      origin: { ...privateOrigin, displayText: '[来自 Cindy 的补充]\n\nplease review' },
+      origin: { ...privateOrigin, displayText: '[来自 Emma 的补充]\n\nplease review' },
     };
     const projection = {
       sessionId: 'task-a',

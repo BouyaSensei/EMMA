@@ -31,7 +31,7 @@ export class GatewayCodexRestartService {
         });
         this.hosts.set(key, service);
       }
-      service.schedule('Cindy AI key changed');
+      service.schedule('Emma AI key changed');
     }
     // Keep credential persistence independent of host coordination. The caller
     // commits the matching endpoint before the guarded asynchronous refresh.

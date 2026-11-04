@@ -302,8 +302,8 @@ function project(locale: Locale): UiMockProject {
     name: `orbit-garden-${locale}`,
     files: {
       "README.md": t(
-        "# 星间花园 / Orbit Garden\n\n一款关于探索、种植与小小发现的虚构独立游戏。\n\n这套合成项目用于 Cindy 开发测试和官网界面展示，不是真实用户或产品的成绩。\n\n## 本轮目标\n\n把开场十分钟做好：缩短教学、提前开放探索、保留玩家自己发现的乐趣。\n\n- reports/playtest.md：试玩复盘\n- data/feedback.csv：240 条反馈的主题汇总\n- data/completion.csv：四轮引导完成率\n- plans/next-build.md：下一轮制作计划\n",
-        "# Orbit Garden\n\nA fictional indie game about exploring, growing, and small discoveries.\n\nSynthetic project for Cindy development and website screenshots, not real customer or product results.\n\n## This build\n\nMake the first ten minutes shine: a shorter tutorial, earlier exploration, and room for discovery.\n\n- reports/playtest.md: playtest findings\n- data/feedback.csv: topic counts from 240 synthetic responses\n- data/completion.csv: completion across four builds\n- plans/next-build.md: the next iteration\n",
+        "# 星间花园 / Orbit Garden\n\n一款关于探索、种植与小小发现的虚构独立游戏。\n\n这套合成项目用于 Emma 开发测试和官网界面展示，不是真实用户或产品的成绩。\n\n## 本轮目标\n\n把开场十分钟做好：缩短教学、提前开放探索、保留玩家自己发现的乐趣。\n\n- reports/playtest.md：试玩复盘\n- data/feedback.csv：240 条反馈的主题汇总\n- data/completion.csv：四轮引导完成率\n- plans/next-build.md：下一轮制作计划\n",
+        "# Orbit Garden\n\nA fictional indie game about exploring, growing, and small discoveries.\n\nSynthetic project for Emma development and website screenshots, not real customer or product results.\n\n## This build\n\nMake the first ten minutes shine: a shorter tutorial, earlier exploration, and room for discovery.\n\n- reports/playtest.md: playtest findings\n- data/feedback.csv: topic counts from 240 synthetic responses\n- data/completion.csv: completion across four builds\n- plans/next-build.md: the next iteration\n",
       ),
       "data/feedback.csv": `topic,responses\n${feedback.map((item) => `${item.en},${item.count}`).join("\n")}\n`,
       "data/completion.csv": `build,completion_percent\n${completion.map((value, index) => `0${index + 1},${value}`).join("\n")}\n`,

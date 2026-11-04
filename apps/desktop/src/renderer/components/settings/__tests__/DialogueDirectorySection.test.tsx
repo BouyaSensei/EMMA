@@ -61,7 +61,7 @@ describe('DialogueDirectorySection', () => {
 
   it('exposes and copies the exact path without losing spaces or separators', async () => {
     const api = setup();
-    const directory = 'D:\\My Files\\Cindy\\dialogues\\49011892028b05fbb1ef';
+    const directory = 'D:\\My Files\\Emma\\dialogues\\49011892028b05fbb1ef';
     api.choose.mockResolvedValue({ directory, isCustomized: true });
     const writeText = vi.fn(async () => {});
     vi.stubGlobal('navigator', { ...navigator, clipboard: { writeText } });

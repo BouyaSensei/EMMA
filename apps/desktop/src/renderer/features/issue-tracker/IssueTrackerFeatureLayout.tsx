@@ -39,7 +39,7 @@ import { useMyIssues } from './hooks/useMyIssues';
 import { canTrustEmptyList, selectMyIssuesNotices } from './lib/myIssuesNotices';
 import { prefillIssueCommandDraft } from './lib/startIssueChat';
 
-const GITHUB_ISSUES_URL = 'https://github.com/makecindy/cindy/issues';
+const GITHUB_ISSUES_URL = 'https://github.com/BouyaSensei/EMMA/issues';
 
 export function IssueTrackerFeatureLayout() {
   const { t } = useTranslation();

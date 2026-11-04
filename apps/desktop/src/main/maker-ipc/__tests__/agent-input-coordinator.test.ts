@@ -2464,7 +2464,7 @@ describe('AgentInputCoordinator send transaction', () => {
     const h = createHarness(), sid = 'owner-authored-input';
     h.sendToAgent.mockImplementationOnce(async () => { h.setRunning(true); return sendSuccess(); });
     expect(h.coordinator.isActiveInputOwnerAuthored(sid)).toBe(false);
-    h.coordinator.enqueue(sid, { ...makeItem('input', 'Update Cindy'), autoReviewUserText: 'Update Cindy', ...patch } as AgentInputQueuedMessage);
+    h.coordinator.enqueue(sid, { ...makeItem('input', 'Update Emma'), autoReviewUserText: 'Update Emma', ...patch } as AgentInputQueuedMessage);
     await flush();
     expect(h.coordinator.isActiveInputOwnerAuthored(sid)).toBe(expected);
     h.setRunning(false); h.coordinator.onTurnEvent(sid, 'done');
@@ -2535,7 +2535,7 @@ describe('AgentInputCoordinator send transaction', () => {
   it('judges owner authority by the latest accepted steer, in both directions', async () => {
     const h = createHarness(), sid = 'owner-authority-steer';
     h.sendToAgent.mockImplementationOnce(async () => { h.setRunning(true); return sendSuccess(); });
-    h.coordinator.enqueue(sid, { ...makeItem('typed', 'Update Cindy'), autoReviewUserText: 'Update Cindy' });
+    h.coordinator.enqueue(sid, { ...makeItem('typed', 'Update Emma'), autoReviewUserText: 'Update Emma' });
     await flush();
     expect(h.coordinator.isActiveInputOwnerAuthored(sid)).toBe(true);
     expect(h.coordinator.isActiveInputOwnerAuthored(sid, 0)).toBe(true);

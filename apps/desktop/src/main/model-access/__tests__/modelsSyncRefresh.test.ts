@@ -257,7 +257,7 @@ describe('waitForModelsSyncRefresh', () => {
         baseUrl: 'https://model-access.example.com',
         timeoutMs: 20_000,
         cache: 'no-store',
-        headers: { 'X-Cindy-Model-Capabilities': 'audio_speech,display_pricing' },
+        headers: { 'X-Emma-Model-Capabilities': 'audio_speech,display_pricing' },
       },
     });
     expect(Number.isFinite(XD_MODELS_SYNC_TIMEOUT_MS)).toBe(true);
@@ -284,7 +284,7 @@ describe('waitForModelsSyncRefresh', () => {
       });
       const bounded = withModelsSyncOverallDeadline(operation, 25);
       const rejection = expect(bounded).rejects.toThrow(
-        'Cindy AI model list refresh timed out after 25ms',
+        'Emma AI model list refresh timed out after 25ms',
       );
 
       await vi.advanceTimersByTimeAsync(25);
@@ -450,11 +450,11 @@ describe('waitForModelsSyncRefresh', () => {
 describe('cindyAutoModelIdsChanged', () => {
   const ids = (...values: string[]) => values.map((id) => ({ id }));
 
-  it('号池 → 平台：Cindy AI 列表新增 Auto 算变化', () => {
+  it('号池 → 平台：Emma AI 列表新增 Auto 算变化', () => {
     expect(cindyAutoModelIdsChanged(ids('p1'), ids('p1', 'auto/group-a'))).toBe(true);
   });
 
-  it('平台 → 号池：Cindy AI 列表移除 Auto 算变化', () => {
+  it('平台 → 号池：Emma AI 列表移除 Auto 算变化', () => {
     expect(cindyAutoModelIdsChanged(ids('auto/group-a', 'p1'), ids('p1'))).toBe(true);
   });
 

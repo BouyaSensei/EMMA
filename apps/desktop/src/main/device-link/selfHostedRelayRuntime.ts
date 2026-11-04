@@ -220,7 +220,7 @@ function ownerInitArgs(relayId: string, secrets: RelaySecrets, name: string) {
     relayId,
     ownerUserId: authManager.getCurrentUserId() ?? '',
     ownerDeviceId,
-    ownerDeviceName: deviceName().slice(0, 64) || 'Cindy',
+    ownerDeviceName: deviceName().slice(0, 64) || 'Emma',
     ownerCredentialHash: hashSecret(secrets.credential),
     ownerPublicKey,
     ownerCert: issueRelayDeviceCert(crypto, secrets.seed, {
@@ -270,7 +270,7 @@ async function prepareHostData(dataDir: string, config: RelayConfig): Promise<st
   }
   const relayId = randomUUID();
   const secrets = createOwnerSecrets(relayId);
-  await initializeRelay({ dataDir, ...ownerInitArgs(relayId, secrets, deviceName().slice(0, 64) || 'Cindy') });
+  await initializeRelay({ dataDir, ...ownerInitArgs(relayId, secrets, deviceName().slice(0, 64) || 'Emma') });
   assertOwner();
   writeRelayConfig({ ...readRelayConfig(), host: { ...config.host, relayId } });
   return relayId;
@@ -355,7 +355,7 @@ async function ownerFetch(path: string, init: { method: string; body?: unknown }
   const res = await fetch(`${owner.baseUrl}/api/device-link${path}`, {
     method: init.method,
     headers: {
-      authorization: `CindyRelay ${owner.credential}`,
+      authorization: `EmmaRelay ${owner.credential}`,
       ...(init.body === undefined ? {} : { 'content-type': 'application/json' }),
     },
     body: init.body === undefined ? undefined : JSON.stringify(init.body),
@@ -520,7 +520,7 @@ async function leaveMemberRelay(): Promise<void> {
   try {
     await fetch(`${relay.baseUrl}/api/device-link/devices/${encodeURIComponent(relay.deviceId)}`, {
       method: 'DELETE',
-      headers: { authorization: `CindyRelay ${relay.credential}` },
+      headers: { authorization: `EmmaRelay ${relay.credential}` },
       signal: AbortSignal.timeout(5_000),
     });
   } catch {
@@ -960,7 +960,7 @@ async function deploymentStatus(relayId: string): Promise<CommandResult> {
   let status: SelfHostedRelayDeploymentStatus = { online: false };
   try {
     const res = await fetch(`${deployment.baseUrl}/api/device-link/relay/admin/status`, {
-      headers: { authorization: `CindyRelay ${secrets.credential}` },
+      headers: { authorization: `EmmaRelay ${secrets.credential}` },
       signal: AbortSignal.timeout(10_000),
     });
     const body = (await res.json().catch(() => null)) as Record<string, unknown> | null;

@@ -23,7 +23,7 @@ import {
 
 function validState() {
   const added = addManualEntry(createEmptySyncState(), createHlcClock('node-a', 1_000), {
-    text: 'Cindy',
+    text: 'Emma',
     nowMs: 1_000,
   });
   return JSON.parse(JSON.stringify(added.state)) as ReturnType<typeof createEmptySyncState>;
@@ -62,15 +62,15 @@ describe('规范 HLC', () => {
 
   it('拒帧之后本机仍能正常改这个词 —— 假戳没有留下来', () => {
     const added = addManualEntry(createEmptySyncState(), createHlcClock('node-a', 1_000), {
-      text: 'Cindy',
+      text: 'Emma',
       nowMs: 1_000,
     });
     const renamed = renameTerm(added.state, added.clock, {
       termKey: 'cindy',
-      nextText: 'Cindy 客户端',
+      nextText: 'Emma 客户端',
       nowMs: 2_000,
     });
-    expect(materializeDictionary(renamed.state).entries[0].text).toBe('Cindy 客户端');
+    expect(materializeDictionary(renamed.state).entries[0].text).toBe('Emma 客户端');
   });
 });
 

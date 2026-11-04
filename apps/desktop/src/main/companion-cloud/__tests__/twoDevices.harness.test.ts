@@ -341,7 +341,7 @@ describe.skipIf(!BASE)('cloud companions against a real chat-server (two devices
     laptop.stop();
   });
 
-  it('lets only one Cindy installation on the same computer run a companion', { timeout: 60_000 }, async () => {
+  it('lets only one Emma installation on the same computer run a companion', { timeout: 60_000 }, async () => {
     const bot = `bot_e2e_inst_${randomUUID().slice(0, 8)}`;
     const local = { status: 'active', displayName: 'E2E Twin', description: '', soul: 'twin', user: '', systemPrompt: '' };
     const release = await createDevice('studio', () => [], { installationId: `release-${randomUUID()}` });

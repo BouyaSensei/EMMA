@@ -90,7 +90,7 @@ describe('subagentSpawnResultIndicatesRunning', () => {
   it('recognises the durable PI launch receipt', () => {
     expect(subagentSpawnResultIndicatesRunning(
       'subagent',
-      'Cindy subagent launched. The agent is working in the background.',
+      'Emma subagent launched. The agent is working in the background.',
     )).toBe(true);
   });
 });

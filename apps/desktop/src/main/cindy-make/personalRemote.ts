@@ -20,7 +20,7 @@ import { uncarriedChanges } from './carriedChanges.js';
 import { CINDY_PERSONAL_BRANCH } from './sourcePaths.js';
 import { atomicWriteFileSync, readAtomicFileSync } from '../utils/atomicWriteFile.js';
 
-export const OFFICIAL_GITHUB_REPOSITORY = 'makecindy/cindy';
+export const OFFICIAL_GITHUB_REPOSITORY = 'BouyaSensei/EMMA';
 /** Remote name for the user's fork; `origin` keeps pointing at the official repository. */
 export const PERSONAL_REMOTE_NAME = 'personal';
 const BRANCH_REF = `refs/heads/${CINDY_PERSONAL_BRANCH}`;
@@ -33,7 +33,7 @@ const BASE_BRANCH_REF = `refs/heads/${PERSONAL_BASE_BRANCH}`;
 const BASE_TRACKING_REF = `refs/remotes/${PERSONAL_REMOTE_NAME}/${PERSONAL_BASE_BRANCH}`;
 const COMMIT = /^[0-9a-f]{40}(?:[0-9a-f]{24})?$/i;
 /** Same identity as `MAKE_GIT_IDENTITY`, for commits written through the environment. */
-const MAKE_IDENTITY = { name: 'Cindy Make', email: 'cindy-make@localhost.invalid' };
+const MAKE_IDENTITY = { name: 'Emma Make', email: 'cindy-make@localhost.invalid' };
 const FORK_WAIT_MS = 5 * 60_000;
 const API = 'https://api.github.com';
 
@@ -366,7 +366,7 @@ export async function ensureOfficialFork(
     return (await response.json().catch(() => undefined)) as unknown;
   };
   const official = (name: unknown) =>
-    typeof name === 'string' && name.toLowerCase() === OFFICIAL_GITHUB_REPOSITORY;
+    typeof name === 'string' && name.toLowerCase() === OFFICIAL_GITHUB_REPOSITORY.toLowerCase();
   /** The strict check of a creation response also applies to a located fork. */
   const accepted = (repository: GithubRepositoryInfo): string | undefined => {
     const name = repository.full_name;
@@ -508,7 +508,7 @@ export async function inspectPersonalFork(
   // name, and the managed branches must never be pushed into it. A stale binding
   // is reported (like a deleted one), never used.
   const official = (name: unknown) =>
-    typeof name === 'string' && name.toLowerCase() === OFFICIAL_GITHUB_REPOSITORY;
+    typeof name === 'string' && name.toLowerCase() === OFFICIAL_GITHUB_REPOSITORY.toLowerCase();
   if (
     info.fork !== true ||
     !sameGithubLogin(
@@ -554,7 +554,7 @@ export async function findPersonalFork(
   }
   const data = (await info.json().catch(() => ({}))) as GithubRepositoryInfo;
   const official = (name: unknown) =>
-    typeof name === 'string' && name.toLowerCase() === OFFICIAL_GITHUB_REPOSITORY;
+    typeof name === 'string' && name.toLowerCase() === OFFICIAL_GITHUB_REPOSITORY.toLowerCase();
   if (
     data.fork !== true ||
     !isGithubRepository(data.full_name) ||

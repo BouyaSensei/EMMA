@@ -40,8 +40,8 @@ describe('parseXConnectUrl', () => {
 
 describe('xProfileUrl', () => {
   it('builds the bot profile URL and strips a leading @', () => {
-    expect(xProfileUrl('@CindyBot')).toBe('https://x.com/CindyBot');
-    expect(xProfileUrl('CindyBot')).toBe('https://x.com/CindyBot');
+    expect(xProfileUrl('@EmmaBot')).toBe('https://x.com/EmmaBot');
+    expect(xProfileUrl('EmmaBot')).toBe('https://x.com/EmmaBot');
   });
 
   it('rejects malformed handles; the null-safe variant swallows them', () => {
@@ -49,18 +49,18 @@ describe('xProfileUrl', () => {
     expect(() => xProfileUrl('way-too-long-handle-x')).toThrow(/Invalid X handle/);
     expect(xProfileUrlOrNull('has space')).toBeNull();
     expect(xProfileUrlOrNull(null)).toBeNull();
-    expect(xProfileUrlOrNull('@CindyBot')).toBe('https://x.com/CindyBot');
+    expect(xProfileUrlOrNull('@EmmaBot')).toBe('https://x.com/EmmaBot');
   });
 });
 
 describe('validateXExternalUrl', () => {
   it('accepts the authorize URL and bare profile URLs, nothing else', () => {
     expect(validateXExternalUrl(VALID_AUTHORIZE)).toContain('/i/oauth2/authorize?');
-    expect(validateXExternalUrl('https://x.com/CindyBot')).toBe('https://x.com/CindyBot');
+    expect(validateXExternalUrl('https://x.com/EmmaBot')).toBe('https://x.com/EmmaBot');
     // profile URL 不允许携带 query / 编码路径 / 多段路径
-    expect(() => validateXExternalUrl('https://x.com/CindyBot?ref=1')).toThrow();
+    expect(() => validateXExternalUrl('https://x.com/EmmaBot?ref=1')).toThrow();
     expect(() => validateXExternalUrl('https://x.com/%43indyBot')).toThrow();
-    expect(() => validateXExternalUrl('https://x.com/CindyBot/status/1')).toThrow();
-    expect(() => validateXExternalUrl('https://t.me/CindyBot')).toThrow();
+    expect(() => validateXExternalUrl('https://x.com/EmmaBot/status/1')).toThrow();
+    expect(() => validateXExternalUrl('https://t.me/EmmaBot')).toThrow();
   });
 });

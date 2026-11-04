@@ -22,7 +22,7 @@ function git(cwd: string, ...args: string[]) {
     'git',
     [
       '-c',
-      'user.name=Cindy Test',
+      'user.name=Emma Test',
       '-c',
       'user.email=test@example.invalid',
       '-c',

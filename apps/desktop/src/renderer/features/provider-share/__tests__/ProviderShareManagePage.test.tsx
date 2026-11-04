@@ -68,7 +68,7 @@ const owned = (): ProviderShareOwnerState => ({
     {
       shareId: 'share-1',
       providerId: 'xd',
-      providerLabel: 'Cindy AI',
+      providerLabel: 'Emma AI',
       createdAt: '2026-09-01T00:00:00Z',
       requests: [
         {
@@ -300,7 +300,7 @@ function renderPage(
   const view = render(
     <ProviderShareManagePage
       providerId="xd"
-      providerName="Cindy AI"
+      providerName="Emma AI"
       providerIcon={null}
       gate={gate}
       deviceId={options.deviceId}
@@ -455,7 +455,7 @@ describe('ProviderShareManagePage', () => {
           createdAt: new Date().toISOString(),
           expiresAt: new Date(Date.now() + 86_400_000).toISOString(),
         },
-        share: { shareId: 'other-share', providerId: 'xd', providerLabel: 'Cindy AI' },
+        share: { shareId: 'other-share', providerId: 'xd', providerLabel: 'Emma AI' },
         hostDeviceId: 'other-host',
       }],
     };
@@ -468,7 +468,7 @@ describe('ProviderShareManagePage', () => {
   it('puts link creation in the title row and pending requests above the usage list', async () => {
     renderPage();
     const usageRow = (await screen.findAllByTestId('provider-usage-row'))[0]!;
-    const heading = screen.getByRole('heading', { name: 'providerGroup.page.title:{"provider":"Cindy AI"}' });
+    const heading = screen.getByRole('heading', { name: 'providerGroup.page.title:{"provider":"Emma AI"}' });
     const create = screen.getByRole('button', { name: 'providerShare.manage.createLink' });
     expect(create.parentElement).toBe(heading.parentElement);
     const pending = screen.getAllByTestId('provider-share-pending-row')[0]!;
@@ -798,7 +798,7 @@ describe('ProviderShareManagePage', () => {
     fireEvent.click(within(pending).getByRole('button', { name: 'providerShare.manage.reshare.approve' }));
     await expectDecision('rs-pending', 'approve');
     await waitFor(() => expect(toast.success).toHaveBeenCalledWith(
-      `providerShare.manage.reshare.toastApproved:${JSON.stringify({ name: 'Carol', owner: ownerName, provider: 'Cindy AI' })}`,
+      `providerShare.manage.reshare.toastApproved:${JSON.stringify({ name: 'Carol', owner: ownerName, provider: 'Emma AI' })}`,
     ));
 
     // 处理过的人列在这个成员那一行下方：已同意的可撤回，拒绝的可改为同意。
@@ -867,7 +867,7 @@ describe('ProviderShareManagePage', () => {
       renderPage('on', {
         deviceId: 'studio',
         remoteProvider: {
-          id: 'xd', name: 'Cindy AI', source: 'builtin', agents: ['claude-code'],
+          id: 'xd', name: 'Emma AI', source: 'builtin', agents: ['claude-code'],
           auth: { method: 'oauth', native: 'claude' }, routing: {}, models: {}, connected: true,
         },
       });
@@ -903,7 +903,7 @@ describe('ProviderShareManagePage', () => {
     view.rerender(
       <ProviderShareManagePage
         providerId="xd"
-        providerName="Cindy AI"
+        providerName="Emma AI"
         providerIcon={null}
         gate="on"
         deviceId="studio"

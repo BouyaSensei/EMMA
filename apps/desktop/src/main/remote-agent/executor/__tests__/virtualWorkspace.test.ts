@@ -181,7 +181,7 @@ describe('virtual workspace', () => {
   });
 
   it.skipIf(process.platform === 'win32')('keeps Windows paths in local output intact when the task computer uses POSIX paths', () => {
-    const mirror = 'C:\\Users\\XD\\AppData\\Roaming\\Cindy\\remote-agent\\workspaces\\c\\s\\fs';
+    const mirror = 'C:\\Users\\XD\\AppData\\Roaming\\Emma\\remote-agent\\workspaces\\c\\s\\fs';
     const shadow = mirror + '\\workspace\\p\\p';
     const workspace = new ExecutorWorkspace({
       workingDir: '/Users/xw/heartopia',
@@ -193,7 +193,7 @@ describe('virtual workspace', () => {
     });
     workspace.setVirtualRoot(mirror);
     // Mac 上的报错带着没能还原的 Windows 路径：`\Users`、`C:/Users` 不是本机的 /Users，不能再被投影一遍。
-    const error = 'ls: C:\\Users\\XD\\AppData\\Roaming\\Cindy\\x: No such file or directory';
+    const error = 'ls: C:\\Users\\XD\\AppData\\Roaming\\Emma\\x: No such file or directory';
     expect(workspace.mapTextForAgent(error)).toBe(error);
     expect(workspace.mapTextForAgent('cat C:/Users/XD/notes.txt')).toBe('cat C:/Users/XD/notes.txt');
     // 真正的本机路径照常投影成 Agent 那边的路径。
@@ -626,7 +626,7 @@ describe('virtual workspace', () => {
     await executor.close();
   });
 
-  it('projects Cindy MCP path arguments and JSON/SSE results while leaving file content arguments intact', async () => {
+  it('projects Emma MCP path arguments and JSON/SSE results while leaving file content arguments intact', async () => {
     const { workspace, project, executor } = setup('/Users/agent/workspace');
     let received: any;
     for (const sse of [false, true]) {
@@ -945,7 +945,7 @@ describe('virtual workspace', () => {
  * 失败输入：338 条别名 + 1000 个不含路径的短字符串。tier：unit(内存与临时目录，无真实等待)。
  */
 describe('path projection cost with many aliases', () => {
-  const VIRTUAL = '/Users/agent/Library/Application Support/Cindy/remote-agent/workspaces/0123456789abcdef/run/fs';
+  const VIRTUAL = '/Users/agent/Library/Application Support/Emma/remote-agent/workspaces/0123456789abcdef/run/fs';
 
   let workspaces = 0;
   /**

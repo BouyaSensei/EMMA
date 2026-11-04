@@ -325,20 +325,20 @@ describe('Bot named worker transactions', () => {
     expect(h.current().model).toBe('runtime-fallback');
   });
 
-  it('atomically rejects duplicate names and a second Cindy without touching the first profile', () => {
+  it('atomically rejects duplicate names and a second Emma without touching the first profile', () => {
     const args = { id: 'first', displayName: 'Renamed', description: '', avatar: '🤖', avatarColor: 'blue', identitySource: 'Custom identity', capabilitiesJson: '{"templateId":"cindy"}', now: 1 };
     tx(db, { name: 'bots.createProfile', args });
-    expect(() => tx(db, { name: 'bots.createProfile', args: { ...args, id: 'second', displayName: 'Cindy' } })).toThrow('matching companion');
+    expect(() => tx(db, { name: 'bots.createProfile', args: { ...args, id: 'second', displayName: 'Emma' } })).toThrow('matching companion');
     expect(() => tx(db, { name: 'bots.createProfile', args: { ...args, id: 'third', displayName: 'Ｒｅｎａｍｅｄ ', capabilitiesJson: '{}' } })).toThrow('matching companion');
     expect(db.prepare('SELECT id, display_name FROM bot_profiles').all()).toEqual([{ id: 'first', display_name: 'Renamed' }]);
     expect(db.prepare('SELECT count(*) AS n FROM bot_profile_versions').get()).toEqual({ n: 1 });
   });
 
   it('keeps distinct names after settings edits and allows re-adding an archived identity', () => {
-    const args = { id: 'first', displayName: 'Cindy', description: '', avatar: '🤖', avatarColor: 'blue', identitySource: 'Identity', capabilitiesJson: '{"templateId":"cindy"}', now: 1 };
+    const args = { id: 'first', displayName: 'Emma', description: '', avatar: '🤖', avatarColor: 'blue', identitySource: 'Identity', capabilitiesJson: '{"templateId":"cindy"}', now: 1 };
     tx(db, { name: 'bots.createProfile', args });
     tx(db, { name: 'bots.createProfile', args: { ...args, id: 'second', displayName: 'Mika', capabilitiesJson: '{}' } });
-    expect(() => tx(db, { name: 'bots.updateProfile', args: { id: 'second', expectedCurrentVersion: 1, displayName: ' cindy ', now: 2 } })).toThrow('this name');
+    expect(() => tx(db, { name: 'bots.updateProfile', args: { id: 'second', expectedCurrentVersion: 1, displayName: ' emma ', now: 2 } })).toThrow('this name');
     db.prepare("UPDATE bot_profiles SET status = 'archived' WHERE id = 'first'").run();
     tx(db, { name: 'bots.createProfile', args: { ...args, id: 'third' } });
     expect(db.prepare('SELECT count(*) AS n FROM bot_profiles').get()).toEqual({ n: 3 });

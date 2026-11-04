@@ -243,7 +243,7 @@ describe('search_chat_history tool', () => {
 });
 
 describe('search_chat_history cloud companion rooms', () => {
-  const room = { teammateId: 'bot_a', teammateName: 'Cindy', messageId: 'm1', role: 'assistant' as const, text: 'brew', createdAt: 2_000 };
+  const room = { teammateId: 'bot_a', teammateName: 'Emma', messageId: 'm1', role: 'assistant' as const, text: 'brew', createdAt: 2_000 };
   const call = async (input: Record<string, unknown>, opts: { session?: string; scoped?: boolean } = {}) => {
     const searchCompanionRooms = vi.fn(async () => ({ hits: [room], failed: [{ teammateId: 'bot_b', teammateName: 'Vela', code: 'TIMEOUT' }], incomplete: true }));
     const registry = new XdtHelperToolRegistry();

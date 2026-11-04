@@ -6,7 +6,7 @@ import { toQrColors } from '../useFeishuBotRegistration';
 vi.mock('@/lib/toast', () => ({ toast: { success: vi.fn(), error: vi.fn() } }));
 
 describe('Feishu registration QR colors', () => {
-  it('turns Cindy translucent ink into the opaque hex that qrcode accepts', async () => {
+  it('turns Emma translucent ink into the opaque hex that qrcode accepts', async () => {
     // Cindy Light: --settings-section-title resolves to the 88% black ink text tier.
     const colors = toQrColors('rgba(0, 0, 0, 0.88)', '#FCFCFC');
     expect(colors).toEqual({ dark: '#1e1e1e', light: '#fcfcfc' });

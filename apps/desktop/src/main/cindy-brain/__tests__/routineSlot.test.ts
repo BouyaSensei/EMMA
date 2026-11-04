@@ -153,8 +153,8 @@ it('caps aggregate status reports across plugin identities', async () => {
 });
 
 it.each([
-  new Error("EACCES: permission denied, open '/Users/private-user/Library/Application Support/Cindy/routines/routines.json'"),
-  new Error("EBUSY: resource busy, rename 'C:\\Users\\private-user\\AppData\\Roaming\\Cindy\\routines\\private.tmp'"),
+  new Error("EACCES: permission denied, open '/Users/private-user/Library/Application Support/Emma/routines/routines.json'"),
+  new Error("EBUSY: resource busy, rename 'C:\\Users\\private-user\\AppData\\Roaming\\Emma\\routines\\private.tmp'"),
   new SyntaxError('Unexpected token in private routine instructions'),
   new Error('Routine request rate limit reached; retry after 60 seconds /private/internal-path'),
   'Unexpected failure at /private/internal-path',
@@ -178,7 +178,7 @@ it.each(['write', 'rename'])('hides %s failures and keeps the same event retryab
   const request = (payload: unknown) => handleRoutineRequest(ghost, payload, async () => engine, () => true);
   await request({ action: 'status', status: 'listening' });
   const payload = { action: 'publish', event: { id: 'retry-me', type: 'new', occurredAt: 1, data: { label: 'private-event-data' } } };
-  const error = new Error(`EACCES: ${operation} '/Users/private-user/Cindy/routines/private.tmp'`);
+  const error = new Error(`EACCES: ${operation} '/Users/private-user/Emma/routines/private.tmp'`);
   save.mockRejectedValueOnce(error);
   expect(await request(payload)).toEqual({ ok: false, message: 'Routine request failed; please retry later' });
   expect(warn).toHaveBeenCalledWith('routine plugin request failed', { ghostId: 'mail', error: error.message });

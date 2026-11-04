@@ -913,7 +913,7 @@ async function prepareAndStartRemoteAgentSession(
         throw new Error('[REMOTE_AGENT_UNSUPPORTED] The other computer does not support the virtual workspace required to protect local paths.');
       }
       if (client && caps.localApplication !== true) {
-        throw new Error('[REMOTE_AGENT_PEER_TOO_OLD] Update Cindy on the computer providing this supplier to use it from an external application.');
+        throw new Error('[REMOTE_AGENT_PEER_TOO_OLD] Update Emma on the computer providing this supplier to use it from an external application.');
       }
       deps.pool?.noteMaxRuns(caps.maxRuns);
       deps.pool?.noteIdleReclaimMinutes(caps.idleReclaimMinutes);
@@ -956,7 +956,7 @@ async function prepareAndStartRemoteAgentSession(
     if (!same(writableDirs, openedDirs.writableDirs) && methods.has('setWritableDirs')) {
       steps.push(['setWritableDirs', [workspace.virtualizeDirs(writableDirs)]]);
     }
-    if (autoReviewFallback && methods.has('useCindyAutoReviewFallback')) steps.push(['useCindyAutoReviewFallback', []]);
+    if (autoReviewFallback && methods.has('useEmmaAutoReviewFallback')) steps.push(['useEmmaAutoReviewFallback', []]);
     for (const [method, args] of steps) {
       try {
         await client.call(method, args);

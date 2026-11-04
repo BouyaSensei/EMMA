@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { assertRendererSessionSourceAllowed } from '../sessionSourceGuard';
 
-const userData = path.resolve('C:\\Users\\me\\AppData\\Roaming\\Cindy');
+const userData = path.resolve('C:\\Users\\me\\AppData\\Roaming\\Emma');
 const worktree = path.join(userData, 'cindy-make', 'worktrees', 'run-1');
 const checkout = path.join(userData, 'cindy-make', 'source');
 
@@ -19,7 +19,7 @@ describe('assertRendererSessionSourceAllowed', () => {
     ).not.toThrow();
   });
 
-  it('rejects the Cindy Make purpose even for a managed task worktree while disabled', () => {
+  it('rejects the Emma Make purpose even for a managed task worktree while disabled', () => {
     for (const workingDir of [
       worktree,
       checkout,

@@ -106,7 +106,7 @@ describe('词典同步落盘 —— 首次迁移', () => {
       dictionaryCandidates: [
         { text: 'Orca', evidenceCount: 1, aliases: [], createdAt: 1, updatedAt: 1 },
       ],
-      suppressedAutomaticDictionaryTexts: ['Cindy'],
+      suppressedAutomaticDictionaryTexts: ['Emma'],
     });
 
     const settings = voiceInputDataStore.getSettings();
@@ -116,7 +116,7 @@ describe('词典同步落盘 —— 首次迁移', () => {
     ]);
     expect(settings.dictionaryEntries.find((entry) => entry.text === 'Vibe Coding')?.source).toBe('manual');
     expect(settings.dictionaryCandidates.map((item) => item.text)).toEqual(['Orca']);
-    expect(settings.suppressedAutomaticDictionaryTexts).toEqual(['Cindy']);
+    expect(settings.suppressedAutomaticDictionaryTexts).toEqual(['Emma']);
     // 同步状态已建立,sidecar 落盘。
     expect(fs.existsSync(ownerPath(SYNC_FILE))).toBe(true);
   });
@@ -221,19 +221,19 @@ describe('词典同步落盘 —— 写入路径', () => {
 
   it('通用 settings 更新不能整份覆盖词典(会绕过同步状态)', () => {
     writeDictionaryFile({ dictionaryEntries: [] });
-    voiceInputDataStore.addManualDictionaryEntry('Cindy');
+    voiceInputDataStore.addManualDictionaryEntry('Emma');
 
     voiceInputDataStore.updateSettings({
       language: 'zh-CN',
       dictionaryEntries: [
         { id: 'x', text: '注入词条', source: 'manual', frequency: 1, aliases: [], createdAt: 1, updatedAt: 1 },
       ],
-      suppressedAutomaticDictionaryTexts: ['Cindy'],
+      suppressedAutomaticDictionaryTexts: ['Emma'],
     });
 
     const settings = voiceInputDataStore.getSettings();
     expect(settings.language).toBe('zh-CN');
-    expect(settings.dictionaryEntries.map((entry) => entry.text)).toEqual(['Cindy']);
+    expect(settings.dictionaryEntries.map((entry) => entry.text)).toEqual(['Emma']);
     expect(settings.suppressedAutomaticDictionaryTexts).toEqual([]);
   });
 
@@ -397,13 +397,13 @@ describe('词典同步落盘 —— 合并与回收', () => {
 
   it('旧版本客户端在词典文件里的增删能被认领回同步状态', () => {
     writeDictionaryFile({ dictionaryEntries: [] });
-    voiceInputDataStore.addManualDictionaryEntry('Cindy');
+    voiceInputDataStore.addManualDictionaryEntry('Emma');
     voiceInputDataStore.addManualDictionaryEntry('Orca');
 
     // 模拟降级:旧版本直接重写词典文件(删掉 Orca、加了 device-link)。
     writeDictionaryFile({
       dictionaryEntries: [
-        { id: 'a', text: 'Cindy', source: 'manual', frequency: 1, aliases: [] },
+        { id: 'a', text: 'Emma', source: 'manual', frequency: 1, aliases: [] },
         { id: 'b', text: 'device-link', source: 'manual', frequency: 1, aliases: [] },
       ],
       dictionaryCandidates: [],
@@ -413,7 +413,7 @@ describe('词典同步落盘 —— 合并与回收', () => {
 
     const settings = voiceInputDataStore.getSettings();
     expect(settings.dictionaryEntries.map((entry) => entry.text).sort()).toEqual([
-      'Cindy',
+      'Emma',
       'device-link',
     ]);
   });
@@ -458,7 +458,7 @@ describe('词典同步落盘 —— 合并与回收', () => {
 
   it('同步状态文件损坏时回退到词典文件,不让词典功能整体失效', () => {
     writeDictionaryFile({
-      dictionaryEntries: [{ id: 'a', text: 'Cindy', source: 'manual', frequency: 1, aliases: [] }],
+      dictionaryEntries: [{ id: 'a', text: 'Emma', source: 'manual', frequency: 1, aliases: [] }],
     });
     const syncPath = ownerPath(SYNC_FILE);
     fs.mkdirSync(path.dirname(syncPath), { recursive: true });
@@ -466,7 +466,7 @@ describe('词典同步落盘 —— 合并与回收', () => {
     resetStoreCaches();
 
     expect(voiceInputDataStore.getSettings().dictionaryEntries.map((entry) => entry.text)).toEqual([
-      'Cindy',
+      'Emma',
     ]);
   });
 });
@@ -592,7 +592,7 @@ describe('词典同步落盘 —— 第六轮收口', () => {
     // 投影里的频次含有别的设备合并进来的部分;当成本机计数重新播种的话,
     // 与那台设备再同步时同一份事件会在两个节点桶里各记一遍,频次凭空翻倍。
     writeDictionaryFile({
-      dictionaryEntries: [{ id: 'a', text: 'Cindy', source: 'automatic', frequency: 9, aliases: [] }],
+      dictionaryEntries: [{ id: 'a', text: 'Emma', source: 'automatic', frequency: 9, aliases: [] }],
       dictionaryCandidates: [],
       suppressedAutomaticDictionaryTexts: [],
     });
@@ -602,13 +602,13 @@ describe('词典同步落盘 —— 第六轮收口', () => {
 
     // 认领先被挂起(等对端墓碑),此时 UI 照常显示投影文件里的内容。
     const during = voiceInputDataStore.getSettings();
-    expect(during.dictionaryEntries.map((e) => e.text)).toEqual(['Cindy']);
+    expect(during.dictionaryEntries.map((e) => e.text)).toEqual(['Emma']);
     expect(voiceDictionarySyncStore.hasPendingRecovery()).toBe(true);
 
     // 认领落地之后:存在性保留,计数不重新播种。
     voiceDictionarySyncStore.flushPendingRecovery('local-edit');
     const materialized = voiceDictionarySyncStore.materialize();
-    expect(materialized.entries.map((entry) => entry.text)).toEqual(['Cindy']);
+    expect(materialized.entries.map((entry) => entry.text)).toEqual(['Emma']);
     expect(materialized.entries[0].frequency).toBe(1);
   });
 
@@ -646,7 +646,7 @@ describe('词典同步落盘 —— 第七轮收口', () => {
   it('sidecar 丢失时挂起认领,等合并过对端再落地,不复活对端删掉的词', () => {
     writeDictionaryFile({
       dictionaryEntries: [
-        { id: 'a', text: 'Cindy', source: 'manual', frequency: 3, aliases: [] },
+        { id: 'a', text: 'Emma', source: 'manual', frequency: 3, aliases: [] },
         { id: 'b', text: 'Orca', source: 'manual', frequency: 2, aliases: [] },
       ],
       dictionaryCandidates: [],
@@ -663,7 +663,7 @@ describe('词典同步落盘 —— 第七轮收口', () => {
     const peerAfterDelete = deleteTerms(
       peer.state,
       { ...peer.clock, nodeId: peer.nodeId },
-      { termKeys: ['cindy'], nowMs: Date.now() + 1_000 },
+      { termKeys: ['emma'], nowMs: Date.now() + 1_000 },
     );
 
     fs.rmSync(ownerPath(SYNC_FILE));
@@ -672,7 +672,7 @@ describe('词典同步落盘 —— 第七轮收口', () => {
     // 认领被挂起:UI 仍然看得到投影文件里的词典,一个都没少。
     const duringRecovery = voiceInputDataStore.getSettings();
     expect(duringRecovery.dictionaryEntries.map((entry) => entry.text).sort()).toEqual([
-      'Cindy',
+      'Emma',
       'Orca',
     ]);
     expect(voiceDictionarySyncStore.hasPendingRecovery()).toBe(true);
@@ -688,7 +688,7 @@ describe('词典同步落盘 —— 第七轮收口', () => {
 
   it('挂起期间用户编辑词典,认领就地落地,不会被空状态覆盖成空', () => {
     writeDictionaryFile({
-      dictionaryEntries: [{ id: 'a', text: 'Cindy', source: 'manual', frequency: 3, aliases: [] }],
+      dictionaryEntries: [{ id: 'a', text: 'Emma', source: 'manual', frequency: 3, aliases: [] }],
       dictionaryCandidates: [],
       suppressedAutomaticDictionaryTexts: [],
     });
@@ -699,13 +699,13 @@ describe('词典同步落盘 —— 第七轮收口', () => {
     expect(voiceDictionarySyncStore.hasPendingRecovery()).toBe(true);
 
     const settings = voiceInputDataStore.addManualDictionaryEntry('Orca');
-    expect(settings.dictionaryEntries.map((entry) => entry.text).sort()).toEqual(['Cindy', 'Orca']);
+    expect(settings.dictionaryEntries.map((entry) => entry.text).sort()).toEqual(['Emma', 'Orca']);
     expect(voiceDictionarySyncStore.hasPendingRecovery()).toBe(false);
   });
 
   it('sidecar 只写稳定字段,本次加载的判断结果不落盘', () => {
     writeDictionaryFile({
-      dictionaryEntries: [{ id: 'a', text: 'Cindy', source: 'manual', frequency: 1, aliases: [] }],
+      dictionaryEntries: [{ id: 'a', text: 'Emma', source: 'manual', frequency: 1, aliases: [] }],
       dictionaryCandidates: [],
       suppressedAutomaticDictionaryTexts: [],
     });
@@ -724,7 +724,7 @@ describe('词典同步落盘 —— 第七轮收口', () => {
 
   it('物化登记失败时投影与 key 基线一起回滚', () => {
     writeDictionaryFile({
-      dictionaryEntries: [{ id: 'a', text: 'Cindy', source: 'manual', frequency: 1, aliases: [] }],
+      dictionaryEntries: [{ id: 'a', text: 'Emma', source: 'manual', frequency: 1, aliases: [] }],
       dictionaryCandidates: [],
       suppressedAutomaticDictionaryTexts: [],
     });
@@ -776,7 +776,7 @@ describe('首次迁移与 sidecar 丢失必须分得开', () => {
 describe('词典同步落盘 —— 第八轮收口', () => {
   it('收到内容相同的对端状态也会落地挂起的恢复', () => {
     writeDictionaryFile({
-      dictionaryEntries: [{ id: 'a', text: 'Cindy', source: 'manual', frequency: 2, aliases: [] }],
+      dictionaryEntries: [{ id: 'a', text: 'Emma', source: 'manual', frequency: 2, aliases: [] }],
       dictionaryCandidates: [],
       suppressedAutomaticDictionaryTexts: [],
     });
@@ -791,7 +791,7 @@ describe('词典同步落盘 —— 第八轮收口', () => {
     voiceInputDataStore.mergeRemoteDictionaryState(createEmptySyncState());
     expect(voiceDictionarySyncStore.hasPendingRecovery()).toBe(false);
     expect(voiceDictionarySyncStore.materialize().entries.map((entry) => entry.text)).toEqual([
-      'Cindy',
+      'Emma',
     ]);
   });
 
@@ -845,7 +845,7 @@ describe('词典同步落盘 —— 第九轮收口', () => {
 
   it('坏帧不算「收到对端状态」,不会提前落地挂起的恢复', () => {
     writeDictionaryFile({
-      dictionaryEntries: [{ id: 'a', text: 'Cindy', source: 'manual', frequency: 1, aliases: [] }],
+      dictionaryEntries: [{ id: 'a', text: 'Emma', source: 'manual', frequency: 1, aliases: [] }],
       dictionaryCandidates: [],
       suppressedAutomaticDictionaryTexts: [],
     });
@@ -866,7 +866,7 @@ describe('词典同步落盘 —— 第九轮收口', () => {
   it('恢复落地失败时挂起项要留着 —— 否则重试会把整份词典覆盖掉', () => {
     writeDictionaryFile({
       dictionaryEntries: [
-        { id: 'a', text: 'Cindy', source: 'manual', frequency: 1, aliases: [] },
+        { id: 'a', text: 'Emma', source: 'manual', frequency: 1, aliases: [] },
         { id: 'b', text: 'Orca', source: 'manual', frequency: 1, aliases: [] },
       ],
       dictionaryCandidates: [],
@@ -888,7 +888,7 @@ describe('词典同步落盘 —— 第九轮收口', () => {
     // 重试:恢复的词典和新编辑都在。
     const settings = voiceInputDataStore.addManualDictionaryEntry('新词');
     expect(settings.dictionaryEntries.map((entry) => entry.text).sort()).toEqual([
-      'Cindy',
+      'Emma',
       'Orca',
       '新词',
     ]);
@@ -897,7 +897,7 @@ describe('词典同步落盘 —— 第九轮收口', () => {
   it('只有候选词的用户丢了 sidecar 也按恢复处理', () => {
     writeDictionaryFile({
       dictionaryEntries: [],
-      dictionaryCandidates: [{ text: 'Cindy', evidenceCount: 3, aliases: [] }],
+      dictionaryCandidates: [{ text: 'Emma', evidenceCount: 3, aliases: [] }],
       suppressedAutomaticDictionaryTexts: [],
     });
     voiceInputDataStore.getSettings();
@@ -942,7 +942,7 @@ describe('词典同步落盘 —— 第九轮收口', () => {
 describe('词典同步落盘 —— 第十轮收口', () => {
   it('另一个进程写过盘之后再落盘,不会覆盖掉对方的词条', () => {
     writeDictionaryFile({
-      dictionaryEntries: [{ id: 'a', text: 'Cindy', source: 'manual', frequency: 1, aliases: [] }],
+      dictionaryEntries: [{ id: 'a', text: 'Emma', source: 'manual', frequency: 1, aliases: [] }],
       dictionaryCandidates: [],
       suppressedAutomaticDictionaryTexts: [],
     });
@@ -972,7 +972,7 @@ describe('词典同步落盘 —— 第十轮收口', () => {
 
     // 两边的词都要在 —— 直接覆盖写的话,另一个进程那条就没了。
     expect(settings.dictionaryEntries.map((entry) => entry.text).sort()).toEqual([
-      'Cindy',
+      'Emma',
       'istanbul'.replace('istanbul', '另一个进程加的词'),
       '本进程加的词',
     ].sort());
@@ -993,7 +993,7 @@ describe('词典同步落盘 —— 第十轮收口', () => {
     resetStoreCaches();
 
     voiceInputDataStore.getSettings();
-    expect(() => voiceInputDataStore.addManualDictionaryEntry('Cindy')).toThrow();
+    expect(() => voiceInputDataStore.addManualDictionaryEntry('Emma')).toThrow();
     expect(fs.readFileSync(ownerPath(SYNC_FILE), 'utf-8')).toBe(future);
   });
 

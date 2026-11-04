@@ -324,7 +324,7 @@ describe('application-owned session lifecycle', () => {
   // Production entry: Maker.startLocalAgentSession. Core rules §1/§2 require the
   // existing Session lifecycle, without creating or enumerating private task rows.
   // Existing createSession tests exercise persistent tasks, not this entry (unit).
-  it('uses normal continuation settlement without storing an application transcript in Cindy tasks', async () => {
+  it('uses normal continuation settlement without storing an application transcript in Emma tasks', async () => {
     const storage = createStorage(), queue = createAsyncQueue<AgentEvent>();
     const handle = createHandle({ id: 'native-client' });
     handle.events = () => queue;

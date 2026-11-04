@@ -95,28 +95,28 @@ describe('MCP App local protocol isolation', () => {
     const callback = vi.fn();
     beforeHeaders(details as never, callback);
     const headers = callback.mock.calls[0][0].requestHeaders;
-    expect(headers['X-Cindy-Mcp-App-Frame']).not.toBe('forged');
+    expect(headers['X-Emma-Mcp-App-Frame']).not.toBe('forged');
     expect(headers['x-cindy-mcp-app-frame']).toBeUndefined();
     const request = (key: string) => new Request(details.url, { method: 'POST',
-      headers: { 'X-Cindy-Mcp-App-Frame': key }, body: JSON.stringify({ op: 'message', message: {} }) });
+      headers: { 'X-Emma-Mcp-App-Frame': key }, body: JSON.stringify({ op: 'message', message: {} }) });
     expect((await handler(request('forged'))).status).toBe(403);
     expect(invoke).not.toHaveBeenCalled();
     const html = await (await handler(new Request('cindy-mcp-app://untrusted-id/sandbox'))).text();
-    expect(html).not.toContain(headers['X-Cindy-Mcp-App-Frame']);
-    const response = await handler(request(headers['X-Cindy-Mcp-App-Frame']));
+    expect(html).not.toContain(headers['X-Emma-Mcp-App-Frame']);
+    const response = await handler(request(headers['X-Emma-Mcp-App-Frame']));
     expect(await response.json()).toEqual({ ok: true });
     expect(invoke).toHaveBeenCalledOnce();
     frame.url = 'https://navigated.example.org';
-    expect((await handler(request(headers['X-Cindy-Mcp-App-Frame']))).status).toBe(403);
+    expect((await handler(request(headers['X-Emma-Mcp-App-Frame']))).status).toBe(403);
     expect(invoke).toHaveBeenCalledOnce();
     frame.url = 'cindy-mcp-app://untrusted-id/sandbox';
     const oversized = new Request(details.url, { method: 'POST',
-      headers: { 'X-Cindy-Mcp-App-Frame': headers['X-Cindy-Mcp-App-Frame'] },
+      headers: { 'X-Emma-Mcp-App-Frame': headers['X-Emma-Mcp-App-Frame'] },
       body: 'x'.repeat(4 * 1024 * 1024 + 1) });
     expect((await handler(oversized)).status).toBe(400);
     expect(invoke).toHaveBeenCalledOnce();
     state.owner = {};
-    expect((await handler(request(headers['X-Cindy-Mcp-App-Frame']))).status).toBe(404);
+    expect((await handler(request(headers['X-Emma-Mcp-App-Frame']))).status).toBe(404);
     expect(invoke).toHaveBeenCalledOnce();
   });
   it('installs both permission handlers and denies App and opaque subframe requests', () => {

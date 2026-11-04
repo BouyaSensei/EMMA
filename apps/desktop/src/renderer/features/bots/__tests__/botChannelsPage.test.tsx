@@ -435,7 +435,7 @@ describe('BotChannelsPage', () => {
     expect(within(await screen.findByRole('list')).getAllByRole('listitem')).toHaveLength(1);
   });
 
-  it('offers the bot already set up in Cindy first, and moves it without asking for credentials', async () => {
+  it('offers the bot already set up in Emma first, and moves it without asking for credentials', async () => {
     const api = Object.assign(installApi({ connections: [] }), {
       listAdoptable: vi.fn(async () => ({ bots: [{ channel: 'telegram', identity: '@mia_bot' }] })),
       adopt: vi.fn(async () => ({ connections: [connection()], connection: connection() })),

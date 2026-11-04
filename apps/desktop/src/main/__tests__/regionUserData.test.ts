@@ -7,7 +7,7 @@ import { resolveRegionUserDataDirName } from '../regionUserData';
  * 最早期，回归 = 两个区域的包共库串台(P0)，所以把所有象限全部锁死。
  */
 describe('resolveRegionUserDataDirName', () => {
-  const ARGV = ['Cindy.exe'] as const;
+  const ARGV = ['Emma.exe'] as const;
 
   it('packaged + global → 覆写为 EmmaGlobal(与 cn 分库)', () => {
     expect(
@@ -38,14 +38,14 @@ describe('resolveRegionUserDataDirName', () => {
       resolveRegionUserDataDirName({
         isPackaged: true,
         region: 'global',
-        argv: ['Cindy.exe', '--smoke-test', '--user-data-dir=C:\\tmp\\xdt-smoke-x'],
+        argv: ['Emma.exe', '--smoke-test', '--user-data-dir=C:\\tmp\\xdt-smoke-x'],
       }),
     ).toBeNull();
     expect(
       resolveRegionUserDataDirName({
         isPackaged: true,
         region: 'global',
-        argv: ['Cindy.exe', '--user-data-dir', 'C:\\tmp\\xdt-smoke-x'],
+        argv: ['Emma.exe', '--user-data-dir', 'C:\\tmp\\xdt-smoke-x'],
       }),
     ).toBeNull();
   });

@@ -73,12 +73,12 @@ describe('capabilities data source', () => {
   it('about-cindy 覆盖产品身份与源码仓库', () => {
     const entry = findCapability('about-cindy');
     expect(entry).toBeDefined();
-    expect(entry!.detail).toContain('https://github.com/makecindy/cindy');
+    expect(entry!.detail).toContain('https://github.com/BouyaSensei/EMMA');
     // 执行位置不能被写死成客户端:SSH 远程工作区下 agent 进程在远端主机。
     expect(entry!.detail).toContain('SSH 远程工作区');
     // 官网是区域敏感的:两个都要给,只给国际版会把大陆用户导错。
-    expect(entry!.detail).toContain('https://cindy.cn');
-    expect(entry!.detail).toContain('https://cindy.app');
+    expect(entry!.detail).toContain('https://emma.cn');
+    expect(entry!.detail).toContain('https://emma.app');
   });
 
   // 2026-10-31 沙箱实测:Computer Use 关着时 cindy_computer 整个不注册,模型只会说"没有工具";

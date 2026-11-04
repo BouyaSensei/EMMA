@@ -19,7 +19,7 @@ function runtimeRoot(): string {
 
 /** Older clients may still hold cross-profile leases; keep reading/retrying them. */
 function sharedRuntimeRoot(): string {
-  return path.join(app.getPath('appData'), 'Cindy', 'shared-worktree-runtime-leases');
+  return path.join(app.getPath('appData'), 'Emma', 'shared-worktree-runtime-leases');
 }
 
 /** Map a local cwd (including descendants) to its managed resource. SSH callers skip this helper. */

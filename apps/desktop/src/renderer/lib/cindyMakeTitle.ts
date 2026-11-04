@@ -5,7 +5,7 @@ export function cindyMakeWorktreeName(workingDir: string | null | undefined): st
 
 /** Replace the legacy feature tag and keep the worktree tag stable across renames/reloads. */
 export function formatCindyMakeTitle(title: string, worktreeName?: string | null): string {
-  const text = title.replace(/^\[Cindy(?:-| )Make\]\s*/i, '');
+  const text = title.replace(/^\[(?:Emma|Cindy)(?:-| )Make\]\s*/i, '');
   if (!worktreeName) return text;
   const tag = `[${worktreeName.slice(0, 4)}]`;
   const body = text.startsWith(tag) ? text.slice(tag.length).trimStart() : text;

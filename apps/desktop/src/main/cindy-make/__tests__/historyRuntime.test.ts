@@ -661,7 +661,7 @@ describe('history Main admission and owner boundary', () => {
       status: 'ready',
       buildId: 'saved-build',
       artifactDirectory: 'saved-build-output',
-      artifactName: 'Cindy.exe',
+      artifactName: 'Emma.exe',
       commit: 'a'.repeat(40),
       sha256: 'b'.repeat(64),
     };

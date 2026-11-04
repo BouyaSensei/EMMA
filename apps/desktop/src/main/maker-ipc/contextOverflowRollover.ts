@@ -1201,7 +1201,7 @@ export function createContextOverflowRollover(deps: ContextOverflowRolloverDeps)
           const generation = deps.readPendingHandoffGeneration?.(sessionId);
           let source = (await deps.listMessages(sessionId)).filter((message) => message.role !== 'error');
           if (source.length === 0 && row.contextTokens !== 0) {
-            throw new Error('Cindy history is unavailable for native session recovery');
+            throw new Error('Emma history is unavailable for native session recovery');
           }
           assertCanCommit();
           const live = deps.getLiveSession(sessionId);

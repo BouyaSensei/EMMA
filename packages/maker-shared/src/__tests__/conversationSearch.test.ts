@@ -104,7 +104,7 @@ describe('remoteConversationSearchRequest', () => {
     expect(remoteResultsFromFanoutPages([page]).map((item) => item.session.id)).toEqual(['ordinary', 'ordinary-next']);
   });
 
-  it('leaves the original request unchanged when Cindy Make is enabled', () => {
+  it('leaves the original request unchanged when Emma Make is enabled', () => {
     feature.enabled = true;
     const request = { query: 'needle', limit: 3 };
     expect(remoteConversationSearchRequest(request)).toBe(request);

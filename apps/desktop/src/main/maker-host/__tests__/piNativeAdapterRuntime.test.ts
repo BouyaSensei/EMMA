@@ -38,7 +38,7 @@ it.skipIf(!existsSync(binary)).each(['github-copilot', 'cloudflare-ai-gateway', 
   let child: ReturnType<typeof spawn> | undefined;
   try {
     const baseUrl = `http://127.0.0.1:${(server.address() as import('node:net').AddressInfo).port}`;
-    await writeFile(join(directory, 'adapter.ts'), PI_NATIVE_PROVIDER_ADAPTER_SOURCE + '\nexport default async function(pi: any) { await registerCindyNativeProviderAdapters(pi); }');
+    await writeFile(join(directory, 'adapter.ts'), PI_NATIVE_PROVIDER_ADAPTER_SOURCE + '\nexport default async function(pi: any) { await registerEmmaNativeProviderAdapters(pi); }');
     await writeFile(join(directory, 'auth.json'), '{}');
     await writeFile(join(directory, 'models.json'), JSON.stringify({ providers: { 'fixture-connection': {
       baseUrl, api: 'anthropic-messages', apiKey: proxyAuthenticated ? 'pi-native-keyless' : '$CINDY_FIXTURE_API_KEY',

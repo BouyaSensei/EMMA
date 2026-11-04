@@ -1171,7 +1171,7 @@ describe('utility one-shot candidates', () => {
       model: 'custom-mini',
     });
     const headers = new Headers(fetchMock.mock.calls[0][1]?.headers as HeadersInit);
-    expect(headers.get('http-referer')).toBe(upstream.includes('openrouter.ai') ? 'https://cindy.app' : null);
+    expect(headers.get('http-referer')).toBe(upstream.includes('openrouter.ai') ? 'https://emma.app' : null);
     expect(headers.get('x-openrouter-title')).toBe(upstream.includes('openrouter.ai') ? 'Emma' : null);
   });
 
@@ -2981,7 +2981,7 @@ describe('utility one-shot candidates', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
-  it('does not use the Gateway alias outside a Cindy cloud session', async () => {
+  it('does not use the Gateway alias outside a Emma cloud session', async () => {
     appCapabilities.mockReturnValue({ canUseCindyGateway: false } as never);
     readKey.mockReturnValue('xd-key');
 
@@ -3532,7 +3532,7 @@ describe('utility one-shot candidates', () => {
     expect(JSON.parse(String(fetchMock.mock.calls[0]?.[1]?.body))).not.toHaveProperty('thinking');
   });
 
-  describe('Cindy AI key rejection reports', () => {
+  describe('Emma AI key rejection reports', () => {
     const xdCatalog = {
       providers: [{
         id: 'xd',
@@ -3783,7 +3783,7 @@ describe('utility one-shot candidates', () => {
       defaultEffort: 'medium',
     };
 
-    it('sends a Cindy AI GPT model to /v1/responses with the lowest catalog effort', async () => {
+    it('sends a Emma AI GPT model to /v1/responses with the lowest catalog effort', async () => {
       activeCatalog.mockReturnValue(xdCatalog('codex', [GPT_SOL]) as never);
       readKey.mockReturnValue('xd-key');
       fetchMock.mockResolvedValueOnce(responsesOk('done') as never);
@@ -3810,7 +3810,7 @@ describe('utility one-shot candidates', () => {
       });
     });
 
-    it('sends a Cindy AI Claude model to /v1/messages with thinking turned off', async () => {
+    it('sends a Emma AI Claude model to /v1/messages with thinking turned off', async () => {
       activeCatalog.mockReturnValue(xdCatalog('claude-code', [{
         id: 'claude-sonnet-4-6',
         nativeApi: 'anthropic-messages',
@@ -4155,7 +4155,7 @@ describe('utility one-shot candidates', () => {
       expect(bodyOf(3)).toEqual({ model: 'mystery', messages: [{ role: 'user', content: 'hello' }] });
     });
 
-    it('walks a Cindy AI chat model without tiers from off to low to no reasoning', async () => {
+    it('walks a Emma AI chat model without tiers from off to low to no reasoning', async () => {
       activeCatalog.mockReturnValue(xdCatalog('codex', [{
         id: 'tencent/hy3',
         nativeApi: 'openai-completions',
@@ -4574,7 +4574,7 @@ describe('utility one-shot candidates', () => {
       expect(Number(bodyOf(1).max_output_tokens)).toBeGreaterThan(200);
     });
 
-    it('reports the Cindy AI key when a Chat fallback or budget retry is rejected with 401', async () => {
+    it('reports the Emma AI key when a Chat fallback or budget retry is rejected with 401', async () => {
       activeCatalog.mockReturnValue(xdCatalog('codex', [GPT_SOL]) as never);
       readKey.mockReturnValue('xd-key-sent');
       fetchMock
@@ -4722,7 +4722,7 @@ describe('utility one-shot candidates', () => {
       expect(body).toMatchObject({ reasoning_effort: 'none' });
     });
 
-    it('caps a Cindy AI Messages request without a caller budget at the model output limit', async () => {
+    it('caps a Emma AI Messages request without a caller budget at the model output limit', async () => {
       activeCatalog.mockReturnValue(xdCatalog('claude-code', [{
         id: 'claude-sonnet-4-6',
         nativeApi: 'anthropic-messages',

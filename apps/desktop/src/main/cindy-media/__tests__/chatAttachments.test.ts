@@ -94,7 +94,7 @@ describe('ingestChatImageFromPath(拖拽文件入仓)', () => {
   });
 });
 
-describe('collectCindyMediaUrls(消息结构收集)', () => {
+describe('collectEmmaMediaUrls(消息结构收集)', () => {
   it('穿透嵌套结构与二次 JSON 编码(persistedContent 场景),去重', () => {
     const msg = {
       type: 'user',

@@ -16,7 +16,7 @@ const CODEX_COMPUTER_USE_REPLACEMENT_ROUTE = {
     kind: 'cindy-host',
     id: 'cindy_computer',
   },
-  reason: 'Cindy owns desktop-control enablement, permissions, and execution.',
+  reason: 'Emma owns desktop-control enablement, permissions, and execution.',
 } as const satisfies CapabilityRouteOverride;
 
 /**
@@ -45,11 +45,11 @@ const CLAUDE_USER_DESKTOP_DRIVER_ROUTES = CLAUDE_USER_DESKTOP_DRIVER_SERVER_IDS.
     kind: 'cindy-host',
     id: 'cindy_computer',
   },
-  reason: 'cindy_computer drives the same desktop driver with Cindy\'s session, guards and verification.',
+  reason: 'cindy_computer drives the same desktop driver with Emma\'s session, guards and verification.',
 } as const satisfies CapabilityRouteOverride));
 
 const HARNESS_OUTPUT_UNAVAILABLE_REASON =
-  'Its result is shown only in the vendor app, not in Cindy; Cindy delivers files, images, and pages itself.';
+  'Its result is shown only in the vendor app, not in Emma; Emma delivers files, images, and pages itself.';
 
 function claudeSkillOutputOverride(
   kind: 'harness-builtin' | 'harness-plugin',
@@ -148,7 +148,7 @@ export const DESKTOP_CAPABILITY_ROUTING_POLICY = {
         kind: 'cindy-plugin',
         id: 'xd-feishu',
       },
-      reason: 'Natural-language Feishu requests should use the Cindy-connected account.',
+      reason: 'Natural-language Feishu requests should use the Emma-connected account.',
     },
     {
       capabilityId: 'feishu',
@@ -169,7 +169,7 @@ export const DESKTOP_CAPABILITY_ROUTING_POLICY = {
         kind: 'cindy-plugin',
         id: 'xd-feishu',
       },
-      reason: 'Natural-language Feishu requests should use the Cindy-connected account.',
+      reason: 'Natural-language Feishu requests should use the Emma-connected account.',
     },
     {
       capabilityId: 'feishu',
@@ -230,7 +230,7 @@ export const DESKTOP_CAPABILITY_ROUTING_POLICY = {
         containerId: 'computer-use@openai-bundled',
       },
       invocation: 'disabled',
-      reason: 'The bundled Skill requires node_repl, which is unavailable in Cindy.',
+      reason: 'The bundled Skill requires node_repl, which is unavailable in Emma.',
     },
     ...HARNESS_OUTPUT_SURFACE_OVERRIDES,
     ...CLAUDE_USER_DESKTOP_DRIVER_ROUTES,
@@ -246,7 +246,7 @@ const CODEX_IN_APP_BROWSER_UNAVAILABLE_OVERRIDE = {
     id: 'browser@openai-bundled',
   },
   invocation: 'disabled',
-  reason: 'Cindy does not host the ChatGPT in-app browser runtime.',
+  reason: 'Emma does not host the ChatGPT in-app browser runtime.',
 } as const satisfies CapabilityRoutingPolicy['overrides'][number];
 
 const CODEX_CHROME_USE_OVERRIDES = [
@@ -263,7 +263,7 @@ const CODEX_CHROME_USE_OVERRIDES = [
       kind: 'cindy-plugin',
       id: 'browser',
     },
-    reason: 'Cindy Browser owns browser automation while it is enabled for this workspace.',
+    reason: 'Emma Browser owns browser automation while it is enabled for this workspace.',
   },
   {
     capabilityId: 'browser-use',
@@ -278,7 +278,7 @@ const CODEX_CHROME_USE_OVERRIDES = [
       kind: 'cindy-plugin',
       id: 'browser',
     },
-    reason: 'Cindy Browser owns browser automation while it is enabled for this workspace.',
+    reason: 'Emma Browser owns browser automation while it is enabled for this workspace.',
   },
 ] as const satisfies CapabilityRoutingPolicy['overrides'];
 

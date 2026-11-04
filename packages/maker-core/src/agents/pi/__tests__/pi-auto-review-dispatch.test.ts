@@ -359,7 +359,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
       runtimeConfig: {
         endpoint: 'http://127.0.0.1:9',
         remoteEndpoint: 'https://gateway.example.test',
-        systemPrompt: 'You are Cindy.',
+        systemPrompt: 'You are Emma.',
         managedExecutablePaths: { ripgrep: managedRipgrepPath },
       },
       binaryPath: path.join(agentHome, 'pi'),
@@ -635,7 +635,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
     await start();
     expect(captured.args).not.toContain('--system-prompt');
     expect(captured.args).toContain('--append-system-prompt');
-    expect(readAppendedSystemPrompt()).toBe('You are Cindy.');
+    expect(readAppendedSystemPrompt()).toBe('You are Emma.');
     expect(captured.args).not.toContain('--tools');
     expect(captured.env.PI_OFFLINE).toBe('1');
     expect(captured.env.PI_CACHE_RETENTION).toBe('long');
@@ -717,7 +717,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
     await handle.close();
   });
 
-  it('lets Pi discover user-installed packages natively instead of gating them on Cindy metadata', async () => {
+  it('lets Pi discover user-installed packages natively instead of gating them on Emma metadata', async () => {
     const packageRoot = path.join(agentHome, 'future-pi-package-shape');
     mkdirSync(packageRoot, { recursive: true });
     const deps = buildDeps();
@@ -755,7 +755,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
     const previousNode = process.env.ELECTRON_RUN_AS_NODE;
     const previousLegacy = process.env.CINDY_PI_SUBAGENT_NODE;
     process.env.ELECTRON_RUN_AS_NODE = '1';
-    process.env.CINDY_PI_SUBAGENT_NODE = '/Applications/Cindy.app/Contents/MacOS/Cindy';
+    process.env.CINDY_PI_SUBAGENT_NODE = '/Applications/Emma.app/Contents/MacOS/Emma';
     try {
     await start();
     expect(captured.env.CINDY_PI_SUBAGENT_NODE).toBeUndefined();
@@ -1044,7 +1044,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
       if (origin === 'desktop') {
         await handle.send({ type: 'user', content: 'pi list' }, desktopCommandOptions('pi list'));
         const message = String(captured.requests.find(request => request.type === 'prompt')?.message ?? '');
-        receipt = JSON.parse(message.split('\n')[0].replace('[Cindy Pi command receipt] ', ''));
+        receipt = JSON.parse(message.split('\n')[0].replace('[Emma Pi command receipt] ', ''));
       } else {
         captured.onEvent?.({ type: 'extension_ui_request', id: 'long-list', method: 'input',
           title: 'cindy:pi-package', placeholder: JSON.stringify({ args: ['list'], token: captured.env.CINDY_PI_PACKAGE_MANAGEMENT }) });
@@ -1346,7 +1346,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
 
   it.each([
     ['spawn', "spawn /Users/example/private/pi ENOENT"],
-    ['filesystem', "EACCES: open '/Users/example/Library/Application Support/Cindy/pi-package-home/state'"],
+    ['filesystem', "EACCES: open '/Users/example/Library/Application Support/Emma/pi-package-home/state'"],
     ['inspection', "failed to inspect /private/tmp/secret-package/package.json"],
     ['Pi CLI', "npm ERR! raw stderr from /private/tmp/pi-package-home"],
   ])('keeps raw %s failures out of extension tool responses', async (kind, rawError) => {
@@ -1451,7 +1451,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
       handle.setInteractionResolver?.(deny as never);
       fireManagedPackageRequest('pkg-denied', 'install', 'npm:denied');
       expect(JSON.parse(String((await waitForResponse('pkg-denied')).value))).toEqual({
-        ok: false, error: 'User denied this tool call via Cindy.',
+        ok: false, error: 'User denied this tool call via Emma.',
       });
 
       const fail = vi.fn(async () => {
@@ -1460,7 +1460,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
       handle.setInteractionResolver?.(fail as never);
       fireManagedPackageRequest('pkg-failed', 'update', 'npm:failed');
       expect(JSON.parse(String((await waitForResponse('pkg-failed')).value))).toEqual({
-        ok: false, error: 'Cindy could not approve this tool call: Approval was cancelled or could not be completed.',
+        ok: false, error: 'Emma could not approve this tool call: Approval was cancelled or could not be completed.',
       });
 
       expect(deny).toHaveBeenCalledOnce();
@@ -1542,7 +1542,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
     }
   });
 
-  it('adapts Pi extension dialogs onto Cindy question cards', async () => {
+  it('adapts Pi extension dialogs onto Emma question cards', async () => {
     const deps = buildDeps();
     deps.getPiExtensionUiStrings = () => ({
       confirm: '確認',
@@ -2068,7 +2068,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
         id: 'pkg-forged',
         value: JSON.stringify({
           ok: false,
-          error: 'Invalid Cindy Pi extension request.',
+          error: 'Invalid Emma Pi extension request.',
         }),
       });
       expect(mutatePiManagedPackage).not.toHaveBeenCalled();
@@ -2122,7 +2122,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
         authorization: 'local-desktop-command',
       });
       const prompt = captured.requests.find((request) => request.type === 'prompt');
-      expect(prompt?.message).toContain('[Cindy internal Pi extension operation receipt]');
+      expect(prompt?.message).toContain('[Emma internal Pi extension operation receipt]');
       expect(prompt?.message).toContain('"compatibility":"partial"');
       expect(prompt?.message).toContain('"status-display"');
       expect(prompt?.message).toContain('installed and enabled');
@@ -2213,11 +2213,11 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
       if (nativeCommandSucceeded) {
         expect(prompt).toContain('"nativeCommandSucceeded":true');
         expect(prompt).toContain('The native Pi installation succeeded. Report installation success.');
-        expect(prompt).toContain('Cindy cannot currently confirm the enabled state');
-        expect(prompt).not.toContain('Cindy could not leave the extension installed and enabled');
+        expect(prompt).toContain('Emma cannot currently confirm the enabled state');
+        expect(prompt).not.toContain('Emma could not leave the extension installed and enabled');
       } else {
         expect(prompt).not.toContain('The native Pi installation succeeded.');
-        expect(prompt).toContain('Cindy could not leave the extension installed and enabled');
+        expect(prompt).toContain('Emma could not leave the extension installed and enabled');
       }
     } finally {
       await handle.close();
@@ -2255,7 +2255,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
       expect(prompt).toContain('"ok":true');
       expect(prompt).toContain('Active work, including this reply, continues');
       expect(prompt).toContain('If runtimeConvergence is partial,');
-      expect(prompt).toContain('restart Cindy to finish refreshing Pi packages');
+      expect(prompt).toContain('restart Emma to finish refreshing Pi packages');
       await vi.waitFor(() => expect(events.some((event) => (
         event.type === 'text'
         && String((event.data as { text?: string }).text).includes('"runtimeConvergence":"partial"')
@@ -2710,7 +2710,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
 
   it.each([
     ['spawn', "spawn /Users/chris/private/pi ENOENT"],
-    ['filesystem', "EACCES: open '/Users/chris/Library/Application Support/Cindy/pi-package-home/state'"],
+    ['filesystem', "EACCES: open '/Users/chris/Library/Application Support/Emma/pi-package-home/state'"],
     ['inspection', "failed to inspect /private/tmp/secret-package/package.json"],
     ['Pi CLI', "npm ERR! raw stderr from /private/tmp/pi-package-home"],
   ])('keeps raw %s failures out of deterministic conversation receipts', async (kind, rawError) => {
@@ -3069,7 +3069,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
       finishMutation?.();
       await expect(sending).resolves.toBeUndefined();
       expect(captured.requests.find((request) => request.type === 'prompt')?.message).toContain(
-        '[Cindy internal Pi extension operation receipt]',
+        '[Emma internal Pi extension operation receipt]',
       );
     } finally {
       await handle.close();
@@ -3247,7 +3247,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
       expect(await waitForResponse('review-pkg')).toEqual({
         type: 'extension_ui_response',
         id: 'review-pkg',
-        value: JSON.stringify({ ok: false, error: 'Cindy could not approve this tool call: Approval was cancelled or could not be completed.' }),
+        value: JSON.stringify({ ok: false, error: 'Emma could not approve this tool call: Approval was cancelled or could not be completed.' }),
       });
       expect(deps.mutatePiManagedPackage).not.toHaveBeenCalled();
     } finally {
@@ -3301,7 +3301,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
       expect(botPrompt).toContain('BOT SOUL');
       expect(botPrompt).toContain('DELIVERY PROTOCOL');
       expect(botPrompt).not.toContain('BOT ROSTER');
-      expect(botPrompt).not.toContain('You are Cindy.');
+      expect(botPrompt).not.toContain('You are Emma.');
       expect(botPrompt).not.toContain('GLOBAL USER PROMPT');
       expect(botPrompt).toContain('frozen memory');
       expect(botPrompt).toContain('Call the user Chris');
@@ -4339,7 +4339,7 @@ describe('pi auto-review dispatch & spawn config (mocked pi process)', () => {
     expect(resolver).toHaveBeenCalledTimes(verdict === 'ask' ? 1 : 0);
     expect(mutate).toHaveBeenCalledTimes(verdict === 'allow' ? 1 : 0);
     if (verdict !== 'allow') expect(JSON.parse(String(response.value))).toEqual({
-      ok: false, error: verdict === 'block' ? 'Cindy Auto-review denied this tool call.' : 'User denied this tool call via Cindy.',
+      ok: false, error: verdict === 'block' ? 'Emma Auto-review denied this tool call.' : 'User denied this tool call via Emma.',
     });
     await handle.close();
   });

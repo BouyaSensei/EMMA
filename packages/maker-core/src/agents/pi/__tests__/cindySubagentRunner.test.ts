@@ -389,7 +389,7 @@ if (!process.env.PI_CODING_AGENT_DIR ||
 }
 const subagentRunDir = process.env.CINDY_PI_SUBAGENT_RUN_DIR;
 // A resumed run may reach this same fixture root through a directory link when
-// the host-side test models two Cindy instances. Compare filesystem identity,
+// the host-side test models two Emma instances. Compare filesystem identity,
 // not the spelling of the path: a Windows junction keeps the alias in the env
 // value even though it points at this exact directory.
 let canonicalSubagentRoot = null;
@@ -598,7 +598,7 @@ afterEach(async () => {
   })));
 });
 
-describe('Cindy durable PI Subagent runner', () => {
+describe('Emma durable PI Subagent runner', () => {
   /**
    * result.json is a best-effort attachment; status.json is the primary record.
    * Account-boundary recovery may read a valid receipt, but a failure to write it

@@ -32,7 +32,7 @@ export const DEFAULT_FAMILY_ID = 'cindy';
 const BUILTIN_FAMILIES: ThemeFamily[] = [
   {
     id: 'cindy',
-    name: 'Cindy',
+    name: 'Emma',
     light: cindyLight,
     dark: cindyDark,
   },

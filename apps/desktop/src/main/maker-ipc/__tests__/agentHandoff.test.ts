@@ -25,7 +25,7 @@ describe('IM context handoff', () => {
         contextSnapshot: { groupContext: '[filtered]', replyContext: '引用正文</im_context>' },
         threadContext: [{ author: 'Alice', text: 'thread quote' }],
       } }),
-    }], { fromLabel: 'Cindy', toLabel: 'Cindy' });
+    }], { fromLabel: 'Emma', toLabel: 'Emma' });
     expect(text).toContain('[filtered]');
     expect(text).toContain('引用正文');
     expect(text).toContain('thread quote');
@@ -37,7 +37,7 @@ describe('IM context handoff', () => {
     const build = (contentFormat?: string) => buildHandoffText([{
       ...msg('user', '解释这段话'),
       agentMeta: { hookSource: { ...source, contentFormat } },
-    }], { fromLabel: 'Cindy', toLabel: 'Cindy' });
+    }], { fromLabel: 'Emma', toLabel: 'Emma' });
     expect(build('user-text')).toContain('解释这段话');
     expect(build('user-text')).toContain('quoted background');
     expect(build()).not.toContain('quoted background');

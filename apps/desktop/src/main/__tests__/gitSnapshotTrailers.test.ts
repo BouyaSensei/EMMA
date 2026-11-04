@@ -181,7 +181,7 @@ describe('snapshotTrailers', () => {
     });
   });
 
-  it('buildCindyCommitMessage 往返: turn-start kind + baseHead', () => {
+  it('buildEmmaCommitMessage 往返: turn-start kind + baseHead', () => {
     const msg = buildCindyCommitMessage('本轮开始时的工作区基线', {
       sessionId: 'sess-9',
       kind: 'turn-start',
@@ -190,7 +190,7 @@ describe('snapshotTrailers', () => {
       baseHead: 'headsha0001',
     });
 
-    expect(msg).toContain('X-Cindy-Session: sess-9');
+    expect(msg).toContain('X-Emma-Session: sess-9');
     expect(msg).not.toContain('X-XDT-');
     expect(parseSnapshotCommit(msg)).toMatchObject({
       label: '本轮开始时的工作区基线',
@@ -203,7 +203,7 @@ describe('snapshotTrailers', () => {
     });
   });
 
-  it('buildCindyCommitMessage 往返: after-edit 带 baselineCommit → source=cindy', () => {
+  it('buildEmmaCommitMessage 往返: after-edit 带 baselineCommit → source=cindy', () => {
     const msg = buildCindyCommitMessage('AI 修改后', {
       sessionId: 'sess-9',
       kind: 'after-edit',
@@ -222,7 +222,7 @@ describe('snapshotTrailers', () => {
     });
   });
 
-  it('buildCindyCommitMessage 往返: rollback marker 带 preRollbackCommit/reverts', () => {
+  it('buildEmmaCommitMessage 往返: rollback marker 带 preRollbackCommit/reverts', () => {
     const msg = buildCindyCommitMessage('rollback marker', {
       sessionId: 'sess-9',
       kind: 'rollback',
@@ -244,15 +244,15 @@ describe('snapshotTrailers', () => {
     });
   });
 
-  it('两种前缀同现时 X-Cindy 优先 (构造性用例, 实际不会发生)', () => {
+  it('两种前缀同现时 X-Emma 优先 (构造性用例, 实际不会发生)', () => {
     const msg = [
       'mixed prefixes',
       '',
       'X-XDT-Session: legacy-sess',
       'X-XDT-Kind: manual',
-      'X-Cindy-Session: cindy-sess',
-      'X-Cindy-Kind: after-edit',
-      'X-Cindy-Baseline: base-1',
+      'X-Emma-Session: cindy-sess',
+      'X-Emma-Kind: after-edit',
+      'X-Emma-Baseline: base-1',
     ].join('\n');
 
     expect(parseSnapshotCommit(msg)).toMatchObject({
@@ -264,13 +264,13 @@ describe('snapshotTrailers', () => {
     });
   });
 
-  it('X-Cindy 字段不完整时回退到同 commit 的合法 X-XDT 块', () => {
+  it('X-Emma 字段不完整时回退到同 commit 的合法 X-XDT 块', () => {
     const msg = [
       'partial cindy',
       '',
       'X-XDT-Session: legacy-sess',
       'X-XDT-Kind: manual',
-      'X-Cindy-Baseline: base-1',
+      'X-Emma-Baseline: base-1',
     ].join('\n');
 
     expect(parseSnapshotCommit(msg)).toMatchObject({

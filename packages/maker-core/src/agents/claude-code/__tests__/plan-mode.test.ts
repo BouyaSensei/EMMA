@@ -284,12 +284,12 @@ describe('ClaudeCodeAgent plan mode', () => {
     await fs.writeFile(skillFile, [
       '---',
       'name: learn',
-      'description: Start Cindy Learn.',
+      'description: Start Emma Learn.',
       '---',
       '',
       '# Trusted Learn instructions',
       '',
-      'Call the Cindy Learn host exactly once.',
+      'Call the Emma Learn host exactly once.',
     ].join('\n'));
     const nextInput = queryPrompt[Symbol.asyncIterator]().next();
 
@@ -306,7 +306,7 @@ describe('ClaudeCodeAgent plan mode', () => {
       '',
       '# Trusted Learn instructions',
       '',
-      'Call the Cindy Learn host exactly once.',
+      'Call the Emma Learn host exactly once.',
     ].join('\n'));
     await handle.close();
   });

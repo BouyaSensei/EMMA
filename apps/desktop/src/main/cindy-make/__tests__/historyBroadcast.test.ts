@@ -20,7 +20,7 @@ vi.mock('../../device-link/broadcast-tap.js', () => ({
   captureDataOwnerBroadcastScope: () => ({ ownerStamp }),
 }));
 
-describe('Cindy Make history broadcast', () => {
+describe('Emma Make history broadcast', () => {
   beforeEach(() => {
     for (const window of windows) {
       window.isDestroyed.mockClear();

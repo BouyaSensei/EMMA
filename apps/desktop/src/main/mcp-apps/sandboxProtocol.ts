@@ -15,7 +15,9 @@ export const mcpAppSchemePrivilege = {
   scheme: 'cindy-mcp-app',
   privileges: { standard: true, secure: true, supportFetchAPI: true, corsEnabled: true },
 };
-const frameHeader = 'X-Cindy-Mcp-App-Frame';
+const frameHeader = 'X-Emma-Mcp-App-Frame';
+// 旧品牌插件页面可能伪造 Cindy 前缀的同名头,一并剥除。
+const FORGEABLE_FRAME_HEADERS = new Set([frameHeader.toLowerCase(), 'x-cindy-mcp-app-frame']);
 let fileReader: ((id: string, token: string, request: Request) => Promise<Response>) | undefined;
 export function setMcpAppFileReader(read: typeof fileReader): void { fileReader = read; }
 let callerCleanup: ((caller: string) => Promise<void>) | undefined;
@@ -121,7 +123,7 @@ export function registerMcpAppProtocol(): void {
           callback({ cancel: true }); return;
         }
         const headers = Object.fromEntries(Object.entries(details.requestHeaders)
-          .filter(([key]) => key.toLowerCase() !== frameHeader.toLowerCase()));
+          .filter(([key]) => !FORGEABLE_FRAME_HEADERS.has(key.toLowerCase())));
         callback({ requestHeaders: { ...headers, [frameHeader]: entry.fileKey } }); return;
       }
       if (url.pathname !== '/bridge') { callback({ requestHeaders: details.requestHeaders }); return; }
@@ -136,7 +138,7 @@ export function registerMcpAppProtocol(): void {
       }
       entry.bridge.frame = frame;
       const headers = Object.fromEntries(Object.entries(details.requestHeaders)
-        .filter(([key]) => key.toLowerCase() !== frameHeader.toLowerCase()));
+        .filter(([key]) => !FORGEABLE_FRAME_HEADERS.has(key.toLowerCase())));
       callback({ requestHeaders: { ...headers, [frameHeader]: entry.bridge.key } });
     },
   );

@@ -426,7 +426,7 @@ describe('piEnvironment per-session identity', () => {
     config?.disposeSessionCtx?.();
   });
 
-  it('exposes cindy_make only to a Session carrying the Cindy Make marker', async () => {
+  it('exposes cindy_make only to a Session carrying the Emma Make marker', async () => {
     const providers = [makeProvider('cindy_make'), makeProvider('custom_probe')];
     const ordinary = await getPiExtraSpawnConfig(providers, noopLogger(), {
       sessionId: 'pi-ordinary',
@@ -1206,7 +1206,7 @@ describe('piEnvironment per-session identity', () => {
       result?: { isError?: boolean; content?: { text?: string }[] };
     };
     expect(result.result?.isError).toBe(true);
-    expect(result.result?.content?.[0]?.text).toContain('verified Cindy session');
+    expect(result.result?.content?.[0]?.text).toContain('verified Emma session');
   });
 
   it('registers the worker bridge before the Pi session role is available', async () => {

@@ -71,7 +71,7 @@ it('attributes native Pi per model endpoint without lending identity to another 
   const result = buildPiNativeProvidersFromConfigs([cfg], () => 'fixture-key');
   expect(result.providers[0].headers).toBeUndefined();
   expect(result.providers[0].models[0].headers).toMatchObject({
-    'HTTP-Referer': 'https://cindy.app', 'X-OpenRouter-Title': 'Cindy',
+    'HTTP-Referer': 'https://emma.app', 'X-OpenRouter-Title': 'Emma',
   });
   expect(result.providers[0].models[1].headers).toBeUndefined();
   cfg.runtimes.pi!.headers = { 'http-referer': 'https://custom.example', 'x-title': 'Custom app' };
@@ -280,7 +280,7 @@ describe('ChatGPT image capability authority (#2674)', () => {
   );
 });
 
-describe('CindyAI DeepSeek reasoning replay (#7296)', () => {
+describe('EmmaAI DeepSeek reasoning replay (#7296)', () => {
   // Test value: the production Gateway spec must enable Pi's native empty-reasoning fallback.
   // Existing Gateway coverage omitted Flash/V4.1; the minimal input is either exact Chat ID
   // with no native compat row. Unit tier: no binary, network or account access.
@@ -364,8 +364,8 @@ describe('CindyAI DeepSeek reasoning replay (#7296)', () => {
   });
 });
 
-describe('resolvePiCindyGatewayModelApi', () => {
-  it('keeps a Registry-linked Cindy Server protocol above local and Gateway metadata', () => {
+describe('resolvePiEmmaGatewayModelApi', () => {
+  it('keeps a Registry-linked Emma Server protocol above local and Gateway metadata', () => {
     const catalog = JSON.parse(JSON.stringify(BUNDLED_CATALOG)) as Catalog;
     catalog.presets = [
       ...(catalog.presets ?? []),

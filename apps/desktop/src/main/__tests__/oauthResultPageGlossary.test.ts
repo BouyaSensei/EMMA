@@ -68,7 +68,7 @@ const toLocale = (lang: OAuthResultPageLang) => (lang === 'zh' ? 'zh-CN' : lang)
 
 /** 占位实参:不含 CJK 与标点,避免实参本身影响判定。 */
 const PROVIDER = 'Notion';
-const BRAND = 'Cindy';
+const BRAND = 'Emma';
 
 function collectEntries(): { locale: string; key: string; value: string }[] {
   const out: { locale: string; key: string; value: string }[] = [];

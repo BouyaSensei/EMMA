@@ -112,7 +112,7 @@ describe('evaluateRelaunchBusyActivity', () => {
 
   // Cindy slot 异步代办(mode:'submit' 的图片 / 视频生成):void runExec() 脱链执行,只记在
   // GhostCindySlot 私有 jobs Map,发起 turn 结束后其它来源全看不到。
-  it('Cindy slot 异步代办在途时阻断', async () => {
+  it('Emma slot 异步代办在途时阻断', async () => {
     const r = await evaluateRelaunchBusyActivity({
       ...idle,
       anyCindySlotJobRunning: () => true,

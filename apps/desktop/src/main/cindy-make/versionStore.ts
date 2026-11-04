@@ -11,7 +11,7 @@ import { settlePendingBuilds } from './pendingBuild.js';
 import { makeSourceRoot } from './sourcePaths.js';
 import type { CindyVersionEndpointSnapshot } from './versionRuntimeIdentity.js';
 
-const log = createLogger('CindyMakeVersionStore');
+const log = createLogger('EmmaMakeVersionStore');
 
 export const VERSION_ID = /^[a-f0-9-]{36}$/;
 export const ORIGINAL_DEV_ENV_KEYS = [
@@ -155,7 +155,7 @@ export function readPersonalVersionRecord(profile: string, id: string): Personal
       (typeof item.version !== 'string' ||
         item.version.length < 1 ||
         item.version.length > 128 ||
-        !/^Cindy Make [A-Za-z0-9-]{8}$/.test(item.version))) ||
+        !/^(?:Emma|Cindy) Make [A-Za-z0-9-]{8}$/.test(item.version))) ||
     typeof item.builtAt !== 'string' ||
     !Number.isFinite(Date.parse(item.builtAt)) ||
     typeof item.commit !== 'string' ||
@@ -482,7 +482,7 @@ export async function retainPersonalVersion(input: {
       protocol: 1,
       id,
       profile: input.profile,
-      version: `Cindy Make ${id.slice(0, 8)}`,
+      version: `Emma Make ${id.slice(0, 8)}`,
       title: input.title,
       commit: input.commit,
       ...(input.tree ? { tree: input.tree } : {}),

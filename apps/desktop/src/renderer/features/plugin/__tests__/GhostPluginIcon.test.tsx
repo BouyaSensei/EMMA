@@ -15,7 +15,7 @@ describe('GhostPluginIcon', () => {
       <GhostPluginIcon
         iconDataUrl="https://oss.example/old-icon?signature=old"
         iconId="cindy-github"
-        iconName="Cindy GitHub"
+        iconName="Emma GitHub"
         onIconLoadError={onIconLoadError}
       />,
     );
@@ -28,7 +28,7 @@ describe('GhostPluginIcon', () => {
       <GhostPluginIcon
         iconDataUrl="https://oss.example/new-icon?signature=new"
         iconId="cindy-github"
-        iconName="Cindy GitHub"
+        iconName="Emma GitHub"
         onIconLoadError={onIconLoadError}
       />,
     );

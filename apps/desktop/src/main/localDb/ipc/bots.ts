@@ -1617,7 +1617,7 @@ async function provisionDefaultBotForList(
         const history = await client.drizzle.select({ id: sessions.id }).from(sessions).where(eq(sessions.source, 'bot')).limit(1);
         return history.length > 0;
       },
-      create: () => createBotProfile({ id: 'cindy-default', name: 'Cindy', templateId: 'cindy',
+      create: () => createBotProfile({ id: 'cindy-default', name: 'Emma', templateId: 'cindy',
         avatar: BOT_TEMPLATE_PRESET_AVATARS.cindy, identitySource: CINDY_DEFAULT_IDENTITY,
         prepareInvitation: true, welcomeContext, locale }),
     });
@@ -1937,7 +1937,7 @@ export async function createBotProfile(raw: unknown, restored?: RestoredBotOrigi
   if (templateId === 'cindy') {
     const existingCindy = await findExistingCindy(client);
     assertCreationOwnerStillCurrent();
-    if (existingCindy?.status === 'deleting') throwIpcError('PRECONDITION_FAILED', 'Cindy 正在删除，请稍后重试');
+    if (existingCindy?.status === 'deleting') throwIpcError('PRECONDITION_FAILED', 'Emma 正在删除，请稍后重试');
     if (existingCindy) return existingCindy;
   }
   assertCreationOwnerStillCurrent();
@@ -1968,7 +1968,7 @@ export async function createBotProfile(raw: unknown, restored?: RestoredBotOrigi
     assertCreationOwnerStillCurrent();
     if (templateId === 'cindy' && (error as { code?: string }).code === 'ALREADY_EXISTS') {
       const existing = await findExistingCindy(client);
-      if (existing?.status === 'deleting') throwIpcError('PRECONDITION_FAILED', 'Cindy 正在删除，请稍后重试');
+      if (existing?.status === 'deleting') throwIpcError('PRECONDITION_FAILED', 'Emma 正在删除，请稍后重试');
       if (existing) return existing;
     }
     if ((error as { code?: string }).code === 'ALREADY_EXISTS') throwIpcError('ALREADY_EXISTS', '已有同名伙伴，请换一个名字');
@@ -2709,7 +2709,7 @@ export function registerBotIpc(): void {
                 fromBotId: botId,
                 fromBotName: profile.displayName,
                 toBotId: null,
-                toBotName: 'Cindy',
+                toBotName: 'Emma',
                 parentSessionId: canonicalSessionId,
                 childSessionId: row.childSessionId,
                 objective: row.objective.slice(0, 400),

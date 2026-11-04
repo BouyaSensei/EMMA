@@ -19,7 +19,7 @@ vi.mock('../sourceContent', () => ({
   taskContentRef: (run: string) => 'refs/cindy-make/tasks/' + run + '/base',
 }));
 
-describe('prepareCindyMakeWorkspace', () => {
+describe('prepareEmmaMakeWorkspace', () => {
   let userData: string;
   beforeEach(async () => {
     userData = await mkdtemp(path.join(os.tmpdir(), 'cindy-make-workspace-'));
@@ -857,7 +857,7 @@ describe('prepareCindyMakeWorkspace', () => {
   });
 });
 
-describe('split Cindy Make workspace preparation', () => {
+describe('split Emma Make workspace preparation', () => {
   it('creates the worktree without pnpm, then installs in a separate step', async () => {
     const userData = await mkdtemp(path.join(os.tmpdir(), 'cindy-make-split-'));
     try {
@@ -889,7 +889,7 @@ describe('split Cindy Make workspace preparation', () => {
   });
 });
 
-describe('isCindyMakeWorktreePath', () => {
+describe('isEmmaMakeWorktreePath', () => {
   const userData = path.resolve(os.tmpdir(), 'cindy-userdata');
   const worktrees = path.join(userData, 'cindy-make', 'worktrees');
   it('accepts only a direct child of the worktrees root named like a run id', () => {

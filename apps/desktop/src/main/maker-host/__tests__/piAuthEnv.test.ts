@@ -83,7 +83,7 @@ describe('DesktopPiAuthAdapter.getAuthEnv', () => {
     expect((await desktopPiAuthAdapter.getAuthEnv({ providerId: 'xd' }))[PI_API_KEY_ENV]).toBe('REAL-GATEWAY-KEY');
   });
 
-  it('authenticates keyless and keyed native providers independently of Cindy auth', async () => {
+  it('authenticates keyless and keyed native providers independently of Emma auth', async () => {
     expect(await desktopPiAuthAdapter.getState({ providerId: 'ollama-local' })).toMatchObject({
       authenticated: true,
       identity: 'Local Ollama',

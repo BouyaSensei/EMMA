@@ -1986,7 +1986,7 @@ export function ghostContentKeys(manifest: GhostManifest): string[] {
   if (manifest.panel) keys.push('panel');
   if (manifest.settingsHtml) keys.push('settingsUi');
   keys.push('code');
-  if (manifest.cindy) keys.push('slotCindy');
+  if (manifest.cindy) keys.push('slotEmma');
   if (manifest.agent) keys.push('slotAgent');
   if (manifest.node) keys.push('slotNode');
   if (manifest.tools) keys.push('slotTool');
@@ -3511,7 +3511,7 @@ function prepareGhostManifestForValidation(
     return { ok: false, reason: 'schemaVersion 3 不再支持 slots；请直接声明对应能力字段' };
   }
   if (value.minCindyVersion === undefined) {
-    return { ok: false, reason: 'schemaVersion 3 必须声明 minCindyVersion' };
+    return { ok: false, reason: 'schemaVersion 3 必须声明 minEmmaVersion' };
   }
   for (const field of V3_BOOLEAN_CAPABILITY_FIELDS) {
     if (value[field] !== undefined && value[field] !== true) {
@@ -4303,7 +4303,7 @@ function validateGhostManifestInput(value: unknown, preserveHistoricalTasks: boo
     return { ok: false, reason: 'releaseNotes 必须是纯文本字符串' };
   }
   if (raw.minCindyVersion !== undefined && !isValidCindyVersion(raw.minCindyVersion)) {
-    return { ok: false, reason: 'minCindyVersion 必须是合法的 SemVer 字符串' };
+    return { ok: false, reason: 'minEmmaVersion 必须是合法的 SemVer 字符串' };
   }
   // kind 可省略(2026-07-12 晚定案:单形态后字段纯冗余,缺省即 chip);
   // 写了就必须是 chip——写错值仍拒,不静默纠正(规则 9)。

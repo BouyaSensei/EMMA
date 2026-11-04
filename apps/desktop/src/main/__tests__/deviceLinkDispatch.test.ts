@@ -382,7 +382,7 @@ describe('runInvoke voice:credential-sync 拦截(能力已下线,保留可读拒
       ok: false,
       error: {
         code: 'VOICE_CREDENTIAL_SYNC_REMOVED',
-        message: '手机语音输入已改用 Cindy 官方语音服务,请升级手机版。',
+        message: '手机语音输入已改用 Emma 官方语音服务,请升级手机版。',
       },
     });
   });
@@ -942,8 +942,8 @@ describe('被控端控制链路生命周期', () => {
   });
 
   // Unit: host membership must survive the real projection; controllers cannot infer it.
-  it.each(['xd', 'cindy'] as const)('preserves the host Cindy AI identity: %s', async (logoKind) => {
-    registry.register('maker:provider:list', () => ({ providers: [{ id: 'xd', name: 'Cindy AI', logoKind, routing: {} }] }));
+  it.each(['xd', 'cindy'] as const)('preserves the host Emma AI identity: %s', async (logoKind) => {
+    registry.register('maker:provider:list', () => ({ providers: [{ id: 'xd', name: 'Emma AI', logoKind, routing: {} }] }));
     const result = await runInvoke('ctrl-list-only', { channel: 'maker:provider:list', args: [{ capabilities: ['provider-logo-kinds-v2'] }] });
     expect(result).toMatchObject({ ok: true, result: { providers: [{ id: 'xd', logoKind }] } });
   });

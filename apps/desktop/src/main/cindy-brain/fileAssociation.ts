@@ -39,7 +39,7 @@ const REG_TIMEOUT_MS = 5_000;
  * handler 归后启动的那个 app(它把 KEY_EXT 默认值改写成自己的 ProgId),
  * 可接受——各 app 双击 .cindy 的行为语义一致。
  */
-const PROG_ID = `${brandExecutableName(CURRENT_CINDY_REGION)}.CindyGhost`;
+const PROG_ID = `${brandExecutableName(CURRENT_CINDY_REGION)}.EmmaGhost`;
 const KEY_EXT = 'HKCU\\Software\\Classes\\.cindy';
 const KEY_PROG = `HKCU\\Software\\Classes\\${PROG_ID}`;
 const KEY_EXT_SHARE = 'HKCU\\Software\\Classes\\.cshare';
@@ -96,7 +96,7 @@ export function registerCindyFileAssociation(): void {
 
       await regSetDefault(KEY_EXT, PROG_ID);
       await regSetNamed(KEY_EXT, 'Content Type', CINDY_MIME);
-      await regSetDefault(KEY_PROG, 'Cindy Ghost');
+      await regSetDefault(KEY_PROG, 'Emma Ghost');
       await regSetDefault(`${KEY_PROG}\\DefaultIcon`, `"${exe}",0`);
       await regSetDefault(commandKey, command);
       await regSetNamed(KEY_EXT_SHARE, 'Content Type', SHARE_MIME);

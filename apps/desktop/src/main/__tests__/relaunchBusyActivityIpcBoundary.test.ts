@@ -50,7 +50,7 @@ vi.mock('../logger', () => ({
 }));
 vi.mock('../security/trustedAppRenderer', () => ({
   assertTrustedAppRendererEvent: () => {
-    if (!h.trusted) throw new Error('[PERMISSION_DENIED] 此操作只能从 Cindy 主页面发起');
+    if (!h.trusted) throw new Error('[PERMISSION_DENIED] 此操作只能从 Emma 主页面发起');
   },
 }));
 vi.mock('../localDb/client/current', () => ({
@@ -211,7 +211,7 @@ describe('relaunch blocking summary', () => {
     registerRelaunchBusyActivityIpc(sources(), {
       describeTurns: async () => {
         h.turnReads += 1;
-        return { companions: [{ name: 'Cindy' }], conversation: false };
+        return { companions: [{ name: 'Emma' }], conversation: false };
       },
     });
     const handler = h.handlers.get(RELAUNCH_BLOCKING_ACTIVITY_CHANNEL)!;
@@ -233,7 +233,7 @@ describe('relaunch blocking summary', () => {
       describeTurns: async () => {
         h.turnReads += 1;
         return {
-          companions: [{ name: 'Cindy' }, { name: 'Mika' }],
+          companions: [{ name: 'Emma' }, { name: 'Mika' }],
           conversation: true,
         };
       },
@@ -249,11 +249,11 @@ describe('relaunch blocking summary', () => {
         'generation',
         'subtask',
       ],
-      companionNames: ['Cindy', 'Mika'],
+      companionNames: ['Emma', 'Mika'],
     });
     expect(h.turnReads).toBe(1);
     expect(JSON.stringify(result)).not.toContain('claude-session');
-    expect(JSON.stringify(h.log.info.mock.calls)).not.toContain('Cindy');
+    expect(JSON.stringify(h.log.info.mock.calls)).not.toContain('Emma');
   });
 
 
@@ -293,7 +293,7 @@ describe('relaunch blocking summary', () => {
     }), {
       describeTurns: async () => {
         h.turnReads += 1;
-        return { companions: [{ name: 'Cindy' }], conversation: true };
+        return { companions: [{ name: 'Emma' }], conversation: true };
       },
     });
     const handler = h.handlers.get(RELAUNCH_BLOCKING_SUMMARY_CHANNEL)!;
@@ -308,7 +308,7 @@ describe('relaunch blocking summary', () => {
   it('drops unsafe names and keeps only the teammate category', async () => {
     registerRelaunchBusyActivityIpc(sources({ anySessionInTurn: () => true }), {
       describeTurns: async () => ({
-        companions: [{ name: '3c4c962a-1111-4111-8111-111111111111' }, { name: 'Cindy' }],
+        companions: [{ name: '3c4c962a-1111-4111-8111-111111111111' }, { name: 'Emma' }],
         conversation: false,
       }),
     });
@@ -353,11 +353,11 @@ describe('relaunch blocking summary', () => {
 describe('readRelaunchTurnFacts', () => {
   it('classifies a visible teammate and a normal chat without returning the session id', async () => {
     h.dbRows = [
-      { id: 'bot-session', source: 'bot', displayName: 'Cindy', botStatus: 'active', hiddenAt: null },
+      { id: 'bot-session', source: 'bot', displayName: 'Emma', botStatus: 'active', hiddenAt: null },
       { id: 'task-session', source: 'desktop', displayName: null, botStatus: null, hiddenAt: null },
     ];
     await expect(readRelaunchTurnFacts(['bot-session', 'task-session'])).resolves.toEqual({
-      companions: [{ name: 'Cindy' }],
+      companions: [{ name: 'Emma' }],
       conversation: true,
     });
     expect(h.selects).toBe(1);
@@ -381,7 +381,7 @@ describe('readRelaunchTurnFacts', () => {
       {
         id: 'delegated',
         source: 'desktop',
-        displayName: 'Cindy',
+        displayName: 'Emma',
         botStatus: 'active',
         hiddenAt: null,
         linkRole: 'delegation',
@@ -395,7 +395,7 @@ describe('readRelaunchTurnFacts', () => {
       {
         id: 'delegated-bot',
         source: 'bot',
-        displayName: 'Cindy',
+        displayName: 'Emma',
         botStatus: 'active',
         hiddenAt: null,
         linkRole: 'delegation',
@@ -412,21 +412,21 @@ describe('readRelaunchTurnFacts', () => {
       {
         id: 'welcome',
         source: 'bot',
-        displayName: 'Cindy',
+        displayName: 'Emma',
         botStatus: 'active',
         hiddenAt: null,
         linkRole: 'canonical',
       },
     ];
     await expect(readRelaunchTurnFacts(['welcome'])).resolves.toEqual({
-      companions: [{ name: 'Cindy' }],
+      companions: [{ name: 'Emma' }],
       conversation: false,
     });
   });
 
   it('does not expose a hidden teammate name', async () => {
     h.dbRows = [
-      { id: 'bot-session', source: 'bot', displayName: 'Cindy', botStatus: 'active', hiddenAt: 1 },
+      { id: 'bot-session', source: 'bot', displayName: 'Emma', botStatus: 'active', hiddenAt: 1 },
     ];
     await expect(readRelaunchTurnFacts(['bot-session'])).resolves.toEqual({
       companions: [{ name: null }],

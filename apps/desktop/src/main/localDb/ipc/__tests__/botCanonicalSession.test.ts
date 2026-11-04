@@ -913,7 +913,7 @@ describe('Bot canonical Session lifecycle', () => {
     },
   );
 
-  it('passes the cached background into first-time default Cindy provisioning', async () => {
+  it('passes the cached background into first-time default Emma provisioning', async () => {
     vi.mocked(provisionDefaultBot).mockImplementationOnce(async input => { await input.create(); });
     const welcomeContext = { projects: ['Puzzle Studio'], tasks: [], automations: ['Daily issue triage'] };
     await invoke('local-db:bots:list', { welcomeContext });
@@ -969,9 +969,9 @@ describe('Bot canonical Session lifecycle', () => {
 
     it.each(['profile', 'skills', 'avatar', 'welcome', 'failed'])('replaces the profile and ends the %s meeting', async (stage) => {
       unfinished(stage);
-      const updated = await updateStoredBotProfile({ id: 'bot-1', name: 'Cindy', enabled: true }, undefined, undefined,
+      const updated = await updateStoredBotProfile({ id: 'bot-1', name: 'Emma', enabled: true }, undefined, undefined,
         { replacesUnfinishedMeeting: true });
-      expect(updated.name).toBe('Cindy');
+      expect(updated.name).toBe('Emma');
       expect(stored().invitation).toBeUndefined();
       // The take-over goes on to the main task, which a pending meeting would refuse.
       await expect(invoke('local-db:bots:create-canonical-session', {
@@ -983,7 +983,7 @@ describe('Bot canonical Session lifecycle', () => {
     // default: a follow-default companion on a computer with only a custom provider stops at the
     // model guidance until the owner picks the companions' default model, then goes through unrestarted.
     it('retries into the main task once the owner sets the companions\' default model', async () => {
-      await invoke('local-db:bots:create', { id: 'bot-follow', name: 'Cindy', capabilities: {} });
+      await invoke('local-db:bots:create', { id: 'bot-follow', name: 'Emma', capabilities: {} });
       h.providers = [{
         id: 'custom-gateway', connected: true, source: 'user', agents: ['pi'], auth: { method: 'api-key' },
         models: { pi: [{ id: 'custom-model', efforts: [], defaultEffort: null, defaultEnabled: true }] },
@@ -1001,7 +1001,7 @@ describe('Bot canonical Session lifecycle', () => {
 
     it('keeps a finished meeting record', async () => {
       unfinished('ready');
-      await updateStoredBotProfile({ id: 'bot-1', name: 'Cindy' }, undefined, undefined, { replacesUnfinishedMeeting: true });
+      await updateStoredBotProfile({ id: 'bot-1', name: 'Emma' }, undefined, undefined, { replacesUnfinishedMeeting: true });
       expect(stored().invitation).toMatchObject({ id: 'invite-1', stage: 'ready' });
     });
 
@@ -1033,9 +1033,9 @@ describe('Bot canonical Session lifecycle', () => {
 
     it('does not let a renderer or model body switch the protection off', async () => {
       unfinished('skills');
-      await expect(invoke('local-db:bots:update', { id: 'bot-1', name: 'Cindy', replacesUnfinishedMeeting: true }))
+      await expect(invoke('local-db:bots:update', { id: 'bot-1', name: 'Emma', replacesUnfinishedMeeting: true }))
         .rejects.toMatchObject({ code: 'PRECONDITION_FAILED' });
-      await expect(updateStoredBotProfile({ id: 'bot-1', name: 'Cindy' })).rejects.toMatchObject({ code: 'PRECONDITION_FAILED' });
+      await expect(updateStoredBotProfile({ id: 'bot-1', name: 'Emma' })).rejects.toMatchObject({ code: 'PRECONDITION_FAILED' });
       expect(stored().invitation).toMatchObject({ stage: 'skills' });
     });
   });
@@ -1093,10 +1093,10 @@ describe('Bot canonical Session lifecycle', () => {
       expect(names()).toEqual(['bot-1']);
     });
 
-    it('keeps the default Cindy unique for a take-over', async () => {
+    it('keeps the default Emma unique for a take-over', async () => {
       const { createBotProfile } = await import('../bots');
-      await invoke('local-db:bots:create', { id: 'local-cindy', name: 'Cindy', templateId: 'cindy' });
-      await expect(createBotProfile({ id: 'import_cindy', name: 'Cindy 2' }, { templateId: 'cindy', allowSameName: true }))
+      await invoke('local-db:bots:create', { id: 'local-cindy', name: 'Emma', templateId: 'cindy' });
+      await expect(createBotProfile({ id: 'import_cindy', name: 'Emma 2' }, { templateId: 'cindy', allowSameName: true }))
         .rejects.toMatchObject({ code: 'ALREADY_EXISTS' });
       expect(h.sqlite!.prepare("SELECT COUNT(*) FROM bot_profiles WHERE id = 'import_cindy'").pluck().get()).toBe(0);
     });
@@ -1490,8 +1490,8 @@ describe('Bot canonical Session lifecycle', () => {
     expect(readFileSync(join(home, 'SOUL.md'), 'utf8')).toBe('Identity edited again\n');
   });
 
-  it('still recognizes an unchanged legacy Cindy without rewriting its identity', async () => {
-    await invoke('local-db:bots:create', { id: 'legacy-cindy', name: 'Cindy',
+  it('still recognizes an unchanged legacy Emma without rewriting its identity', async () => {
+    await invoke('local-db:bots:create', { id: 'legacy-cindy', name: 'Emma',
       identitySource: BOT_TEMPLATE_PRESET_IDENTITIES.cindy });
     const loaded = await invoke('local-db:bots:get', 'legacy-cindy');
     expect(loaded).toMatchObject({ templateId: 'cindy', identitySource: BOT_TEMPLATE_PRESET_IDENTITIES.cindy, currentVersion: 1 });
@@ -1671,13 +1671,13 @@ describe('Bot canonical Session lifecycle', () => {
     expect(h.sqlite!.prepare('SELECT id FROM bot_profiles WHERE id = ?').all(botId)).toHaveLength(1);
   });
 
-  it('allows creating and renaming an ordinary Cindy after the old Cindy is deleted', async () => {
-    await invoke('local-db:bots:create', { id: 'removed-cindy', name: 'Cindy', templateId: 'cindy' });
+  it('allows creating and renaming an ordinary Emma after the old Emma is deleted', async () => {
+    await invoke('local-db:bots:create', { id: 'removed-cindy', name: 'Emma', templateId: 'cindy' });
     h.sqlite!.prepare("UPDATE bot_profiles SET status = 'archived' WHERE id = 'removed-cindy'").run();
     await h.tx!('bots.deleteProfile', { botId: 'removed-cindy', sessionIds: [], keepTaskHistory: true, at: Date.now() });
     const bytes = readFileSync(resolve(__dirname, '../../../../renderer/assets/bot-presets/cindy.png'));
     const created = await invoke('local-db:bots:create', {
-      id: 'new-cindy', name: 'Cindy', avatarImageBase64: bytes.toString('base64'),
+      id: 'new-cindy', name: 'Emma', avatarImageBase64: bytes.toString('base64'),
     });
     expect(created.id).toBe('new-cindy');
     expect(created.templateId).toBeUndefined();
@@ -1687,7 +1687,7 @@ describe('Bot canonical Session lifecycle', () => {
     expect(renamed.templateId).toBeUndefined();
   });
 
-  it('saves a chosen Cindy portrait without changing the existing identity or canonical chat', async () => {
+  it('saves a chosen Emma portrait without changing the existing identity or canonical chat', async () => {
     h.showOpenDialog.mockClear();
     const canonical = await invoke('local-db:bots:create-canonical-session', {
       botId: 'bot-1', expectedCanonicalSessionId: null, expectedProfileVersion: 1,
@@ -1767,7 +1767,7 @@ describe('Bot canonical Session lifecycle', () => {
       .all(createHash('sha256').update(bytes).digest('hex'))).toEqual([{ ref_id: copy.id }]);
   });
 
-  it.each(['legacy IPC', 'resource registry'])('provides Cindy on first Mobile entry via %s and shares the receipt after deletion', async entry => {
+  it.each(['legacy IPC', 'resource registry'])('provides Emma on first Mobile entry via %s and shares the receipt after deletion', async entry => {
     const real = await vi.importActual<typeof import('../../../maker-ipc/botDefaultProvisioning')>(
       '../../../maker-ipc/botDefaultProvisioning');
     vi.mocked(provisionDefaultBot).mockImplementation(real.provisionDefaultBot);
@@ -1788,7 +1788,7 @@ describe('Bot canonical Session lifecycle', () => {
       return result.items.map(item => ({ id: item.ref.id, name: item.display.title }));
     };
     const first = await mobileList();
-    expect(first).toEqual([expect.objectContaining({ id: 'cindy-default', name: 'Cindy' })]);
+    expect(first).toEqual([expect.objectContaining({ id: 'cindy-default', name: 'Emma' })]);
     expect(first[0]).not.toHaveProperty('identitySource');
     await invoke('local-db:bots:list', undefined);
     expect(h.sqlite!.prepare('SELECT COUNT(*) AS n FROM bot_profiles').get()).toEqual({ n: 1 });
@@ -1798,7 +1798,7 @@ describe('Bot canonical Session lifecycle', () => {
     await expect(invoke('local-db:bots:list', undefined)).resolves.toEqual([]);
   });
 
-  it.each(['legacy IPC', 'resource registry'])('queues committed Cindy before a failed projection on first %s entry', async (entry) => {
+  it.each(['legacy IPC', 'resource registry'])('queues committed Emma before a failed projection on first %s entry', async (entry) => {
     const real = await vi.importActual<typeof import('../../../maker-ipc/botDefaultProvisioning')>(
       '../../../maker-ipc/botDefaultProvisioning');
     vi.mocked(provisionDefaultBot).mockImplementation(real.provisionDefaultBot);
@@ -3799,7 +3799,7 @@ describe('Bot canonical Session lifecycle', () => {
       .get('bot-1');
 
     expect(identity).toContain('You are Release Bot');
-    expect(identity).toContain('intelligent AI assistant running as a Cindy Bot');
+    expect(identity).toContain('intelligent AI assistant running as a Emma Bot');
   });
 
   it.each([
@@ -4504,7 +4504,7 @@ describe('Bot avatar sentinel persistence', () => {
   it('accepts the official and preset sentinels on create and update', async () => {
     await invoke('local-db:bots:create', {
       id: 'bot-official',
-      name: 'Cindy',
+      name: 'Emma',
       avatar: 'cindy://avatar/official',
       avatarColor: 'graphite',
     });

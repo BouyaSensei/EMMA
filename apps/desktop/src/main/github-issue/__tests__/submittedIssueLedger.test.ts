@@ -16,7 +16,7 @@ function record(over: Partial<SubmittedIssueRecord> = {}): SubmittedIssueRecord 
   const number = over.number ?? 1001;
   return {
     number,
-    url: `https://github.com/makecindy/cindy/issues/${number}`,
+    url: `https://github.com/BouyaSensei/EMMA/issues/${number}`,
     title: '标题',
     type: 'bug',
     submittedAt: '2026-07-01T00:00:00.000Z',
@@ -54,13 +54,13 @@ describe('normalizeSubmittedIssues', () => {
     // 落盘文件是不可信输入,而这一页每行都声称「你在本仓提的 issue」、整行可点开。
     // 只查「非空字符串」的写法会把下面每一条都放行。
     const dropped = [
-      { ...record(), url: 'https://evil.example.com/makecindy/cindy/issues/1001' },
-      { ...record(), url: 'https://github.com.evil.example/makecindy/cindy/issues/1001' },
-      { ...record(), url: 'http://github.com/makecindy/cindy/issues/1001' },
+      { ...record(), url: 'https://evil.example.com/BouyaSensei/EMMA/issues/1001' },
+      { ...record(), url: 'https://github.com.evil.example/BouyaSensei/EMMA/issues/1001' },
+      { ...record(), url: 'http://github.com/BouyaSensei/EMMA/issues/1001' },
       { ...record(), url: 'https://github.com/someone/else/issues/1001' },
       // 编号对不上:显示 #1001 却点开另一条 issue
-      { ...record(), url: 'https://github.com/makecindy/cindy/issues/9999' },
-      { ...record(), url: 'https://github.com/makecindy/cindy/pull/1001' },
+      { ...record(), url: 'https://github.com/BouyaSensei/EMMA/issues/9999' },
+      { ...record(), url: 'https://github.com/BouyaSensei/EMMA/pull/1001' },
       { ...record(), url: 'javascript:alert(1)' },
       { ...record(), url: 'not-a-url' },
     ];
@@ -68,7 +68,7 @@ describe('normalizeSubmittedIssues', () => {
   });
 
   it('容忍尾斜杠 —— 不误杀用户真实的历史记录', () => {
-    const withSlash = record({ url: 'https://github.com/makecindy/cindy/issues/1001/' });
+    const withSlash = record({ url: 'https://github.com/BouyaSensei/EMMA/issues/1001/' });
     expect(normalizeSubmittedIssues([withSlash])).toEqual([withSlash]);
   });
 

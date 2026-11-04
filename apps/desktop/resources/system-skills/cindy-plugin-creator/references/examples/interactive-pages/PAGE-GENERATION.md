@@ -1,11 +1,11 @@
-# Cindy MCP Apps 页面生成手册
+# Emma MCP Apps 页面生成手册
 
-给生成页面的模型（对话 AI 或业务后端的模型）和开发者。页面在 Cindy 里叫「交互页面」，即 Cindy 作宿主的标准 MCP Apps 页面。需要 Cindy **0.1.122-beta** 及以上（执行端和查看端）。
+给生成页面的模型（对话 AI 或业务后端的模型）和开发者。页面在 Emma 里叫「交互页面」，即 Emma 作宿主的标准 MCP Apps 页面。需要 Emma **0.1.122-beta** 及以上（执行端和查看端）。
 
 ## 1. 你要输出什么
 
 - 一个**完整 HTML 文档**（`<!doctype html>` 开头），显示在对话卡片里。
-- 用官方 SDK：`import { App } from '@modelcontextprotocol/ext-apps'`。Cindy 为所有页面提供 SDK。**不写 importmap，不从 CDN 或其他地址加载 SDK。**（加载器换出的页面再写映射会被浏览器忽略。）
+- 用官方 SDK：`import { App } from '@modelcontextprotocol/ext-apps'`。Emma 为所有页面提供 SDK。**不写 importmap，不从 CDN 或其他地址加载 SDK。**（加载器换出的页面再写映射会被浏览器忽略。）
 - 每个页面只建一个 `App`，先 `connect()` 再调其他方法。
 - **首屏数据直接写进 HTML**，不要等 `ontoolresult`。
 - 动态值一律转义；接口数据用 `textContent` / `value` / 创建元素显示，不拼进 `innerHTML`、`<script>` 或 `onclick`。
@@ -56,7 +56,7 @@
     app.onhostcontextchanged = () => theme(app.getHostContext() ?? {});
     app.onteardown = async () => { lifetime.abort(); return {}; };
     try { await app.connect(); theme(app.getHostContext() ?? {}); status.textContent = ''; }
-    catch { status.textContent = '无法连接，请确认 Cindy 版本后重新打开。'; }
+    catch { status.textContent = '无法连接，请确认 Emma 版本后重新打开。'; }
   </script>
 </body>
 </html>
@@ -96,9 +96,9 @@
 
 ## 5. 规则
 
-- **凭证**：页面拿不到凭证：需要用户身份的请求走工具，由插件代发、Cindy 注入。页面直接 `fetch` 只能访问插件声明的 `connectDomains`，不带凭证，对方需返回 `Access-Control-Allow-Origin: *`；外部图片、样式要在 `resourceDomains` 声明。
+- **凭证**：页面拿不到凭证：需要用户身份的请求走工具，由插件代发、Emma 注入。页面直接 `fetch` 只能访问插件声明的 `connectDomains`，不带凭证，对方需返回 `Access-Control-Allow-Origin: *`；外部图片、样式要在 `resourceDomains` 声明。
 - **局部更新**：换内容用 `load_view` 片段 + 容器 `innerHTML`（只接可信、已转义的片段），或用 `api_read` 拿 JSON 后改 DOM。片段里的脚本不执行，事件用常驻脚本绑定。不重连，输入和状态保留。
-- **整页替换的边界**：整份文档只在加载器首屏，以及 AI 调用的整页工具（`open_view`、`import_file`、`show_page`）打开新卡片时替换。页面调用的工具都不返回完整文档；**不要把 `load_view` 片段 `document.write` 进页面**。整页替换后新文档重连，旧请求和审批作废、迟到回复丢弃，已被 Cindy 接收的 `sendMessage` 照常发送。
+- **整页替换的边界**：整份文档只在加载器首屏，以及 AI 调用的整页工具（`open_view`、`import_file`、`show_page`）打开新卡片时替换。页面调用的工具都不返回完整文档；**不要把 `load_view` 片段 `document.write` 进页面**。整页替换后新文档重连，旧请求和审批作废、迟到回复丢弃，已被 Emma 接收的 `sendMessage` 照常发送。
 - **表单**：用 `<form>`，在 `submit` 里先 `preventDefault()` 再调工具；点按钮和回车都会触发 submit。原生 `action` 提交不可用；宿主会兜底拦下没处理的提交和 `form.submit()`（`method="dialog"` 保留原生关闭），但仍必须写 `preventDefault()`。等待时禁用按钮，失败保留输入。
 - **写操作**：带 `idempotencyKey`。同一内容重试沿用原编号，内容变了换新编号；写入方按「当前用户 + 编号」去重，同编号不同内容应拒绝。**不自动重试**：超时不等于没写入，取消等待也不等于已撤销，按编号核对。
 - **语言**：标题、按钮、提示、空状态、错误信息用用户的语言（示例中文和 `lang="zh-CN"` 仅作示意）：`show_page` 随对话语言，后端随请求里用户原话。`<html lang>` 写页面文字实际用的语言；`hostContext.locale`（查看端界面语言）只给 `Intl` 格式化日期、数字。记录、文件名、用户输入不翻译。
@@ -115,7 +115,7 @@
   }
   ```
 - **导入（CSV / XLSX）**：显示文件 → 用户点按钮上传，暂存后返回批次和预览（总行数、前几行、出错的行、「确认导入」「取消」）→ 确认后 `api_write({path:'/api/imports/confirm', body:{batchId}, idempotencyKey})`。解析和校验在工具背后，预览和导入用同一套规则。交接的和 `pick_files` 选的文件都交给 `upload_files`；预览渲染进容器，不换文档。
-- **大小**：页面与 Cindy 单条消息 ≤ 4 MiB，卡片保存的结果尽量 ≤ 1 MiB。远程和手机打开时 SDK（约 337 KB，gzip 约 78 KB）随页面传输，页面上限约 3.94 MB，加上 SDK 才超限时不带 SDK 打开，`import` 失败。插件可能对 `html` 长度另有限制（如示例 show_page 限 200,000 字符）。首屏只放必要数据，其余按需读取。
+- **大小**：页面与 Emma 单条消息 ≤ 4 MiB，卡片保存的结果尽量 ≤ 1 MiB。远程和手机打开时 SDK（约 337 KB，gzip 约 78 KB）随页面传输，页面上限约 3.94 MB，加上 SDK 才超限时不带 SDK 打开，`import` 失败。插件可能对 `html` 长度另有限制（如示例 show_page 限 200,000 字符）。首屏只放必要数据，其余按需读取。
 - **不能做**：弹新窗口或让整个窗口跳转。用户文档里的内容不能当脚本执行。
 
 ## 6. 常见错误

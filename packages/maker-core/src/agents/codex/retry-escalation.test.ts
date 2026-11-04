@@ -153,7 +153,7 @@ describe('buildBackendUnreachableMessage', () => {
       },
     });
     expect(msg).not.toContain('127.0.0.1:7890');
-    expect(msg).not.toContain("Cindy's outbound path");
+    expect(msg).not.toContain("Emma's outbound path");
     expect(msg).toContain('Route agent traffic via local proxy');
   });
 });

@@ -19,7 +19,7 @@ const logger: Logger = {
   trace() {}, debug() {}, info() {}, warn() {}, error() {}, fatal() {}, child: () => logger,
 };
 
-it.skipIf(!binaryPath)('keeps Cindy AI, subscription and custom routes usable across native resume and provider changes', async () => {
+it.skipIf(!binaryPath)('keeps Emma AI, subscription and custom routes usable across native resume and provider changes', async () => {
   const root = await mkdtemp(path.join(tmpdir(), 'cindy-provider-native-'));
   const home = path.join(root, 'codex');
   const work = path.join(root, 'work');

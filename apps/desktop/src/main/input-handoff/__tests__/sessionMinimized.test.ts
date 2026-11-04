@@ -358,11 +358,11 @@ describe('resolveHandoffTarget with minimized windows', () => {
     expect(resolveHandoffTarget(list(apps), { app: 'Google Chrome' }, 1)?.pid).toBe(20);
   });
 
-  it('still never picks Cindy, minimized or not', () => {
+  it('still never picks Emma, minimized or not', () => {
     expect(
       resolveHandoffTarget(
-        list([{ pid: 1, app: 'Cindy', bundleId: 'host', windows: [window(0, 'Cindy', true)] }]),
-        { app: 'Cindy' },
+        list([{ pid: 1, app: 'Emma', bundleId: 'host', windows: [window(0, 'Emma', true)] }]),
+        { app: 'Emma' },
         1,
       ),
     ).toBeNull();

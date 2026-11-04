@@ -50,7 +50,7 @@ it('bounds multi-line block previews but keeps the full description in the query
   expect(await fs.readFile(file, 'utf8')).toBe(text);
 });
 
-it('does not migrate an empty block scalar as legacy Cindy-authored metadata', async () => {
+it('does not migrate an empty block scalar as legacy Emma-authored metadata', async () => {
   const text = '---\nname: fixture\ndescription: >-\nupdatedAt: "2026-09-29"\n---\nOriginal body\n';
   const file = await source('empty-block', text);
   expect(await read()).toMatchObject([{ description: '', name: 'fixture' }]);

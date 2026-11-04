@@ -15,7 +15,7 @@ function plugin(displayAuthor?: string | null) {
 describe('workflow display author transport', () => {
   it('preserves public publisher identity independently from the displayed nickname', () => {
     for (const publisherKind of ['official', 'personal'] as const) {
-      const value = { ...plugin('Cindy'), publisherKind };
+      const value = { ...plugin('Emma'), publisherKind };
       const response = parseGetPluginResponse({ schemaVersion: PLUGIN_API_SCHEMA_VERSION, plugin: value });
       expect(response.plugin.scope).toBe('public');
       expect(response.plugin.publisherKind).toBe(publisherKind);

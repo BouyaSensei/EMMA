@@ -63,7 +63,7 @@ describe('deviceLinkApiFetch', () => {
     };
     mocks.netFetch.mockResolvedValue(new Response(JSON.stringify({ devices: [] }), { status: 200 }));
     await expect(remoteLocalAgentModels(() => true)).resolves.toEqual([]);
-    expect(lastRequest()).toEqual({ url: 'http://192.168.1.20:47820/api/device-link/devices', authorization: 'CindyRelay relay-credential' });
+    expect(lastRequest()).toEqual({ url: 'http://192.168.1.20:47820/api/device-link/devices', authorization: 'EmmaRelay relay-credential' });
     expect(mocks.getAccessToken).not.toHaveBeenCalled();
   });
 
@@ -81,7 +81,7 @@ describe('deviceLinkApiFetch', () => {
     });
   });
 
-  it('sends the relay credential, never the account token, and keeps the Cindy session on a relay 401', async () => {
+  it('sends the relay credential, never the account token, and keeps the Emma session on a relay 401', async () => {
     mocks.relay = {
       baseUrl: 'http://192.168.1.20:47820',
       credential: 'relay-credential',
@@ -101,7 +101,7 @@ describe('deviceLinkApiFetch', () => {
     expect(mocks.netFetch).toHaveBeenCalledTimes(1);
     expect(lastRequest()).toEqual({
       url: 'http://192.168.1.20:47820/api/device-link/devices',
-      authorization: 'CindyRelay relay-credential',
+      authorization: 'EmmaRelay relay-credential',
     });
     expect(JSON.stringify(mocks.netFetch.mock.calls)).not.toContain('account-access-token');
     expect(mocks.refresh).not.toHaveBeenCalled();

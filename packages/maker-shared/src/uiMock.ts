@@ -50,7 +50,7 @@ export const UI_MOCK_PROJECTS: readonly UiMockProject[] = [
   {
     name: 'cindy-demo',
     files: {
-      'README.md': '# Cindy Demo\n\nA small demo project used by the UI mock data.\n',
+      'README.md': '# Emma Demo\n\nA small demo project used by the UI mock data.\n',
       'src/login.tsx': 'export function Login() {\n  return <form className="login" />;\n}\n',
       'src/settings.tsx': 'export function Settings() {\n  return <section className="settings" />;\n}\n',
       'package.json': '{\n  "name": "cindy-demo",\n  "private": true\n}\n',

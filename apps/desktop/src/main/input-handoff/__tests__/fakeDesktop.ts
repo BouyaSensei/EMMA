@@ -33,7 +33,7 @@ export function fakeDesktop(options: {
       { ...app, windows: [{ index: 0, title: stage === 'done' ? 'Example' : 'Sign in', frame: [0, 0, 800, 600], focused: true, minimized: false }] },
       // The browser was already open; the app opening the sign-in page turns its window into that page.
       { ...browser, windows: [{ index: 0, title: stage === 'choose' || stage === 'account' ? 'New Tab' : 'Sign in - Example', frame: [0, 0, 800, 600], focused: true, minimized: false }] },
-      { pid: 1, app: 'Cindy', bundleId: 'host', windows: [{ index: 0, title: 'Cindy', frame: [0, 0, 1, 1], focused: true, minimized: false }] },
+      { pid: 1, app: 'Emma', bundleId: 'host', windows: [{ index: 0, title: 'Emma', frame: [0, 0, 1, 1], focused: true, minimized: false }] },
     ],
   });
   const snapshot = (pid: number): NativeAxSnapshot => {

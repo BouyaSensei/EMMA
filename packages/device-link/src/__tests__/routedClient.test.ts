@@ -56,7 +56,7 @@ function harness(selfHosted: { value: boolean }) {
     ...common,
     getWsUrl: () => (selfHosted.value ? RELAY : OFFICIAL),
     getToken: async () => (selfHosted.value ? 'relay-credential' : 'account-token'),
-    authorizationScheme: () => (selfHosted.value ? 'CindyRelay' : 'Bearer'),
+    authorizationScheme: () => (selfHosted.value ? 'EmmaRelay' : 'Bearer'),
   }, {
     active: () => selfHosted.value,
     options: { ...common, getWsUrl: () => OFFICIAL, getToken: async () => 'account-token' },
@@ -103,7 +103,7 @@ describe('RoutedDeviceLinkClient', () => {
 
   it('sends cross-account frames to the official relay with the account token, and the rest to the own relay', async () => {
     const h = await onlineSelfHosted();
-    expect(h.socketTo(RELAY).headers.authorization).toBe('CindyRelay relay-credential');
+    expect(h.socketTo(RELAY).headers.authorization).toBe('EmmaRelay relay-credential');
     expect(h.socketTo(OFFICIAL).headers.authorization).toBe('Bearer account-token');
 
     void h.client.invoke(SHARED_PEER, { channel: 'shared', args: [] }).catch(() => undefined);

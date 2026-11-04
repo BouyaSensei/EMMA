@@ -52,24 +52,24 @@ describe('OAuth result page language and copy', () => {
     expect(OAUTH_RESULT_HTML_LANG['zh-TW']).toBe('zh-TW');
   });
 
-  it('builds a localized return-to-Cindy deep link', () => {
-    expect(buildOAuthReturnAction('zh', 'xai oauth', 'Cindy')).toEqual({
+  it('builds a localized return-to-Emma deep link', () => {
+    expect(buildOAuthReturnAction('zh', 'xai oauth', 'Emma')).toEqual({
       href: 'emma://focus/xai%20oauth',
-      label: '返回 Cindy',
+      label: '返回 Emma',
     });
-    expect(buildOAuthReturnAction('en', 'generic-oauth', 'Cindy').label).toBe('Return to Cindy');
+    expect(buildOAuthReturnAction('en', 'generic-oauth', 'Emma').label).toBe('Return to Emma');
   });
 
   it('provides provider-specific localized result copy', () => {
-    const copy = getProviderOAuthResultCopy('zh', 'xAI', 'Cindy');
+    const copy = getProviderOAuthResultCopy('zh', 'xAI', 'Emma');
     expect(copy.successBody).toContain('xAI');
-    expect(copy.successBody).toContain('Cindy');
+    expect(copy.successBody).toContain('Emma');
     expect(copy.exchangeFailedBody).toContain('连接 xAI');
   });
 
   it('provides complete provider copy for all callback languages', () => {
     for (const lang of ALL_OAUTH_LANGS) {
-      const copy = getProviderOAuthResultCopy(lang, 'xAI', 'Cindy');
+      const copy = getProviderOAuthResultCopy(lang, 'xAI', 'Emma');
       for (const value of Object.values(copy)) {
         expect(value).toBeTruthy();
       }
@@ -77,9 +77,9 @@ describe('OAuth result page language and copy', () => {
   });
 
   it('localizes the return action for English', () => {
-    expect(buildOAuthReturnAction('en', 'ghost-oauth', 'Cindy')).toEqual({
+    expect(buildOAuthReturnAction('en', 'ghost-oauth', 'Emma')).toEqual({
       href: 'emma://focus/ghost-oauth',
-      label: 'Return to Cindy',
+      label: 'Return to Emma',
     });
   });
 });
@@ -100,25 +100,25 @@ describe('shared ghost OAuth callback copy (生产/preview 合一)', () => {
 
 describe('neutral callback copy (demo CALLBACK.neutral verbatim)', () => {
   it('matches the localized copy character-for-character', () => {
-    expect(getOAuthNeutralResultCopy('zh', 'Cindy')).toEqual({
+    expect(getOAuthNeutralResultCopy('zh', 'Emma')).toEqual({
       title: '需要继续操作',
-      body: '请返回 Cindy，完成当前工作区的安装后继续。',
+      body: '请返回 Emma，完成当前工作区的安装后继续。',
     });
-    expect(getOAuthNeutralResultCopy('zh-TW', 'Cindy')).toEqual({
+    expect(getOAuthNeutralResultCopy('zh-TW', 'Emma')).toEqual({
       title: '需要繼續操作',
-      body: '請返回 Cindy，完成目前工作區的安裝後繼續。',
+      body: '請返回 Emma，完成目前工作區的安裝後繼續。',
     });
-    expect(getOAuthNeutralResultCopy('en', 'Cindy')).toEqual({
+    expect(getOAuthNeutralResultCopy('en', 'Emma')).toEqual({
       title: 'Action required',
-      body: 'Return to Cindy and finish installing in the current workspace.',
+      body: 'Return to Emma and finish installing in the current workspace.',
     });
-    expect(getOAuthNeutralResultCopy('ja', 'Cindy')).toEqual({
+    expect(getOAuthNeutralResultCopy('ja', 'Emma')).toEqual({
       title: '操作が必要です',
-      body: 'Cindy に戻り、現在のワークスペースへのインストールを完了してください。',
+      body: 'Emma に戻り、現在のワークスペースへのインストールを完了してください。',
     });
-    expect(getOAuthNeutralResultCopy('ko', 'Cindy')).toEqual({
+    expect(getOAuthNeutralResultCopy('ko', 'Emma')).toEqual({
       title: '추가 작업 필요',
-      body: 'Cindy로 돌아가 현재 워크스페이스 설치를 완료하세요.',
+      body: 'Emma로 돌아가 현재 워크스페이스 설치를 완료하세요.',
     });
   });
 
@@ -188,10 +188,10 @@ describe('renderOAuthResultPage', () => {
       htmlLang: 'zh-CN',
       variant: 'warning',
       title: '需要继续操作',
-      body: '请返回 Cindy。',
-      action: { href: 'emma://focus/slack-hook-install', label: '返回 Cindy' },
+      body: '请返回 Emma。',
+      action: { href: 'emma://focus/slack-hook-install', label: '返回 Emma' },
     });
-    expect(html).toContain('<a class="cta" href="emma://focus/slack-hook-install">返回 Cindy</a>');
+    expect(html).toContain('<a class="cta" href="emma://focus/slack-hook-install">返回 Emma</a>');
     expect(html).toContain('@media(max-width:480px)');
     expect(html).toContain('border-radius:12px');
   });
@@ -204,7 +204,7 @@ const BRAND_BASE = {
   title: '登录成功',
   body: '登录已成功，现在可以关闭此页面了。',
   closeCountdown: '{{count}}秒后自动关闭',
-  action: { href: 'emma://focus/desktop-login', label: '回到 Cindy' },
+  action: { href: 'emma://focus/desktop-login', label: '回到 Emma' },
 } as const;
 
 describe('wave4 brand login callback card (pageKind=desktop-login)', () => {
@@ -245,9 +245,9 @@ describe('wave4 brand login callback card (pageKind=desktop-login)', () => {
       ...BRAND_BASE,
       variant: 'error',
       title: '登录未完成',
-      body: '请回到 Cindy 重新登录。',
+      body: '请回到 Emma 重新登录。',
     });
-    expect(html).toContain('<a class="cta" href="emma://focus/desktop-login">回到 Cindy</a>');
+    expect(html).toContain('<a class="cta" href="emma://focus/desktop-login">回到 Emma</a>');
     expect(html).not.toContain('id="close-countdown"');
   });
 
@@ -369,7 +369,7 @@ describe('wave4 brand login callback card (pageKind=desktop-login)', () => {
   });
 
   it('escapes injected provider names flowing through provider copy into the shell', () => {
-    const copy = getProviderOAuthResultCopy('en', '<img src=x onerror=alert(3)>', 'Cindy');
+    const copy = getProviderOAuthResultCopy('en', '<img src=x onerror=alert(3)>', 'Emma');
     const html = renderOAuthResultPage({
       htmlLang: 'en',
       variant: 'error',

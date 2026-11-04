@@ -29,7 +29,7 @@ afterEach(async () => {
 });
 
 /** Reports `existingTargets` the way Chrome does: before the discover reply. */
-const USER_DATA_DIR = '/Users/me/Library/Application Support/Cindy/browser/Cindy/user-data';
+const USER_DATA_DIR = '/Users/me/Library/Application Support/Emma/browser/Emma/user-data';
 
 async function createFakeBrowser(
   existingTargets: Array<Record<string, unknown>> = [],
@@ -168,7 +168,7 @@ describe('ExternalLinkHandoff', () => {
 
   it('does not install interception on a browser that is not the managed one', async () => {
     // Another Cindy or the user's Chrome may hold the configured CDP port.
-    const { browser } = await connectedHandoff({ browserUserDataDir: '/Users/me/Library/Application Support/Cindy/browser/Cindy-other/user-data' });
+    const { browser } = await connectedHandoff({ browserUserDataDir: '/Users/me/Library/Application Support/Emma/browser/Emma-other/user-data' });
 
     await vi.waitFor(() => expect(browser.commands.map((c) => c.method)).toContain('SystemInfo.getInfo'));
     await new Promise((resolve) => setTimeout(resolve, 50));

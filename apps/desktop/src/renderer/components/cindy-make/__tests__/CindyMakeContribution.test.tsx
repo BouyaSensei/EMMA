@@ -72,7 +72,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('CindyMakeContributionDialog', () => {
+describe('EmmaMakeContributionDialog', () => {
   it('submits only after the author fills in a real email and confirms the DCO sign-off', async () => {
     const view = {
       runId: 'run-1',
@@ -204,7 +204,7 @@ describe('CindyMakeContributionDialog', () => {
   });
 });
 
-describe('CindyMakeContributionStatus', () => {
+describe('EmmaMakeContributionStatus', () => {
   it('shows the review state in plain words and opens the pull request', async () => {
     const openExternal = vi.fn(async () => ({ success: true }));
     vi.stubGlobal('electronAPI', { openExternal });

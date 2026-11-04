@@ -19,14 +19,14 @@ const remote = (deviceId: string, extra = {}): RemoteBot => ({
   ...extra,
 });
 
-describe('Cindy device roster', () => {
+describe('Emma device roster', () => {
   it('uses durable identity rather than a matching name or avatar', () => {
     expect(isCindyDeviceBot(local)).toBe(true);
     expect(isCindyDeviceBot(remote('remote'))).toBe(true);
     expect(isCindyDeviceBot({ id: 'custom' })).toBe(false);
     const options = cindyDeviceOptions(
       [local],
-      [remote('remote', { id: 'custom', name: 'Cindy' })],
+      [remote('remote', { id: 'custom', name: 'Emma' })],
       [],
       {},
       'Local',

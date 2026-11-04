@@ -149,7 +149,7 @@ afterEach(async () => {
   await Promise.all(roots.splice(0).map((root) => rm(root, { recursive: true, force: true })));
 });
 
-describe('Cindy PI Subagent foreground durable path', () => {
+describe('Emma PI Subagent foreground durable path', () => {
   it.skipIf(process.platform === 'win32')(
     'waits for the runner and forwards Ask approval through the parent UI',
     async () => {

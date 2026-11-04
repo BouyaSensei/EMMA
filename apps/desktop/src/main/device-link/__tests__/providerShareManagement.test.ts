@@ -506,11 +506,11 @@ describe('same-account share management during account transitions', () => {
 
   // PR #7744: exercise the production share-management entry, not only the scrubber.
   // provider-sharing.md §6 forbids sending org identity to the sharing service.
-  it('uploads only the generic Cindy AI brand when creating an enterprise share link', async () => {
-    listProviders.mockResolvedValue([{ id: 'xd', name: 'Cindy AI · Example Studio', connected: true, agents: ['codex'] }]);
+  it('uploads only the generic Emma AI brand when creating an enterprise share link', async () => {
+    listProviders.mockResolvedValue([{ id: 'xd', name: 'Emma AI · Example Studio', connected: true, agents: ['codex'] }]);
     await executeProviderShareManagementCommand({ action: 'create-link', providerId: 'xd' });
     expect(api.createLink).toHaveBeenCalledExactlyOnceWith({
-      providerId: 'xd', providerLabel: 'Cindy AI', deviceName: 'Cindy', identityCard: { card: 'test-identity-card' },
+      providerId: 'xd', providerLabel: 'Emma AI', deviceName: 'Emma', identityCard: { card: 'test-identity-card' },
     });
   });
 

@@ -76,7 +76,7 @@ describe('provider application attribution', () => {
     ['https://ai-gateway.vercel.sh/v1', 'X-Title'],
     ['https://router.requesty.ai/v1', 'X-Title'],
     ['https://router.eu.requesty.ai/v1', 'X-Title'],
-  ])('attributes all harness routes to Cindy at %s', (upstream, title) => {
+  ])('attributes all harness routes to Emma at %s', (upstream, title) => {
     for (const agent of ['claude-code', 'codex', 'pi'] as const) {
       const routing: RoutingDescriptor = { upstream, authStrategy: 'api-key-header' };
       expect(buildRouteDecision(routing, null, agent, 'fixture-key')?.headerOverride).toMatchObject({
@@ -303,7 +303,7 @@ describe('implicit local bridge resume routing', () => {
   });
 });
 
-describe('local mode Cindy gateway gate', () => {
+describe('local mode Emma gateway gate', () => {
   it('does not route explicit or implicit XD traffic when the capability is disabled', () => {
     mockGetAppCapabilities.mockReturnValue({ canUseCindyGateway: false });
     setSessionProvider('s-local-xd', 'xd');

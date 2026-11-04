@@ -18,7 +18,7 @@ describe('native worktree journal watcher', () => {
 
   // Emulate an older client's existing locator format without keeping its reader in production.
   const readPublishedRecords = async (id: string) => {
-    const directory = path.join(state.root, 'app-data', 'Cindy', 'shared-worktree-recycle-journals');
+    const directory = path.join(state.root, 'app-data', 'Emma', 'shared-worktree-recycle-journals');
     return Promise.all((await fs.readdir(directory)).map(async (name) => {
       const { root } = JSON.parse(await fs.readFile(path.join(directory, name), 'utf8'));
       return JSON.parse(await fs.readFile(path.join(root, id + '.json'), 'utf8'));

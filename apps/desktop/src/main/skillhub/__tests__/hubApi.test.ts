@@ -45,7 +45,7 @@ describe('skillhubApiFetch', () => {
     expect(endpoint).toHaveBeenCalledWith('cindySkillHubApiBaseUrl');
   });
 
-  it('缺失 Cindy Skill Hub 端点时关闭云端能力且不发起相对请求', async () => {
+  it('缺失 Emma Skill Hub 端点时关闭云端能力且不发起相对请求', async () => {
     endpoint.mockReturnValueOnce('');
 
     await expect(skillhubApiFetch('/api/skills-hub/skills')).rejects.toMatchObject({

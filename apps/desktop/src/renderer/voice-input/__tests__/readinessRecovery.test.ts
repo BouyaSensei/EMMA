@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { resolveVoiceInputReadinessRecovery } from '../readinessRecovery';
 
 describe('resolveVoiceInputReadinessRecovery', () => {
-  it('returns to voice settings when the managed Cindy service is unavailable', () => {
+  it('returns to voice settings when the managed Emma service is unavailable', () => {
     expect(
       resolveVoiceInputReadinessRecovery(
         {

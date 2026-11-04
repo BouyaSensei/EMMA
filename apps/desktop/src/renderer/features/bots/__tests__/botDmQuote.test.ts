@@ -8,7 +8,7 @@ describe('forwarded companion reply quotes', () => {
   const content = formatForwardedRequest({ userText: '只检查' }, '第一段\n\n第二段，保留 `\\n`', 'zh-CN');
   const message = { clientId: 'forwarded', role: 'user' as const, content,
     automationOrigin: { kind: 'session' as const, senderSessionId: 'sender' } };
-  const names = { owner: 'Chris', companion: 'Cindy' };
+  const names = { owner: 'Chris', companion: 'Emma' };
 
   it('uses readable text for the pending snapshot, live original and unloaded fallback', () => {
     const quote = botReplyQuoteFor(message)!;

@@ -8,7 +8,7 @@ import { BUNDLED_CATALOG } from '../builtin.js';
 import { modelProtocolComparison } from '../modelProtocol.js';
 
 describe("standard provider catalog", () => {
-  it('carries Cindy canonical model declarations into imported connection details', () => {
+  it('carries Emma canonical model declarations into imported connection details', () => {
     const provider = buildUserProvider({ id: 'my-router', name: 'Router', runtimes: {
       pi: { baseUrl: 'https://openrouter.ai/api/v1', wireProtocol: 'openai-chat',
         models: [{ id: 'deepseek/deepseek-v4-pro', name: 'DeepSeek' }] },
@@ -128,7 +128,7 @@ it('does not borrow Chat defaults for an explicitly different Pi model API', () 
   expect(provider.models.pi?.[0]?.cost).toBeUndefined();
 });
 
-it('keeps generated defaults consistent with Cindy model preferences', async () => {
+it('keeps generated defaults consistent with Emma model preferences', async () => {
   const { PROVIDER_MODEL_CATALOG } = await import('../providerModelCatalog.js');
   const { defaultEffortForCapabilities } = await import('../effortResolution.js');
   for (const model of Object.values(PROVIDER_MODEL_CATALOG.providers).flat()) {

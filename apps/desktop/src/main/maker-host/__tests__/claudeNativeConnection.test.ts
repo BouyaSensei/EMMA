@@ -29,14 +29,14 @@ beforeEach(() => {
   h.loggedIn = true;
   h.readStatus.mockImplementation(async () => (h.loggedIn ? { loggedIn: true, email: 'user@example.com' } : { loggedIn: false }));
 });
-it('connect and disconnect only change the Cindy binding; the CLI login is never touched', async () => {
+it('connect and disconnect only change the Emma binding; the CLI login is never touched', async () => {
   await disconnectClaudeNativeLogin();
   expect(h.unbind).toHaveBeenCalledWith('anthropic', { revoked: true });
   connectClaudeNativeLogin();
   expect(h.bind).toHaveBeenCalledWith('anthropic', { sharedSystem: true });
   await vi.waitFor(() => expect(h.presentation).toHaveBeenCalledWith({ providers: { anthropic: { removed: false } } }));
 });
-it('reads the CLI login only when Cindy is allowed to use it', async () => {
+it('reads the CLI login only when Emma is allowed to use it', async () => {
   await expect(readClaudeNativeLogin({ maxAgeMs: 60_000 })).resolves.toEqual({ loggedIn: true, email: 'user@example.com' });
   expect(h.readStatus).toHaveBeenCalledWith({ maxAgeMs: 60_000 });
   h.loggedIn = false;

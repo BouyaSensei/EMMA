@@ -89,7 +89,7 @@ afterEach(async () => {
   await fs.rm(state.root, { recursive: true, force: true });
 });
 
-describe('Cindy managed skill catalog', () => {
+describe('Emma managed skill catalog', () => {
   it('keeps same-name root and in-place organization skills distinct through Codex projection', async () => {
     state.organization = true;
     await writeSkill(path.join(state.root, 'a', 'ghost-install-state', 'skill-snapshots', 'organization'), 'demo', 'demo');

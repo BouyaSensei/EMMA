@@ -14,7 +14,7 @@ vi.mock('electron', () => ({
   },
 }));
 
-describe('Cindy Make source status broadcast', () => {
+describe('Emma Make source status broadcast', () => {
   beforeEach(() => {
     for (const window of windows) {
       window.isDestroyed.mockClear();
@@ -25,7 +25,7 @@ describe('Cindy Make source status broadcast', () => {
   it('sends status to every live window', () => {
     const status: MakeSourceStatus = {
       status: 'preparing',
-      path: 'C:\\Cindy\\source',
+      path: 'C:\\Emma\\source',
       phase: 'cloning',
     };
 

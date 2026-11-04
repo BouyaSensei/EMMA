@@ -341,14 +341,14 @@ describe('ensureOfficialFork', () => {
     full_name: 'octo/cindy-1',
     fork: true,
     owner: { login: 'octo' },
-    parent: { full_name: 'makecindy/cindy' },
+    parent: { full_name: 'BouyaSensei/EMMA' },
   };
 
   it('accepts the account fork of the official repository, even when renamed', async () => {
     const fetchFn = vi.fn(async () => jsonResponse(202, fork));
     await expect(ensureOfficialFork(fetchFn, identity)).resolves.toBe('octo/cindy-1');
     expect(fetchFn).toHaveBeenCalledWith(
-      'https://api.github.com/repos/makecindy/cindy/forks',
+      'https://api.github.com/repos/BouyaSensei/EMMA/forks',
       expect.objectContaining({
         method: 'POST',
         body: JSON.stringify({ default_branch_only: true }),
@@ -730,7 +730,7 @@ describe('inspectPersonalFork', () => {
         archived: false,
         fork: true,
         owner: { login: 'octo' },
-        parent: { full_name: 'makecindy/cindy' },
+        parent: { full_name: 'BouyaSensei/EMMA' },
         permissions: { push: true },
       }),
     );
@@ -758,7 +758,7 @@ describe('inspectPersonalFork', () => {
           archived: false,
           fork: true,
           owner: { login: 'octo' },
-          parent: { full_name: 'makecindy/cindy' },
+          parent: { full_name: 'BouyaSensei/EMMA' },
           permissions: { push: true },
         });
       throw new Error('unexpected ' + url);

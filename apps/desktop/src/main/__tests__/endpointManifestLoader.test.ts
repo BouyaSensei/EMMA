@@ -20,7 +20,9 @@ vi.mock('../endpointManifestCache', () => ({
   },
 }));
 const base = (region: ClientEndpointRegion) =>
-  `https://hotfix.emma.${region === 'cn' ? 'cn' : 'app'}/emma`;
+  region === 'cn'
+    ? 'https://hotfix.emma.cn/emma'
+    : 'https://github.com/BouyaSensei/EMMA/releases/latest/download';
 const text = (region: ClientEndpointRegion) =>
   getBundledEndpointManifest(region, `${base(region)}/endpoint.json`)!;
 const offline = async () => ({ ok: false as const, detail: 'ERR_CONNECTION_TIMED_OUT' });

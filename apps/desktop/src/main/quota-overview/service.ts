@@ -530,7 +530,7 @@ export class QuotaOverviewService {
       const read = await readRemoteSubscriptions({
         nowMs,
         listDevices: () => {
-          requireAppCapability('canUseDeviceLink', 'Device Link requires a Cindy account.');
+          requireAppCapability('canUseDeviceLink', 'Device Link requires an Emma account.');
           return handleListDevices(deviceDirectoryDeps());
         },
         invoke: (deviceId, channel, args) => remoteBackgroundInvoke(deviceId, channel, args),

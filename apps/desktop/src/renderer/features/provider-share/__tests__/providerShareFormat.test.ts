@@ -42,7 +42,7 @@ function received(partial: Partial<ProviderShareReceived>): ProviderShareReceive
     shareId: 's1',
     memberId: 'm1',
     providerId: 'xd',
-    providerLabel: 'Cindy AI',
+    providerLabel: 'Emma AI',
     hostDeviceId: 'host-1',
     deviceName: "Magi's Mac Mini",
     owner: { displayName: 'Magi', avatarUrl: null, region: 'global' },
@@ -131,7 +131,7 @@ describe('providerShareFormat', () => {
       {
         shareId: 's1',
         providerId: 'xd',
-        providerLabel: 'Cindy AI',
+        providerLabel: 'Emma AI',
         createdAt: '2026-10-01T00:00:00Z',
         members: [],
         requests: [
@@ -165,14 +165,14 @@ describe('providerShareFormat', () => {
     const pending = pendingRequestsFromOwnerState({
       ready: true,
       shares: [{
-        shareId: 's1', providerId: 'xd', providerLabel: 'Cindy AI', createdAt: '2026-10-01T00:00:00Z', members: [],
+        shareId: 's1', providerId: 'xd', providerLabel: 'Emma AI', createdAt: '2026-10-01T00:00:00Z', members: [],
         requests: [request('local', '2026-10-07T10:00:00Z'), request('quiet', '2026-10-07T10:03:00Z')],
       }],
       quietRequestIds: ['quiet'],
       watchedRequests: [
-        { request: request('watched', '2026-10-07T10:01:00Z'), share: { shareId: 'g1', providerId: 'xd', providerLabel: 'Cindy AI' }, hostDeviceId: 'group-host' },
+        { request: request('watched', '2026-10-07T10:01:00Z'), share: { shareId: 'g1', providerId: 'xd', providerLabel: 'Emma AI' }, hostDeviceId: 'group-host' },
         // 没有来源电脑的条目不是另一台电脑上的分享，不收。
-        { request: request('stray', '2026-10-07T10:02:00Z'), share: { shareId: 'g1', providerId: 'xd', providerLabel: 'Cindy AI' } },
+        { request: request('stray', '2026-10-07T10:02:00Z'), share: { shareId: 'g1', providerId: 'xd', providerLabel: 'Emma AI' } },
       ],
     });
     expect(pending.map((item) => [item.request.requestId, item.hostDeviceId ?? null, item.quiet ?? false])).toEqual([

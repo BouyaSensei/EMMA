@@ -30,11 +30,11 @@ export function nativeProviderAdapterAliases(
 }
 
 export const PI_NATIVE_PROVIDER_ADAPTER_SOURCE = String.raw`
-type CindyAdapterAlias = { id: string; name: string; provider: string; keyEnv?: string; cachedCodex?: boolean; remoteProviderId?: string; models?: Array<{ id: string; grant: string }> };
-type CindyProviderRefreshSnapshot = {
+type EmmaAdapterAlias = { id: string; name: string; provider: string; keyEnv?: string; cachedCodex?: boolean; remoteProviderId?: string; models?: Array<{ id: string; grant: string }> };
+type EmmaProviderRefreshSnapshot = {
   nonce: string;
   env: Record<string, string>;
-  aliases: CindyAdapterAlias[];
+  aliases: EmmaAdapterAlias[];
 };
 
 const CINDY_DYNAMIC_KEY_ENV_PATTERN = /^CINDY_PI_KEY_[A-Z0-9_]+$/;
@@ -49,7 +49,7 @@ const CINDY_FIXED_ADAPTER_KEYS = new Set([
   'CINDY_PI_XAI_PROXY_API_KEY',
 ]);
 
-function parseCindyProviderRefreshSnapshot(raw: unknown, nonce: string): CindyProviderRefreshSnapshot | undefined {
+function parseEmmaProviderRefreshSnapshot(raw: unknown, nonce: string): EmmaProviderRefreshSnapshot | undefined {
   if (typeof raw !== 'string') return undefined;
   let payload: any;
   try { payload = JSON.parse(raw); } catch { return undefined; }
@@ -61,7 +61,7 @@ function parseCindyProviderRefreshSnapshot(raw: unknown, nonce: string): CindyPr
     if (!cindyRefreshEnvAllowed(name) || typeof value !== 'string') return undefined;
     env[name] = value;
   }
-  const aliases: CindyAdapterAlias[] = [];
+  const aliases: EmmaAdapterAlias[] = [];
   const seen = new Set<string>();
   for (const alias of payload.aliases) {
     if (!alias || typeof alias !== 'object' || Array.isArray(alias)) return undefined;
@@ -87,8 +87,8 @@ function parseCindyProviderRefreshSnapshot(raw: unknown, nonce: string): CindyPr
   return { nonce, env, aliases };
 }
 
-async function registerCindyNativeProviderAdapters(pi: any, cacheRecovery?: any) {
-  let aliases: CindyAdapterAlias[] = [];
+async function registerEmmaNativeProviderAdapters(pi: any, cacheRecovery?: any) {
+  let aliases: EmmaAdapterAlias[] = [];
   try {
     const initial = JSON.parse(process.env.CINDY_PI_NATIVE_PROVIDER_ADAPTERS ?? '[]');
     if (Array.isArray(initial)) aliases = initial;
@@ -107,7 +107,7 @@ async function registerCindyNativeProviderAdapters(pi: any, cacheRecovery?: any)
     }
     return apis;
   }
-  function registerAliases(models: any[], currentAliases: CindyAdapterAlias[], ctx: any) {
+  function registerAliases(models: any[], currentAliases: EmmaAdapterAlias[], ctx: any) {
     if (!apis) throw new Error('Native provider adapter is unavailable');
     const { lazyStream, envApiKeyAuth, getApiProvider } = apis;
     for (const alias of currentAliases) {
@@ -166,7 +166,7 @@ async function registerCindyNativeProviderAdapters(pi: any, cacheRecovery?: any)
         })();
       });
       pi.registerProvider({ id: alias.id, name: alias.name,
-        // Pi's native Provider contract requires auth even when Cindy's proxy handles OAuth.
+        // Pi's native Provider contract requires auth even when Emma's proxy handles OAuth.
         auth: alias.keyEnv ? { apiKey: envApiKeyAuth('API key', [alias.keyEnv]) } : {},
         getModels: () => providerModels,
         stream: (model: any, context: any, options: any) => stream(model, context, options, false),
@@ -215,7 +215,7 @@ async function registerCindyNativeProviderAdapters(pi: any, cacheRecovery?: any)
     }
   });
   return {
-    async refresh(snapshot: CindyProviderRefreshSnapshot, ctx: any, secretEnvNames: Set<string>) {
+    async refresh(snapshot: EmmaProviderRefreshSnapshot, ctx: any, secretEnvNames: Set<string>) {
       if (snapshot.aliases.length) await loadApis();
       // The host supplies the entire current dynamic-key snapshot, so deleted
       // provider/header keys disappear from both Pi and future bash children.

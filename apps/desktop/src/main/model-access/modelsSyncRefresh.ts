@@ -79,7 +79,7 @@ export function withModelsSyncOverallDeadline<T>(
   let timeout: ReturnType<typeof setTimeout> | null = null;
   const deadline = new Promise<never>((_, reject) => {
     timeout = setTimeout(
-      () => reject(new Error(`Cindy AI model list refresh timed out after ${timeoutMs}ms`)),
+      () => reject(new Error(`Emma AI model list refresh timed out after ${timeoutMs}ms`)),
       timeoutMs,
     );
     timeout.unref?.();
@@ -102,7 +102,7 @@ export function buildModelsSyncRequest(baseUrl: string | (() => string)): {
       // followed in 5c47051ac (2026-09-10). Earlier V5 parsers reject the whole list
       // for audio_speech with agents: [], so schemaVersion=5 alone cannot prove support.
       // This declares parser support only; older servers safely ignore the opt-in.
-      headers: { 'X-Cindy-Model-Capabilities': 'audio_speech,display_pricing' },
+      headers: { 'X-Emma-Model-Capabilities': 'audio_speech,display_pricing' },
       // 模型权限随订阅权益变化，强制刷新不能命中 Electron HTTP cache。
       cache: 'no-store',
     },

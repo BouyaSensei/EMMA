@@ -81,7 +81,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('Cindy Make versions with real translations', () => {
+describe('Emma Make versions with real translations', () => {
   it.each(cases)(
     'renders the personal update action in $locale',
     async ({ locale, resource, update }) => {

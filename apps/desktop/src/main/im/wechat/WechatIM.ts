@@ -1385,7 +1385,7 @@ export class WechatIM extends BaseIM implements RichChannelIM {
       return;
     }
     if (companion && /^\/(?:permission|model|project)(?:\s|$)/.test(command)) {
-      await this.#commitSimpleReply(task, '请在 Cindy 中打开这位伙伴：模型在伙伴设置中调整，权限在对话输入框下方切换。');
+      await this.#commitSimpleReply(task, '请在 Emma 中打开这位伙伴：模型在伙伴设置中调整，权限在对话输入框下方切换。');
       return;
     }
     if (/^\/permission(?:\s|$)/.test(command)) {
@@ -1402,7 +1402,7 @@ export class WechatIM extends BaseIM implements RichChannelIM {
       case '/status':
         await this.#commitSimpleReply(
           task,
-          `Cindy 微信连接正常，当前队列 ${this.#state.queuedTasks} 条。`,
+          `Emma 微信连接正常，当前队列 ${this.#state.queuedTasks} 条。`,
         );
         return;
       case '/stop':
@@ -1413,7 +1413,7 @@ export class WechatIM extends BaseIM implements RichChannelIM {
         if (companion) {
           const result = await runtime.runner.rotateCompanionLane?.(botContextId, task.peerId);
           if (result === 'owner-dm') {
-            await this.#commitSimpleReply(task, '这里与伙伴共用同一条长期任务，记录和记忆会保留。需要整理上下文时，请在 Cindy 中重启伙伴。');
+            await this.#commitSimpleReply(task, '这里与伙伴共用同一条长期任务，记录和记忆会保留。需要整理上下文时，请在 Emma 中重启伙伴。');
             return;
           }
         }
@@ -2095,7 +2095,7 @@ export function wechatPreDispatchFailureText(reason: string, companion = false):
     || reason.includes('unsupported_turn_permission')
   )) {
     return '这条消息需要逐次权限确认，但伙伴当前的模型或权限模式不支持，消息无法启动。\n'
-      + '请主人在 Cindy 中打开这位伙伴，检查伙伴设置中的模型，并在对话输入框下方选择默认权限或自动审批。';
+      + '请主人在 Emma 中打开这位伙伴，检查伙伴设置中的模型，并在对话输入框下方选择默认权限或自动审批。';
   }
   if (reason.includes(`${WECHAT_TURN_PERMISSION_POLICY_UNSUPPORTED}:agent`)) {
     // 当前权限模式若是换 Agent 后仍不兼容的档位(bypassPermissions / acceptEdits),
@@ -2113,7 +2113,7 @@ export function wechatPreDispatchFailureText(reason: string, companion = false):
     return ui.error.permissionModeUnsupported;
   }
   if (reason === 'missing_auth') {
-    return '当前 Agent 尚未完成授权，请先在 Cindy 中连接模型服务。';
+    return '当前 Agent 尚未完成授权，请先在 Emma 中连接模型服务。';
   }
   return '这条消息暂时无法启动，请稍后重试。';
 }

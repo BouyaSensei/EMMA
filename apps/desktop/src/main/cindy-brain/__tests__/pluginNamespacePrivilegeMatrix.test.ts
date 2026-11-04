@@ -50,7 +50,7 @@ function manifestFor(id: string): GhostManifest {
       hosts: ['service.example'],
       secrets: [{
         key: 'cindy_identity',
-        label: 'Cindy organization identity',
+        label: 'Emma organization identity',
         source: 'oidc-token',
         inject: { header: 'Authorization', format: 'Bearer {value}', hosts: ['service.example'] },
       }],

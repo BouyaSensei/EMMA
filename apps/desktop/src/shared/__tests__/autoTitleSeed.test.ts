@@ -417,7 +417,7 @@ describe('deriveAutoTitleSeed — 会话/项目引用', () => {
             end: href.length,
             href,
             name: 'cindy',
-            workingDir: '/Users/dash/Code/Cindy/cindy',
+            workingDir: '/Users/dash/Code/Emma/cindy',
           },
         ],
       }),

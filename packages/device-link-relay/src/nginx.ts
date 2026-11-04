@@ -16,8 +16,8 @@ const HTTP = `${ROOT}/http.conf`;
 const DATA = '/var/lib/cindy-relay';
 const API = '/api/device-link/';
 const CHALLENGE = '/.well-known/acme-challenge/';
-const BEGIN = '# BEGIN Cindy relay';
-const END = '# END Cindy relay';
+const BEGIN = '# BEGIN Emma relay';
+const END = '# END Emma relay';
 
 interface Directive {
   file: string;
@@ -347,7 +347,7 @@ export function planNginx(options: {
     body = body.replaceAll(`if ($uri !~ "^${CHALLENGE}")`, 'if ($uri !~ "^/(?:api/device-link/|[.]well-known/acme-challenge/)")');
     const directives = parse('body', body);
     if (directives.some((d) => d.name === 'location' && d.args.some((a) => a.startsWith(API) || a === '/api/device-link'))) {
-      throw new Error('The existing site already serves the Cindy relay API path');
+      throw new Error('The existing site already serves the Emma relay API path');
     }
     for (const d of [...directives].reverse()) {
       if (d.name === 'return')

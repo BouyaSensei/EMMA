@@ -36,7 +36,7 @@ const snapshot = {
   accounts: [
     {
       accountKey: 'personal-key',
-      displayName: 'Personal Cindy',
+      displayName: 'Personal Emma',
       email: 'personal@example.com',
       avatarUrl: 'https://example.com/user-avatar.png',
       kind: 'personal' as const,
@@ -46,7 +46,7 @@ const snapshot = {
     },
     {
       accountKey: 'org-key',
-      displayName: 'Organization Cindy',
+      displayName: 'Organization Emma',
       email: 'org@example.com',
       avatarUrl: 'https://example.com/org-user-avatar.png',
       kind: 'org' as const,
@@ -96,17 +96,17 @@ describe('AccountSwitcherDialog', () => {
       />,
     );
 
-    expect(await screen.findByText('Personal Cindy')).toBeTruthy();
+    expect(await screen.findByText('Personal Emma')).toBeTruthy();
     expect(screen.getByText('personal@example.com')).toBeTruthy();
     expect(screen.getByText('Example Corp')).toBeTruthy();
-    expect(screen.getByText('Organization Cindy')).toBeTruthy();
+    expect(screen.getByText('Organization Emma')).toBeTruthy();
     expect(document.querySelector('img[src="https://example.com/org-logo.png"]')).toBeTruthy();
     expect(document.querySelector('img[src="https://example.com/org-user-avatar.png"]')).toBeNull();
     expect(screen.queryByText(/组织账号|Organization account/)).toBeNull();
     expect(screen.queryByText('sidebar.accountSwitcher.current')).toBeNull();
     await waitFor(() => expect(syncAccounts).toHaveBeenCalledOnce());
 
-    fireEvent.click(screen.getByRole('button', { name: /Example CorpOrganization Cindy/ }));
+    fireEvent.click(screen.getByRole('button', { name: /Example CorpOrganization Emma/ }));
     await waitFor(() => expect(switchAccount).toHaveBeenCalledWith('org-key'));
     expect(confirm).not.toHaveBeenCalled();
     expect(onOpenChange).toHaveBeenCalledWith(false);
@@ -141,7 +141,7 @@ describe('AccountSwitcherDialog', () => {
     );
 
     const switchButton = await screen.findByRole('button', {
-      name: /Example CorpOrganization Cindy/,
+      name: /Example CorpOrganization Emma/,
     });
     const addButton = screen.getByRole('button', {
       name: 'sidebar.accountSwitcher.addAccount',
@@ -211,7 +211,7 @@ describe('AccountSwitcherDialog', () => {
       />,
     );
 
-    fireEvent.click(await screen.findByRole('button', { name: /Example CorpOrganization Cindy/ }));
+    fireEvent.click(await screen.findByRole('button', { name: /Example CorpOrganization Emma/ }));
 
     await waitFor(() =>
       expect(confirm).toHaveBeenCalledWith({
@@ -238,7 +238,7 @@ describe('AccountSwitcherDialog', () => {
       />,
     );
 
-    fireEvent.click(await screen.findByRole('button', { name: /Example CorpOrganization Cindy/ }));
+    fireEvent.click(await screen.findByRole('button', { name: /Example CorpOrganization Emma/ }));
 
     await waitFor(() => expect(confirm).toHaveBeenCalledOnce());
     await waitFor(() => expect(switchAccount).toHaveBeenCalledWith('org-key'));
@@ -265,13 +265,13 @@ describe('AccountSwitcherDialog', () => {
 
     render(<Harness />);
 
-    fireEvent.click(await screen.findByRole('button', { name: /Example CorpOrganization Cindy/ }));
+    fireEvent.click(await screen.findByRole('button', { name: /Example CorpOrganization Emma/ }));
     await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
 
     fireEvent.click(screen.getByRole('button', { name: 'reopen' }));
 
     const switchButton = await screen.findByRole('button', {
-      name: /Example CorpOrganization Cindy/,
+      name: /Example CorpOrganization Emma/,
     });
     expect((switchButton as HTMLButtonElement).disabled).toBe(false);
     expect(

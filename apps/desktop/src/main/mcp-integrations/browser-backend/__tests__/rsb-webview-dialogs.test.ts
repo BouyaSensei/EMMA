@@ -48,14 +48,14 @@ describe('RsbWebviewDialogs', () => {
     harness.emit('Page.javascriptDialogOpening', {
       type: 'prompt',
       message: 'Enter a name',
-      defaultPrompt: 'Cindy',
+      defaultPrompt: 'Emma',
     });
 
     const pending = dialogs.pending(harness.wc);
     expect(pending).toMatchObject({
       type: 'prompt',
       message: 'Enter a name',
-      defaultValue: 'Cindy',
+      defaultValue: 'Emma',
     });
 
     await expect(

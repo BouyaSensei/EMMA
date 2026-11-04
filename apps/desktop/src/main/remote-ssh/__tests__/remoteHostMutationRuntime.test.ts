@@ -526,7 +526,7 @@ describe('remote SSH mutation runtime semantics', () => {
     });
   });
 
-  it('rejects an ADD when the newly introduced alias is no longer Cindy-owned', async () => {
+  it('rejects an ADD when the newly introduced alias is no longer Emma-owned', async () => {
     const conflicting = host('new-host', { managedByCindy: false });
     mocks.readSshConfigDetailed
       .mockResolvedValueOnce(successfulRead([]))
@@ -582,7 +582,7 @@ describe('remote SSH mutation runtime semantics', () => {
   });
 
   it('reports an ownership error when the existing managed SSH file is unclaimed', async () => {
-    const ownershipError = new Error('existing managed SSH config is not owned by Cindy') as Error & { code?: string };
+    const ownershipError = new Error('existing managed SSH config is not owned by Emma') as Error & { code?: string };
     ownershipError.code = 'SSH_CONFIG_OWNERSHIP_REQUIRED';
     mocks.addManagedHostWithInclude.mockRejectedValueOnce(ownershipError);
 

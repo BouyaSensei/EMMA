@@ -100,7 +100,7 @@ describe('provider share api', () => {
 
   it('parses received shares strictly and keeps only nickname/avatar identity', async () => {
     const shares = await api({ shares: [{
-      shareId: 's1', memberId: 'm1', providerId: 'cindy-ai', providerLabel: 'Cindy AI', hostDeviceId: 'desktop',
+      shareId: 's1', memberId: 'm1', providerId: 'cindy-ai', providerLabel: 'Emma AI', hostDeviceId: 'desktop',
       deviceName: "Magi's Mac Mini", owner: { displayName: 'Magi', avatarUrl: 'https://cdn.example/a.png', region: 'global', email: 'x@y.z' },
       status: 'active', hostOnline: true, hostCapable: true,
     }] }).listReceived();
@@ -157,18 +157,18 @@ describe('provider share received catalogs', () => {
 describe('provider share identity scrubbing', () => {
   // provider-sharing.md §6: org/membership suffixes must not cross accounts.
   // Existing cases covered subscription identities, not Cindy AI membership names.
-  it.each(['Cindy AI · 个人', 'Cindy AI · 心动', 'Cindy AI · Example Studio'])('removes membership identity from shared labels and catalogs: %s', async (name) => {
+  it.each(['Emma AI · 个人', 'Emma AI · 心动', 'Emma AI · Example Studio'])('removes membership identity from shared labels and catalogs: %s', async (name) => {
     const { scrubProviderShareLabel, scrubSharedProviderCatalog, parseProviderShareReceivedCatalogs } = await import('../providerShareCatalog.js');
     const provider = { id: 'xd', name, logoKind: 'xd' };
-    expect(scrubProviderShareLabel(name)).toBe('Cindy AI');
-    expect(scrubSharedProviderCatalog({ providers: [provider] })).toEqual({ providers: [{ id: 'xd', name: 'Cindy AI' }] });
+    expect(scrubProviderShareLabel(name)).toBe('Emma AI');
+    expect(scrubSharedProviderCatalog({ providers: [provider] })).toEqual({ providers: [{ id: 'xd', name: 'Emma AI' }] });
     const [entry] = parseProviderShareReceivedCatalogs({ shares: [{
-      agentDeviceId: 'share:s1', shareId: 's1', providerId: 'xd', providerLabel: name, deviceName: 'Cindy',
+      agentDeviceId: 'share:s1', shareId: 's1', providerId: 'xd', providerLabel: name, deviceName: 'Emma',
       owner: { displayName: 'Alice', avatarUrl: null }, status: 'active', hostOnline: true,
       catalog: { providers: [provider] },
     }] });
-    expect(entry?.providerLabel).toBe('Cindy AI');
-    expect(entry?.catalog).toEqual({ providers: [{ id: 'xd', name: 'Cindy AI' }] });
+    expect(entry?.providerLabel).toBe('Emma AI');
+    expect(entry?.catalog).toEqual({ providers: [{ id: 'xd', name: 'Emma AI' }] });
     expect(provider.name).toBe(name); // Same-account presentation is not mutated.
     expect(provider.logoKind).toBe('xd');
   });

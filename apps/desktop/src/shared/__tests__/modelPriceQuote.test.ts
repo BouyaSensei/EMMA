@@ -206,7 +206,7 @@ describe('registryPricingCatalog', () => {
     });
   });
 
-  it('never treats a public XD reference as the Cindy Gateway sale price', () => {
+  it('never treats a public XD reference as the Emma Gateway sale price', () => {
     const registry: ModelRegistry = {
       schemaVersion: 1,
       updatedAt: '2026-07-31T00:00:00.000Z',

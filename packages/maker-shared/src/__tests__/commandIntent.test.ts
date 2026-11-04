@@ -324,13 +324,13 @@ describe('commandIntentFromCommand — 本地规则解析', () => {
       target: 'node pnpm',
     });
     expect(commandIntentFromCommand('ps aux')).toEqual({ action: 'inspectProcesses' });
-    expect(commandIntentFromCommand('pgrep -fl Cindy')).toEqual({ action: 'inspectProcesses' });
+    expect(commandIntentFromCommand('pgrep -fl Emma')).toEqual({ action: 'inspectProcesses' });
     expect(commandIntentFromCommand('lsof -i :3333')).toEqual({ action: 'inspectPorts', target: ':3333' });
     expect(commandIntentFromCommand('stat -f "%Sm %N" package.json')).toEqual({ action: 'inspect' });
     expect(commandIntentFromCommand('file -C -m custom.magic')).toBeUndefined();
-    expect(commandIntentFromCommand('plutil -p /Applications/Cindy.app/Contents/Info.plist'))
+    expect(commandIntentFromCommand('plutil -p /Applications/Emma.app/Contents/Info.plist'))
       .toEqual({ action: 'inspect' });
-    expect(commandIntentFromCommand('defaults read com.example.Cindy')).toEqual({ action: 'inspectEnvironment' });
+    expect(commandIntentFromCommand('defaults read com.example.Emma')).toEqual({ action: 'inspectEnvironment' });
     expect(commandIntentFromCommand('xcrun simctl list devices available')).toEqual({
       action: 'inspectEnvironment',
     });
@@ -754,9 +754,9 @@ describe('commandIntentFromCommand — 本地规则解析', () => {
       target: 'turnCostUsd',
       path: 'src',
     });
-    expect(commandIntentFromCommand('ps aux | rg Cindy')).toEqual({ action: 'inspectProcesses' });
-    expect(commandIntentFromCommand('ps aux | rg --pre=touch Cindy')).toBeUndefined();
-    expect(commandIntentFromCommand('ps aux | rg Cindy process.txt')).toBeUndefined();
+    expect(commandIntentFromCommand('ps aux | rg Emma')).toEqual({ action: 'inspectProcesses' });
+    expect(commandIntentFromCommand('ps aux | rg --pre=touch Emma')).toBeUndefined();
+    expect(commandIntentFromCommand('ps aux | rg Emma process.txt')).toBeUndefined();
     expect(commandIntentFromCommand('cat a.txt | cut -d: -f1 b.txt')).toBeUndefined();
     expect(commandIntentFromCommand("find ~/Code -maxdepth 5 \\( -iname '*cindy*' -o -iname '*maker*' \\) -print"))
       .toEqual({ action: 'search', target: '*cindy*', path: '~/Code' });
@@ -785,7 +785,7 @@ describe('commandIntentFromCommand — 本地规则解析', () => {
       action: 'inspectEnvironment',
     });
     expect(commandIntentFromCommand('pwd && git status --short')).toEqual({ action: 'gitStatus' });
-    expect(commandIntentFromCommand('pgrep -fl Cindy || true')).toEqual({ action: 'inspectProcesses' });
+    expect(commandIntentFromCommand('pgrep -fl Emma || true')).toEqual({ action: 'inspectProcesses' });
     expect(commandIntentFromCommand('test -d node_modules && echo present || echo missing')).toEqual({
       action: 'inspectEnvironment',
     });

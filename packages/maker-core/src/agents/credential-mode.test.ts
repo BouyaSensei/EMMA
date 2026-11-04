@@ -8,8 +8,8 @@ import {
   resolveEffectiveCredentialModeFromAuthSource,
 } from './credential-mode.js';
 
-describe('isCindyProviderCodexRemoteCompactionRoute', () => {
-  it.each([null, undefined, 'xd'])('accepts Cindy codex models for provider %s', (providerId) => {
+describe('isEmmaProviderCodexRemoteCompactionRoute', () => {
+  it.each([null, undefined, 'xd'])('accepts Emma codex models for provider %s', (providerId) => {
     expect(isCindyProviderCodexRemoteCompactionRoute({
       providerId,
       model: 'codex/gpt-5.6-sol',
@@ -27,7 +27,7 @@ describe('isCindyProviderCodexRemoteCompactionRoute', () => {
     { providerId: 'xai', model: 'codex/gpt-5.6-sol' },
     { providerId: 'xd', model: 'codex/' },
     { providerId: 'xd', model: 'openai-codex/' },
-  ])('rejects non-Cindy-Codex route $providerId/$model', (input) => {
+  ])('rejects non-Emma-Codex route $providerId/$model', (input) => {
     expect(isCindyProviderCodexRemoteCompactionRoute(input)).toBe(false);
   });
 });

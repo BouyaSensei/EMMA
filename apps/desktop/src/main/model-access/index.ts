@@ -282,7 +282,7 @@ async function runModelsSync(
   const cindyAutoChanged = cindyAutoModelIdsChanged(getXdGatewayModels(), models);
   const refreshPoolIfCindyAutoMoved = () => {
     if (!cindyAutoChanged || !onXdCindyAutoModelsChanged) return;
-    log.info('Cindy Auto changed in Cindy AI models; refreshing the enterprise pool directory');
+    log.info('Emma Auto changed in Emma AI models; refreshing the enterprise pool directory');
     onXdCindyAutoModelsChanged();
   };
   if (models.length === 0) {
@@ -460,7 +460,7 @@ export function getModelAccessStatus(): ModelAccessStatus {
  */
 export async function refreshXdGatewayModels(): Promise<void> {
   if (!getAppCapabilities().canUseCindyGateway) {
-    throwIpcError('PERMISSION_DENIED', 'Cindy AI requires a Cindy account.');
+    throwIpcError('PERMISSION_DENIED', 'Emma AI requires an Emma account.');
   }
   // Capture the call boundary before credential recovery can schedule a request. A flight that
   // already existed here may have read entitlement before a just-completed payment; explicit
@@ -468,7 +468,7 @@ export async function refreshXdGatewayModels(): Promise<void> {
   const minimumAttempt = modelsSyncAttempt + 1;
   const status = await ensureCredentialsReadyForModelsRefresh(getSync());
   if (status.state !== 'ok') {
-    throwIpcError('MODEL_ACCESS_FAILED', 'Cindy AI credentials are not ready.');
+    throwIpcError('MODEL_ACCESS_FAILED', 'Emma AI credentials are not ready.');
   }
   const gen = authGeneration;
   // onStatusChange(ok) 已经 schedule；重复调用会复用同世代在途请求。若此时仍有
@@ -489,11 +489,11 @@ export async function refreshXdGatewayModels(): Promise<void> {
     case 'succeeded':
       return;
     case 'not-started':
-      throwIpcError('MODEL_ACCESS_FAILED', 'Cindy AI model list refresh did not start.');
+      throwIpcError('MODEL_ACCESS_FAILED', 'Emma AI model list refresh did not start.');
     case 'account-changed':
-      throwIpcError('MODEL_ACCESS_FAILED', 'Cindy AI account changed during model list refresh.');
+      throwIpcError('MODEL_ACCESS_FAILED', 'Emma AI account changed during model list refresh.');
     case 'failed':
-      throwIpcError('MODEL_ACCESS_FAILED', 'Cindy AI model list refresh failed.');
+      throwIpcError('MODEL_ACCESS_FAILED', 'Emma AI model list refresh failed.');
   }
 }
 
@@ -547,7 +547,7 @@ export function initModelAccess(): void {
     () => {
       // 号池里的 Auto 有增减：Auto 可能换到了 Cindy AI（或从那里搬来），让 Cindy AI 列表也刷新。
       if (!lastAuthUserId || getSync().getStatus().state !== 'ok') return;
-      log.info('Cindy Auto changed in the enterprise pool directory; refreshing Cindy AI models');
+      log.info('Emma Auto changed in the enterprise pool directory; refreshing Emma AI models');
       scheduleModelsSync();
     },
   );
@@ -615,14 +615,14 @@ export function initModelAccess(): void {
 
   ipcMain.handle('model-access:retry', async (): Promise<ModelAccessStatus> => {
     if (!getAppCapabilities().canUseCindyGateway) {
-      throwIpcError('PERMISSION_DENIED', 'Cindy AI requires a Cindy account.');
+      throwIpcError('PERMISSION_DENIED', 'Emma AI requires an Emma account.');
     }
     return statusWithAccountTier(await sync.retry());
   });
 
   ipcMain.handle('model-access:rotate', async (): Promise<ModelAccessStatus> => {
     if (!getAppCapabilities().canUseCindyGateway) {
-      throwIpcError('PERMISSION_DENIED', 'Cindy AI requires a Cindy account.');
+      throwIpcError('PERMISSION_DENIED', 'Emma AI requires an Emma account.');
     }
     try {
       return statusWithAccountTier(await sync.rotate());

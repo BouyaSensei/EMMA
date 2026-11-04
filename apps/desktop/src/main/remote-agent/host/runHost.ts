@@ -2937,7 +2937,7 @@ export function createRemoteAgentHost(deps: RemoteAgentHostDeps) {
         };
         assertAccess();
         if (guest && (!GUEST_SUPPORTED_AGENTS.has(request.agentKind) || !deps.providerAccess || !deps.bindGuestProviderRoute)) {
-          fail('REMOTE_AGENT_PEER_TOO_OLD', 'update Cindy on the computer running this task to fork it');
+          fail('REMOTE_AGENT_PEER_TOO_OLD', 'update Emma on the computer running this task to fork it');
         }
         if (guest && !(await guestOwnsSession(controller, request.relay, request.sourceSdkSessionId))) {
           fail('REMOTE_AGENT_INVALID', 'this conversation cannot be forked on this computer');
@@ -2962,7 +2962,7 @@ export function createRemoteAgentHost(deps: RemoteAgentHostDeps) {
           try {
             const { invoke } = deps.groupRelay.connect(member.agentDeviceId);
             const caps = await RemoteAgentRunClient.caps(invoke);
-            if (!caps.nativeFork) fail('REMOTE_AGENT_PEER_TOO_OLD', 'update Cindy on the computer running this task to fork it');
+            if (!caps.nativeFork) fail('REMOTE_AGENT_PEER_TOO_OLD', 'update Emma on the computer running this task to fork it');
             assertProvider();
             result = parseRemoteAgentForkResult(await invoke([{
               ...request,
@@ -2983,7 +2983,7 @@ export function createRemoteAgentHost(deps: RemoteAgentHostDeps) {
           }
         } else {
           if (!deps.forkHosted) {
-            fail('REMOTE_AGENT_PEER_TOO_OLD', 'update Cindy on the computer running this task to fork it');
+            fail('REMOTE_AGENT_PEER_TOO_OLD', 'update Emma on the computer running this task to fork it');
           }
           if (!deps.isAgentAvailable(request.agentKind)) {
             // 经供应商组转来的受邀者看不到组内电脑，也装不了它的 Agent：回位置类错误，组所在电脑(含旧版)统一成「暂时不可用」。
@@ -3191,7 +3191,7 @@ export function createRemoteAgentHost(deps: RemoteAgentHostDeps) {
         if (trust === 'guest') {
           // 受邀者必须用虚拟工作区：本机 Agent 只看到会话目录内的路径，附加目录也映射在其中。
           if (payload.virtualWorkspace !== true) {
-            fail('REMOTE_AGENT_UNSUPPORTED', 'shared users need the virtual workspace; update Cindy on the other computer');
+            fail('REMOTE_AGENT_UNSUPPORTED', 'shared users need the virtual workspace; update Emma on the other computer');
           }
           payload = sanitizeGuestOpenPayload(payload);
           // 只能接回自己在本机建立过的会话：会话 id 不能用来接上本机用户自己的会话。

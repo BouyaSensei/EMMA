@@ -77,7 +77,7 @@ describe('PiAgent.listAgentSkills (filesystem discovery, no binary spawn)', () =
     expect(Array.isArray(result.skills)).toBe(true);
   });
 
-  it('includes Cindy-managed package skills only when the host explicitly allows them', async () => {
+  it('includes Emma-managed package skills only when the host explicitly allows them', async () => {
     const resolver = vi.fn(async () => ({
       extensions: [],
       skills: [{ path: '/managed/sample/SKILL.md', name: 'managed-sample' }],

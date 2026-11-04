@@ -10,7 +10,9 @@ import {
 } from '../clientEndpoints';
 
 const sourceUrl = (region: ClientEndpointRegion) =>
-  `https://hotfix.emma.${region === 'cn' ? 'cn' : 'app'}/emma/endpoint.json`;
+  region === 'cn'
+    ? 'https://hotfix.emma.cn/emma/endpoint.json'
+    : 'https://github.com/BouyaSensei/EMMA/releases/latest/download/endpoint.json';
 const manifest = (region: ClientEndpointRegion, extra = {}) =>
   JSON.stringify({
     ...JSON.parse(getBundledEndpointManifest(region, sourceUrl(region))!),

@@ -67,7 +67,7 @@ export function nativeBindingRoot(
       : platform === 'win32'
         ? env.LOCALAPPDATA || path.join(home, 'AppData/Local')
         : path.join(home, '.local/share');
-  return path.join(base, 'Cindy', 'browser-native');
+  return path.join(base, 'Emma', 'browser-native');
 }
 
 export function createNativeBinding(options: NativeBindingOptions): NativeBinding {
@@ -302,7 +302,7 @@ $values = @(foreach ($key in $keys) {
       if (!old?.equals(content)) await atomic(binary, content, 0o700);
       const manifest = {
         name: options.hostName,
-        description: 'Cindy browser automatic key binding',
+        description: 'Emma browser automatic key binding',
         path: binary,
         type: 'stdio',
         allowed_origins: (await liveExtensionIds(port, extensionIds)).map(

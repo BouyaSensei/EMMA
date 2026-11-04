@@ -31,7 +31,7 @@ export function localAgentModels(
   const seen = new Set<string>();
   for (const provider of providers) {
     if (!provider.connected || provider.suspended || provider.removed) continue;
-    const providerLabel = `${provider.id === 'xd' ? 'Cindy AI' : provider.name}${source ? ` · ${source.label}` : ''}`;
+    const providerLabel = `${provider.id === 'xd' ? 'Emma AI' : provider.name}${source ? ` · ${source.label}` : ''}`;
     const providerId = source ? `remote:${createHash('sha256').update(JSON.stringify([source.deviceId, provider.id])).digest('hex')}` : provider.id;
     for (const engine of provider.agents) {
       if (

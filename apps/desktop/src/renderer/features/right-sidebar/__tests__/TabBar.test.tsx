@@ -78,8 +78,8 @@ function renderStrip(overrides?: {
   return { onClose, onActivate, onReorder };
 }
 
-describe('TabStrip Cindy Make menu visibility', () => {
-  it('keeps Cindy Make out of the add menu', () => {
+describe('TabStrip Emma Make menu visibility', () => {
+  it('keeps Emma Make out of the add menu', () => {
     renderStrip();
     const addButton = screen.getByRole('button', { name: 'rightSidebar.tabs.addAria' });
     vi.spyOn(addButton.parentElement as HTMLElement, 'getBoundingClientRect').mockReturnValue({

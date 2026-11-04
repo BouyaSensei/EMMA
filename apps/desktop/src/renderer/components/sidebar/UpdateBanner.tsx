@@ -376,7 +376,7 @@ export function UpdateBanner({ isCollapsed, onOpenVersionNotice }: UpdateBannerP
           autoFocusConfirm
           onConfirm={() => {
             handleLinuxDialogOpenChange(false);
-            void window.electronAPI.openExternal('https://github.com/makecindy/cindy/blob/main/docs/linux.md');
+            void window.electronAPI.openExternal('https://github.com/BouyaSensei/EMMA/blob/main/docs/linux.md');
           }}
           onCancel={() => handleLinuxDialogOpenChange(false)}
           onTertiary={() => {

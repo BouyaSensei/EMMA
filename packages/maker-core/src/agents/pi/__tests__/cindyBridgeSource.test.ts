@@ -105,14 +105,14 @@ it('keeps text-only policy local and ordinary tools independent of host UI failu
   expect(await tool({ toolName: 'ask_user_question' }, ctx)).toBeUndefined();
 });
 
-it('lets a shared user\'s Pi call only tools that Cindy extensions registered', async () => {
+it('lets a shared user\'s Pi call only tools that Emma extensions registered', async () => {
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
-  const gateStart = source.indexOf('function createCindyGuestToolGate');
+  const gateStart = source.indexOf('function createEmmaGuestToolGate');
   const gateEnd = source.indexOf('\nconst PERMISSION_TITLE', gateStart);
   const handlerStart = source.indexOf("  pi.on('tool_call', async");
   const handlerEnd = source.indexOf('\n  });', handlerStart) + '\n  });'.length;
   // 子代理扩展的工具名在生成时写进源码。
-  expect(source).toContain('createCindyGuestToolGate(piApi, ["subagent"])');
+  expect(source).toContain('createEmmaGuestToolGate(piApi, ["subagent"])');
   const handlers = new Map<string, (event: any, ctx: any) => any>();
   const registered: string[] = [];
   const api = {
@@ -122,7 +122,7 @@ it('lets a shared user\'s Pi call only tools that Cindy extensions registered', 
   };
   const compiled = ts.transpileModule(
     source.slice(gateStart, gateEnd)
-      + '\nconst guestToolGate = createCindyGuestToolGate(api, ["subagent"]);\nconst pi = guestToolGate.pi;'
+      + '\nconst guestToolGate = createEmmaGuestToolGate(api, ["subagent"]);\nconst pi = guestToolGate.pi;'
       + '\npi.registerTool({ name: "read" });\npi.registerTool({ name: "cindy_mcp_call_tool" });\nresult = pi.getActiveTools();\ngate = guestToolGate;\n'
       + source.slice(handlerStart, handlerEnd),
     { compilerOptions: { target: ts.ScriptTarget.ES2022 } },
@@ -300,7 +300,7 @@ function loadBashPackageHomeHelper(): {
 function powerShellOverlayEnabled(platform: NodeJS.Platform, factory: unknown, guest = false): boolean {
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const start = source.indexOf('const createPowerShellTool =');
-  const end = source.indexOf('// Cindy owns a separate Pi extension store.', start);
+  const end = source.indexOf('// Emma owns a separate Pi extension store.', start);
   if (start < 0 || end <= start) throw new Error('PowerShell overlay was not found');
   const condition = /^\s*if \((.*createPowerShellTool.*)\) \{$/m.exec(source.slice(start, end))?.[1];
   if (!condition) throw new Error('PowerShell overlay condition was not found');
@@ -456,7 +456,7 @@ function loadBashTimeoutHelpers(): {
     throw new Error('bash timeout helpers were not found in the generated bridge');
   }
   const factory = new Function(
-    `${source.slice(start, end)}; return { resolveCindyBashTimeout, applyCindyBashTimeoutParams };`,
+    `${source.slice(start, end)}; return { resolveEmmaBashTimeout, applyEmmaBashTimeoutParams };`,
   ) as () => {
     resolveCindyBashTimeout: (params: unknown) => number;
     applyCindyBashTimeoutParams: (params: unknown) => Record<string, unknown>;
@@ -466,13 +466,13 @@ function loadBashTimeoutHelpers(): {
 
 function loadQuestionTool(): { execute: (...args: any[]) => Promise<any> } {
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
-  const start = source.indexOf('function registerCindyQuestionTool');
+  const start = source.indexOf('function registerEmmaQuestionTool');
   const end = source.indexOf('export default async function cindyBridge');
   const compiled = ts.transpileModule(source.slice(start, end), {
     compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 },
   }).outputText;
   let tool: any;
-  runInNewContext(compiled + '\nregisterCindyQuestionTool(pi);', {
+  runInNewContext(compiled + '\nregisterEmmaQuestionTool(pi);', {
     pi: { registerTool(value: any) { tool = value; } },
   });
   return tool;
@@ -482,7 +482,7 @@ function loadPackageTool(): { execute: (...args: any[]) => Promise<any> } {
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const projectionStart = source.indexOf('const projectPiPackageCommandDiagnostic =');
   const projectionEnd = source.indexOf('// Pi 的模型鉴权', projectionStart);
-  const start = source.indexOf('// Cindy owns a separate Pi extension store.');
+  const start = source.indexOf('// Emma owns a separate Pi extension store.');
   const end = source.indexOf('// ── 原生会话树桥', start);
   const compiled = ts.transpileModule(source.slice(projectionStart, projectionEnd) + source.slice(start, end), {
     compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 },
@@ -739,7 +739,7 @@ describe('cindy-bridge extension source', () => {
       });
 
       expect(CINDY_BRIDGE_EXTENSION_SOURCE).toContain(
-        'isCindyShellTool(event.toolName) && (bashReadEvidence.unresolved || touchesCredentialPath(bashReadTargets))',
+        'isEmmaShellTool(event.toolName) && (bashReadEvidence.unresolved || touchesCredentialPath(bashReadTargets))',
       );
       expect(CINDY_BRIDGE_EXTENSION_SOURCE).not.toContain(
         "if (credentialRead && permission.mode === 'bypassPermissions')",
@@ -1408,7 +1408,7 @@ describe('cindy-bridge extension source', () => {
         });
         expect(source).toContain("event.toolName === 'bash'\n      ? bashInputReadEvidence(event.input)");
         expect(source).toContain("event.toolName === 'powershell'\n        ? powershellInputReadEvidence(event.input)");
-        expect(source).toContain('isCindyShellTool(event.toolName) && (bashReadEvidence.unresolved || touchesCredentialPath(bashReadTargets))');
+        expect(source).toContain('isEmmaShellTool(event.toolName) && (bashReadEvidence.unresolved || touchesCredentialPath(bashReadTargets))');
         expect(source).toContain('resolvedCredentialPaths: credentialEvidenceForHost');
       } finally {
         rmSync(tempRoot, { recursive: true, force: true });
@@ -1424,7 +1424,7 @@ describe('cindy-bridge extension source', () => {
     }
     expect(source).toContain('import * as piCodingAgent from');
     expect(source).toContain('createPowerShellTool');
-    expect(source).toContain('function isCindyShellTool');
+    expect(source).toContain('function isEmmaShellTool');
     expect(source).toContain('function powershellInputReadEvidence');
     expect(source).toContain("const args = ['--files', '--hidden', '--no-require-git']");
     expect(source).toContain("if (pattern.includes('/')) {");
@@ -1458,22 +1458,22 @@ describe('cindy-bridge extension source', () => {
     expect(source).toContain('await ctx.ui.input(');
     expect(source).toContain("const PERMISSION_USER_DENY = 'user-deny'");
     expect(source).toContain("const PERMISSION_AUTO_REVIEW_DENY = 'auto-review-deny'");
-    expect(source).toContain('User denied this tool call via Cindy');
-    expect(source).toContain('Cindy Auto-review denied this tool call');
-    expect(source).toContain('Cindy could not approve this tool call');
+    expect(source).toContain('User denied this tool call via Emma');
+    expect(source).toContain('Emma Auto-review denied this tool call');
+    expect(source).toContain('Emma could not approve this tool call');
   });
 
   it('returns the bounded Auto reason to Pi while retaining legacy denial decoding', () => {
     const source = CINDY_BRIDGE_EXTENSION_SOURCE;
     const fragment = source.slice(source.indexOf('const PERMISSION_ALLOW'), source.indexOf('const READONLY_BUILTINS'));
     const decode = runInNewContext(ts.transpile(fragment + '\npermissionDenialReason;', { target: ts.ScriptTarget.ES2022 })) as (value?: string) => string;
-    expect(decode('auto-review-deny:Only inspect; do not deploy.')).toBe('Cindy Auto-review denied this tool call: Only inspect; do not deploy.');
-    expect(decode('auto-review-deny')).toBe('Cindy Auto-review denied this tool call.');
-    expect(decode('user-deny')).toBe('User denied this tool call via Cindy.');
-    expect(decode('user-deny:Do not publish.')).toBe('User denied this tool call via Cindy: Do not publish.');
-    expect(decode('system-deny:session_closed')).toBe('Cindy could not approve this tool call: session_closed');
-    expect(decode(undefined)).toBe('Cindy could not approve this tool call.');
-    expect(decode('auto-review-deny:' + 'x'.repeat(500))).toBe('Cindy Auto-review denied this tool call: ' + 'x'.repeat(240));
+    expect(decode('auto-review-deny:Only inspect; do not deploy.')).toBe('Emma Auto-review denied this tool call: Only inspect; do not deploy.');
+    expect(decode('auto-review-deny')).toBe('Emma Auto-review denied this tool call.');
+    expect(decode('user-deny')).toBe('User denied this tool call via Emma.');
+    expect(decode('user-deny:Do not publish.')).toBe('User denied this tool call via Emma: Do not publish.');
+    expect(decode('system-deny:session_closed')).toBe('Emma could not approve this tool call: session_closed');
+    expect(decode(undefined)).toBe('Emma could not approve this tool call.');
+    expect(decode('auto-review-deny:' + 'x'.repeat(500))).toBe('Emma Auto-review denied this tool call: ' + 'x'.repeat(240));
   });
 
   it('normalizes bash timeout at the execute boundary without a host-side timer', () => {
@@ -1484,13 +1484,13 @@ describe('cindy-bridge extension source', () => {
     expect(source).toContain(
       `const CINDY_PI_BASH_MAX_TIMEOUT_SECONDS = ${CINDY_PI_BASH_MAX_TIMEOUT_SECONDS};`,
     );
-    expect(source).toContain('const nextParams = applyCindyBashTimeoutParams(params);');
+    expect(source).toContain('const nextParams = applyEmmaBashTimeoutParams(params);');
     expect(source).toContain(
       'return bashTool.execute(id, nextParams as any, signal, onUpdate as any);',
     );
     expect(source).toContain('cindyBashTimeoutDescription()');
     const executeSlice = source.slice(
-      source.indexOf('applyCindyBashTimeoutParams(params)'),
+      source.indexOf('applyEmmaBashTimeoutParams(params)'),
       source.indexOf('cindy-branch-switch'),
     );
     expect(executeSlice).not.toContain('AbortController');
@@ -1589,7 +1589,7 @@ describe('cindy-bridge extension source', () => {
     const handler = source.slice(handlerStart, handlerEnd);
 
     expect(source).toContain("return toolName === 'bash' || toolName === 'powershell';");
-    expect(handler).toContain('if (!isCindyShellTool(captureToolName)');
+    expect(handler).toContain('if (!isEmmaShellTool(captureToolName)');
     expect(handler).toContain('TURN_CHANGE_CAPTURE_TITLE');
   });
 
@@ -1767,7 +1767,7 @@ describe('cindy-bridge extension source', () => {
       "sh -c 'pi install npm:context-mode'",
       'p=pi; "$p" install npm:context-mode',
       '/opt/cindy/pi install npm:context-mode',
-      'C:/Cindy/pi.exe remove npm:context-mode',
+      'C:/Emma/pi.exe remove npm:context-mode',
       'PI_CODING_AGENT_DIR=/tmp/elsewhere pi update npm:context-mode',
       'env -u PI_CODING_AGENT_DIR pi install npm:context-mode',
       'env PI_CODING_AGENT_DIR=/tmp/elsewhere /opt/cindy/pi update npm:context-mode',
@@ -1891,10 +1891,10 @@ describe('cindy-bridge extension source', () => {
 
   it('bubbles Extra Dirs writes and forces confirmation for agent-home writes', () => {
     const source = CINDY_BRIDGE_EXTENSION_SOURCE;
-    expect(source).not.toContain('Cindy extra reference directories are read-only.');
-    expect(source).not.toContain('Cindy agent runtime directory is read-only.');
-    expect(source).not.toContain('Cindy blocks reading credential or key paths, even with Full access.');
-    expect(source).not.toContain('Cindy blocks reading process environment (/proc/*/environ), even with Full access.');
+    expect(source).not.toContain('Emma extra reference directories are read-only.');
+    expect(source).not.toContain('Emma agent runtime directory is read-only.');
+    expect(source).not.toContain('Emma blocks reading credential or key paths, even with Full access.');
+    expect(source).not.toContain('Emma blocks reading process environment (/proc/*/environ), even with Full access.');
     expect(source).toContain('const controlPlaneWrite = Boolean(');
     expect(source).toContain('...(controlPlaneWrite ? { controlPlaneWrite: true } : {})');
     expect(source).toContain('resolvedWritePath: writeTargetResolved');
@@ -1902,7 +1902,7 @@ describe('cindy-bridge extension source', () => {
     expect(source).toContain('resolvedWritableRoots: CINDY_HOSTED');
     expect(source).toContain(': resolveWritableRootsForHost(permission.writableRoots)');
     expect(source).toContain('event.input.path = writeTargetResolved');
-    expect(source).toContain('Cindy could not verify the real file-write target.');
+    expect(source).toContain('Emma could not verify the real file-write target.');
   });
 
   it('resolves existing and not-yet-created write targets through an authorized-root link', () => {
@@ -1968,7 +1968,7 @@ describe('cindy-bridge extension source', () => {
     expect(reviewGate).toBeGreaterThan(-1);
     expect(ordinaryWriteHandling).toBeGreaterThan(reviewGate);
     expect(source).toContain(
-      "reason: 'Cindy Review only permits read-only access to this task and its explicit artifacts.'",
+      "reason: 'Emma Review only permits read-only access to this task and its explicit artifacts.'",
     );
     expect(source).toContain('normalizeReviewReadInput(');
     expect(source).toContain('collectReviewPathFields(input)');
@@ -2327,7 +2327,7 @@ it('re-surfaces the disclosure set once after compaction instead of editing ever
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const compiled = ts.transpileModule(
     source.slice(source.indexOf('const CINDY_MCP_LIST_TOOLS'), source.indexOf('async function connectServer'))
-      + '\n(globalThis as any).Gateway = CindyMcpGateway;',
+      + '\n(globalThis as any).Gateway = EmmaMcpGateway;',
     { compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 } },
   ).outputText;
   const context: Record<string, any> = {
@@ -2389,7 +2389,7 @@ it('registers list_machines directly so Pi does not have to find it through the 
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const compiled = ts.transpileModule(
     source.slice(source.indexOf('const CINDY_MCP_LIST_TOOLS'), source.indexOf('async function connectServer'))
-      + '\n(globalThis as any).Gateway = CindyMcpGateway;',
+      + '\n(globalThis as any).Gateway = EmmaMcpGateway;',
     { compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 } },
   ).outputText;
   const context: Record<string, any> = {
@@ -2427,7 +2427,7 @@ it('routes Bot shortcuts through the scoped helper entry without exposing them t
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const compiled = ts.transpileModule(
     source.slice(source.indexOf('const CINDY_MCP_LIST_TOOLS'), source.indexOf('async function connectServer'))
-      + '\n(globalThis as any).Gateway = CindyMcpGateway;',
+      + '\n(globalThis as any).Gateway = EmmaMcpGateway;',
     { compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 } },
   ).outputText;
   const context: Record<string, any> = {
@@ -2583,7 +2583,7 @@ it('lets cindy_mcp_call_tool omit args and forwards an empty object for no-param
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const compiled = ts.transpileModule(
     source.slice(source.indexOf('const CINDY_MCP_LIST_TOOLS'), source.indexOf('async function connectServer'))
-      + '\n(globalThis as any).Gateway = CindyMcpGateway;',
+      + '\n(globalThis as any).Gateway = EmmaMcpGateway;',
     { compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 } },
   ).outputText;
   const context: Record<string, any> = {
@@ -2642,7 +2642,7 @@ it('tells the model the call_tool envelope instead of forwarding a flattened env
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const compiled = ts.transpileModule(
     source.slice(source.indexOf('const CINDY_MCP_LIST_TOOLS'), source.indexOf('async function connectServer'))
-      + '\n(globalThis as any).Gateway = CindyMcpGateway;',
+      + '\n(globalThis as any).Gateway = EmmaMcpGateway;',
     { compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 } },
   ).outputText;
   const context: Record<string, any> = {
@@ -2684,7 +2684,7 @@ it('intercepts a double-wrapped envelope and an entry-tool name before they reac
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const compiled = ts.transpileModule(
     source.slice(source.indexOf('const CINDY_MCP_LIST_TOOLS'), source.indexOf('async function connectServer'))
-      + '\n(globalThis as any).Gateway = CindyMcpGateway;',
+      + '\n(globalThis as any).Gateway = EmmaMcpGateway;',
     { compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 } },
   ).outputText;
   const context: Record<string, any> = {
@@ -2747,7 +2747,7 @@ it('passes through inner tools that legitimately declare an args parameter, repe
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const compiled = ts.transpileModule(
     source.slice(source.indexOf('const CINDY_MCP_LIST_TOOLS'), source.indexOf('async function connectServer'))
-      + '\n(globalThis as any).Gateway = CindyMcpGateway;',
+      + '\n(globalThis as any).Gateway = EmmaMcpGateway;',
     { compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 } },
   ).outputText;
   const context: Record<string, any> = {
@@ -2800,7 +2800,7 @@ it('probes the inner list_tools of a third-party two-entry gateway and passes le
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const compiled = ts.transpileModule(
     source.slice(source.indexOf('const CINDY_MCP_LIST_TOOLS'), source.indexOf('async function connectServer'))
-      + '\n(globalThis as any).Gateway = CindyMcpGateway;',
+      + '\n(globalThis as any).Gateway = EmmaMcpGateway;',
     { compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 } },
   ).outputText;
   const context: Record<string, any> = {
@@ -2850,11 +2850,11 @@ it('probes the inner list_tools of a third-party two-entry gateway and passes le
   });
 });
 
-it('does not apply the Cindy envelope rule to a third-party tool also named call_tool', async () => {
+it('does not apply the Emma envelope rule to a third-party tool also named call_tool', async () => {
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const compiled = ts.transpileModule(
     source.slice(source.indexOf('const CINDY_MCP_LIST_TOOLS'), source.indexOf('async function connectServer'))
-      + '\n(globalThis as any).Gateway = CindyMcpGateway;',
+      + '\n(globalThis as any).Gateway = EmmaMcpGateway;',
     { compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 } },
   ).outputText;
   const context: Record<string, any> = {
@@ -2911,11 +2911,11 @@ it('does not apply the Cindy envelope rule to a third-party tool also named call
   expect(requests).toHaveLength(1);
 });
 
-it('leaves a direct tool alone when its required name is not the Cindy envelope', async () => {
+it('leaves a direct tool alone when its required name is not the Emma envelope', async () => {
   const source = CINDY_BRIDGE_EXTENSION_SOURCE;
   const compiled = ts.transpileModule(
     source.slice(source.indexOf('const CINDY_MCP_LIST_TOOLS'), source.indexOf('async function connectServer'))
-      + '\n(globalThis as any).Gateway = CindyMcpGateway;',
+      + '\n(globalThis as any).Gateway = EmmaMcpGateway;',
     { compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 } },
   ).outputText;
   const context: Record<string, any> = {

@@ -191,20 +191,20 @@ describe('Telegram-style layout', () => {
 
 describe('names in multi-owner groups', () => {
   const human = { botId: 'h', actorId: 'h', actorKind: 'human' as const, name: 'Chris', avatar: '', avatarColor: '', status: 'active' as const };
-  const theirs = { botId: 'c', actorId: 'c', actorKind: 'bot' as const, name: 'Cindy (Chris)', ownerName: 'Chris', ownerActorId: 'h', isOwned: false, avatar: '', avatarColor: '', status: 'active' as const };
+  const theirs = { botId: 'c', actorId: 'c', actorKind: 'bot' as const, name: 'Emma (Chris)', ownerName: 'Chris', ownerActorId: 'h', isOwned: false, avatar: '', avatarColor: '', status: 'active' as const };
   const plain = { ...theirs, name: 'Dash', ownerName: 'Chris', isOwned: false };
   const mine = { ...theirs, name: 'LiZi', ownerName: 'Me', isOwned: true };
 
   it('shows another owner’s teammate as 伙伴名 (主人昵称), once', () => {
-    expect(botGroupMemberDisplayName(theirs)).toBe('Cindy (Chris)');
+    expect(botGroupMemberDisplayName(theirs)).toBe('Emma (Chris)');
     expect(botGroupMemberDisplayName(plain)).toBe('Dash (Chris)');
     expect(botGroupMemberDisplayName(mine)).toBe('LiZi');
     expect(botGroupMemberDisplayName(human)).toBe('Chris');
-    expect(botGroupMemberBaseName(theirs)).toBe('Cindy');
+    expect(botGroupMemberBaseName(theirs)).toBe('Emma');
   });
 
   it('lists the teammates a human brought in', () => {
-    expect(botGroupOwnedBotNames(human, [human, theirs, mine])).toEqual(['Cindy', 'LiZi']);
+    expect(botGroupOwnedBotNames(human, [human, theirs, mine])).toEqual(['Emma', 'LiZi']);
     expect(botGroupOwnedBotNames(theirs, [human, theirs])).toEqual([]);
   });
 });

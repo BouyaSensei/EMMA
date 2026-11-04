@@ -69,7 +69,7 @@ async function inside() {
       '-out',
       `${dir}/cert.pem`,
       '-subj',
-      '/CN=Cindy interop',
+      '/CN=Emma interop',
       '-addext',
       `subjectAltName=${san}`,
     ]);
@@ -256,7 +256,7 @@ async function inside() {
     await checkPairingSources();
     const socket = new WebSocket('wss://127.0.0.1/api/device-link/ws', {
       ca: material.cert,
-      headers: { Authorization: `CindyRelay ${owner.credential}` },
+      headers: { Authorization: `EmmaRelay ${owner.credential}` },
     });
     await new Promise<void>((resolve, reject) => {
       socket.once('open', resolve);
@@ -265,7 +265,7 @@ async function inside() {
     socket.close();
     const bytes = Buffer.alloc(1_100_000, 42);
     const auth = {
-      Authorization: `CindyRelay ${owner.credential}`,
+      Authorization: `EmmaRelay ${owner.credential}`,
       'Content-Type': 'application/json',
     };
     const upload = await get(

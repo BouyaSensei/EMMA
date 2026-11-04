@@ -96,7 +96,7 @@ export function buildCodexProxySpawnArgs(
     // 统一使用 CodeModeOnly，解决 Codex namespace tools 发现不及时的问题。
     '-c', 'features.code_mode_only=true',
     '-c', `model_provider="${p}"`,
-    '-c', `model_providers.${p}.name="Cindy Gateway"`,
+    '-c', `model_providers.${p}.name="Emma Gateway"`,
     '-c', `model_providers.${p}.base_url="${baseUrl}"`,
     '-c', `model_providers.${p}.wire_api="responses"`,
     '-c', authArg,
@@ -110,7 +110,7 @@ export function buildCodexProxySpawnArgs(
   // distinct id is persisted by native Codex so a reopened task stays on summaries.
   const summary = CODEX_SUMMARY_COMPACT_PROVIDER_ID;
   args.push(
-    '-c', `model_providers.${summary}.name="Cindy Summary"`,
+    '-c', `model_providers.${summary}.name="Emma Summary"`,
     '-c', `model_providers.${summary}.base_url="${baseUrl}"`,
     '-c', `model_providers.${summary}.wire_api="responses"`,
     '-c', authArg.replace(`model_providers.${p}.`, `model_providers.${summary}.`),

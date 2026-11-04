@@ -27,7 +27,7 @@ beforeEach(() => {
     .mockImplementation(async (file) => metadata(file === worktreeGit ? 'file' : 'directory'));
 });
 
-describe('Cindy Make project send access', () => {
+describe('Emma Make project send access', () => {
   it('also blocks a missing upstream-merge workspace without recreating it as an ordinary project', async () => {
     const mergeDir = path.join(userData, 'cindy-make', 'merge-worktrees', '12345678-1234-1234-1234-123456789abc');
     vi.mocked(lstat).mockRejectedValue(Object.assign(new Error('missing'), { code: 'ENOENT' }));

@@ -500,7 +500,7 @@ html:lang(ko) {
    through the configured UI font. Keep the asset names aligned with the
    exact-pinned font package. */
 @font-face {
-  font-family: 'Cindy CJK Punctuation Local';
+  font-family: 'Emma CJK Punctuation Local';
   src:
     local('PingFang SC'), local('Hiragino Sans GB'), local('Microsoft YaHei UI'),
     local('Microsoft YaHei'), local('Noto Sans CJK SC'), local('Source Han Sans SC');
@@ -512,7 +512,7 @@ html:lang(ko) {
     U+3000-303F, U+FF00-FFEF;
 }
 @font-face {
-  font-family: 'Cindy CJK Punctuation Bundled';
+  font-family: 'Emma CJK Punctuation Bundled';
   src: url('../../../../../node_modules/harmonyos-sans-sc-webfont-splitted/dist/Regular_256855.woff2')
     format('woff2');
   font-style: normal;
@@ -521,7 +521,7 @@ html:lang(ko) {
   unicode-range: U+3001-3002, U+3008-3011, U+3014-3017;
 }
 @font-face {
-  font-family: 'Cindy CJK Punctuation Bundled';
+  font-family: 'Emma CJK Punctuation Bundled';
   src: url('../../../../../node_modules/harmonyos-sans-sc-webfont-splitted/dist/Regular_312071.woff2')
     format('woff2');
   font-style: normal;
@@ -531,7 +531,7 @@ html:lang(ko) {
     U+3000, U+3003, U+3005-3007, U+3012-3013, U+3018-301B, U+301D-301E, U+3021-3029, U+303E;
 }
 @font-face {
-  font-family: 'Cindy CJK Punctuation Bundled';
+  font-family: 'Emma CJK Punctuation Bundled';
   src: url('../../../../../node_modules/harmonyos-sans-sc-webfont-splitted/dist/Regular_ac4458.woff2')
     format('woff2');
   font-style: normal;
@@ -542,7 +542,7 @@ html:lang(ko) {
     U+FFE6;
 }
 @font-face {
-  font-family: 'Cindy CJK Punctuation Bundled';
+  font-family: 'Emma CJK Punctuation Bundled';
   src: url('../../../../../node_modules/harmonyos-sans-sc-webfont-splitted/dist/Regular_ea8896.woff2')
     format('woff2');
   font-style: normal;
@@ -554,7 +554,7 @@ html:lang(ko) {
 }
 .ProseMirror .composer-list-cjk-punctuation-font {
   font-family:
-    'Cindy CJK Punctuation Local', 'Cindy CJK Punctuation Bundled',
+    'Emma CJK Punctuation Local', 'Emma CJK Punctuation Bundled',
     var(--app-font-ui, var(--app-font-ui-default));
 }
 .ProseMirror .composer-list-cjk-font {

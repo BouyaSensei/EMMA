@@ -502,7 +502,7 @@ describe('dev 沙箱凭证隔离(XDT_ISOLATED_AUTH)', () => {
     expect(fs.readFileSync(localAuth)).not.toEqual(releaseBytes);
   });
 
-  it('dev 默认只读共享:断开只停用 Cindy，重启不复活，显式本机连接可恢复', async () => {
+  it('dev 默认只读共享:断开只停用 Emma，重启不复活，显式本机连接可恢复', async () => {
     const { codexHome, localAuth, systemAuth } = fixture();
     h.dataOwnerId = 'owner-a';
     const adapter = new DesktopCodexAuthAdapter();

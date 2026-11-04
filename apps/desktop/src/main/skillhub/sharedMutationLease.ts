@@ -95,7 +95,7 @@ export async function acquireSharedSkillMutationLease(
 ): Promise<SkillMutationRelease | null> {
   let root: string;
   try {
-    root = path.join(app.getPath('appData'), 'Cindy', 'shared-skill-mutation-locks');
+    root = path.join(app.getPath('appData'), 'Emma', 'shared-skill-mutation-locks');
     fs.mkdirSync(root, { recursive: true });
   } catch {
     log.warn('Skill mutation lock directory is unavailable');

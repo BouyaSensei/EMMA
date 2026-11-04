@@ -691,7 +691,7 @@ export class GhostCindySlot {
         });
         return {
           ok: false,
-          message: 'Cindy AI 搜索失败，请稍后再试',
+          message: 'Emma AI 搜索失败，请稍后再试',
           errorCode: 'INTERNAL',
         };
       }
@@ -806,7 +806,7 @@ export class GhostCindySlot {
       return { ok: false, message: '意识不在可用状态' };
     }
     if (!ghost.manifest.cindy) {
-      return { ok: false, message: '本意识未声明 cindy 能力,无权请 Cindy 代办' };
+      return { ok: false, message: '本意识未声明 cindy 能力,无权请 Emma 代办' };
     }
     // 能力粒度资格审:详单里没申请的动作点不了(缺详单 = 零能力,提示作者补声明)。
     const declaredActions: readonly string[] = ghost.manifest.cindy?.[info.category] ?? [];
@@ -1271,7 +1271,7 @@ export class GhostCindySlot {
       return { ok: false, message: '意识不在可用状态' };
     }
     if (!ghost.manifest.cindy) {
-      return { ok: false, message: '本意识未声明 cindy 能力,无权请 Cindy 代办' };
+      return { ok: false, message: '本意识未声明 cindy 能力,无权请 Emma 代办' };
     }
     const declared: readonly string[] = ghost.manifest.cindy?.media ?? [];
     if (!declared.includes('deposit')) {
@@ -1304,7 +1304,7 @@ export class GhostCindySlot {
     if (!ghost.manifest.cindy) {
       return {
         ok: false,
-        message: '本意识未声明 cindy 能力，无权请 Cindy 搜索',
+        message: '本意识未声明 cindy 能力，无权请 Emma 搜索',
         errorCode: 'PERMISSION_DENIED',
       };
     }
@@ -1383,7 +1383,7 @@ export class GhostCindySlot {
     if (!searchWeb) {
       return {
         ok: false,
-        message: '主机当前不支持 Cindy AI 搜索(能力未接线)',
+        message: '主机当前不支持 Emma AI 搜索(能力未接线)',
         errorCode: 'NOT_CONFIGURED',
       };
     }
@@ -1425,7 +1425,7 @@ export class GhostCindySlot {
       ) {
         return {
           ok: false,
-          message: 'Cindy AI 搜索只允许由当前插件真实在途的工具调用触发',
+          message: 'Emma AI 搜索只允许由当前插件真实在途的工具调用触发',
           errorCode: 'PERMISSION_DENIED',
         };
       }
@@ -1514,7 +1514,7 @@ export class GhostCindySlot {
     if (!ghost.manifest.cindy) {
       return {
         ok: false,
-        message: '本意识未声明 cindy 能力,无权请 Cindy 代办',
+        message: '本意识未声明 cindy 能力,无权请 Emma 代办',
         errorCode: 'PERMISSION_DENIED',
       };
     }
@@ -1677,7 +1677,7 @@ export class GhostCindySlot {
     if (!ghost.manifest.cindy) {
       return {
         ok: false,
-        message: '本意识未声明 cindy 能力,无权请 Cindy 代办',
+        message: '本意识未声明 cindy 能力,无权请 Emma 代办',
         errorCode: 'PERMISSION_DENIED',
       };
     }
@@ -2202,7 +2202,7 @@ export class GhostCindySlot {
       return { ok: false, message: '意识不在可用状态' };
     }
     if (!ghost.manifest.cindy) {
-      return { ok: false, message: '本意识未声明 cindy 能力,无权请 Cindy 代办' };
+      return { ok: false, message: '本意识未声明 cindy 能力,无权请 Emma 代办' };
     }
     if (typeof p.jobId !== 'string' || p.jobId.length === 0 || p.jobId.length > MAX_JOB_ID_LEN) {
       return { ok: false, message: 'jobId 不合法(mode:submit 受理时返回的任务号)' };

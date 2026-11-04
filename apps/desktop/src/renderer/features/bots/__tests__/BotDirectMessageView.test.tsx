@@ -10,7 +10,7 @@ const mocks = vi.hoisted(() => ({
   getThread: vi.fn(),
   navigate: vi.fn(),
   profiles: [
-    { id: 'bot-a', name: 'Cindy', avatar: '', avatarColor: 'red' },
+    { id: 'bot-a', name: 'Emma', avatar: '', avatarColor: 'red' },
     { id: 'bot-b', name: 'Planner', avatar: '', avatarColor: 'blue' },
   ],
   search: '',
@@ -65,7 +65,7 @@ beforeEach(() => {
     thread: {
       id: 'dm-1',
       botAId: 'bot-a',
-      botAName: 'Cindy',
+      botAName: 'Emma',
       botBId: 'bot-b',
       botBName: 'Planner',
       status: 'closed',
@@ -80,7 +80,7 @@ beforeEach(() => {
           id: 'message-1',
           sequence: 1,
           senderBotId: 'bot-a',
-          senderBotName: 'Cindy',
+          senderBotName: 'Emma',
           recipientBotId: 'bot-b',
           recipientBotName: 'Planner',
           content: 'Can you check this?',
@@ -92,7 +92,7 @@ beforeEach(() => {
           senderBotId: 'bot-b',
           senderBotName: 'Planner',
           recipientBotId: 'bot-a',
-          recipientBotName: 'Cindy',
+          recipientBotName: 'Emma',
           content: 'Checked.',
           createdAt: 2,
         },
@@ -123,7 +123,7 @@ describe('BotDirectMessageView', () => {
     expect(screen.getByText('bots.directMessage.limitReached')).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: 'bots.directMessage.close' }));
     expect(mocks.navigate).toHaveBeenCalledWith('/bots/bot-a/session/a-main', { replace: true });
-    expect(screen.getByTestId('content-header').textContent).toContain('Cindy');
+    expect(screen.getByTestId('content-header').textContent).toContain('Emma');
   });
 
   it('fails closed when the thread is unavailable', async () => {
@@ -141,8 +141,8 @@ it('loads a remote private thread and refreshes it after reconnect without using
   const unsubscribeStatus = vi.fn();
   const response = await mocks.getThread();
   mocks.getThread.mockClear();
-  response.thread.botAName = 'Remote Cindy';
-  response.thread.messages[0].senderBotName = 'Remote Cindy';
+  response.thread.botAName = 'Remote Emma';
+  response.thread.messages[0].senderBotName = 'Remote Emma';
   const invoke = vi.fn(async () => structuredClone(response));
   window.electronAPI.deviceLink = {
     invoke,
@@ -160,7 +160,7 @@ it('loads a remote private thread and refreshes it after reconnect without using
   ]);
   expect(mocks.getThread).not.toHaveBeenCalled();
   const header = screen.getByTestId('content-header');
-  expect(header.textContent).toContain('Remote Cindy');
+  expect(header.textContent).toContain('Remote Emma');
   const registeredHeader = header.firstElementChild;
   for (let i = 0; i < 20; i += 1) view.rerender(<TestPage />);
   expect(header.firstElementChild).toBe(registeredHeader);

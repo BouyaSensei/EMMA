@@ -20,7 +20,7 @@ export default {
       targetId: 'im-bot-group-cindy',
       titleKey: 'settings.imBot.groups.cindy',
       sectionKey: 'settings.sections.imBot',
-      aliases: ['Cindy', 'official bot', '官方机器人'],
+      aliases: ['Emma', 'official bot', '官方机器人'],
     },
     {
       id: 'imBot.cindy.slack',

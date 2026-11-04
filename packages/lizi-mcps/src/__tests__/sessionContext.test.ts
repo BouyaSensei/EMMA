@@ -1010,7 +1010,7 @@ describe('dynamic lizi MCP session context', () => {
     });
   });
 
-  it('advertises Cindy as the helper self-inspection category', async () => {
+  it('advertises Emma as the helper self-inspection category', async () => {
     const server = createXdtHelperMcpServer(
       {},
       { agentKind: 'codex', workingDir: '', vendorOptions: {} },

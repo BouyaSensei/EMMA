@@ -586,7 +586,7 @@ export function createComputerMcpServer(
         errorCode: 'HOTKEY_BLOCKED',
         data: {
           tool: name,
-          message: `The shortcut ${blockedChord} locks, logs out or sleeps this computer. Cindy does not send session-level shortcuts; nothing was dispatched.`,
+          message: `The shortcut ${blockedChord} locks, logs out or sleeps this computer. Emma does not send session-level shortcuts; nothing was dispatched.`,
           hint: 'Act on the target window instead (close it, quit the app via its menu, or report that the step needs the person).',
         },
       }, true);
@@ -1136,7 +1136,7 @@ export function createComputerMcpServer(
       {
         ok: false,
         errorCode: 'REPLAY_BUDGET_EXCEEDED',
-        data: { message: 'Trajectory replay exceeded Cindy\'s bounded execution budget.' },
+        data: { message: 'Trajectory replay exceeded Emma\'s bounded execution budget.' },
       },
       true,
     );
@@ -1195,7 +1195,7 @@ export function createComputerMcpServer(
     if (typeof directory !== 'string' || !workingDir) {
       return {
         error: trajectoryValidationFailedResult(
-          'Cindy could not safely resolve the trajectory directory.',
+          'Emma could not safely resolve the trajectory directory.',
         ),
       };
     }
@@ -1252,7 +1252,7 @@ export function createComputerMcpServer(
       });
       return {
         error: trajectoryValidationFailedResult(
-          'Cindy could not read the trajectory directory before replay.',
+          'Emma could not read the trajectory directory before replay.',
         ),
       };
     }
@@ -1319,7 +1319,7 @@ export function createComputerMcpServer(
           if (currentStat.dev !== stat.dev || currentStat.ino !== stat.ino) {
             return {
               error: trajectoryValidationFailedResult(
-                'The recorded action changed while Cindy was opening it.',
+                'The recorded action changed while Emma was opening it.',
                 turn,
               ),
             };
@@ -1362,7 +1362,7 @@ export function createComputerMcpServer(
         if (!definition) {
           return {
             error: trajectoryValidationFailedResult(
-              `Recorded tool ${tool} is not exposed by this Cindy version.`,
+              `Recorded tool ${tool} is not exposed by this Emma version.`,
               turn,
             ),
           };
@@ -1390,7 +1390,7 @@ export function createComputerMcpServer(
         if (!parsed.success) {
           return {
             error: trajectoryValidationFailedResult(
-              `Recorded tool ${tool} does not match the current Cindy schema.`,
+              `Recorded tool ${tool} does not match the current Emma schema.`,
               turn,
             ),
           };
@@ -1409,7 +1409,7 @@ export function createComputerMcpServer(
         });
         return {
           error: trajectoryValidationFailedResult(
-            'Cindy could not safely validate this recorded action.',
+            'Emma could not safely validate this recorded action.',
             turn,
           ),
         };
@@ -1753,7 +1753,7 @@ export function createComputerMcpServer(
         errorCode: 'SECURE_FIELD',
         data: {
           tool: name,
-          message: 'This element is a password field. Cindy does not let the agent type into password fields.',
+          message: 'This element is a password field. Emma does not let the agent type into password fields.',
           hint: 'Call ask_owner with kind="fill" and this pid and window as target so the owner fills it from their phone or another computer; leave the window as it is until it ends.',
         },
       },

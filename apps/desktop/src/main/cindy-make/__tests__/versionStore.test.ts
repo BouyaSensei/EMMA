@@ -39,9 +39,9 @@ async function fixture() {
   roots.push(root);
   const userData = path.join(root, 'profile');
   await mkdir(userData);
-  const profile: VersionProfile = { userData, appName: 'Cindy', region: 'global', passive: false };
-  const source = path.join(root, process.platform === 'darwin' ? 'Cindy.app' : 'Cindy');
-  const { resources, executable } = runnableBundlePaths(source, 'Cindy');
+  const profile: VersionProfile = { userData, appName: 'Emma', region: 'global', passive: false };
+  const source = path.join(root, process.platform === 'darwin' ? 'Emma.app' : 'Emma');
+  const { resources, executable } = runnableBundlePaths(source, 'Emma');
   await mkdir(path.join(resources, 'drizzle'), { recursive: true });
   await mkdir(path.dirname(executable), { recursive: true });
   await writeFile(executable, 'executable A');
@@ -71,7 +71,7 @@ async function fixture() {
     retainPersonalVersion({
       profile,
       sourceDirectory: source,
-      appName: 'Cindy',
+      appName: 'Emma',
       title: 'Blue background',
       commit: candidateCommit,
     });
@@ -88,7 +88,7 @@ async function fixture() {
     builtAt,
   };
 }
-describe('local Cindy version snapshots', () => {
+describe('local Emma version snapshots', () => {
   it('defaults to the original without creating a version registry', async () => {
     const h = await fixture();
     expect(selectedVersion(h.userData)).toBe('original');
@@ -116,7 +116,7 @@ describe('local Cindy version snapshots', () => {
     expect(hasPublishedPersonalVersionCommit(h.userData, h.commit)).toBe(true);
     const a = await verifyPersonalVersion(h.userData, first, h.original);
     expect(a.builtAt).toBe(h.builtAt);
-    expect(a.version).toBe(`Cindy Make ${first.slice(0, 8)}`);
+    expect(a.version).toBe(`Emma Make ${first.slice(0, 8)}`);
     expect(listPersonalVersions(h.userData, h.original)).toEqual([
       expect.objectContaining({
         id: first,
@@ -222,7 +222,7 @@ describe('local Cindy version snapshots', () => {
     const second = (await retainPersonalVersion({
       profile: h.profile,
       sourceDirectory: h.source,
-      appName: 'Cindy',
+      appName: 'Emma',
       title: 'Another task',
       commit: secondCommit,
     }))!;
@@ -391,13 +391,13 @@ describe('local Cindy version snapshots', () => {
     expect(fs.existsSync(versionsRoot(h.userData))).toBe(false);
   });
   it('uses complete bundle layouts on both macOS and Windows', () => {
-    const root = path.join(os.tmpdir(), 'Cindy.app');
-    expect(runnableBundlePaths(root, 'Cindy', 'darwin')).toEqual({
-      executable: path.join(root, 'Contents/MacOS/Cindy'),
+    const root = path.join(os.tmpdir(), 'Emma.app');
+    expect(runnableBundlePaths(root, 'Emma', 'darwin')).toEqual({
+      executable: path.join(root, 'Contents/MacOS/Emma'),
       resources: path.join(root, 'Contents/Resources'),
     });
-    expect(runnableBundlePaths(root, 'Cindy', 'win32')).toEqual({
-      executable: path.join(root, 'Cindy.exe'),
+    expect(runnableBundlePaths(root, 'Emma', 'win32')).toEqual({
+      executable: path.join(root, 'Emma.exe'),
       resources: path.join(root, 'resources'),
     });
   });

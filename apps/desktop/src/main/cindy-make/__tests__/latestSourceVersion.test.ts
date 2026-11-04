@@ -22,7 +22,7 @@ const comparison = { base_commit: { sha: local }, ahead_by: 7, behind_by: 2 };
 
 afterEach(() => vi.useRealTimers());
 
-describe('latest Cindy source version', () => {
+describe('latest Emma source version', () => {
   it('uses the managed source channel even when the running Dev app is packaged', () => {
     expect(sourceChannel({ channel: 'dev', ref: 'main' }, 'release')).toBe('dev');
     expect(sourceChannel({ channel: undefined, ref: 'main' }, 'release')).toBe('dev');
@@ -44,8 +44,8 @@ describe('latest Cindy source version', () => {
       behind: 7,
     });
     expect(fetch.mock.calls.map(([url]) => url)).toEqual([
-      'https://api.github.com/repos/makecindy/cindy/commits/main',
-      `https://api.github.com/repos/makecindy/cindy/compare/${local}...${remote}?per_page=1`,
+      'https://api.github.com/repos/BouyaSensei/EMMA/commits/main',
+      `https://api.github.com/repos/BouyaSensei/EMMA/compare/${local}...${remote}?per_page=1`,
     ]);
     expect(fetch.mock.calls[0][1]).toMatchObject({ credentials: 'omit', redirect: 'error' });
     expect(result.mainRemoteCommit).toBe(source.mainRemoteCommit);
@@ -73,7 +73,7 @@ describe('latest Cindy source version', () => {
       channel: 'beta',
     });
     expect(fetch.mock.calls[1][0]).toBe(
-      'https://api.github.com/repos/makecindy/cindy/commits/v2.0.0-beta.2',
+      'https://api.github.com/repos/BouyaSensei/EMMA/commits/v2.0.0-beta.2',
     );
   });
 
@@ -92,8 +92,8 @@ describe('latest Cindy source version', () => {
       behind: 0,
     });
     expect(fetch.mock.calls.map(([url]) => url)).toEqual([
-      'https://api.github.com/repos/makecindy/cindy/releases/latest',
-      'https://api.github.com/repos/makecindy/cindy/commits/v2.0.0',
+      'https://api.github.com/repos/BouyaSensei/EMMA/releases/latest',
+      'https://api.github.com/repos/BouyaSensei/EMMA/commits/v2.0.0',
     ]);
   });
 

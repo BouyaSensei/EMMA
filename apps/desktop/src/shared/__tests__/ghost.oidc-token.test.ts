@@ -16,7 +16,7 @@ function manifest(secret: Record<string, unknown>, extra: Record<string, unknown
       secrets: [
         {
           key: 'cindy_identity',
-          label: 'Cindy Enterprise Identity',
+          label: 'Emma Enterprise Identity',
           source: 'oidc-token',
           inject: {
             header: 'Authorization',

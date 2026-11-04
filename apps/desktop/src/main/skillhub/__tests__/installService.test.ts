@@ -179,7 +179,7 @@ describe('skillhub/installService', () => {
     return { source, target: inspectLocalSkillTarget(source, [source])! };
   }
 
-  it('trashes an unregistered scanned skill and clears its Cindy override', async () => {
+  it('trashes an unregistered scanned skill and clears its Emma override', async () => {
     const { source, target } = await localFixture('unregistered');
     const { setCindySkillEnabled, isCindySkillEnabled } = await import('../activationPreferences');
     const { uninstall } = await import('../installService');

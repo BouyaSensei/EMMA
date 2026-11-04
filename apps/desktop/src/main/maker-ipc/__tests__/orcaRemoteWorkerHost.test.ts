@@ -43,13 +43,13 @@ function setup(
       sessions.set(req.sessionId, {
         status: 'active',
         orcaRemoteLead: lead,
-        workingDir: req.workingDir ?? '/Users/demo/Cindy/dialogues/w_remote_1',
+        workingDir: req.workingDir ?? '/Users/demo/Emma/dialogues/w_remote_1',
         model: 'claude-opus-5-5',
         agentKind: req.agentKind,
         effort: req.effort ?? 'medium',
       });
       return {
-        workingDir: req.workingDir ?? '/Users/demo/Cindy/dialogues/w_remote_1',
+        workingDir: req.workingDir ?? '/Users/demo/Emma/dialogues/w_remote_1',
         model: 'claude-opus-5-5',
         agentKind: req.agentKind,
         effort: req.effort ?? 'medium',
@@ -139,7 +139,7 @@ describe('orca remote worker host', () => {
     });
     expect(result).toEqual({
       sessionId: 'w_remote_1',
-      workingDir: '/Users/demo/Cindy/dialogues/w_remote_1',
+      workingDir: '/Users/demo/Emma/dialogues/w_remote_1',
       model: 'claude-opus-5-5',
       agentKind: 'claude-code',
       effort: 'medium',

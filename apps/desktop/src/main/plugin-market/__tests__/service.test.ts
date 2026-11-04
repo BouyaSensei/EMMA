@@ -328,7 +328,7 @@ function manifest(
     id,
     name: 'Test Plugin',
     description: 'Test description',
-    author: 'Cindy',
+    author: 'Emma',
     version,
     kind: 'chip' as const,
     entry: 'main.js',
@@ -402,7 +402,7 @@ function summary(overrides: Partial<VisiblePluginSummary> = {}): VisiblePluginSu
     ghostId: 'cindy-test',
     name: 'Test Plugin',
     description: 'Test description',
-    author: 'Cindy',
+    author: 'Emma',
     scope: 'public',
     organizationId: null,
     defaultInstall: false,
@@ -638,7 +638,7 @@ describe('workflow display author projection', () => {
   it.each([
     { displayAuthor: '名'.repeat(100), expected: '名'.repeat(100) },
     { displayAuthor: null, expected: null },
-    { displayAuthor: undefined, expected: 'Cindy' },
+    { displayAuthor: undefined, expected: 'Emma' },
   ])('uses the workflow name and preserves old-server compatibility (%j)', async ({ displayAuthor, expected }) => {
     const h = harness([summary({ displayAuthor })]);
     expect((await h.service.snapshot({ discoveryOnly: true })).items[0].author).toBe(expected);
@@ -2835,7 +2835,7 @@ describe('PluginMarketService migration and defaultInstall', () => {
     if (identity.namespace === null) {
       expect(options).toMatchObject({ officialCindyGithub: true });
     } else {
-      expect(options).not.toHaveProperty('officialCindyGithub');
+      expect(options).not.toHaveProperty('officialEmmaGithub');
     }
   });
 
@@ -2895,7 +2895,7 @@ describe('PluginMarketService migration and defaultInstall', () => {
         publisherSigned: true,
         publisherVerified: true,
         reviewed: true,
-        publisherName: 'Cindy Plugin Market',
+        publisherName: 'Emma Plugin Market',
       }),
     );
     runtime.ghosts = [
@@ -3019,7 +3019,7 @@ describe('PluginMarketService migration and defaultInstall', () => {
         publisherSigned: true,
         publisherVerified: true,
         reviewed: true,
-        publisherName: 'Cindy Plugin Market',
+        publisherName: 'Emma Plugin Market',
       }),
     );
     runtime.ghosts = [
@@ -3032,7 +3032,7 @@ describe('PluginMarketService migration and defaultInstall', () => {
         publisherSigned: true,
         publisherVerified: true,
         reviewed: true,
-        publisherName: 'Cindy Plugin Market',
+        publisherName: 'Emma Plugin Market',
       },
       },
     ];
@@ -3075,7 +3075,7 @@ describe('PluginMarketService migration and defaultInstall', () => {
         publisherSigned: true,
         publisherVerified: true,
         reviewed: true,
-        publisherName: 'Cindy Plugin Market',
+        publisherName: 'Emma Plugin Market',
       },
       },
     ];

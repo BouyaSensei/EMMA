@@ -185,7 +185,7 @@ describe('AgentTaskCard', () => {
           toolName: 'subagent',
           toolUseId: 'pi-tool-bg',
         },
-        result: 'Cindy subagent launched. The agent is working in the background.',
+        result: 'Emma subagent launched. The agent is working in the background.',
         update: {
           provider: 'pi',
           taskId: 'pi-tool-bg',
@@ -197,7 +197,7 @@ describe('AgentTaskCard', () => {
     );
 
     expect(container.textContent).toContain('Durable terminal answer');
-    expect(container.textContent).not.toContain('Cindy subagent launched');
+    expect(container.textContent).not.toContain('Emma subagent launched');
   });
 
   // subagent-model-chip --------------------------------------------------------

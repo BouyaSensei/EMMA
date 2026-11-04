@@ -22,7 +22,7 @@ import {
   isTrustedTopLevelCindyRendererEventForLocation,
 } from '../trustedAppRenderer';
 
-const packagedRendererFile = path.resolve('/Applications/Cindy/resources/app/renderer/index.html');
+const packagedRendererFile = path.resolve('/Applications/Emma/resources/app/renderer/index.html');
 const packagedOptions = { devServerUrl: null, packagedRendererFile };
 
 function fakeEvent(url: string, options: { child?: boolean } = {}) {
@@ -78,7 +78,7 @@ describe('trustedAppRenderer · sender frame', () => {
     ).toBe(false);
   });
 
-  it('登记过的 Cindy 窗口顶层 frame 才通过', () => {
+  it('登记过的 Emma 窗口顶层 frame 才通过', () => {
     const win = { isDestroyed: () => false };
     markAppContentWindow(win as never);
     electronMocks.fromWebContents.mockReturnValue(win);
@@ -123,7 +123,7 @@ describe('trustedAppRenderer · 窗口级判据(出站推送用)', () => {
       webContents: { isDestroyed: () => false, mainFrame: { url } },
     }) as never;
 
-  it('URL-only 判据允许 Cindy utility 窗口，但不把它视为 app-content', () => {
+  it('URL-only 判据允许 Emma utility 窗口，但不把它视为 app-content', () => {
     const utility = fakeWindow(pathToFileURL(packagedRendererFile).toString());
     expect(isTrustedCindyRendererWindowForLocation(utility, packagedOptions)).toBe(true);
     expect(isTrustedAppRendererWindowForLocation(utility, packagedOptions)).toBe(false);

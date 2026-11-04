@@ -708,7 +708,7 @@ describe('Subagent runs broadcast boundary', () => {
     expect(h.persistSubagentTaskUpdate).toHaveBeenCalledTimes(3);
   });
 
-  it('sends only to a currently trusted Cindy renderer window', () => {
+  it('sends only to a currently trusted Emma renderer window', () => {
     const payload = {
       sessionId: 'session-1',
       runId: 'run-1',

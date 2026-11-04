@@ -685,7 +685,7 @@ async function getForgeSessionFsGate(
 /** 意识显示名(确认卡标题用;查不到回落 id)。 */
 function ghostDisplayName(ghostId: string): string {
   if (ghostId === CINDY_FORGE_GRANT_ID) return 'Forge';
-  if (ghostId === CINDY_SESSION_FS_GRANT_ID) return 'Cindy';
+  if (ghostId === CINDY_SESSION_FS_GRANT_ID) return 'Emma';
   const g = findInstalledGhostByInstanceId(getGhostManager().list(), ghostId);
   return g?.manifest.name ?? ghostId;
 }
@@ -810,7 +810,7 @@ async function requestGrantConfirm(params: {
       decision.reason === 'timeout'
         ? '过户确认超时:用户未在时限内响应,本次调用已取消;如仍需要,请提醒用户后重试'
         : decision.reason === 'session_closed' || decision.reason === 'session_aborted'
-          ? `Cindy 已取消本次过户请求（${decision.reason}），并非用户手动拒绝。`
+          ? `Emma 已取消本次过户请求（${decision.reason}），并非用户手动拒绝。`
           : '用户拒绝了本次过户请求,不要重试;如确有需要请先与用户沟通',
   };
 }
@@ -886,7 +886,7 @@ async function requestMediaPathRevealConfirm(params: {
   }
   const decision = await bridge.request(params.sessionId, {
     ghostId: 'cindy-media',
-    ghostName: 'Cindy Media',
+    ghostName: 'Emma Media',
     lane: 'reveal_path',
     items: [
       {
@@ -906,7 +906,7 @@ async function requestMediaPathRevealConfirm(params: {
       decision.reason === 'timeout'
         ? '本机路径确认超时，本次调用已取消；如仍需要，请提醒用户后重试'
         : decision.reason === 'session_closed' || decision.reason === 'session_aborted'
-          ? `Cindy 已取消本机路径确认（${decision.reason}），并非用户手动拒绝。`
+          ? `Emma 已取消本机路径确认（${decision.reason}），并非用户手动拒绝。`
           : '用户未允许把本机路径返回给 Agent，不要重试',
   };
 }
@@ -1839,7 +1839,7 @@ function pageControlHidden(ghost: InstalledGhost): { tools: Set<string>; manual:
   return { tools: new Set(replaces.tools), manual: new Set(replaces.manual ?? []) };
 }
 const PAGE_CONTROL_TOOL_MESSAGE =
-  '这个插件工具已由 Cindy 的 browser 工具取代:读取或操作用户自己的浏览器,请用 cindy_browser 的 browser 工具,浏览器目标选「我的浏览器」(user-browser)。';
+  '这个插件工具已由 Emma 的 browser 工具取代:读取或操作用户自己的浏览器,请用 cindy_browser 的 browser 工具,浏览器目标选「我的浏览器」(user-browser)。';
 
 function ghostRecall(ghost: InstalledGhost): string | undefined {
   return ghost.manifest.whenToUse ?? ghost.manifest.description;
@@ -2875,7 +2875,7 @@ export function getCindyGhostsMcpDeps(
           return {
             ok: false,
             errorCode: 'INVALID_INPUT',
-            message: request.withUi ? `交互页面要求 minCindyVersion >= ${PLUGIN_UI_MIN_CINDY_VERSION}` : 'minCindyVersion 必须是插件实际依赖的首个 Cindy 正式版本（major.minor.patch）',
+            message: request.withUi ? `交互页面要求 minEmmaVersion >= ${PLUGIN_UI_MIN_CINDY_VERSION}` : 'minEmmaVersion 必须是插件实际依赖的首个 Emma 正式版本（major.minor.patch）',
           };
         }
         const currentCindyVersion = hostDeps.getAppVersion?.().trim();
@@ -2894,7 +2894,7 @@ export function getCindyGhostsMcpDeps(
             ok: false,
             errorCode: 'INVALID_INPUT',
             message:
-              '当前是未发布或预发布 Cindy 构建，请明确填写 minCindyVersion（插件实际依赖的首个 Cindy 正式版本）',
+              '当前是未发布或预发布 Emma 构建，请明确填写 minEmmaVersion（插件实际依赖的首个 Emma 正式版本）',
           };
         }
         const access = await authorizeForgeOutsideWorkdir({

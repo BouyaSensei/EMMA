@@ -420,7 +420,7 @@ export class McpAppsHost {
       const capabilities = client.getServerCapabilities();
       const createBridge = (currentContext = context) => new AppBridge(
         null,
-        { name: 'Cindy', version: '1.0.0' },
+        { name: 'Emma', version: '1.0.0' },
         {
           openLinks: {},
           ...(!remote && config.plugin && this.deps.downloadFile ? { downloadFile: {} } : {}),

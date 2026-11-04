@@ -516,7 +516,7 @@ describe('applyInputProjection 自愈进行中提示', () => {
     ).toBe(false);
   });
 
-  it('status=closed 即使缺少 done 也会撤掉 Cindy 接管活动行', () => {
+  it('status=closed 即使缺少 done 也会撤掉 Emma 接管活动行', () => {
     inputProjectionCb!(projection({ autoResumePending: PENDING_INFO }));
     expect(
       makerChatStore.getSnapshot(SID).messages.some((m) => m.clientId === PENDING_CARD_ID),
@@ -839,7 +839,7 @@ describe('Codex 原生重连进行态与终态接管交棒', () => {
     expect(afterTaskUpdate.recoverableError).toMatch(expected);
   });
 
-  it('已有 Cindy 接管活动行时,迟到的非终态重连继续保持接管态', () => {
+  it('已有 Emma 接管活动行时,迟到的非终态重连继续保持接管态', () => {
     const next = handleStreamEvent(
       stateWithCindyPending(),
       reconnectEvent('Reconnecting... 4/5', false),
@@ -884,7 +884,7 @@ describe('Codex 原生重连进行态与终态接管交棒', () => {
     expect(stringStatusNext.recoverableError).toContain('Reconnecting');
   });
 
-  it('已有 Cindy 接管活动行时,随后到达的终态 maker:event 不再点亮红 banner', () => {
+  it('已有 Emma 接管活动行时,随后到达的终态 maker:event 不再点亮红 banner', () => {
     const message =
       'Codex backend unreachable — the daemon retried 4 times over 133s without success (last error: "Reconnecting... 3/5").';
     const next = handleStreamEvent(stateWithCindyPending(message), reconnectEvent(message, true));
@@ -902,7 +902,7 @@ describe('Codex 原生重连进行态与终态接管交棒', () => {
     ['network timeout', 'Request timed out', undefined],
     ['service unavailable', '503 Service Unavailable', undefined],
     ['upstream overload', 'Selected model is at capacity', 'upstream-overload'],
-  ])('已有 Cindy 接管活动行时,%s 的终态广播保持灰色接管态', (_label, message, reason) => {
+  ])('已有 Emma 接管活动行时,%s 的终态广播保持灰色接管态', (_label, message, reason) => {
     const event = reconnectEvent(message, true);
     const next = handleStreamEvent(stateWithCindyPending(message), {
       ...event,
@@ -945,7 +945,7 @@ describe('Codex 原生重连进行态与终态接管交棒', () => {
     expect(late.agentStatus.isRunning).toBe(false);
   });
 
-  it('没有 Cindy 接管活动行时,同一终态仍回落红 banner', () => {
+  it('没有 Emma 接管活动行时,同一终态仍回落红 banner', () => {
     const next = handleStreamEvent(
       EMPTY_SESSION_STATE,
       reconnectEvent('Codex backend unreachable — retry budget exhausted.', true),

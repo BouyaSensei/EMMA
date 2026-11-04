@@ -35,7 +35,7 @@ beforeEach(() => {
   state.__resetQuotaCredentialStateForTesting('cloud:owner-a:1', { state: 'ok', source: 'server', endpoint: mocks.endpoint, accountTier: null });
 });
 afterEach(() => { vi.clearAllTimers(); vi.useRealTimers(); });
-describe('Cindy AI enterprise quota refresh', () => {
+describe('Emma AI enterprise quota refresh', () => {
   it('publishes server quota without calling LiteLLM APIs on an inference gateway', async () => {
     await api.triggerClaudeAccountUsageRefresh(true);
     expect(api.readClaudeAccountUsageSnapshot()).toEqual(quota);

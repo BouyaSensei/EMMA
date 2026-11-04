@@ -6,7 +6,7 @@ import {
 } from '../botSessionInputGuard.js';
 
 describe('Bot task input guard', () => {
-  it('does not affect ordinary Cindy tasks', () => {
+  it('does not affect ordinary Emma tasks', () => {
     expect(
       botSessionInputBlockReason({ source: 'desktop', role: null, profileStatus: null }),
     ).toBeNull();

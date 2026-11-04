@@ -29,7 +29,7 @@ describe('PermissionPrompt i18n', () => {
     expect(onRespond).toHaveBeenCalledExactlyOnceWith({ behavior: 'allow' });
   });
 
-  it('uses the selected UI language for Cindy-owned permission copy', () => {
+  it('uses the selected UI language for Emma-owned permission copy', () => {
     render(
       <PermissionPrompt
         permission={{

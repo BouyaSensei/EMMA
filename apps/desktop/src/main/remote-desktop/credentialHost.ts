@@ -51,7 +51,7 @@ async function resolveBinary(): Promise<string> {
     const binary = path.join(directory, binaryName);
     try {
       await fs.access(binary);
-      await fs.access(path.join(directory, 'CindyRemoteCredentials_CindyRemoteCredentials.bundle'));
+      await fs.access(path.join(directory, 'EmmaRemoteCredentials_EmmaRemoteCredentials.bundle'));
       await exec('/usr/bin/codesign', credentialVerificationArguments(binary, signingIdentity));
       return binary;
     } catch {
@@ -100,8 +100,8 @@ async function resolveBinary(): Promise<string> {
       const outputDirectory = location.stdout.trim();
       await fs.copyFile(path.join(outputDirectory, binaryName), temporary);
       await fs.cp(
-        path.join(outputDirectory, 'CindyRemoteCredentials_CindyRemoteCredentials.bundle'),
-        path.join(directory, 'CindyRemoteCredentials_CindyRemoteCredentials.bundle'),
+        path.join(outputDirectory, 'EmmaRemoteCredentials_EmmaRemoteCredentials.bundle'),
+        path.join(directory, 'EmmaRemoteCredentials_EmmaRemoteCredentials.bundle'),
         { recursive: true },
       );
       await fs.chmod(temporary, 0o755);

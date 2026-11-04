@@ -50,7 +50,7 @@ describe('Pi extension compatibility parser', () => {
     });
   });
 
-  it('does not warn for TUI-only calls or RPC UI requests that Cindy adapts', async () => {
+  it('does not warn for TUI-only calls or RPC UI requests that Emma adapts', async () => {
     const pkg = await makePackage({
       'index.ts': `
         export default function setup(pi: any) {
@@ -164,7 +164,7 @@ describe('Pi extension compatibility parser', () => {
     });
   });
 
-  it('detects Pi 0.83 UI properties and methods that cannot be presented in Cindy RPC', async () => {
+  it('detects Pi 0.83 UI properties and methods that cannot be presented in Emma RPC', async () => {
     const pkg = await makePackage({
       'index.ts': `
         import type { ExtensionAPI, ExtensionContext } from '@mariozechner/pi-coding-agent';

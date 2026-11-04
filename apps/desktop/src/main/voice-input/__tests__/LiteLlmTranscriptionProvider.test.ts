@@ -43,7 +43,7 @@ describe('LiteLlmTranscriptionProvider', () => {
   it.each([
     [401, 1],
     [403, 0],
-  ] as const)('reports the sent Cindy AI key on HTTP %s only when unauthorized', async (status, reports) => {
+  ] as const)('reports the sent Emma AI key on HTTP %s only when unauthorized', async (status, reports) => {
     outboundFetchMock.mockResolvedValue(new Response(JSON.stringify({ detail: 'rejected' }), { status }));
 
     await expect(transcribeLiteLlmAudioFile({

@@ -16,7 +16,7 @@ const options = {
   packaged: true,
   version: '0.1.80',
   appId: 'com.xd.cindy',
-  exePath: ['C:', 'Programs', 'Cindy', 'Cindy.exe'].join(String.fromCharCode(92)),
+  exePath: ['C:', 'Programs', 'Emma', 'Emma.exe'].join(String.fromCharCode(92)),
   resourcesPath: 'resources',
   patchInfoPath: 'patch-info.json',
   warn: vi.fn(),
@@ -76,7 +76,7 @@ describe('Windows installed version metadata', () => {
     readFileSync.mockReturnValueOnce(JSON.stringify({ version: options.version, applyAttempts: 1 }));
     readFile.mockResolvedValueOnce('# trusted script');
     execFile.mockImplementation((_file, _args, _opts, callback) => callback(null, '', ''));
-    const exePath = "C:\\Cindy & 'test' $(ignored)\\Cindy.exe";
+    const exePath = "C:\\Emma & 'test' $(ignored)\\Emma.exe";
     await syncWindowsVersionAfterUpdate({ ...options, exePath });
     expect(execFile.mock.calls[0]![2].env.CINDY_VERSION_SYNC_EXE).toBe(exePath);
     expect(execFile.mock.calls[0]![1].join(' ')).not.toContain(exePath);

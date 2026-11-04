@@ -338,7 +338,7 @@ describe('shared queue presentation model', () => {
 describe('queueItemVisibleText', () => {
   it('shows the persisted body for session and scheduler items', () => {
     expect(queueItemVisibleText({
-      text: '[来自 Cindy 的补充]\n\nplease review',
+      text: '[来自 Emma 的补充]\n\nplease review',
       persistedContent: 'please review',
       origin: { kind: 'session', senderSessionId: 'bot-task' },
     })).toBe('please review');

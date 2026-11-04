@@ -97,7 +97,7 @@ function stubBroker(): ScriptCapabilityBroker {
 }
 
 describe.skipIf(!PYTHON)('script automation Python client', () => {
-  it('uses the Cindy protocol with a current host and keeps the legacy protocol with an older host', () => {
+  it('uses the Emma protocol with a current host and keeps the legacy protocol with an older host', () => {
     cpSync(path.join(PYTHON_CLIENT_DIR, 'protocol.py'), path.join(tmp, 'protocol.py'));
     const {
       CINDY_SCRIPT_PROTOCOL: _cindyProtocol,

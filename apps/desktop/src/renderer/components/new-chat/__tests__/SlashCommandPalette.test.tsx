@@ -155,7 +155,7 @@ describe('SlashCommandPalette project Skill rows', () => {
     const skillCreator: UnifiedCommand = {
       kind: 'agent-skill',
       name: 'cindy-skill-creator',
-      description: 'Create or update a Cindy Skill',
+      description: 'Create or update a Emma Skill',
       builtIn: true,
       source: 'skill',
       scope: 'user',

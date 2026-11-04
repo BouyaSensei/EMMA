@@ -526,7 +526,7 @@ it('never shows a window whose first page could not be measured', async () => {
   expect(excluded).not.toHaveBeenCalledWith([101]);
 });
 
-it("follows Cindy's selected appearance rather than only the OS", async () => {
+it("follows Emma's selected appearance rather than only the OS", async () => {
   const { overlay } = fixture();
   state.themeMode = 'dark';
   overlay.update(phone);

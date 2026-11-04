@@ -75,7 +75,7 @@ export function sanitizeBotAgent(raw: string): string {
     result.push(token);
     length = next;
   }
-  return result.join(" ") || "Cindy/unknown";
+  return result.join(" ") || "Emma/unknown";
 }
 
 export function validateTencentIlinkBaseUrl(value: string): URL {

@@ -89,7 +89,7 @@ describe('shared IM permission presentation', () => {
     expect(p.permission.decide({ kind: 'permission', behavior: 'allow' })).toBe(false);
   });
 
-  it('keeps Cindy usable if the IM send fails, without retrying or rejecting execution', async () => {
+  it('keeps Emma usable if the IM send fails, without retrying or rejecting execution', async () => {
     const p = presentation(
       'send-failed',
       vi.fn(async () => {

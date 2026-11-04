@@ -4,7 +4,7 @@ import { buildBotGroupTaskCard, parseBotGroupTaskCardView, readBotGroupTaskCard,
 
 const meta: BotCollaborationMeta = {
   v: 1, role: 'delegation-request', delegationId: 'task-1', fromBotId: 'bot-a', fromBotName: 'LiZi',
-  toBotId: null, toBotName: 'Cindy', parentSessionId: 'group-lane', childSessionId: 'child-1', objective: 'Write the launch post',
+  toBotId: null, toBotName: 'Emma', parentSessionId: 'group-lane', childSessionId: 'child-1', objective: 'Write the launch post',
 };
 const en: BotGroupTaskCardLabels = { task: 'Task', untitled: 'Background task',
   states: { started: 'In progress', waiting: 'Waiting for your confirmation', completed: 'Done', failed: 'Failed', cancelled: 'Cancelled', 'timed-out': 'Timed out' } };

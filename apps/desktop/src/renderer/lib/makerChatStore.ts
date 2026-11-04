@@ -17022,7 +17022,7 @@ function enqueueCindyMakeCardPersistence(
       }
     })
     .catch((error) => {
-      log.warn('Failed to persist Cindy Make card:', error);
+      log.warn('Failed to persist Emma Make card:', error);
     });
   cindyMakeCardQueues.set(key, next);
 }

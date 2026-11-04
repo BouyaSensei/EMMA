@@ -1062,7 +1062,7 @@ describe('Source and dependency preparation', () => {
   });
 });
 
-describe('Cindy Make source target', () => {
+describe('Emma Make source target', () => {
   it('uses main for development builds', () => {
     expect(sourceTarget({ channel: 'dev', version: '0.0.0' })).toMatchObject({
       ref: 'main',

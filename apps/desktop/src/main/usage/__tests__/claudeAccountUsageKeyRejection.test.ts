@@ -52,7 +52,7 @@ function jsonResponse(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), { status });
 }
 
-describe('claudeAccountUsage Cindy AI key rejection', () => {
+describe('claudeAccountUsage Emma AI key rejection', () => {
   beforeAll(async () => {
     // reset-modules: load the mocked usage module once before this suite; per-test resets use its production test reset API.
     vi.resetModules();

@@ -47,7 +47,7 @@ function sameHolder(a: InputHandoffHolder, b: InputHandoffHolder): boolean {
 /** Where the code leads, from its own content: the site the owner would sign in to. */
 export function pictureQrSource(qr: InputHandoffQr): InputHandoffSource {
   const { origin, warning } = qr.url ? classifyOrigin(qr.url, false) : {};
-  return { app: 'Cindy', ...(origin ? { origin } : {}), ...(warning ? { warning } : {}) };
+  return { app: 'Emma', ...(origin ? { origin } : {}), ...(warning ? { warning } : {}) };
 }
 
 export class ImageQrHandoffSession {

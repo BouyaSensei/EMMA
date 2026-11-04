@@ -669,7 +669,7 @@ describe('校准结果要带上供应商', () => {
 });
 
 describe('resolveDraftSessionProviderId', () => {
-  it('唯一已连接来源是用户 Provider 时仍显式保留，避免 Claude 回退 Cindy gateway', () => {
+  it('唯一已连接来源是用户 Provider 时仍显式保留，避免 Claude 回退 Emma gateway', () => {
     const codingPlan = {
       ...provider('coding-plan', true, {
         'claude-code': [model('ark-code-latest')],
@@ -931,7 +931,7 @@ describe('factory defaults survive send-time calibration', () => {
   const gateway = provider('xd', true, { pi: [
     model('z-ai/glm-5.3-flash', { newSessionDefault: ['pi'] }), model('auto'),
   ] });
-  it.each([null, 'xd'])('keeps Cindy Auto despite old default markers (source %s)', preferredProviderId => {
+  it.each([null, 'xd'])('keeps Emma Auto despite old default markers (source %s)', preferredProviderId => {
     expect(calibrateDraftModel({ providers: [gateway], agent: 'pi', model: 'auto',
       chosenByUser: false, preferredProviderId, providersLoading: false }))
       .toEqual({ model: 'auto', providerId: 'xd' });
@@ -1129,7 +1129,7 @@ describe('模型组 Auto：服务端决定默认与来源', () => {
     expect(resolveNewTaskDefaultRoute({ providers, agent: 'pi' })).toEqual(expected);
   });
 
-  it('组 Auto 从号池挪到 Cindy AI 后，按新来源继续，不退成号池里的其它模型', () => {
+  it('组 Auto 从号池挪到 Emma AI 后，按新来源继续，不退成号池里的其它模型', () => {
     const gateway = provider('xd', true, { pi: [model('auto'), groupAuto(true)] });
     const byok = pool('org-pool', [model('pool-model')]);
     const providers = [gateway, byok];
@@ -1161,7 +1161,7 @@ describe('模型组 Auto：服务端决定默认与来源', () => {
     ).toEqual(expected);
   });
 
-  it('用户自己接的供应商不参与 Cindy 来源之间的改道', () => {
+  it('用户自己接的供应商不参与 Emma 来源之间的改道', () => {
     const gateway = provider('xd', true, { pi: [model('auto'), groupAuto(true)] });
     const custom = pool('custom-litellm', [model('custom-model')], 'user');
     expect(

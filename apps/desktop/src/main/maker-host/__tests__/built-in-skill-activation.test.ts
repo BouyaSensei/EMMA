@@ -32,13 +32,13 @@ describe('Windows built-in Skill activation identity', () => {
       vi.mocked(fs.realpathSync).mockImplementation(resolve);
       vi.mocked(fs.realpathSync.native).mockImplementation(resolve);
       const appData = path.join('C:\\', 'Users', 'Example', 'AppData', 'Roaming');
-      const sourceRoot = path.join(appData.toLowerCase(), 'cindy', 'shared-system-skills');
+      const sourceRoot = path.join(appData.toLowerCase(), 'emma', 'shared-system-skills');
       const sources = [
         'v6-0123456789abcdef-11111111-1111-1111-1111-111111111111',
         'v7-fedcba9876543210-22222222-2222-2222-2222-222222222222',
       ].map((version) => path.join(sourceRoot, '.versions', version, name));
       const keys = sources.map((source) => canonicalBuiltInSkillActivationPath(
-        source, path.join(appData, 'CindyGlobal'), appData,
+        source, path.join(appData, 'EmmaGlobal'), appData,
       ));
       expect(keys).toEqual([path.join(sourceRoot, name), path.join(sourceRoot, name)]);
     },
@@ -49,17 +49,17 @@ describe('Windows built-in Skill activation identity', () => {
     const appData = kind === 'drive'
       ? path.join('C:\\', 'Users', 'Example', 'AppData')
       : path.join('\\\\server\\share', 'Users', 'Example', 'AppData');
-    const root = path.join(appData, 'Cindy', 'shared-system-skills');
+    const root = path.join(appData, 'Emma', 'shared-system-skills');
     const resolve = (value: fs.PathLike) => path.normalize(String(value));
     vi.mocked(fs.realpathSync).mockImplementation(resolve);
     vi.mocked(fs.realpathSync.native).mockImplementation(resolve);
     const sourceRoot = path.toNamespacedPath(root).toLowerCase();
     const source = path.join(sourceRoot, '.active', 'learn');
-    expect(canonicalBuiltInSkillActivationPath(source, path.join(appData, 'CindyGlobal'), appData))
+    expect(canonicalBuiltInSkillActivationPath(source, path.join(appData, 'EmmaGlobal'), appData))
       .toBe(path.join(sourceRoot, 'learn'));
     const foreignRoot = path.join(appData, 'project', 'shared-system-skills');
     const foreignSource = path.join(foreignRoot, '.active', 'learn');
-    expect(canonicalBuiltInSkillActivationPath(foreignSource, path.join(appData, 'CindyGlobal'), appData))
+    expect(canonicalBuiltInSkillActivationPath(foreignSource, path.join(appData, 'EmmaGlobal'), appData))
       .toBe(foreignSource);
   });
 });

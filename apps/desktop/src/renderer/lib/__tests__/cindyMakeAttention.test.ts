@@ -17,7 +17,7 @@ const card = (state: Record<string, unknown>, action = 'build') => ({
 });
 afterEach(() => clearSessionAttention(sessionId, { intent: 'explicit' }));
 
-describe('native Cindy Make result attention', () => {
+describe('native Emma Make result attention', () => {
   it('marks a build failure even while viewed, survives navigation, and clears on retry', () => {
     const failed = card({ status: 'failed', error: 'buildFailed' });
     applyCindyMakeCardAttention(sessionId, undefined, failed, true);

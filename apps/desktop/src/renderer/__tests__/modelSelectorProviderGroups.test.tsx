@@ -24,7 +24,7 @@ vi.mock('react-i18next', async (importOriginal) => ({
     t: (key: string, options?: Record<string, string>) => {
       const translations: Record<string, string> = {
         'settings.providers.anthropic.title': 'Anthropic',
-        'settings.providers.xd.title': 'Cindy AI',
+        'settings.providers.xd.title': 'Emma AI',
         'settings.providers.xd.accountTier.free': '免费版',
         'newChat.modelSelector.trigger.placeholder': '选择模型',
         'newChat.modelSelector.trigger.loading': '正在读取模型…',
@@ -375,7 +375,7 @@ describe('model selector display identity during switches', () => {
       agentIdentity={{ vendorKey: 'codex', state: 'pending' }}
       currentSelection={{ agentKind: 'codex', model: 'glm-5.2[1m]', providerId: null, effort: 'high', fastMode: false }} />);
     expect(trigger().textContent).toContain('GLM 1M');
-    expect(trigger().title).toContain('Codex · GLM 1M · Cindy AI');
+    expect(trigger().title).toContain('Codex · GLM 1M · Emma AI');
     expect(trigger().title).not.toContain('Standard GLM');
     expect(trigger().title).not.toContain('OpenAI');
   });
@@ -631,12 +631,12 @@ describe('ModelSelector provider groups', () => {
     expect(onNavigateToProviders).toHaveBeenCalledOnce();
   });
 
-  it('仅在本机经典 Cindy AI 分组旁显示免费版标签', async () => {
+  it('仅在本机经典 Emma AI 分组旁显示免费版标签', async () => {
     providersRef.providers = [
       ...(providersRef.DEFAULT_PROVIDERS as unknown[]),
       {
         id: 'xd',
-        name: 'Cindy AI',
+        name: 'Emma AI',
         source: 'builtin',
         agents: ['claude-code'],
         auth: { method: 'apiKey' },
@@ -646,7 +646,7 @@ describe('ModelSelector provider groups', () => {
           'claude-code': [
             {
               id: 'cindy-free-model',
-              name: 'Cindy Free Model',
+              name: 'Emma Free Model',
               contextWindow: 200000,
               efforts: ['high'],
               defaultEffort: 'high',
@@ -908,7 +908,7 @@ describe('ModelSelector provider groups', () => {
       },
       {
         id: 'xd',
-        name: 'Cindy AI',
+        name: 'Emma AI',
         source: 'builtin',
         agents: ['claude-code'],
         auth: { method: 'api-key' },
@@ -933,7 +933,7 @@ describe('ModelSelector provider groups', () => {
     });
 
     const popover = screen.getByTestId('model-options-popover');
-    const xdGroup = within(popover).getByRole('group', { name: 'Cindy AI' });
+    const xdGroup = within(popover).getByRole('group', { name: 'Emma AI' });
     const fallbackRow = within(xdGroup).getByRole('option', { name: /Fable 5/ });
     expect(fallbackRow.getAttribute('aria-selected')).toBe('false');
 
@@ -979,7 +979,7 @@ describe('ModelSelector provider groups', () => {
       },
       {
         id: 'xd',
-        name: 'Cindy AI',
+        name: 'Emma AI',
         source: 'builtin',
         agents: ['claude-code'],
         auth: { method: 'api-key' },
@@ -994,7 +994,7 @@ describe('ModelSelector provider groups', () => {
       renderSelector({ modelId, effort: 'high', currentProviderId: 'anthropic', onProviderChange });
       await openDropdown();
       const xdGroup = within(screen.getByTestId('model-options-popover')).getByRole('group', {
-        name: 'Cindy AI',
+        name: 'Emma AI',
       });
       fireEvent.click(within(xdGroup).getByRole('option', { name: /Shared Model/ }));
       expect(onProviderChange).toHaveBeenCalledWith('xd', modelId, 'low');

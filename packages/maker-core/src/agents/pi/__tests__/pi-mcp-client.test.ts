@@ -11,7 +11,7 @@ const hookStart = source.indexOf("  pi.on('tool_call', async");
 const hookEnd = source.indexOf('\n  });', hookStart) + '\n  });'.length;
 const compiled = ts.transpileModule(
   source.slice(source.indexOf('const CINDY_MCP_LIST_TOOLS'), source.indexOf('// Pi 内置 find 依赖 fd'))
-    + '\nglobalThis.Client = McpHttpClient; globalThis.Gateway = CindyMcpGateway; globalThis.connect = connectServer;'
+    + '\nglobalThis.Client = McpHttpClient; globalThis.Gateway = EmmaMcpGateway; globalThis.connect = connectServer;'
     + '\nglobalThis.installApproval = (mcpGateway, pi) => {' + source.slice(hookStart, hookEnd) + '\n};',
   { compilerOptions: { module: ts.ModuleKind.None, target: ts.ScriptTarget.ES2022 } },
 ).outputText;

@@ -127,7 +127,7 @@ describe('app badge projection lifecycle', () => {
       setCompanionChats: set,
       onCompanionChatRead: (cb: typeof read) => { read = cb; return () => {}; },
     } });
-    const local = { id: 'bot', name: 'Cindy', avatar: '', avatarColor: 'blue', createdAt: 1,
+    const local = { id: 'bot', name: 'Emma', avatar: '', avatarColor: 'blue', createdAt: 1,
       lastMessageAt: 100, lastMessageRole: 'assistant', lastMessagePreview: 'new reply',
       sessions: [{ id: 'chat', role: 'canonical' }] };
     botState.bots = [local, { ...local, id: 'hidden', hiddenAt: 1, sessions: [{ id: 'hidden-chat', role: 'canonical' }] }];

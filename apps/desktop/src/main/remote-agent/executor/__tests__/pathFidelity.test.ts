@@ -26,7 +26,7 @@ let root: string;
 beforeEach(() => { root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'cindy-path-fidelity-'))); });
 afterEach(() => { fs.rmSync(root, { recursive: true, force: true }); });
 
-const VIRTUAL_ROOT = '/Users/agent/Library/Application Support/Cindy/remote-agent/workspaces/0123456789abcdef/run/fs';
+const VIRTUAL_ROOT = '/Users/agent/Library/Application Support/Emma/remote-agent/workspaces/0123456789abcdef/run/fs';
 const SHADOW = VIRTUAL_ROOT + '/workspace/p/p';
 const PARENT = VIRTUAL_ROOT + '/workspace/p';
 

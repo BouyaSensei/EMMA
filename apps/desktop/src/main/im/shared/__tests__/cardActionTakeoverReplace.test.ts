@@ -1211,7 +1211,7 @@ describe('control:new 新建会话（非 threadScoped 分支 — feishu 实际�
       scopeKey: '',
       payload: {
         botAppId: 'BOT1',
-        workingDir: 'E:/Cindy/cindy',
+        workingDir: 'E:/Emma/cindy',
         displayName: 'cindy',
       },
       ...overrides,

@@ -102,7 +102,7 @@ describe('runtime-configs', () => {
     expect(route('xd', 'gateway-key')).toBe('chatgpt/gpt-5.5');
   });
 
-  it('places generic Cindy-side Skill precedence in Claude and Codex only', async () => {
+  it('places generic Emma-side Skill precedence in Claude and Codex only', async () => {
     vi.doMock('../memory-settings-store.js', () => ({
       readMemorySettings: () => memorySettings,
     }));

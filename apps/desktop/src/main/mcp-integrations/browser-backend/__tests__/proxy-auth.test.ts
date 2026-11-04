@@ -195,7 +195,7 @@ async function createFakeCdp(options: {
 const publicLookup = (async () => [{ address: '93.184.216.34', family: 4 }]) as never;
 
 describe('commandLineHasExactArgument', () => {
-  const dir = '/Users/me/Library/Application Support/Cindy/browser/Cindy';
+  const dir = '/Users/me/Library/Application Support/Emma/browser/Emma';
 
   it('rejects a value the expected one is merely a prefix of', () => {
     // The reason this cannot be `includes`: the result feeds a process kill, so
@@ -222,7 +222,7 @@ describe('commandLineHasExactArgument', () => {
 });
 
 describe('commandLineHasArgumentValue', () => {
-  const dir = 'C:\\Users\\me\\AppData\\Roaming\\Cindy\\browser-runtime\\browser\\Cindy\\user-data';
+  const dir = 'C:\\Users\\me\\AppData\\Roaming\\Emma\\browser-runtime\\browser\\Emma\\user-data';
 
   it('matches a Windows value that the shell quoted', () => {
     // Windows quotes an argument whose value contains spaces, so the very same
@@ -243,9 +243,9 @@ describe('commandLineHasArgumentValue', () => {
 
   it('matches an unquoted POSIX value', () => {
     expect(commandLineHasArgumentValue(
-      'chrome --user-data-dir=/Users/me/Cindy/user-data --remote-debugging-port=18800',
+      'chrome --user-data-dir=/Users/me/Emma/user-data --remote-debugging-port=18800',
       '--user-data-dir',
-      '/Users/me/Cindy/user-data',
+      '/Users/me/Emma/user-data',
     )).toBe(true);
   });
 
@@ -328,7 +328,7 @@ describe('terminateManagedChromePortOwner', () => {
     await expect(terminateManagedChromePortOwner({
       cdpHttpUrl: 'http://127.0.0.1:45997',
       cdpPort: 45997,
-      userDataDir: '/managed/browser/Cindy/user-data',
+      userDataDir: '/managed/browser/Emma/user-data',
     })).resolves.toBe(true);
   });
 });
@@ -849,7 +849,7 @@ describe('BrowserProxyAuthCoordinator', () => {
     // socket — leaving the hostname-only PAC. Browser.close over the dead
     // channel is a no-op (command() rejects when the socket is not OPEN), so
     // teardown must dial the endpoint again.
-    const userDataDir = '/managed/browser/Cindy/user-data';
+    const userDataDir = '/managed/browser/Emma/user-data';
     const cdp = await createFakeCdp({ reportedUserDataDir: userDataDir });
     const coordinator = new BrowserProxyAuthCoordinator({
       mode: 'proxied',
@@ -870,7 +870,7 @@ describe('BrowserProxyAuthCoordinator', () => {
   }, 20_000);
 
   it('closes and verifies an adopted managed browser through loopback CDP', async () => {
-    const userDataDir = '/managed/browser/Cindy Profile/user-data';
+    const userDataDir = '/managed/browser/Emma Profile/user-data';
     const cdp = await createFakeCdp({ closeOnBrowserClose: true, reportedUserDataDir: userDataDir });
     await expect(closeAdoptedManagedBrowser(cdp.cdpUrl, userDataDir)).resolves.toBe(true);
     expect(cdp.commands).toContainEqual(expect.objectContaining({ method: 'Browser.close' }));
@@ -948,7 +948,7 @@ describe('BrowserProxyAuthCoordinator', () => {
     // endpoint proves reachable again.
     await expect(closeAdoptedManagedBrowser(
       `http://127.0.0.1:${port}`,
-      '/managed/browser/Cindy/user-data',
+      '/managed/browser/Emma/user-data',
     )).resolves.toBe(false);
     expect(refuseUntil).toBeLessThan(Date.now());
     // Runs the full quiescence deadline rather than returning early on the
@@ -960,7 +960,7 @@ describe('BrowserProxyAuthCoordinator', () => {
 
     await expect(closeAdoptedManagedBrowser(
       cdp.cdpUrl,
-      '/managed/browser/Cindy/user-data',
+      '/managed/browser/Emma/user-data',
     )).resolves.toBe(false);
     expect(cdp.commands).not.toContainEqual(expect.objectContaining({ method: 'Browser.close' }));
   });

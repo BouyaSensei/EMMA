@@ -506,7 +506,7 @@ describe('model visibility across renderer windows', () => {
     id, name: id, defaultEnabled, contextWindow: 200000, efforts: [], defaultEffort: null,
   });
   const catalog = (agent: 'pi' | 'codex' | 'claude-code', defaultEnabled = true): ProviderView => ({
-    id: 'xd', name: 'Cindy AI', source: 'builtin', connected: true, agents: [agent],
+    id: 'xd', name: 'Emma AI', source: 'builtin', connected: true, agents: [agent],
     auth: { method: 'apiKey' }, routing: {}, models: { [agent]: [model(agent, defaultEnabled)] },
   } as ProviderView);
 
@@ -1127,7 +1127,7 @@ describe('compact model defaults upgrade', () => {
   const scopedKey = 'xdt:modelVisibilityPrefs:v1.owner.owner-a';
   const markerKey = 'xdt:modelVisibilityPrefs:v1.initialization.owner.owner-a';
   const provider = {
-    id: 'xd', name: 'Cindy AI', connected: true, source: 'builtin',
+    id: 'xd', name: 'Emma AI', connected: true, source: 'builtin',
     agents: ['claude-code', 'codex', 'pi'], auth: { method: 'token' },
     routing: {
       'claude-code': { modelPrefixes: ['chatgpt/'], wireProtocol: 'anthropic-messages' },

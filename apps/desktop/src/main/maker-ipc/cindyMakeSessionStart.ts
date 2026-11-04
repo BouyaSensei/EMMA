@@ -27,7 +27,7 @@ export async function applyPersistedCindyMakeMarker(
   assertCindyMakeSessionAvailable(source);
   if (source !== CINDY_MAKE_SESSION_SOURCE) return false;
   if (o.remoteHostId) {
-    throwIpcError('UNSUPPORTED_CAPABILITY', 'Cindy Make tasks are local-only');
+    throwIpcError('UNSUPPORTED_CAPABILITY', 'Emma Make tasks are local-only');
   }
   o.vendorOptions = { ...(o.vendorOptions ?? {}), [CINDY_MAKE_VENDOR_OPTION_KEY]: true };
   return true;

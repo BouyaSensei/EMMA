@@ -41,12 +41,12 @@ import type { CindyMakeSyncState } from '../../../shared/cindyMakeSync';
  * repository) and one or two computers. Only the conflict task's Agent is played by
  * the test, the way a resolver works in its isolated folder.
  */
-const OFFICIAL_URL = 'https://github.com/makecindy/cindy.git';
+const OFFICIAL_URL = 'https://github.com/BouyaSensei/EMMA.git';
 const FORK_URL = 'https://github.com/octo/cindy.git';
 const TOKEN = 'gho_fake-token-for-tests';
 const TASK_IDENTITY = [
   '-c',
-  'user.name=Cindy Make',
+  'user.name=Emma Make',
   '-c',
   'user.email=cindy-make@localhost.invalid',
   '-c',
@@ -308,7 +308,7 @@ async function computer(w: World, name: string, options: { realGeneration?: bool
         '-s',
         `--date=${at} +0000`,
         '-m',
-        'Cindy Make: complete personal change',
+        'Emma Make: complete personal change',
       ],
       source,
     );

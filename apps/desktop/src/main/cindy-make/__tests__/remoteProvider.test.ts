@@ -29,7 +29,7 @@ const project = (state: MakeRemoteSnapshot, dictionary: Record<string, unknown> 
     );
   });
 
-describe('portable Cindy Make cards', () => {
+describe('portable Emma Make cards', () => {
   it.each([en, zh, tw, ja, ko])(
     'keeps read-only sync and PR status visible without workflow controls',
     (dictionary) => {

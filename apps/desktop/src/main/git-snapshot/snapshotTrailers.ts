@@ -84,11 +84,12 @@ const KEY_PRE_ROLLBACK = 'PreRollback';
 
 const PREFIX_BY_SOURCE: Record<SnapshotTrailerSource, string> = {
   'legacy-xdt': 'X-XDT',
-  cindy: 'X-Cindy',
+  cindy: 'X-Emma',
 };
 
 /** 一行保存点 trailer 的匹配: `X-XDT-Xxx: value` 或 `X-Cindy-Xxx: value`。 */
-const SNAPSHOT_TRAILER_RE = /^X-(XDT|Cindy)-([A-Za-z0-9]+):\s?(.*)$/;
+// X-Emma-* 是新品牌写入前缀,X-Cindy-* 是历史保存点,两者都必须可解析。
+const SNAPSHOT_TRAILER_RE = /^X-(XDT|Cindy|Emma)-([A-Za-z0-9]+):\s?(.*)$/;
 
 /** 一行 git trailer 的粗匹配, 用于识别混合 trailer block 的边界。 */
 const GIT_TRAILER_RE = /^[A-Za-z0-9][A-Za-z0-9-]*:\s?.*$/;
@@ -243,7 +244,7 @@ export function parseSnapshotCommit(rawMessage: string): ParsedSnapshot | null {
     const match = SNAPSHOT_TRAILER_RE.exec(line);
     if (!match) continue;
     const [, prefixTag, key, rawValue] = match;
-    const fields = prefixTag === 'Cindy' ? cindyFields : legacyFields;
+    const fields = prefixTag === 'Emma' ? cindyFields : legacyFields;
     assignTrailerField(fields, key, rawValue.trim());
   }
 

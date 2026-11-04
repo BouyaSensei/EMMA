@@ -932,7 +932,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
     const targetDbPath = createStateDb(desktopHome());
     insertThread(targetDbPath, threadId, sourceRollout, {
       updatedAt: 3_000,
-      title: 'Current Cindy title',
+      title: 'Current Emma title',
     });
     process.env.CODEX_HOME = path.join(rootDir, 'missing-external-home');
 
@@ -943,7 +943,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
       .prepare('SELECT rollout_path AS rolloutPath, title FROM threads WHERE id = ?')
       .get(threadId) as { rolloutPath: string; title: string };
     targetDb.close();
-    expect(targetRow.title).toBe('Current Cindy title');
+    expect(targetRow.title).toBe('Current Emma title');
     expect(targetRow.rolloutPath.startsWith(path.join(desktopHome(), 'sessions'))).toBe(true);
     expect(fs.readFileSync(targetRow.rolloutPath, 'utf-8')).toBe('LEGACY_ROLLOUT');
   });
@@ -1361,7 +1361,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
     const targetDbPath = createStateDb(desktopHome());
     insertThread(targetDbPath, threadId, legacyRollout, {
       updatedAt: 3_000,
-      title: 'Current Cindy title',
+      title: 'Current Emma title',
     });
 
     await prepareExternalCodexSessionForResume(threadId);
@@ -1371,7 +1371,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
       .prepare('SELECT rollout_path AS rolloutPath, title FROM threads WHERE id = ?')
       .get(threadId) as { rolloutPath: string; title: string };
     targetDb.close();
-    expect(targetRow.title).toBe('Current Cindy title');
+    expect(targetRow.title).toBe('Current Emma title');
     expect(targetRow.rolloutPath.startsWith(path.join(desktopHome(), 'sessions'))).toBe(true);
     expect(fs.readFileSync(targetRow.rolloutPath, 'utf-8')).toBe('LEGACY_ROLLOUT');
   });
@@ -1613,7 +1613,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
     expect(fs.readFileSync(rolloutPath, 'utf-8')).toBe(originalContents);
   });
 
-  it('prefers the fullest readable history when duplicate Cindy sessions share a Codex thread', async () => {
+  it('prefers the fullest readable history when duplicate Emma sessions share a Codex thread', async () => {
     createStateDb(desktopHome());
     const fullerSessionId = `local-fuller-${threadId}`;
     const partialSessionId = `local-partial-${threadId}`;
@@ -2268,7 +2268,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
     expect(state.rolloutPath).toBe(syntheticCandidate);
   });
 
-  it('does not publish through a sessions directory symlink outside Cindy storage', async () => {
+  it('does not publish through a sessions directory symlink outside Emma storage', async () => {
     const dbPath = createStateDb(desktopHome());
     const externalEmpty = path.join(
       externalHome,
@@ -2286,7 +2286,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
       sessionId,
       'parent-symlink-c1',
       'user',
-      JSON.stringify({ text: 'keep recovery inside Cindy storage' }),
+      JSON.stringify({ text: 'keep recovery inside Emma storage' }),
       1_000,
     );
 
@@ -4695,7 +4695,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
     expect(state.rolloutPath).toBe(emptyRollout);
   });
 
-  it('recovers the reported external empty rollout into Cindy private storage (#1554)', async () => {
+  it('recovers the reported external empty rollout into Emma private storage (#1554)', async () => {
     const externalRollout = path.join(
       externalHome,
       'sessions',
@@ -4713,7 +4713,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
     const targetDbPath = createStateDb(desktopHome());
     insertThread(targetDbPath, threadId, externalRollout, {
       updatedAt: 3_000,
-      title: 'Current Cindy title',
+      title: 'Current Emma title',
     });
     const sessionId = `local-external-empty-${threadId}`;
     insertLocalCodexSession(sessionId, threadId);
@@ -4738,7 +4738,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
       .prepare('SELECT rollout_path AS rolloutPath, title FROM threads WHERE id = ?')
       .get(threadId) as { rolloutPath: string; title: string };
     targetDb.close();
-    expect(targetRow).toEqual({ rolloutPath: prepared, title: 'Current Cindy title' });
+    expect(targetRow).toEqual({ rolloutPath: prepared, title: 'Current Emma title' });
   });
 
   it('converges external H1 to H2 before publishing the state handoff', async () => {
@@ -4808,7 +4808,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
       sessionId,
       'external-late-c1',
       'user',
-      JSON.stringify({ text: 'Cindy visible history' }),
+      JSON.stringify({ text: 'Emma visible history' }),
       1_000,
     );
     const externalAuthoritative = `${JSON.stringify({
@@ -4971,7 +4971,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
       sessionId,
       'external-no-state-c1',
       'user',
-      JSON.stringify({ text: 'recover from Cindy history' }),
+      JSON.stringify({ text: 'recover from Emma history' }),
       1_000,
     );
 
@@ -4982,7 +4982,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
     expect(prepared!.startsWith(desktopHome())).toBe(true);
     expect(fs.readFileSync(externalRollout, 'utf-8')).toBe('');
     const recovered = fs.readFileSync(prepared!, 'utf-8');
-    expect(recovered).toContain('recover from Cindy history');
+    expect(recovered).toContain('recover from Emma history');
     const recoveredMeta = JSON.parse(recovered.split('\n')[0]!) as {
       payload?: { originator?: string };
     };
@@ -5158,7 +5158,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
       sessionId,
       'unindexed-external-c1',
       'user',
-      JSON.stringify({ text: 'recover from Cindy history' }),
+      JSON.stringify({ text: 'recover from Emma history' }),
       1_000,
     );
 
@@ -5174,7 +5174,7 @@ describe('prepareExternalCodexSessionForResume orphan rollout synthesis', () => 
     expect(prepared).not.toBe(externalRollout);
     expect(prepared!.startsWith(desktopHome())).toBe(true);
     const recovered = fs.readFileSync(prepared!, 'utf-8');
-    expect(recovered).toContain('recover from Cindy history');
+    expect(recovered).toContain('recover from Emma history');
     const recoveredMeta = JSON.parse(recovered.split('\n')[0]!) as {
       payload?: { originator?: string };
     };

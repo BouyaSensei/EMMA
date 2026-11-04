@@ -3610,7 +3610,7 @@ assertRouteCurrent();
       ? snapshotManagedSkillGrants(opts.botRuntimeProfile?.skillPolicy) : undefined;
     let refreshedBotSkillConfig: Record<string, unknown> | undefined;
     if (reviewMode && opts.remoteHostId) {
-      throw new Error('Cindy Review currently supports local Codex sessions only');
+      throw new Error('Emma Review currently supports local Codex sessions only');
     }
 
     log.info('startSession', {
@@ -4894,12 +4894,12 @@ assertRouteCurrent();
       try {
         if (process.platform === 'win32') {
           if ([opts.workingDir, ...(opts.reviewReadPaths ?? [])].some((candidate) => !isWindowsReviewLocalPath(candidate, opts.workingDir))) {
-            throw new Error('Windows Cindy Review requires local drive paths; UNC shares, device paths and alternate data streams are not supported. Use a local copy before retrying Review.');
+            throw new Error('Windows Emma Review requires local drive paths; UNC shares, device paths and alternate data streams are not supported. Use a local copy before retrying Review.');
           }
         }
         reviewReadGrants = await buildReviewReadGrants(opts.workingDir, opts.reviewReadPaths ?? []);
         if (process.platform === 'win32' && reviewReadGrants.some((grant) => !isWindowsReviewLocalPath(grant.realPath, opts.workingDir))) {
-          throw new Error('Windows Cindy Review requires evidence paths that resolve to a local drive. Use a local copy before retrying Review.');
+          throw new Error('Windows Emma Review requires evidence paths that resolve to a local drive. Use a local copy before retrying Review.');
         }
       } catch (error) {
         // Codex app-server has not been contacted before review grants are validated.
@@ -5140,7 +5140,7 @@ assertRouteCurrent();
     const retireSingleSessionHost = async (throwOnShutdownFailure = accountSessionHost): Promise<void> => {
       if (!reviewMode && !usesCustomContextHost && !accountSessionHost && !sessionSqliteHome) return;
       const purpose = reviewMode ? 'Review' : accountSessionHost ? 'account' : 'custom context';
-      const reason = `Cindy ${purpose} host is single-session`;
+      const reason = `Emma ${purpose} host is single-session`;
       await this.retireHostKey(currentHostKey, reason, {
         failIfActive: false,
         logPrefix: `codex ${purpose.toLowerCase()} host cleanup`,
@@ -5370,7 +5370,7 @@ assertRouteCurrent();
     if (reviewMode && !capabilityRoutingProtocolSupported) {
       releaseHostBindingLeaseIfNeeded();
       throw new Error(
-        `Cindy Review requires Codex app-server 0.145.0 or newer for plugin and Skill isolation (current: ${initResp.userAgent ?? 'unknown'})`,
+        `Emma Review requires Codex app-server 0.145.0 or newer for plugin and Skill isolation (current: ${initResp.userAgent ?? 'unknown'})`,
       );
     }
     if (requiresCodexCapabilitySkillDiscovery(capabilityRoutingPolicy)) {
@@ -5436,7 +5436,7 @@ assertRouteCurrent();
         releaseHostBindingLeaseIfNeeded();
         if (error instanceof CodexRouteSelectionChangedError) throw error;
         throw new Error(
-          `Cannot start Codex safely because Cindy could not inspect restricted Codex Skills: ${error instanceof Error ? error.message : String(error)}`,
+          `Cannot start Codex safely because Emma could not inspect restricted Codex Skills: ${error instanceof Error ? error.message : String(error)}`,
         );
       }
     }
@@ -5606,7 +5606,7 @@ assertRouteCurrent();
     ) {
       releaseHostBindingLeaseIfNeeded();
       throw new Error(
-        `Cindy capability routing requires Codex app-server 0.145.0 or newer (current: ${initResp.userAgent ?? 'unknown'})`,
+        `Emma capability routing requires Codex app-server 0.145.0 or newer (current: ${initResp.userAgent ?? 'unknown'})`,
       );
     }
     // Only the official OpenAI OAuth route uses Codex Guardian. Third-party,
@@ -5637,13 +5637,13 @@ assertRouteCurrent();
     if (reviewMode && process.platform === 'win32' && !codexUserAgentAtLeast(initResp.userAgent, [0, 156, 0])) {
       releaseHostBindingLeaseIfNeeded();
       throw new Error(
-        `Windows Cindy Review requires Codex app-server 0.156.0 or newer to enforce scoped reads (current: ${initResp.userAgent ?? 'unknown'})`,
+        `Windows Emma Review requires Codex app-server 0.156.0 or newer to enforce scoped reads (current: ${initResp.userAgent ?? 'unknown'})`,
       );
     }
     if (reviewMode && !readonlyReferenceDirsSupported) {
       releaseHostBindingLeaseIfNeeded();
       throw new Error(
-        `Cindy Review requires Codex permission profiles from app-server 0.144.6 or newer (current: ${initResp.userAgent ?? 'unknown'})`,
+        `Emma Review requires Codex permission profiles from app-server 0.144.6 or newer (current: ${initResp.userAgent ?? 'unknown'})`,
       );
     }
     if (mutableExtraDirs.length > 0 && !readonlyReferenceDirsSupported) {
@@ -5806,7 +5806,7 @@ assertRouteCurrent();
           releaseHostBindingLeaseIfNeeded();
           await this.retireHostKey(
             currentHostKey,
-            'Cindy Review could not disable Codex memory',
+            'Emma Review could not disable Codex memory',
             {
               failIfActive: false,
               logPrefix: 'codex review memory isolation',
@@ -5818,7 +5818,7 @@ assertRouteCurrent();
               error: retireError instanceof Error ? retireError.message : String(retireError),
             });
           });
-          throw new Error('Cindy Review could not disable Codex memory; review was not started');
+          throw new Error('Emma Review could not disable Codex memory; review was not started');
         }
         log.warn('ensureMemoryOverridePushed failed, continuing without memory override', {
           error: e instanceof Error ? e.message : String(e),
@@ -8236,7 +8236,7 @@ assertRouteCurrent();
             // or start a follow-up turn. The action remains denied either way.
             log.warn('Codex approval feedback was not acknowledged', { turnId, itemId: opts.itemId });
             if (!closed && isCurrentHost() && currentTurnId === turnId) {
-              emitAutoReviewRuntimeNotice(`Cindy could not confirm delivery of the permission feedback to Codex. ${denialReason}`);
+              emitAutoReviewRuntimeNotice(`Emma could not confirm delivery of the permission feedback to Codex. ${denialReason}`);
             }
           }
         }
@@ -10037,7 +10037,7 @@ assertRouteCurrent();
     ): Promise<DynamicToolCallResponse> => {
       if (reviewMode && process.platform !== 'win32') {
         return {
-          contentItems: [{ type: 'inputText', text: 'Cindy Review does not allow dynamic tools.' }],
+          contentItems: [{ type: 'inputText', text: 'Emma Review does not allow dynamic tools.' }],
           success: false,
         };
       }
@@ -12018,7 +12018,7 @@ assertRouteCurrent();
         // user protocol,使同一 turn 从下一次审批起进入 Cindy 当前模型 fallback;RPC 失败仍由
         // 下一 turn 的显式字段兜底(codex 报)。
         void pushThreadSettings({ approvalsReviewer: 'user' });
-        log.warn('Codex native Auto reviewer unavailable; keeping Auto with Cindy fallback', {
+        log.warn('Codex native Auto reviewer unavailable; keeping Auto with Emma fallback', {
           reviewId: params.reviewId,
           turnId: params.turnId,
           providerId: mutableProviderId ?? null,

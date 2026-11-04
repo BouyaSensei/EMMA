@@ -562,7 +562,7 @@ describe('skillSlot · reconcileGhostSkillLinks', () => {
     expect(fs.existsSync(liveLink)).toBe(false); // 断链回收(目标带 cindy-brain 段)
   });
 
-  it('账号边界跳过非目录根后仍撤销其他根的 Cindy skill 投影,不删除外来链接', async () => {
+  it('账号边界跳过非目录根后仍撤销其他根的 Emma skill 投影,不删除外来链接', async () => {
     const ownerRoot = path.join(workDir, 'owners', 'bbb');
     const managedTarget = path.join(ownerRoot, 'cindy-brain', 'other-ghost', 'skills', 'foo');
     const foreignTarget = path.join(workDir, 'projects', 'other-ghost', 'skills', 'foo');

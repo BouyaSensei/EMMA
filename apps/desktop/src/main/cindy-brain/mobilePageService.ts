@@ -852,7 +852,7 @@ export class MobilePluginPages {
           if (!this.deps.management)
             throw new RemoteResourceRegistryError(
               'UNSUPPORTED_CAPABILITY',
-              'Update Cindy on the target computer',
+              'Update Emma on the target computer',
             );
           return this.deps.management.invoke(context.controllerDeviceId, request);
         }

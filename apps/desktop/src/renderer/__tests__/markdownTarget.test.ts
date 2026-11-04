@@ -425,7 +425,7 @@ describe('isAmbiguousPathShape(远程会话 unknown 的乐观点亮门槛)', () 
     // 的两个分支:file:// (检查点自查发现) 与 /etc/hosts (PR #1144 review 实捉)。
     for (const p of [
       'file:///Users/me/a.md', 'file:///Users/me/no-ext',
-      '/etc/hosts', '/usr/bin/node', '/Users/dash/Code/Cindy',
+      '/etc/hosts', '/usr/bin/node', '/Users/dash/Code/Emma',
       'C:\\Windows\\System32',
     ]) {
       expect(isAmbiguousPathShape(p), p).toBe(false);

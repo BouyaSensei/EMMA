@@ -133,7 +133,7 @@ describe('dictionary sync — 首次迁移保留频次', () => {
         entries: [
           { text: 'Claude code', source: 'automatic', frequency: 4 },
           { text: 'Fable 5', source: 'automatic', frequency: 3 },
-          { text: 'Cindy', source: 'manual', frequency: 2 },
+          { text: 'Emma', source: 'manual', frequency: 2 },
         ],
         suppressedTexts: [],
         candidates: [{ text: 'Bug', evidenceCount: 2 }, { text: 'invoice', evidenceCount: 1 }],
@@ -146,7 +146,7 @@ describe('dictionary sync — 首次迁移保留频次', () => {
     expect(materialized.entries.map((entry) => [entry.text, entry.frequency])).toEqual([
       ['Claude code', 4],
       ['Fable 5', 3],
-      ['Cindy', 2],
+      ['Emma', 2],
     ]);
     expect(materialized.candidates.map((item) => [item.text, item.evidenceCount])).toEqual([
       ['Bug', 2],
@@ -243,16 +243,16 @@ describe('dictionary sync — 首次迁移保留频次', () => {
   it('已存在的词条不会被文件里的频次覆盖 —— 那可能含有合并进来的远端计数', () => {
     const a = device('a');
     const b = device('b', 5_000);
-    for (let index = 0; index < 3; index += 1) learn(a, 'Cindy', 1_000 + index);
+    for (let index = 0; index < 3; index += 1) learn(a, 'Emma', 1_000 + index);
     b.state = mergeSyncStates(b.state, a.state);
-    for (let index = 0; index < 2; index += 1) learn(b, 'Cindy', 6_000 + index);
+    for (let index = 0; index < 2; index += 1) learn(b, 'Emma', 6_000 + index);
     a.state = mergeSyncStates(a.state, b.state);
     expect(materializeDictionary(a.state).entries[0].frequency).toBe(5);
 
     // 文件里写着 5(上次物化的结果)。即使把它当成「新增」喂回来,也不能再记一遍。
     const result = reconcileFromLocalSnapshot(a.state, a.clock, {
       snapshot: {
-        entries: [{ text: 'Cindy', source: 'automatic', frequency: 5 }],
+        entries: [{ text: 'Emma', source: 'automatic', frequency: 5 }],
         suppressedTexts: [],
       },
       lastMaterializedKeys: [],
@@ -264,20 +264,20 @@ describe('dictionary sync — 首次迁移保留频次', () => {
   it('迁移进来的频次可以继续正常增长与合并', () => {
     const migrated = reconcileFromLocalSnapshot(createEmptySyncState(), createHlcClock('a', 1_000), {
       snapshot: {
-        entries: [{ text: 'Cindy', source: 'automatic', frequency: 4 }],
+        entries: [{ text: 'Emma', source: 'automatic', frequency: 4 }],
         suppressedTexts: [],
       },
       lastMaterializedKeys: [],
       nowMs: 2_000,
     });
     const a = { state: migrated.state, clock: migrated.clock };
-    learn(a, 'Cindy', 3_000);
+    learn(a, 'Emma', 3_000);
     expect(materializeDictionary(a.state).entries[0].frequency).toBe(5);
 
     // 另一台设备各自迁移了同一份词典再学一次:两边各记各的桶,合并后求和。
     const migratedB = reconcileFromLocalSnapshot(createEmptySyncState(), createHlcClock('b', 1_000), {
       snapshot: {
-        entries: [{ text: 'Cindy', source: 'automatic', frequency: 4 }],
+        entries: [{ text: 'Emma', source: 'automatic', frequency: 4 }],
         suppressedTexts: [],
       },
       lastMaterializedKeys: [],
@@ -295,14 +295,14 @@ describe('dictionary sync — 首次迁移保留频次', () => {
 describe('dictionary sync — 降级回收', () => {
   it('认领旧版本期间新增的词条,手动与自动来源分别对待', () => {
     const a = device('a');
-    learn(a, 'Cindy', 1_000);
+    learn(a, 'Emma', 1_000);
     const lastKeys = keysOf(a.state);
 
     // 旧版本在文件里加了两条:一条手动、一条自动学习。
     const result = reconcileFromLocalSnapshot(a.state, a.clock, {
       snapshot: {
         entries: [
-          { text: 'Cindy', source: 'automatic' },
+          { text: 'Emma', source: 'automatic' },
           { text: 'Orca', source: 'manual' },
           { text: 'device-link', source: 'automatic' },
         ],
@@ -316,7 +316,7 @@ describe('dictionary sync — 降级回收', () => {
 
     const materialized = materializeDictionary(a.state);
     expect(materialized.entries.map((entry) => entry.text).sort()).toEqual([
-      'Cindy',
+      'Emma',
       'Orca',
       'device-link',
     ]);
@@ -326,13 +326,13 @@ describe('dictionary sync — 降级回收', () => {
 
   it('认领旧版本期间的删除,并把文件里的抑制列表并回状态', () => {
     const a = device('a');
-    learn(a, 'Cindy', 1_000);
+    learn(a, 'Emma', 1_000);
     learn(a, 'Orca', 1_100);
     const lastKeys = keysOf(a.state);
 
     const result = reconcileFromLocalSnapshot(a.state, a.clock, {
       snapshot: {
-        entries: [{ text: 'Cindy', source: 'automatic' }],
+        entries: [{ text: 'Emma', source: 'automatic' }],
         suppressedTexts: ['Orca'],
       },
       lastMaterializedKeys: lastKeys,
@@ -376,7 +376,7 @@ describe('dictionary sync — 降级回收', () => {
 
   it('文件与状态一致时回收是空操作', () => {
     const a = device('a');
-    learn(a, 'Cindy', 1_000);
+    learn(a, 'Emma', 1_000);
     addManual(a, 'Orca', 1_100);
 
     const result = reconcileFromLocalSnapshot(a.state, a.clock, {
@@ -391,9 +391,9 @@ describe('dictionary sync — 降级回收', () => {
   it('回收之后再同步不会放大频次', () => {
     const a = device('a');
     const b = device('b', 5_000);
-    for (let index = 0; index < 3; index += 1) learn(a, 'Cindy', 1_000 + index);
+    for (let index = 0; index < 3; index += 1) learn(a, 'Emma', 1_000 + index);
     b.state = mergeSyncStates(b.state, a.state);
-    for (let index = 0; index < 2; index += 1) learn(b, 'Cindy', 6_000 + index);
+    for (let index = 0; index < 2; index += 1) learn(b, 'Emma', 6_000 + index);
 
     // A 合并了 B 的状态并物化(此时文件里的频次是 5),随后跑一次回收。
     a.state = mergeSyncStates(a.state, b.state);
@@ -420,7 +420,7 @@ describe('dictionary sync — 降级回收', () => {
   it('回收产生的删除会传播到其它设备', () => {
     const a = device('a');
     const b = device('b', 5_000);
-    addManual(a, 'Cindy', 1_000);
+    addManual(a, 'Emma', 1_000);
     b.state = mergeSyncStates(b.state, a.state);
 
     const result = reconcileFromLocalSnapshot(a.state, a.clock, {

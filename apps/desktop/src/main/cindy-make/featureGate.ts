@@ -3,7 +3,7 @@ import { throwIpcError } from '../utils/ipcValidate.js';
 
 export function assertCindyMakeEnabled(): void {
   if (!CINDY_MAKE_ENABLED) {
-    throwIpcError('UNSUPPORTED_CAPABILITY', 'Cindy Make is currently unavailable');
+    throwIpcError('UNSUPPORTED_CAPABILITY', 'Emma Make is currently unavailable');
   }
 }
 

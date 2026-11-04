@@ -130,7 +130,7 @@ function hookControlAvailable(): boolean {
 
 function requireHookControl(): void {
   if (!hookControlAvailable()) {
-    throwIpcError('PERMISSION_DENIED', 'Cindy IM bots require a Cindy account.');
+    throwIpcError('PERMISSION_DENIED', 'Emma IM bots require an Emma account.');
   }
 }
 
@@ -687,7 +687,7 @@ function ensureInstances(): { store: SlackHookStore; manager: HookControlManager
               ok: false as const,
               error: {
                 code: 'PERMISSION_DENIED',
-                message: 'Slack Hook requires a Cindy account.',
+                message: 'Slack Hook requires an Emma account.',
               },
             }),
     });

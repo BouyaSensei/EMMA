@@ -173,7 +173,7 @@ it.skipIf(!binaryPath)(
         for (const step of [1, 2]) {
           await resumed.request("turn/start", {
             threadId: thread.id,
-            input: [{ type: "text", text: `Run Cindy-owned step ${step}.` }],
+            input: [{ type: "text", text: `Run Emma-owned step ${step}.` }],
           });
           await expect.poll(() => completed, { timeout: 15_000 }).toBe(step);
           await new Promise((resolve) => setTimeout(resolve, 500));

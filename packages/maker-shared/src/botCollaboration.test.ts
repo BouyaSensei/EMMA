@@ -41,8 +41,8 @@ it('uses the launch explanation even if a preliminary reply preceded dispatch', 
 });
 
 describe('result receipt title compatibility', () => {
-  const receipt = { v: 1, role: 'delegation-result', delegationId: 'job', fromBotId: 'bot', fromBotName: 'Cindy',
-    toBotId: null, toBotName: 'Cindy', parentSessionId: 'parent', childSessionId: 'child', objective: 'Instructions',
+  const receipt = { v: 1, role: 'delegation-result', delegationId: 'job', fromBotId: 'bot', fromBotName: 'Emma',
+    toBotId: null, toBotName: 'Emma', parentSessionId: 'parent', childSessionId: 'child', objective: 'Instructions',
     result: { runSequence: 1, status: 'completed', text: 'Result', artifacts: [] } };
   it('reads old receipts and preserves an optional frozen title', () => {
     expect(readBotCollaborationMeta(receipt)?.result).toEqual(receipt.result);
@@ -60,15 +60,15 @@ it('validates exact completion identities and deduplicates frozen attachments', 
   for (const value of ['human', 'bot-delegation-completion:job:0', 'bot-delegation-completion:job:2:other'])
     expect(taskResultClientIdForInput(value)).toBeNull();
   expect(readBotTaskResults([{}, null])).toEqual([]);
-  const card = { v: 1, role: 'delegation-result', delegationId: 'job', fromBotId: 'bot', fromBotName: 'Cindy',
-    toBotId: null, toBotName: 'Cindy', parentSessionId: 'parent', childSessionId: 'child', objective: 'Report',
+  const card = { v: 1, role: 'delegation-result', delegationId: 'job', fromBotId: 'bot', fromBotName: 'Emma',
+    toBotId: null, toBotName: 'Emma', parentSessionId: 'parent', childSessionId: 'child', objective: 'Report',
     result: { runSequence: 1, status: 'completed', text: 'Saved', artifacts: [] } };
   expect(readBotTaskResults([card, {}, card])).toEqual([card]);
 });
 
 describe('interjection preview', () => {
-  const trace = { v: 1, role: 'interjection', delegationId: 'job', fromBotId: 'bot', fromBotName: 'Cindy',
-    toBotId: null, toBotName: 'Cindy', parentSessionId: 'parent', childSessionId: 'child', objective: 'Report' };
+  const trace = { v: 1, role: 'interjection', delegationId: 'job', fromBotId: 'bot', fromBotName: 'Emma',
+    toBotId: null, toBotName: 'Emma', parentSessionId: 'parent', childSessionId: 'child', objective: 'Report' };
   it('keeps old traces without a preview readable', () => {
     expect(readBotCollaborationMeta(trace)).not.toHaveProperty('interjectionPreview');
   });

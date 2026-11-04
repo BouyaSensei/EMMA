@@ -20,8 +20,8 @@ describe('botEntryTarget', () => {
     expect(botEntryTarget(bots)?.id).toBe('old');
     expect(bots.map(bot => bot.id)).toEqual(['new', 'old', 'middle']);
   });
-  it('uses an existing built-in Cindy only as a fallback, without matching names or avatars', () => {
-    const bots = [profile('ordinary', { name: 'Cindy' }), profile('builtin', { templateId: 'cindy', name: 'Renamed' })];
+  it('uses an existing built-in Emma only as a fallback, without matching names or avatars', () => {
+    const bots = [profile('ordinary', { name: 'Emma' }), profile('builtin', { templateId: 'cindy', name: 'Renamed' })];
     expect(botEntryTarget(bots)?.id).toBe('builtin');
     expect(botEntryTarget(bots, 'ordinary')?.id).toBe('ordinary');
   });

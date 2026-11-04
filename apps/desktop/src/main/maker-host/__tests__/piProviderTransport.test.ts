@@ -12,7 +12,7 @@ const reply = [
   { id: 'fixture-reply', choices: [{ index: 0, delta: {}, finish_reason: 'stop' }], usage: { prompt_tokens: 9, completion_tokens: 2 } },
 ].map(value => `data: ${JSON.stringify(value)}\n\n`).join('') + 'data: [DONE]\n\n';
 
-describe('Pi-owned transport for Cindy harnesses', () => {
+describe('Pi-owned transport for Emma harnesses', () => {
   // Unit protocol regression: official Pi SDK defaults must not override Cindy
   // or an explicit legacy title at the final fetch boundary.
   it.each([undefined, { 'x-title': 'Custom app', 'http-referer': 'https://custom.example' }])
@@ -32,7 +32,7 @@ describe('Pi-owned transport for Cindy harnesses', () => {
       body: JSON.stringify({ model: row.id, input: 'Hello', stream: true }),
     })).text();
     expect(output).toContain('response.completed');
-    expect(sent.get('http-referer')).toBe(headers?.['http-referer'] ?? 'https://cindy.app');
+    expect(sent.get('http-referer')).toBe(headers?.['http-referer'] ?? 'https://emma.app');
     expect(sent.get('x-openrouter-title') ?? sent.get('x-title')).toBe(headers?.['x-title'] ?? 'Emma');
     expect(sent.get('x-title')).not.toBe('pi');
     expect(sent.get('authorization')).toBe('Bearer fixture-key');

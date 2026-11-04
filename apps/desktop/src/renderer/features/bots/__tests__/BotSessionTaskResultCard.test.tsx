@@ -36,7 +36,7 @@ vi.mock('@/contexts/PrRefsContext', () => ({
 }));
 beforeEach(() => { live.row = null; live.open = vi.fn(); });
 afterEach(cleanup);
-const card = { v: 1, role: 'delegation-result', delegationId: 'task-1', fromBotId: 'cindy', fromBotName: 'Cindy', toBotId: null, toBotName: 'Cindy', parentSessionId: 'parent', childSessionId: 'child', objective: 'Report', result: { workingDir: '/child-task', runSequence: 2, status: 'completed', text: 'Second result', artifacts: [{ absolutePath: '/reports/second.pdf' }] } };
+const card = { v: 1, role: 'delegation-result', delegationId: 'task-1', fromBotId: 'cindy', fromBotName: 'Emma', toBotId: null, toBotName: 'Emma', parentSessionId: 'parent', childSessionId: 'child', objective: 'Report', result: { workingDir: '/child-task', runSequence: 2, status: 'completed', text: 'Second result', artifacts: [{ absolutePath: '/reports/second.pdf' }] } };
 const resultLinks = (container: HTMLElement) => [...container.querySelectorAll('a')];
 
 it('keeps the execution result and its files in the receipt, without replacing it with live execution data', () => {

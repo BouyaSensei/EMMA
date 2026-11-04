@@ -80,11 +80,11 @@ describe('getPendingQueueRowPresentation', () => {
             displayText: 'x',
             senderSessionTitle: 'Weekly feedback',
             senderBotId: 'bot-1',
-            senderBotName: 'Cindy',
+            senderBotName: 'Emma',
           },
         }),
       ),
-    ).toMatchObject({ isSession: true, senderLabel: 'Cindy', senderBotId: 'bot-1' });
+    ).toMatchObject({ isSession: true, senderLabel: 'Emma', senderBotId: 'bot-1' });
   });
 
   it('shows the message text, not the host envelope, for session items with attachments', () => {

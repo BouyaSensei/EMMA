@@ -138,7 +138,7 @@ describe('start_skill_learning', () => {
     expect(startSkillLearning).not.toHaveBeenCalled();
   });
 
-  it('fails closed without a bound Cindy task', async () => {
+  it('fails closed without a bound Emma task', async () => {
     const registry = new XdtHelperToolRegistry();
     const authorizeSkillLearning = vi.fn(async () => ({
       ok: true as const,

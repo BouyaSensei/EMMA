@@ -96,7 +96,7 @@ describe('cindy_make report_complete', () => {
     expect(JSON.parse(first.text)).toMatchObject({ ok: true });
   });
 
-  it('fails closed when the runtime context is not a Cindy Make task', async () => {
+  it('fails closed when the runtime context is not a Emma Make task', async () => {
     const reportCompletion = vi.fn(async () => undefined);
     const bridgeCtx: McpProviderContext = {
       agentKind: 'codex',
@@ -137,7 +137,7 @@ describe('cindy_make report_complete', () => {
     expect(JSON.stringify(result.content)).toContain('REPORT_FAILED');
   });
 });
-describe('disabled Cindy Make', () => {
+describe('disabled Emma Make', () => {
   it('hides marked sessions and global bridges and never registers the tool', () => {
     feature.enabled = false;
     for (const context of [marked(), { agentKind: 'codex', workingDir: '', vendorOptions: {} }, { agentKind: 'pi', workingDir: '', vendorOptions: {} }] as McpProviderContext[]) {

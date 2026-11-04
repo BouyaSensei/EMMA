@@ -228,7 +228,7 @@ function partition(records: readonly MemoryRecord[]): {
   return { memories, learned };
 }
 
-describe('Cindy Bot 记忆全链(形成 → 存 → 取 → 用 → 删)', () => {
+describe('Emma Bot 记忆全链(形成 → 存 → 取 → 用 → 删)', () => {
   it.each(['claude-code', 'codex', 'pi'] as const)('keeps %s Bot registration and MCP reads/writes available with global memory off', async (agentKind) => {
     manager.dispose();
     memoryEnabled = false;

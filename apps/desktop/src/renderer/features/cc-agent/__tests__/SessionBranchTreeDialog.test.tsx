@@ -41,7 +41,7 @@ beforeEach(() => vi.clearAllMocks());
 afterEach(cleanup);
 
 describe('Pi tree visible indentation', () => {
-  it('keeps a long single chain aligned inside a nested Cindy task', async () => {
+  it('keeps a long single chain aligned inside a nested Emma task', async () => {
     await show([chain(40)], {}, true);
     for (let i = 0; i < 40; i++) expect(row(`chain-${i}`).style.paddingLeft).toBe('46px');
   });

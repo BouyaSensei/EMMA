@@ -62,7 +62,7 @@ describe('HomeZeroModelAction', () => {
     expect(signInMock).toHaveBeenCalledTimes(1);
   });
 
-  it('cloud: opens Cindy AI provider connect, not the provider list', () => {
+  it('cloud: opens Emma AI provider connect, not the provider list', () => {
     renderCard('cloud');
     fireEvent.click(screen.getByTestId('home-zero-model-cta'));
     expect(signInMock).not.toHaveBeenCalled();

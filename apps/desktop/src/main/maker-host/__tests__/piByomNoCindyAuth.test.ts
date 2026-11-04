@@ -80,7 +80,7 @@ vi.mock('../anthropic-compat-proxy-host.js', () => ({
 
 import { desktopPiAuthAdapter, resolvePiNativeProviders } from '../pi-host.js';
 
-describe('Pi pure BYOM auth without a Cindy account', () => {
+describe('Pi pure BYOM auth without a Emma account', () => {
   beforeEach(() => {
     state.loggedIn = false;
     state.proxyReady = true;

@@ -102,9 +102,9 @@ describe('getEffectiveAuxiliaryModelChain', () => {
     });
   });
 
-  it('uses the product-facing Cindy AI label for XD catalog refs', () => {
+  it('uses the product-facing Emma AI label for XD catalog refs', () => {
     expect(formatAuxiliaryModelRefLabel('cat:xd:codex:deepseek/deepseek-v4-flash'))
-      .toBe('deepseek/deepseek-v4-flash · Cindy AI');
+      .toBe('deepseek/deepseek-v4-flash · Emma AI');
   });
 
   it('changes when the effective source or ordered refs change', () => {

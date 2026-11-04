@@ -23,7 +23,7 @@ describe('remote project response boundaries', () => {
     expect(parsePluginManagementSnapshot({ ...snapshot, projects: [] }).projects).toEqual([]);
   });
   it('accepts optional target display paths and an explicit browser capability while rejecting malformed declarations', () => {
-    const project = { id: 'b', name: 'Cindy', path: 'D:\\Projects\\Cindy' };
+    const project = { id: 'b', name: 'Emma', path: 'D:\\Projects\\Emma' };
     expect(parsePluginManagementProject(project)).toEqual(project);
     expect(parsePluginManagementSnapshot({ ...snapshot, projects: [project], projectBrowse: true }).projectBrowse).toBe(true);
     for (const path of [42, '', 'bad\0path', 'x'.repeat(32769)]) {
@@ -34,10 +34,10 @@ describe('remote project response boundaries', () => {
   });
   it.each<unknown[]>([
     [
-      { id: 'a', name: 'Cindy' },
+      { id: 'a', name: 'Emma' },
       { id: 'a', name: 'Other' },
     ],
-    [{ id: '', name: 'Cindy' }],
+    [{ id: '', name: 'Emma' }],
     [{ id: 'a', name: null }],
   ])('rejects ambiguous or malformed Host project declarations', (projects) => {
     expect(() => parsePluginManagementSnapshot({ ...snapshot, projects })).toThrow(

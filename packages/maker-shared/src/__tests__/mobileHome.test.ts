@@ -74,13 +74,13 @@ describe('mobileHome', () => {
     expect(buildMobileHomePresentation({ ...options, projectAliases: new Map() }).projects.map((p) => p.title)).toEqual(['app', 'app']);
   });
 
-  it('hides Cindy Make creation and merge tasks from the home presentation', () => {
+  it('hides Emma Make creation and merge tasks from the home presentation', () => {
     const sessions = [
-      session('make-a', { source: 'cindy-make', workingDir: 'C:\\Cindy\\tasks\\random-a' }),
+      session('make-a', { source: 'cindy-make', workingDir: 'C:\\Emma\\tasks\\random-a' }),
       session('make-b', { source: 'cindy-make', workingDir: '/data/cindy/tasks/random-b' }),
       session('merge', { source: 'cindy-make-merge', workingDir: '/data/cindy/merge/random-c' }),
       session('no-dir', { source: 'cindy-make', workspaceKind: 'dialogue', workingDir: null }),
-      session('ordinary', { title: 'Cindy Make', workingDir: '/data/cindy/tasks/random-b' }),
+      session('ordinary', { title: 'Emma Make', workingDir: '/data/cindy/tasks/random-b' }),
     ].map((item) => ({ ...item, deviceLinkDeviceId: 'pc', deviceLinkDeviceName: 'My PC' }));
     const home = buildMobileHomePresentation({
       sessions,
@@ -92,7 +92,7 @@ describe('mobileHome', () => {
     expect(home.projects[0]?.sessions.map((item) => item.session.id)).toEqual(['ordinary']);
   });
 
-  it('hides Cindy Make projects regardless of device selection or task directory', () => {
+  it('hides Emma Make projects regardless of device selection or task directory', () => {
     const sessions = ['pc-a', 'pc-b'].map((deviceLinkDeviceId) => session(deviceLinkDeviceId, {
       deviceLinkDeviceId,
       source: 'cindy-make',
@@ -110,7 +110,7 @@ describe('mobileHome', () => {
     expect(moved.projects).toEqual([]);
   });
 
-  it('hides Cindy Make tasks from pinned, archived and search views', () => {
+  it('hides Emma Make tasks from pinned, archived and search views', () => {
     const sessions = [
       session('pinned', { source: 'cindy-make', pinnedAt: '2026-01-01T00:00:00.000Z' }),
       session('active', { source: 'cindy-make' }),
@@ -759,7 +759,7 @@ describe('mobileHome', () => {
 
     expect(home.emptyKind).toBe('noDevice');
     expect(home.emptyNoDevice).toEqual({ reason: 'firstRun', devices: [] });
-    expect(home.emptyTitle).toBe('连接你电脑上的 Cindy');
+    expect(home.emptyTitle).toBe('连接你电脑上的 Emma');
     expect(home.emptyCopy).toContain('远程访问');
     expect(home.emptyCopy).toContain('运行在你的电脑上');
   });
@@ -793,7 +793,7 @@ describe('mobileHome', () => {
       reason: 'offline',
       devices: [{ deviceId: 'mac-a', name: 'mac-a', statusDetail: '3 小时前在线' }],
     });
-    expect(offline.emptyTitle).toBe('打开电脑上的 Cindy');
+    expect(offline.emptyTitle).toBe('打开电脑上的 Emma');
 
     // 在线但没开远程控制 → 精确到开关的一步引导,copy 指名设备。
     const remoteDisabled = buildMobileHomePresentation({

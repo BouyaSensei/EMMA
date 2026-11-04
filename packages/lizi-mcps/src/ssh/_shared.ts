@@ -61,7 +61,7 @@ export type SshErrorCode =
  */
 export const PASSWORD_LOGIN_HINT =
   '主机目前只能用密码登录时，先在本机任务的命令行运行 `ssh-copy-id -i ~/.ssh/<公钥>.pub [-p 端口] 用户@主机` 装上公钥'
-  + '（没有密钥就先 ssh-keygen 生成）：ssh 要密码时 Cindy 会直接弹卡片让用户输入，你看不到密码（macOS / Linux）。'
+  + '（没有密钥就先 ssh-keygen 生成）：ssh 要密码时 Emma 会直接弹卡片让用户输入，你看不到密码（macOS / Linux）。'
   + '不要在聊天里向用户索要密码。';
 
 // ── host resolution ─────────────────────────────────────────────────────────
@@ -246,7 +246,7 @@ export function classifySshError(
     case 'SSH_CONFIG_AUTH_UNSUPPORTED':
       return {
         errorCode: 'SSH_CONFIG_AUTH_UNSUPPORTED',
-        hint: `此主机的部分 SSH 配置规则超出 Cindy 当前支持的子集（重复连接无效，终端 SSH 仍可能成功）：${detail}。请检查 Match、条件 Include、IdentityAgent、IdentitiesOnly 和公钥设置。`,
+        hint: `此主机的部分 SSH 配置规则超出 Emma 当前支持的子集（重复连接无效，终端 SSH 仍可能成功）：${detail}。请检查 Match、条件 Include、IdentityAgent、IdentitiesOnly 和公钥设置。`,
       };
     default:
       return {

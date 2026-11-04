@@ -391,9 +391,9 @@ const SHADOW_LISTABLE_KINDS: ReadonlySet<SnapshotKind> = new Set([
 
 /** Fixed identity for shadow savepoint commits so plumbing never depends on user git config. */
 const SHADOW_IDENTITY_ENV: Record<string, string> = {
-  GIT_AUTHOR_NAME: 'Cindy',
+  GIT_AUTHOR_NAME: 'Emma',
   GIT_AUTHOR_EMAIL: 'savepoint@cindy.local',
-  GIT_COMMITTER_NAME: 'Cindy',
+  GIT_COMMITTER_NAME: 'Emma',
   GIT_COMMITTER_EMAIL: 'savepoint@cindy.local',
 };
 

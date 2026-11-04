@@ -15,7 +15,7 @@
  */
 
 /** 反馈仓 —— 与 githubUserIssueSubmitter 的 FEEDBACK_REPOSITORY 同一个仓。 */
-export const MY_ISSUES_REPOSITORY = { owner: 'makecindy', repo: 'cindy' } as const;
+export const MY_ISSUES_REPOSITORY = { owner: 'BouyaSensei', repo: 'EMMA' } as const;
 
 /**
  * 列表项的链接**一律由 issue 号派生**,不采纳任何来源给的原值。

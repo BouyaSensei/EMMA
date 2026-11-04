@@ -79,7 +79,7 @@ describe('materializeCompanion', () => {
   it('backs up a local copy that never synced before overwriting it', async () => {
     const { api } = cloud([profilePref]);
     const local = fakeLocal({ backupHome: vi.fn(async () => '/backups/bot_mia-1') });
-    local.setProfile({ status: 'active', displayName: 'Cindy', description: '' });
+    local.setProfile({ status: 'active', displayName: 'Emma', description: '' });
     const log = { warn: vi.fn(), info: vi.fn() };
     const result = await materializeCompanion({ api, state: memoryState().state, host: local.host, actor, roomId: async () => ROOM, log });
     expect(result.backup).toBe('/backups/bot_mia-1');

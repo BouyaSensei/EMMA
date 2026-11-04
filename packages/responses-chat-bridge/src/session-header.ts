@@ -20,7 +20,7 @@ export const CODEX_THREAD_ID_HEADER = 'thread-id';
  * OpenCode Go 要求客户端用自己的 User-Agent 而非通用 SDK / HTTP 库名。供应商 header 已显式
  * 给出 UA 时尊重之;否则补一个稳定的 Cindy bridge 标识(不伪装成 OpenCode 或 Codex 本身)。
  */
-export const CHAT_BRIDGE_USER_AGENT = 'Cindy-CodexChatBridge/1';
+export const CHAT_BRIDGE_USER_AGENT = 'Emma-CodexChatBridge/1';
 
 const SESSION_ID_PATTERN = /^[A-Za-z0-9._:-]{1,128}$/;
 

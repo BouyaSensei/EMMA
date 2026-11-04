@@ -258,7 +258,7 @@ export function createBrowserControlRuntime(
           const command = request.recipeCommand;
           if (!command || !request.targetId) throw new Error('recipeCommand requires an explicit targetId and command');
           const scope = JSON.stringify([request.profile ?? '', request.targetId]);
-          if (command.method !== 'Cindy.begin') {
+          if (command.method !== 'Emma.begin') {
             const data = await recipeSessions.call(scope, command.sessionId ?? '', command.method, command.params);
             return { ok: true, action: request.action, data };
           }

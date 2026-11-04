@@ -7,8 +7,8 @@ import { createLoginItemSettings } from '../login-item-settings.js';
 function fixture(platform: NodeJS.Platform = 'win32', isPackaged = true, executable?: string) {
   const execPath =
     executable ?? (platform === 'win32'
-      ? path.win32.join('C:', 'Program Files', 'Cindy', 'Cindy.exe')
-      : '/Applications/Cindy.app/Contents/MacOS/Cindy');
+      ? path.win32.join('C:', 'Program Files', 'Emma', 'Emma.exe')
+      : '/Applications/Emma.app/Contents/MacOS/Emma');
   let native: LoginItemSettings = {
     openAtLogin: false,
     openAsHidden: false,
@@ -43,7 +43,7 @@ function fixture(platform: NodeJS.Platform = 'win32', isPackaged = true, executa
         executableWillLaunchAtLogin: settings.openAtLogin === true,
         status: settings.openAtLogin ? 'enabled' : 'not-registered',
         launchItems: settings.openAtLogin
-          ? [{ name: 'Cindy', path: execPath, args: [], scope: 'user', enabled: true }]
+          ? [{ name: 'Emma', path: execPath, args: [], scope: 'user', enabled: true }]
           : [],
       };
     }),
@@ -74,7 +74,7 @@ describe('native login startup preference', () => {
     expect(app.setLoginItemSettings).toHaveBeenLastCalledWith({
       path: execPath,
       args: [],
-      name: 'Cindy',
+      name: 'Emma',
       openAtLogin: true,
       enabled: true,
     });
@@ -83,16 +83,16 @@ describe('native login startup preference', () => {
     expect(app.setLoginItemSettings).toHaveBeenLastCalledWith({
       path: execPath,
       args: [],
-      name: 'Cindy',
+      name: 'Emma',
       openAtLogin: false,
       enabled: false,
     });
   });
 
   it.each([
-    path.win32.join('C:', 'Cindy', 'Cindy.exe'),
-    path.win32.join('C:', 'Program Files', 'Cindy', 'Cindy.exe'),
-    path.win32.join('C:', 'Users', 'Test User', 'AppData', 'Local', 'Cindy', 'Cindy.exe'),
+    path.win32.join('C:', 'Emma', 'Emma.exe'),
+    path.win32.join('C:', 'Program Files', 'Emma', 'Emma.exe'),
+    path.win32.join('C:', 'Users', 'Test User', 'AppData', 'Local', 'Emma', 'Emma.exe'),
   ])('reads the named Windows entry independently of openAtLogin at %s', (execPath) => {
     const { service, app } = fixture('win32', true, execPath);
     expect(service.set(true).enabled).toBe(true);
@@ -108,8 +108,8 @@ describe('native login startup preference', () => {
       openAtLogin: true,
       launchItems: [
         { name: 'Other entry', path: execPath, args: [], scope: 'user', enabled: true },
-        { name: 'Cindy', path: execPath, args: [], scope: 'machine', enabled: true },
-        { name: 'Cindy', path: execPath, args: ['--other'], scope: 'user', enabled: true },
+        { name: 'Emma', path: execPath, args: [], scope: 'machine', enabled: true },
+        { name: 'Emma', path: execPath, args: ['--other'], scope: 'user', enabled: true },
       ],
     });
     expect(service.read().enabled).toBe(false);
@@ -129,7 +129,7 @@ describe('native login startup preference', () => {
     changeNative({
       executableWillLaunchAtLogin: true,
       launchItems: [
-        { name: 'Cindy', path: execPath, args: [], scope: 'user', enabled: false },
+        { name: 'Emma', path: execPath, args: [], scope: 'user', enabled: false },
         { name: 'Other entry', path: execPath, args: ['--other'], scope: 'user', enabled: true },
       ],
     });

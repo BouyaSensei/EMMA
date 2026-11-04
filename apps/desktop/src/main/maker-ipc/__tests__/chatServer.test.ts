@@ -256,7 +256,7 @@ describe('Chat Server result delivery and refresh', () => {
   it('reads mask mentions with paired replies without consuming human read state',async()=>{
     fixture.handle.mockImplementation(route=>route === '/me' ? {body:{actor:{id:selfId},capabilities:{personalMask:1}}}
       : route.includes('/mentions?') ? {body:{messages:[{id:execution.source_message_id,seq:'4',author:{kind:'human',name:'Peer'},
-        content:[{type:'text',text:'@owner confirm?'}],reply:{content:[{type:'text',text:'Awaiting owner'}],maskAttribution:{companion:{id:botId,name:'Cindy',avatarUrl:null}}}}],hasMore:false}}
+        content:[{type:'text',text:'@owner confirm?'}],reply:{content:[{type:'text',text:'Awaiting owner'}],maskAttribution:{companion:{id:botId,name:'Emma',avatarUrl:null}}}}],hasMore:false}}
       : response(route));
     const result=await service.chatServer!.mentions!({groupId:roomId});
     expect(result).toMatchObject({ok:true,mentions:[{text:'@owner confirm?',reply:{text:'Awaiting owner',companion:{id:botId}}}]});
@@ -583,7 +583,7 @@ describe('Chat Server result delivery and refresh', () => {
     fixture.handle.mockImplementation(route => {
       if (route === `/conversations/${roomId}/members`) return { body: [
         { id: selfId, kind: 'human', name: 'Dash', ownerName: 'Dash', state: 'joined' },
-        { id: botId, kind: 'bot', name: 'Cindy', ownerName: 'Chris', state: 'joined' },
+        { id: botId, kind: 'bot', name: 'Emma', ownerName: 'Chris', state: 'joined' },
         { id: former, kind: 'human', name: 'Ada', ownerName: 'Ada', state: 'left' },
       ] };
       if (route.startsWith(`/conversations/${roomId}/messages/${messageId}/reactions?`)) {
@@ -599,7 +599,7 @@ describe('Chat Server result delivery and refresh', () => {
     expect(result.reactors.map(r => r.actorId)).toEqual(all);
     const byId = new Map(result.reactors.map(r => [r.actorId, r]));
     expect(byId.get(selfId)).toEqual({ actorId: selfId, name: 'Dash', isSelf: true, formerMember: false });
-    expect(byId.get(botId)).toEqual({ actorId: botId, name: 'Cindy (Chris)', isSelf: false, formerMember: false });
+    expect(byId.get(botId)).toEqual({ actorId: botId, name: 'Emma (Chris)', isSelf: false, formerMember: false });
     expect(byId.get(former)).toEqual({ actorId: former, name: 'Ada', isSelf: false, formerMember: true });
     expect(byId.get(unknown)).toEqual({ actorId: unknown, name: null, isSelf: false, formerMember: false });
     expect(fixture.handle.mock.calls.filter(([route]) => String(route).includes('/reactions'))).toHaveLength(12);
@@ -1507,7 +1507,7 @@ describe('Chat Server result delivery and refresh', () => {
 
   describe('independent tasks started from the group (bot-group-chat.md §10)', () => {
     const taskMeta = { v: 1, role: 'delegation-request', delegationId: 'task-1', fromBotId: 'local-bot', fromBotName: 'Bot', toBotId: null,
-      toBotName: 'Cindy', parentSessionId: 'lane', childSessionId: 'child-1', objective: 'Write the launch post' } as const;
+      toBotName: 'Emma', parentSessionId: 'lane', childSessionId: 'child-1', objective: 'Write the launch post' } as const;
     const taskLabels = { task: 'Task', untitled: 'Background task', states: { started: 'In progress', waiting: 'Waiting', completed: 'Done', failed: 'Failed', cancelled: 'Cancelled', 'timed-out': 'Timed out' } };
     const taskCard = buildBotGroupTaskCard({ meta: taskMeta, state: 'started', title: 'Launch post' }, taskLabels);
     const joined = (id: string, kind: 'bot' | 'human') => ({ id, kind, name: kind === 'bot' ? 'Bot' : 'Me', state: 'joined', role: 'member',

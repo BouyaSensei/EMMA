@@ -21,7 +21,7 @@ describe('extractPrRefs', () => {
 
   it('同一 PR 的大小写变体规范化后去重(防唯一索引重复行)', () => {
     const refs = extractPrRefs(
-      'https://github.com/makecindy/cindy/pull/85 https://github.com/MakeCindy/cindy/pull/85',
+      'https://github.com/BouyaSensei/EMMA/pull/85 https://github.com/bouyasensei/emma/pull/85',
     );
     expect(refs).toHaveLength(1);
   });

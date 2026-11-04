@@ -132,7 +132,7 @@ if (devFlags.isolatedOnProductionProfile) {
   // 报实际目标目录：可能是当前区域，也可能是另一地区的正式 profile。
   const targetDir = devFlags.userDataDirOverride ?? app.getPath('userData');
   stderr.write(
-    `[cindy] FATAL: --isolated cannot use the official Cindy profile (${targetDir}). ` +
+    `[cindy] FATAL: --isolated cannot use the official Emma profile (${targetDir}). ` +
       'Use the default sandbox, --isolated=<name>, or a directory that is not an official userData.\n',
   );
   exit(1);
@@ -196,9 +196,9 @@ if (devFlags.userDataDirOverride) {
       `[cindy] FATAL: 沙箱钥匙串身份不确定(${keychainDecision.reason});` +
         `为避免用错误主密钥覆盖沙箱既有密文,拒绝启动。\n` +
         `  标记文件: ${keychainMarkerPath}\n` +
-        `  处置: 若确认该沙箱从未用过 CindyDev 身份,删除该标记文件后重启` +
-        `(或将内容修复为 "Cindy",须以换行结尾);若沙箱曾以 CindyDev 运行,` +
-        `修复其内容为 "CindyDev"(同样以换行结尾)。修复须在退出所有 Cindy dev` +
+        `  处置: 若确认该沙箱从未用过 EmmaDev 身份,删除该标记文件后重启` +
+        `(或将内容修复为 "Emma",须以换行结尾);若沙箱曾以 EmmaDev 运行,` +
+        `修复其内容为 "EmmaDev"(同样以换行结尾)。修复须在退出所有 Emma dev` +
         `实例后进行,并用原子替换(先写临时文件再 mv 覆盖),不要原地截断重写。\n` +
         `  警告: 不要把旧版本 checkout 显式指向 -dev2 沙箱目录` +
         `(XDT_USER_DATA_DIR)——旧代码不认身份标记,会以默认身份写入并` +

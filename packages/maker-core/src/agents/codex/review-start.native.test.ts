@@ -227,7 +227,7 @@ describe.skipIf(!binaryPath || process.platform !== 'win32')('Windows Codex Revi
         makerMemoryEnabled: false,
       });
       if (!compatible) {
-        await expect(started).rejects.toThrow('Windows Cindy Review requires Codex app-server 0.156.0');
+        await expect(started).rejects.toThrow('Windows Emma Review requires Codex app-server 0.156.0');
         expect(requests).toHaveLength(0);
         return;
       }

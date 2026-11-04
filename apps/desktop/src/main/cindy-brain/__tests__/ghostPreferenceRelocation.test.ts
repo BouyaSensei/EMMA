@@ -30,7 +30,7 @@ const from = 'helper';
 const to = '_ns__acme__helper';
 const resources = [
   {
-    name: 'Cindy overrides and limits',
+    name: 'Emma overrides and limits',
     file: 'ghost-cindy-prefs.json',
     relocate: relocateGhostCindyPrefs,
     source: { overrides: { [from]: { 'image.generate': 'model', future: { value: 1 } } }, inflightLimits: { [from]: 2 } },
@@ -82,7 +82,7 @@ function write(file: string, value: unknown, ownerId = owner.id): string {
 
 const writers = [
   {
-    name: 'Cindy limit', resource: resources[0],
+    name: 'Emma limit', resource: resources[0],
     prime: () => readGhostCindyInflightLimit(from),
     write: (id: string) => writeGhostCindyInflightLimit(id, 4),
   },

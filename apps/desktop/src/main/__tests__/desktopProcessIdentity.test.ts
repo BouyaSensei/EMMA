@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { isReusedDesktopInstancePid, readDesktopProcessIdentity } from '../desktopProcessIdentity';
 
 // Explicit target-platform paths; no host filesystem is accessed by these probes.
-const windowsIdentity = { startedAtMs: 100_000, executablePath: 'C:\\Programs\\Cindy\\Cindy.exe' };
+const windowsIdentity = { startedAtMs: 100_000, executablePath: 'C:\\Programs\\Emma\\Emma.exe' };
 
 describe('desktop process identity probes', () => {
   it('reads only OS creation time and executable from a hidden, bounded Windows query', async () => {
@@ -17,9 +17,9 @@ describe('desktop process identity probes', () => {
     expect(options).toMatchObject({ timeout: 5_000, maxBuffer: 16 * 1024, windowsHide: true });
   });
 
-  it.each(['', '{', 'null', '{}', '{"startedAtMs":0,"executablePath":"C:\\\\Cindy.exe"}',
+  it.each(['', '{', 'null', '{}', '{"startedAtMs":0,"executablePath":"C:\\\\Emma.exe"}',
     JSON.stringify({ ...windowsIdentity, executablePath: null }),
-    JSON.stringify({ ...windowsIdentity, executablePath: 'Cindy.exe' }),
+    JSON.stringify({ ...windowsIdentity, executablePath: 'Emma.exe' }),
   ])('keeps missing or malformed process evidence unknown: %s', async (stdout) => {
     expect(await readDesktopProcessIdentity(4242, 'win32', async () => ({ stdout }))).toBeNull();
   });
@@ -36,10 +36,10 @@ describe('desktop process identity probes', () => {
   });
 
   it('parses POSIX birth time in UTC and retains spaces in executable paths', async () => {
-    const run = vi.fn(async () => ({ stdout: 'Fri Sep 11 08:00:00 2026 /Applications/Cindy App.app/Contents/MacOS/Cindy\n' }));
+    const run = vi.fn(async () => ({ stdout: 'Fri Sep 11 08:00:00 2026 /Applications/Emma App.app/Contents/MacOS/Emma\n' }));
     expect(await readDesktopProcessIdentity(4242, 'darwin', run)).toEqual({
       startedAtMs: Date.parse('2026-09-11T08:00:00Z'),
-      executablePath: '/Applications/Cindy App.app/Contents/MacOS/Cindy',
+      executablePath: '/Applications/Emma App.app/Contents/MacOS/Emma',
     });
     expect(run).toHaveBeenCalledWith('ps', expect.any(Array), expect.objectContaining({
       env: expect.objectContaining({ LC_ALL: 'C', TZ: 'UTC0' }),
@@ -48,7 +48,7 @@ describe('desktop process identity probes', () => {
 
   it('keeps truncated macOS executable evidence unknown', async () => {
     expect(await readDesktopProcessIdentity(4242, 'darwin', async () => ({
-      stdout: 'Fri Sep 11 08:00:00 2026 Cindy',
+      stdout: 'Fri Sep 11 08:00:00 2026 Emma',
     }))).toBeNull();
   });
 
@@ -97,7 +97,7 @@ describe('desktop process identity probes', () => {
 });
 
 describe('PID reuse evidence', () => {
-  it('recognizes a legacy Cindy PID reused by Chrome after the record was written', () => {
+  it('recognizes a legacy Emma PID reused by Chrome after the record was written', () => {
     expect(isReusedDesktopInstancePid({ startedAtMs: 10_000 }, {
       startedAtMs: 100_000, executablePath: 'C:\\Chrome\\chrome.exe',
     }, 'win32')).toBe(true);
@@ -119,7 +119,7 @@ describe('PID reuse evidence', () => {
     }, 'win32')).toBe(true);
   });
 
-  it.each(['C:\\Programs\\Cindy\\Cindy.exe', 'C:\\tools\\electron.exe', 'C:\\nodejs\\node.exe'])
+  it.each(['C:\\Programs\\Emma\\Emma.exe', 'C:\\tools\\electron.exe', 'C:\\nodejs\\node.exe'])
     ('keeps a possible replacement runtime protective even with a newer birth: %s', (executablePath) => {
       expect(isReusedDesktopInstancePid({ startedAtMs: 1 }, {
         startedAtMs: 100_000, executablePath,
@@ -147,7 +147,7 @@ describe('PID reuse evidence', () => {
 
   it('does not treat POSIX exec as proof that the process exited', () => {
     expect(isReusedDesktopInstancePid({ processIdentity: {
-      startedAtMs: 100_000, executablePath: '/Applications/Cindy',
+      startedAtMs: 100_000, executablePath: '/Applications/Emma',
     } }, { startedAtMs: 100_000, executablePath: '/usr/bin/other' }, 'darwin')).toBe(false);
   });
 });

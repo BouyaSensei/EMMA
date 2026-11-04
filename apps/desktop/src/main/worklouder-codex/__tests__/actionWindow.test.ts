@@ -33,7 +33,7 @@ describe('workLouderCodexActionWindowTarget', () => {
     ).toBe('task-switch');
   });
 
-  it('sends voice, send, and scroll to the system frontmost app when Cindy is not focused', () => {
+  it('sends voice, send, and scroll to the system frontmost app when Emma is not focused', () => {
     expect(workLouderCodexActionWindowTarget({ type: 'voice', phase: 'press' })).toBe(
       'system-frontmost',
     );
@@ -64,7 +64,7 @@ describe('createWorkLouderCodexActiveWindowRouter', () => {
     expect(router.resolve({ type: 'command', commandId: 'session.selectNext' })).toBe(main);
   });
 
-  it('does not steal send from a utility window back to the main Cindy window', () => {
+  it('does not steal send from a utility window back to the main Emma window', () => {
     const main = fakeWindow('main');
     const utility = fakeWindow('utility');
     const router = createWorkLouderCodexActiveWindowRouter({
@@ -76,7 +76,7 @@ describe('createWorkLouderCodexActiveWindowRouter', () => {
     expect(router.resolve({ type: 'command', commandId: 'composer.submit' })).toBeNull();
   });
 
-  it('leaves voice, send, and scroll on the system frontmost app when Cindy is not focused', () => {
+  it('leaves voice, send, and scroll on the system frontmost app when Emma is not focused', () => {
     const main = fakeWindow('main');
     const utility = fakeWindow('utility');
     const router = createWorkLouderCodexActiveWindowRouter({

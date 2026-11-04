@@ -15,7 +15,7 @@ const {
   switchAccount,
 } = vi.hoisted(() => ({
   authState: {
-    user: { name: 'Cindy user', avatar: null } as { name: string; avatar: string | null } | null,
+    user: { name: 'Emma user', avatar: null } as { name: string; avatar: string | null } | null,
     mode: 'cloud' as 'cloud' | 'local',
     dataOwnerId: 'owner-a' as string | null,
     isCanary: false,
@@ -112,7 +112,7 @@ beforeEach(() => {
   confirm.mockReset().mockResolvedValue(true);
   runningSnapshot.clear();
   navigate.mockReset();
-  authState.user = { name: 'Cindy user', avatar: null };
+  authState.user = { name: 'Emma user', avatar: null };
   authState.mode = 'cloud';
   authState.dataOwnerId = 'owner-a';
   listAccounts.mockReset().mockResolvedValue({
@@ -120,7 +120,7 @@ beforeEach(() => {
     accounts: [
       {
         accountKey: 'current',
-        displayName: 'Cindy user',
+        displayName: 'Emma user',
         email: 'current@example.com',
         avatarUrl: null,
         kind: 'personal',
@@ -145,7 +145,7 @@ beforeEach(() => {
     accounts: [
       {
         accountKey: 'current',
-        displayName: 'Cindy user',
+        displayName: 'Emma user',
         email: 'current@example.com',
         avatarUrl: null,
         kind: 'personal',
@@ -232,7 +232,7 @@ describe('UserInfoSection mobile download entry', () => {
 
     expect(await screen.findByRole('menuitem', { name: /Other user/ })).toBeTruthy();
     expect(screen.getByText('sidebar.accountSwitcher.current')).toBeTruthy();
-    expect(screen.getByRole('menuitem', { name: /Cindy user/ }).getAttribute('aria-disabled')).toBe(
+    expect(screen.getByRole('menuitem', { name: /Emma user/ }).getAttribute('aria-disabled')).toBe(
       'true',
     );
 
@@ -417,7 +417,7 @@ describe('UserInfoSection mobile download entry', () => {
       accounts: [
         {
           accountKey: 'current',
-          displayName: 'Cindy user',
+          displayName: 'Emma user',
           email: 'current@example.com',
           avatarUrl: null,
           kind: 'personal',
@@ -432,7 +432,7 @@ describe('UserInfoSection mobile download entry', () => {
       accounts: [
         {
           accountKey: 'current',
-          displayName: 'Cindy user',
+          displayName: 'Emma user',
           email: 'current@example.com',
           avatarUrl: null,
           kind: 'personal',
@@ -450,7 +450,7 @@ describe('UserInfoSection mobile download entry', () => {
     });
 
     await waitFor(() => expect(syncAccounts).toHaveBeenCalledOnce());
-    expect(screen.queryByRole('menuitem', { name: /Cindy user/ })).toBeNull();
+    expect(screen.queryByRole('menuitem', { name: /Emma user/ })).toBeNull();
   });
 
   it('keeps the sign-in entry before Settings when the user is not signed in', async () => {

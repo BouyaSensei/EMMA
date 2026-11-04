@@ -74,7 +74,7 @@ describe('permanent Bot model selection', () => {
   // Regression: unchanged Cindy defaults used to undo a successful fallback at
   // each send. Exercise the real reconciler/preview in the unit tier; the old
   // explicit-chain tests did not cover companions following the app default.
-  it('preserves an effective fallback across repeated sends when Cindy default is unchanged', async () => {
+  it('preserves an effective fallback across repeated sends when Emma default is unchanged', async () => {
     const h = harness();
     const state = { ...h.state, hasRuntimeOverride: true, followsCindyDefault: true };
     const reconcile = createBotModelRouteReconciler({ ownerEpoch: () => 'owner', read: async () => state, apply: h.apply });
@@ -84,7 +84,7 @@ describe('permanent Bot model selection', () => {
     await expect(reconcile.preview('canonical')).resolves.toEqual(state.current);
     expect(h.apply).not.toHaveBeenCalled();
   });
-  it('preserves a pending fallback even when the live model still equals Cindy default', async () => {
+  it('preserves a pending fallback even when the live model still equals Emma default', async () => {
     const h = harness();
     const current = { agentKind: 'codex' as const, model: 'luna', providerId: 'xd', effort: 'medium' as const, fastMode: false };
     const state = { ...h.state, current, next: { ...current, model: 'sol' }, hasRuntimeOverride: true, followsCindyDefault: true };
@@ -98,7 +98,7 @@ describe('permanent Bot model selection', () => {
     { followsCindyDefault: true, pending: true },
     { followsCindyDefault: false, pending: false },
     { followsCindyDefault: false, pending: true },
-  ])('applies an equal chain after changing its configuration source (default=$followsCindyDefault, pending=$pending)', async ({ followsCindyDefault, pending }) => {
+  ])('applies an equal chain after changing its configuration source (default=$followsEmmaDefault, pending=$pending)', async ({ followsCindyDefault, pending }) => {
     const h = harness();
     h.state.hasRuntimeOverride = true;
     h.state.followsCindyDefault = !followsCindyDefault;

@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "updated": "2026-11-03",
-  "source": "makecindy/cindy-official-plugins (compatible Emma)",
+  "source": "BouyaSensei/emma-plugins",
   "plugins": [
     {
       "id": "163-mail",
       "name": "163 邮箱",
       "version": "0.1.6",
       "description": "需要查找、阅读或整理 163 邮箱邮件，以及创建草稿或发送邮件时使用。首次使用前请在插件详情页输入 163 邮箱地址和客户端授权密码并完成连接测试。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "163-mail",
       "tags": []
     },
@@ -17,7 +17,7 @@
       "name": "Art",
       "version": "1.15.5",
       "description": "需要生成或编辑图片、画画、插画、配图、头像、海报、P 图、加元素、换风格,或生成短视频、让图片动起来时使用；用户未明确指定其它媒体生成渠道时,优先使用 Art。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "cindy-art",
       "tags": []
     },
@@ -26,7 +26,7 @@
       "name": "Cindy Chrome",
       "version": "0.4.85",
       "description": "Use Cindy Chrome for translation, in-player subtitles and PDF reading in the user's own browser. To read or operate that browser, use Cindy's browser tool (target user-browser) where offered; older Ci",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "my-browser",
       "tags": []
     },
@@ -35,7 +35,7 @@
       "name": "Cindy Ping",
       "version": "0.3.19",
       "description": "在鼠标位置立即发表情；采集原窗口内容后，按表情配置选择或直达项目、任务和伙伴。当前版本仅支持 macOS 14+ 设备。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "cindy-ping",
       "tags": []
     },
@@ -44,7 +44,7 @@
       "name": "Gitea",
       "version": "1.1.0",
       "description": "Use for a self-hosted Gitea server (not github.com or GitLab): read repos, files, commits, issues, PRs, diffs, Actions runs and job logs, releases and notifications; create or comment on issues, chang",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "gitea",
       "tags": []
     },
@@ -53,7 +53,7 @@
       "name": "GitHub",
       "version": "1.3.0",
       "description": "只管 github.com 域名的仓库/链接(GitLab 实例的找 GitLab)。需要查/建/改 GitHub issue 或 PR,提交/回复 code review,合并 PR,查仓库/分支/commit/文件内容,触发或查看 GitHub Actions,管理 release,搜索代码/仓库/用户,或下载 Actions 产物与日志时找我。优先使用本机 GitHub 登录；在插件详情页连",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "cindy-github",
       "tags": []
     },
@@ -62,7 +62,7 @@
       "name": "GitLab",
       "version": "1.2.3",
       "description": "只管 GitLab 实例(gitlab.com/公司/自建),github.com 的链接不归我、找 GitHub。需要查/建/改 GitLab issue 或 MR,提交/回复/发布 code review,合并或 rebase MR,查仓库/分支/commit/文件内容,查 CI pipeline 与 job 日志,管理 release / tag / 分支,搜索全实例内容,或下载仓库归档时找",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "cindy-gitlab",
       "tags": []
     },
@@ -71,7 +71,7 @@
       "name": "Gmail",
       "version": "1.6.1",
       "description": "用于 Gmail 邮件、附件、草稿、发送及 Google 通讯录。先用 gmail_accounts 选择账号；邮件用 gmail_schema 查询命令后通过 gmail_run 执行；联系人查询、头像及增删改用 gmail_contacts。分析附件前先下载到明确指定的本地任务路径。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "google-gmail",
       "tags": []
     },
@@ -80,7 +80,7 @@
       "name": "Google Calendar",
       "version": "1.5.0",
       "description": "需要查询 Google 日历、安排会议、修改或取消日程时使用。请先在本插件详情页单独连接 Google Calendar 账号。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "google-calendar",
       "tags": []
     },
@@ -89,7 +89,7 @@
       "name": "Google Drive",
       "version": "1.2.0",
       "description": "需要搜索或管理 Google Drive、Docs、Slides 文件时使用。请先在本插件详情页单独连接 Google Drive 账号。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "google-drive",
       "tags": []
     },
@@ -98,7 +98,7 @@
       "name": "Google Sheets",
       "version": "1.2.0",
       "description": "需要读取或更新 Google Sheets 表格数据时使用。请先在本插件详情页单独连接 Google Sheets 账号。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "google-sheets",
       "tags": []
     },
@@ -107,7 +107,7 @@
       "name": "iCloud Mail",
       "version": "0.2.0",
       "description": "需要查找、阅读或整理 iCloud Mail 邮件，以及创建草稿或发送邮件时使用。首次使用前请在插件详情页输入 iCloud Mail 地址和 Apple 账户 App 专用密码并完成连接测试。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "icloud-mail",
       "tags": []
     },
@@ -116,7 +116,7 @@
       "name": "iOS 模拟器",
       "version": "1.2.0",
       "description": "优先使用 Cindy 内置模拟器。仅当主机报告不可用/禁用/准入失败，确认 runningInstanceCount=0 且没有 Cindy runtime、清理、lease 或 generation 迁移，并提供指定外部工作流、精确设备身份和原始任务时才回退；否则停止。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "ios-simulator",
       "tags": []
     },
@@ -125,7 +125,7 @@
       "name": "Mermaid",
       "version": "1.1.3",
       "description": "需要用 Mermaid 绘制或修改流程图、时序图、架构图、状态图、类图、甘特图、ER 图等图表，或需要整理 Mermaid 源码时找我。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "cindy-mermaid",
       "tags": []
     },
@@ -134,7 +134,7 @@
       "name": "Notion",
       "version": "1.3.3",
       "description": "需要在 Notion 中搜索资料、读取页面或数据库、查询 data source、创建页面、追加或修改页面内容、更新属性、添加评论时找我（需先在主界面侧边栏「插件」→「Notion」详情页连接 Notion，并把目标页面分享给该 integration）。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "cindy-notion",
       "tags": []
     },
@@ -143,7 +143,7 @@
       "name": "ntfy",
       "version": "1.1.0",
       "description": "Use when the user wants a push notification sent to their phone or desktop through their own ntfy server, for example to be alerted when a task finishes. Requires a server and access token added in th",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "ntfy",
       "tags": []
     },
@@ -152,7 +152,7 @@
       "name": "OpenDesign",
       "version": "0.4.27",
       "description": "用 OpenDesign 创建或继续修改网页稿件、布局、颜色、文字、交互或草图。交付使用结果里的 previewMarkdown，统一走 Cindy 的 HTML 文件预览，支持本机、远端电脑和手机。已有稿件先 context 再 update；专用编辑器与画板只在运行插件的电脑可用。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "opendesign-trial",
       "tags": []
     },
@@ -161,7 +161,7 @@
       "name": "Outlook 邮箱",
       "version": "2.2.0",
       "description": "需要连接 Outlook、Hotmail、Live 或 Microsoft 365 企业邮箱，查询、阅读、发送、起草或整理邮件时使用，包括世纪互联中国区微软托管邮箱。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "outlook-mail",
       "tags": []
     },
@@ -170,7 +170,7 @@
       "name": "Podcast Insights",
       "version": "0.2.21",
       "description": "Podcast transcripts, summaries, content questions, cross-show viewpoints, original quotes, speakers and timestamps. Searches imported material only.",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "podcast-insights",
       "tags": []
     },
@@ -179,7 +179,7 @@
       "name": "QQ 邮箱",
       "version": "0.2.12",
       "description": "需要查找、阅读或整理 QQ 邮箱邮件，以及创建草稿或发送邮件时使用。首次使用前请在插件详情页输入 QQ 邮箱地址和 IMAP/SMTP 授权码并完成连接测试。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "qq-mail",
       "tags": []
     },
@@ -188,7 +188,7 @@
       "name": "TapTap CLI",
       "version": "1.0.21",
       "description": "需要操作 TapTap 开发者业务时找我:登录开发者账号、查 developerId/appId、创建新游戏、查看或修改游戏资料与主包体、上传图片/视频/APK/Windows/H5 包体、补上架资质、提交或撤销审核、发布游戏、管理 CBT/OBT 测试计划与激活码、检索游戏素材库、查数据表现与玩家评价、查看论坛帖子与回复、发帖与回帖、配置活动公告位、发送官方消息推送、管理签到活动与兑换码",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "taptap-cli",
       "tags": []
     },
@@ -197,7 +197,7 @@
       "name": "TapTap Maker",
       "version": "2.1.26",
       "description": "仅用于明确的 TapTap Maker 游戏项目操作：账号连接、项目初始化/检查、构建/运行/预览，或 Maker 专属素材、广告与调试。仅提到 TapTap、非 Maker 的平台/SDK/上架任务或本插件源码维护时不适用。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "taptap-maker",
       "tags": []
     },
@@ -206,7 +206,7 @@
       "name": "Web Search",
       "version": "1.6.0",
       "description": "需要搜索公网信息、查资料、找网页、看最新动态时找我;也可在主界面侧边栏「插件」→「Web Search」详情页配置 Brave、Tavily 或 DeepSeek key。需要在用户明确确认 URL 可完整发送给 Tavily 后读取任意公开 HTTP(S) 页面正文时也找我，包括但不限于搜索结果页。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "cindy-web-search",
       "tags": []
     },
@@ -215,7 +215,7 @@
       "name": "World Bank Open Data",
       "version": "0.1.1",
       "description": "需要查询或比较国家、地区的世界银行发展指标，查看指标定义、国家元数据、历史趋势或最近一期数据时使用。它不是股票或外汇实时行情源；结果可能按年或按其他统计周期发布，并可能晚于当前日期。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "world-bank-open-data",
       "tags": []
     },
@@ -224,7 +224,7 @@
       "name": "X Manager",
       "version": "1.0.14",
       "description": "需要搜 X / Twitter 上的舆情、讨论、风向,查某个账号最近说了什么、某话题近几天的走势,或需要以用户身份在 X 上发帖 / 回帖时找我。先调 x_status 看凭证与路由是否就绪,再决定用我还是改用浏览器。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "x-manager",
       "tags": []
     },
@@ -233,7 +233,7 @@
       "name": "Yahoo Mail",
       "version": "0.1.5",
       "description": "需要查找、阅读或整理 Yahoo Mail 邮件，以及创建草稿或发送邮件时使用。首次使用前请在插件详情页输入完整 Yahoo 邮箱地址和应用密码并完成连接测试。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "yahoo-mail",
       "tags": []
     },
@@ -242,7 +242,7 @@
       "name": "决策闸门",
       "version": "0.5.1",
       "description": "用户想让新任务自动选模型、按任务内容换模型或推理强度，或想在自动化/例行任务运行前自动跳过无事可做的运行时找我；也可以帮用户查看、添加、修改、删除这些规则",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "decision-gate",
       "tags": []
     },
@@ -251,7 +251,7 @@
       "name": "同程程心",
       "version": "0.2.7",
       "description": "查询机票、火车票、酒店、景区门票、汽车票、度假产品、行程规划或综合交通方式时使用。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "tongcheng-chengxin",
       "tags": []
     },
@@ -260,7 +260,7 @@
       "name": "设备模拟器",
       "version": "0.3.29",
       "description": "连接、查看和操作 iPhone/iPad 真机；使用 iPhone、iPad、Apple TV、Vision Pro 与安卓模拟器。App 安装启动、触摸输入、截图、界面检查和日志排查。先 devices 选择精确设备，再按手册验证结果。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "cindy-simulator",
       "tags": []
     },
@@ -269,7 +269,7 @@
       "name": "通讯录",
       "version": "1.3.0",
       "description": "遇到陌生邮箱、手机号或飞书/Slack/GitHub/LinkedIn 账号想知道是谁；要联系、发消息、写邮件或 @ 某人；准备会议、回邮件需要人物背景或「上次聊到哪」；对话里提到同事、朋友、客户的新情况（换工作、新联系方式、约定）；要整理、回补、去重或导入通讯录时。",
-      "repo": "https://github.com/makecindy/cindy-official-plugins.git",
+      "repo": "https://github.com/BouyaSensei/emma-plugins.git",
       "path": "cindy-contacts",
       "tags": []
     }

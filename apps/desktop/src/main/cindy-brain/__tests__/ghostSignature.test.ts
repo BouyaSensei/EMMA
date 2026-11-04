@@ -188,7 +188,7 @@ describe('ghostSignature · 发布者签名', () => {
     const doc = JSON.parse(
       await zip.file(GHOST_SIGNATURE_FILE)!.async('text'),
     ) as GhostSignatureDocument;
-    doc.publisher.name = 'Cindy Official';
+    doc.publisher.name = 'Emma Official';
     zip.file(GHOST_SIGNATURE_FILE, JSON.stringify(doc));
 
     expect(
@@ -201,7 +201,7 @@ describe('ghostSignature · 发布者签名', () => {
   });
 });
 
-describe('ghostSignature · Cindy 审核签名', () => {
+describe('ghostSignature · Emma 审核签名', () => {
   it('审核 key 命中客户端信任表后，准确版本显示为已审核', async () => {
     const publisher = crypto.generateKeyPairSync('ed25519');
     const reviewer = crypto.generateKeyPairSync('ed25519');
@@ -220,7 +220,7 @@ describe('ghostSignature · Cindy 审核签名', () => {
       await verifyGhostZipSignatures(zip, '', MANIFEST, {
         reviewers: {
           [doc.review!.keyId]: {
-            name: 'Cindy Security Review',
+            name: 'Emma Security Review',
             publicKey: reviewerPublicDer.toString('base64'),
           },
         },
@@ -231,7 +231,7 @@ describe('ghostSignature · Cindy 审核签名', () => {
         level: 'reviewed',
         reviewed: true,
         publisherVerified: true,
-        reviewerName: 'Cindy Security Review',
+        reviewerName: 'Emma Security Review',
       },
     });
   });

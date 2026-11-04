@@ -4783,7 +4783,7 @@ async function executeRemoteInvoke(src: string, payload: InvokePayload | undefin
       ok: false,
       error: {
         code: 'VOICE_CREDENTIAL_SYNC_REMOVED',
-        message: '手机语音输入已改用 Cindy 官方语音服务,请升级手机版。',
+        message: '手机语音输入已改用 Emma 官方语音服务,请升级手机版。',
       },
     };
   }

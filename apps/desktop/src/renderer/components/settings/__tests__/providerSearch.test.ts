@@ -27,7 +27,7 @@ describe('provider name search', () => {
   });
   it('uses builtin eligibility and the dedicated Ollama action', () => {
     const providers = [{ id: 'anthropic', name: 'Claude', source: 'builtin', auth: { method: 'oauth' }, connected: true },
-      { id: 'xd', name: 'Cindy AI', source: 'builtin', auth: { method: 'oauth' } }] as ProviderView[];
+      { id: 'xd', name: 'Emma AI', source: 'builtin', auth: { method: 'oauth' } }] as ProviderView[];
     const choices = providerSearchChoices(providers, [], 'en', 'Ollama');
     expect(choices.map(r => r.target)).toEqual([{ kind: 'builtin', providerId: 'anthropic' }, { kind: 'ollama' }, { kind: 'llamacpp' }]);
   });

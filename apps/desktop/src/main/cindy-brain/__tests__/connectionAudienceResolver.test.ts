@@ -26,7 +26,7 @@ const manifest: GhostManifest = {
     secrets: [
       {
         key: 'cindy_identity',
-        label: 'Cindy organization identity',
+        label: 'Emma organization identity',
         source: 'oidc-token' as const,
         inject: {
           header: 'Authorization',
@@ -361,7 +361,7 @@ describe('installed Plugin Connection audience resolver', () => {
         secrets: [
           {
             key: 'cindy_identity',
-            label: 'Cindy organization identity',
+            label: 'Emma organization identity',
             source: 'oidc-token' as const,
             inject: {
               header: 'Authorization',
@@ -399,7 +399,7 @@ describe('installed Plugin Connection audience resolver', () => {
         secrets: [
           {
             key: 'cindy_identity',
-            label: 'Cindy organization identity',
+            label: 'Emma organization identity',
             source: 'oidc-token' as const,
             inject: {
               header: 'Authorization',
@@ -433,7 +433,7 @@ describe('installed Plugin Connection audience resolver', () => {
           secrets: [
             {
               key: 'cindy_identity',
-              label: 'Cindy organization identity',
+              label: 'Emma organization identity',
               source: 'oidc-token' as const,
               inject: {
                 header: 'Authorization',
@@ -460,7 +460,7 @@ describe('installed Plugin Connection audience resolver', () => {
         secrets: [
           {
             key: 'cindy_identity',
-            label: 'Cindy organization identity',
+            label: 'Emma organization identity',
             source: 'oidc-token' as const,
             inject: {
               header: 'Authorization',
@@ -497,7 +497,7 @@ describe('installed Plugin Connection audience resolver', () => {
         secrets: [
           {
             key: 'cindy_identity',
-            label: 'Cindy organization identity',
+            label: 'Emma organization identity',
             source: 'oidc-token' as const,
             inject: {
               header: 'Authorization',
@@ -524,7 +524,7 @@ describe('installed Plugin Connection audience resolver', () => {
         secrets: [
           {
             key: 'cindy_identity',
-            label: 'Cindy organization identity',
+            label: 'Emma organization identity',
             source: 'oidc-token' as const,
             inject: {
               header: 'Authorization',
@@ -551,7 +551,7 @@ describe('installed Plugin Connection audience resolver', () => {
         secrets: [
           {
             key: 'cindy_identity',
-            label: 'Cindy organization identity',
+            label: 'Emma organization identity',
             source: 'oidc-token' as const,
             inject: {
               header: 'Authorization',
@@ -579,7 +579,7 @@ describe('installed Plugin Connection audience resolver', () => {
         secrets: [
           {
             key: 'cindy_identity',
-            label: 'Cindy organization identity',
+            label: 'Emma organization identity',
             source: 'oidc-token' as const,
             inject: {
               header: 'Authorization',
@@ -610,7 +610,7 @@ describe('installed Plugin Connection audience resolver', () => {
         secrets: [
           {
             key: 'cindy_identity',
-            label: 'Cindy organization identity',
+            label: 'Emma organization identity',
             source: 'oidc-token' as const,
             inject: {
               header: 'Authorization',
@@ -639,7 +639,7 @@ describe('installed Plugin Connection audience resolver', () => {
         secrets: [
           {
             key: 'cindy_identity',
-            label: 'Cindy organization identity',
+            label: 'Emma organization identity',
             source: 'oidc-token' as const,
             inject: {
               header: 'Authorization',
@@ -823,7 +823,7 @@ describe('installed Plugin Connection audience resolver', () => {
         hosts: ['mivo-canvas.dsworks.cn'],
         secrets: [{
           key: 'cindy_identity',
-          label: 'Cindy organization identity',
+          label: 'Emma organization identity',
           source: 'oidc-token' as const,
           inject: {
             header: 'Authorization',

@@ -244,7 +244,7 @@ describe('provider group usage reads', () => {
     expect(await h.reader.read(REMOTE)).toMatchObject({ fiveHour: { utilization: 35 } });
   });
 
-  it('drops an in-flight snapshot when the Cindy account changes', async () => {
+  it('drops an in-flight snapshot when the Emma account changes', async () => {
     const h = harness();
     h.readRemote.mockImplementation(async () => { h.leave(); return snapshot(); });
     expect(await h.reader.read(REMOTE)).toBeNull();

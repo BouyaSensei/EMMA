@@ -205,7 +205,7 @@ describe('Windows close behavior', () => {
     expect(api.anySessionInTurn).toHaveBeenCalledTimes(1);
   });
 
-  it('uses the Cindy dialog for the first close and persists the safe tray choice', async () => {
+  it('uses the Emma dialog for the first close and persists the safe tray choice', async () => {
     const api = installWindowsApi(null);
     render(<WindowControls />);
 
@@ -265,7 +265,7 @@ describe('Linux close behavior', () => {
     expect(api.windowClose).not.toHaveBeenCalled();
   });
 
-  it('uses the Cindy dialog for the first close and persists the minimize choice', async () => {
+  it('uses the Emma dialog for the first close and persists the minimize choice', async () => {
     const api = installLinuxApi(null);
     render(<WindowControls />);
 

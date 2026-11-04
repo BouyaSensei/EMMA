@@ -28,7 +28,7 @@ import { CINDY_MAKE_ENABLED } from '@cindy/maker-shared/cindy-make-feature';
 import { readPersonalRemoteProjection } from './personalRemoteRuntime.js';
 
 const unavailable = () =>
-  new RemoteResourceRegistryError('NOT_FOUND', 'Cindy Make task is unavailable');
+  new RemoteResourceRegistryError('NOT_FOUND', 'Emma Make task is unavailable');
 const parse = (raw: string | null): Record<string, unknown> => {
   try {
     const value = JSON.parse(raw ?? '{}');

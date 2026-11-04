@@ -778,7 +778,7 @@ describe('Forge session workdir gate', () => {
     ).resolves.toMatchObject({ ok: false, errorCode: 'WORKDIR_READ_ONLY' });
   });
 
-  it('uses the current stable Cindy version only as scaffold metadata for the concrete package', async () => {
+  it('uses the current stable Emma version only as scaffold metadata for the concrete package', async () => {
     const deps = makeDeps();
     await expect(
       deps.forgeScaffold({
@@ -810,7 +810,7 @@ describe('Forge session workdir gate', () => {
     },
   );
 
-  it('requires explicit package metadata when scaffold runs in an unpublished Cindy build', async () => {
+  it('requires explicit package metadata when scaffold runs in an unpublished Emma build', async () => {
     appVersionMock.mockReturnValue('0.0.0');
     const deps = makeDeps();
     await expect(
@@ -1713,7 +1713,7 @@ describe('花名册 / ghost_list 过滤', () => {
     await expect(makeDeps().getAwakeGhost('account')).resolves.toEqual({
       ok: false,
       errorCode: 'GHOST_NOT_FOUND',
-      message: '该插件需要 Cindy 账号，未登录状态不可用；不要重试，改用本地可用方式。',
+      message: '该插件需要 Emma 账号，未登录状态不可用；不要重试，改用本地可用方式。',
     });
   });
 
@@ -1952,7 +1952,7 @@ describe('ghost_call 兜底拒绝', () => {
     ).resolves.toEqual({
       ok: false,
       errorCode: 'GHOST_NOT_FOUND',
-      message: '该插件需要 Cindy 账号，未登录状态不可用；不要重试，改用本地可用方式。',
+      message: '该插件需要 Emma 账号，未登录状态不可用；不要重试，改用本地可用方式。',
     });
     expect(dispatchMock).not.toHaveBeenCalled();
   });
@@ -2265,7 +2265,7 @@ describe('session-context 宿主铸造', () => {
   });
 });
 
-describe('Cindy media 本机路径揭示', () => {
+describe('Emma media 本机路径揭示', () => {
   // 2026-10-30: generated images must stay metadata-only until the Agent elects to
   // read a local path. Existing cases cover path approval, not request/poll output.
   // Unit: one completed image through the real Host entry must keep its URL and
@@ -2310,7 +2310,7 @@ describe('Cindy media 本机路径揭示', () => {
       'media-path',
       expect.objectContaining({
         ghostId: 'cindy-media',
-        ghostName: 'Cindy Media',
+        ghostName: 'Emma Media',
         lane: 'reveal_path',
         items: [
           expect.objectContaining({

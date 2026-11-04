@@ -12,7 +12,7 @@ export const PROVIDER_SHARE_RECEIVED_CATALOGS_CHANNEL = 'maker:provider-share:re
  * 分享者电脑的名字不给受邀者(provider-sharing.md §6)：生成链接与转交已收到的分享时，
  * `deviceName` 一律填这个占位。字段本身不能省，旧版受邀者与手机按必填解析，空了会丢掉整条分享。
  */
-export const PROVIDER_SHARE_NEUTRAL_DEVICE_NAME = 'Cindy';
+export const PROVIDER_SHARE_NEUTRAL_DEVICE_NAME = 'Emma';
 
 /**
  * 分享出去的目录里，供应商建了组时带上组里有几台电脑(`groupSize`)：受邀者只知道背后是个组、有几台，
@@ -86,7 +86,7 @@ const MAX_SHARES = 64;
 const EMAIL_LIKE = /[^\s@＠<>()[\]{},;:"'`·]+[@＠][^\s@＠<>()[\]{},;:"'`·]+/g;
 const EDGE_SEPARATORS = /^[\s·•|:：\-–—/]+|[\s·•|:：\-–—/]+$/g;
 // 登录后自动生成的名称「<供应商> · <登录名>」，截到 50 字符后可能只剩半个登录名(也可能不是邮箱)。
-const GENERATED_ACCOUNT_NAME = /^(?:OpenAI|Anthropic|Claude|xAI|Grok|Cindy AI)\s*·/;
+const GENERATED_ACCOUNT_NAME = /^(?:OpenAI|Anthropic|Claude|xAI|Grok|Emma AI|Cindy AI)\s*·/;
 // 同名时自动追加的序号「 (2)」：保留，同一台电脑分享的两个同类账号才分得清。
 const COPY_SUFFIX = /\s\((?:[2-9]|[1-9]\d+)\)$/;
 // 登录名去掉后留下的空括号。

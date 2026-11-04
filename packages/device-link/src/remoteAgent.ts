@@ -69,7 +69,7 @@ export const REMOTE_AGENT_METHODS = [
   'compactSession',
   'getContextUsage',
   'getCodexContextWindowInfo',
-  'useCindyAutoReviewFallback',
+  'useEmmaAutoReviewFallback',
   // 回到某条消息：对话在 Agent 那边截断(文件在控制端按保存点回退)。
   'previewRewindFiles',
   'commitRewindFiles',

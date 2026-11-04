@@ -86,7 +86,7 @@ vi.mock('react-i18next', () => ({
         'settings.ghosts.detail.collapseInfoValue': `Collapse ${String(options?.label ?? '')}`,
         'settings.ghosts.detail.panelDismissed': 'Not docked',
         'settings.providers.openai.title': 'OpenAI',
-        'settings.providers.xd.title': 'Cindy AI',
+        'settings.providers.xd.title': 'Emma AI',
         'settings.defaults.restore': 'Restore default',
         'settings.ghosts.detail.oauthScopeStale':
           'This authorization does not include newly added permissions. Reconnect to enable them.',
@@ -171,7 +171,7 @@ const detail: GhostPluginDetail = {
     publisherSigned: true,
     publisherVerified: true,
     reviewed: true,
-    publisherName: 'Cindy',
+    publisherName: 'Emma',
   },
 };
 
@@ -384,7 +384,7 @@ describe('Ghost plugin detail sections', () => {
         namespace: layout === 'local' ? 'local' : null,
         enabled: true,
         approval: { state: 'approved', revision: '00000000-0000-4000-8000-000000000001' },
-        trust: layout === 'local' ? undefined : { ...detail.trust, publisherName: 'Cindy Plugin Market' },
+        trust: layout === 'local' ? undefined : { ...detail.trust, publisherName: 'Emma Plugin Market' },
       };
       const { unmount } = render(
         <GhostPluginDetailView
@@ -471,7 +471,7 @@ describe('Ghost plugin detail sections', () => {
     rerender(view(true));
     expect(screen.queryByRole('button', { name: 'settings.ghosts.perm.agentObserveRequest' })).toBeNull();
   });
-  it('uses the shared Cindy Switch for the plugin enabled control', () => {
+  it('uses the shared Emma Switch for the plugin enabled control', () => {
     vi.stubGlobal(
       'ResizeObserver',
       class {
@@ -1050,14 +1050,14 @@ describe('Ghost plugin detail sections', () => {
   });
 
   it('uses one metadata color and orders author, then version', () => {
-    const { container } = render(<GhostPluginMetadata author="Cindy" version="1.1.4" />);
+    const { container } = render(<GhostPluginMetadata author="Emma" version="1.1.4" />);
 
     const metadata = container.firstElementChild as HTMLElement;
-    expect(metadata.textContent).toBe('By Cindy·v1.1.4');
+    expect(metadata.textContent).toBe('By Emma·v1.1.4');
     expect(metadata.className).toContain('text-[var(--text-tertiary)]');
     expect(metadata.innerHTML).not.toContain('text-[var(--text-secondary)]');
-    expect(screen.getByText('By Cindy').className).toContain('min-w-0');
-    expect(screen.getByText('By Cindy').className).toContain('truncate');
+    expect(screen.getByText('By Emma').className).toContain('min-w-0');
+    expect(screen.getByText('By Emma').className).toContain('truncate');
   });
 
   it.each([
@@ -1329,12 +1329,12 @@ describe('Ghost plugin detail sections', () => {
 });
 
 it('adds shared counts to installed detail metadata while preserving author and version', () => {
-  const { container } = render(<GhostPluginMetadata author="Cindy" version="1.7.5" marketItem={{
+  const { container } = render(<GhostPluginMetadata author="Emma" version="1.7.5" marketItem={{
     sourceType: 'server', scope: 'organization',
     downloadStatistics: { requestCount: '1284' },
     usageStatistics: { usageCount: '8932', usageCountLast7Days: '12', asOf: '2026-10-13T00:00:00Z' },
   } as import('../../../../shared/pluginMarket').PluginMarketItem} />);
-  expect(container.textContent).toContain('By Cindy·v1.7.5');
+  expect(container.textContent).toContain('By Emma·v1.7.5');
   expect(container.textContent).toContain('1,284 settings.ghosts.usage.downloadsValue');
   expect(container.textContent).toContain('8,932 settings.ghosts.usage.usesValue');
 });

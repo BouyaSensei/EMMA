@@ -109,7 +109,7 @@ describe('native-binding', () => {
     await n.close();
   });
 
-  it.each([false, true])('checks Windows HKCU registrations with an existing Cindy cache: %s', async (cached) => {
+  it.each([false, true])('checks Windows HKCU registrations with an existing Emma cache: %s', async (cached) => {
     const { dir, binaryDir, root } = await fixture();
     await fs.mkdir(path.join(binaryDir, 'win32-x64'));
     await fs.writeFile(path.join(binaryDir, 'win32-x64', 'cindy-browser-native.exe'), 'fixture');
@@ -228,7 +228,7 @@ describe('native-binding', () => {
   });
 
   // Review 2026-10-30 (Codex P2): the shared manifest keeps the sources of every running Cindy.
-  it('keeps the extension ids of other running Cindys in the shared manifest', async () => {
+  it('keeps the extension ids of other running Emmas in the shared manifest', async () => {
     const { binaryDir, profile, root } = await fixture();
     const opts = {
       hostName: 'com.example.browser',
@@ -264,7 +264,7 @@ describe('native-binding', () => {
 
   // Review 2026-10-29: registrations were never withdrawn. Every Cindy on the account shares one,
   // so it may only go once no running Cindy still serves a connection.
-  it('withdraws the browser registration only after the last running Cindy closes', async () => {
+  it('withdraws the browser registration only after the last running Emma closes', async () => {
     const { binaryDir, profile, root } = await fixture();
     const opts = {
       hostName: 'com.example.browser',
@@ -296,7 +296,7 @@ describe('native-binding', () => {
 
   // Review 2026-10-29 (Greptile P2): a crashed Cindy leaves its connection file, which then kept the
   // registration alive for good once another port was in use.
-  it('ignores and clears the connection file a crashed Cindy left behind', async () => {
+  it('ignores and clears the connection file a crashed Emma left behind', async () => {
     const { binaryDir, profile, root } = await fixture();
     const opts = {
       hostName: 'com.example.browser',

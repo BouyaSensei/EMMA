@@ -1293,7 +1293,7 @@ describe('createResponsesChatHandler', () => {
       expect(headers).not.toHaveProperty('chatgpt-account-id');
       expect(headers).not.toHaveProperty('x-codex-parent-thread-id');
       expect(headers).not.toHaveProperty('x-client-request-id');
-      expect(headers['user-agent']).toBe('Cindy-CodexChatBridge/1');
+      expect(headers['user-agent']).toBe('Emma-CodexChatBridge/1');
     });
 
     it('lets an explicit inbound x-opencode-session win over thread-id and provider static headers', async () => {

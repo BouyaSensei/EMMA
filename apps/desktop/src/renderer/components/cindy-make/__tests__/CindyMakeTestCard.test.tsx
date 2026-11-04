@@ -315,7 +315,7 @@ describe('completion card in the input area', () => {
     });
     view();
     await screen.findByRole('button', { name: 'cindyMake.history.stop' });
-    history.mockResolvedValue({ build: { ...build, status: 'ready', artifactName: 'Cindy.exe' } });
+    history.mockResolvedValue({ build: { ...build, status: 'ready', artifactName: 'Emma.exe' } });
     fireEvent(window, new Event('focus'));
     fireEvent.click(await screen.findByRole('button', { name: 'cindyMake.personal.open' }));
     await waitFor(() => expect(open).toHaveBeenCalledOnce());
@@ -543,7 +543,7 @@ describe('completion card in the input area', () => {
         meta={{
           ...meta,
           lastAction: 'build',
-          personal: { status: 'ready', artifactName: 'Cindy.exe' },
+          personal: { status: 'ready', artifactName: 'Emma.exe' },
         }}
       />,
     );

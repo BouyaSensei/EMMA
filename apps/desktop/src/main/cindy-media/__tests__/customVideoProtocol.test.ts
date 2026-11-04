@@ -24,7 +24,7 @@ describe('custom xAI Videos protocol', () => {
     const options = { getProvider: () => provider, readApiKey: (agent: string) => agent === 'pi' ? 'test-video-key' : 'test-chat-key', isOwnerBoundaryPending: () => false };
     const connection = resolveCustomMediaConnection(options, model.id, 'video');
     expect(connection).toMatchObject({ agent: 'pi', baseUrl, headers: { authorization: 'Bearer test-video-key' } });
-    expect(connection?.headers['http-referer']).toBe(baseUrl.includes('requesty.ai') ? 'https://cindy.app' : undefined);
+    expect(connection?.headers['http-referer']).toBe(baseUrl.includes('requesty.ai') ? 'https://emma.app' : undefined);
     expect(connection?.headers['x-title']).toBe(baseUrl.includes('requesty.ai') ? 'Emma' : undefined);
     expect(resolveCustomMediaConnection({ ...options, readApiKey: () => null }, model.id, 'video')).toBeNull();
     provider.routing.pi!.videoApi = undefined;

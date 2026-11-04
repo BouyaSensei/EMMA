@@ -77,7 +77,7 @@ describe('companion chat unread projection', () => {
   const chat: AgentIslandCompanionChatProjection = {
     sessionId: 'companion-chat', deviceId: null, visible: true, unread: true,
     lastMessageAt: 1, preview: 'Reply waiting to be read', token: 'chat-token',
-    companion: { name: 'Cindy', hue: 'blue', glyph: 'C', glyphIsInitial: true },
+    companion: { name: 'Emma', hue: 'blue', glyph: 'C', glyphIsInitial: true },
   };
   // Unit: a blocking card clips the island surface but must not clip the menu's badge candidates.
   it('keeps the full counted overview while an interaction card occupies the island', () => {
@@ -89,7 +89,7 @@ describe('companion chat unread projection', () => {
     const overview = buildAgentIslandTaskOverview(state, 103, [chat]);
     expect(overview.map(row => row.sessionId).sort()).toEqual(['companion-chat', 'waiting', 'working']);
     expect(overview.filter(row => row.attention)).toHaveLength(display.pillSnapshot.attentionCount);
-    expect(overview.find(row => row.sessionId === chat.sessionId)).toMatchObject({ companion: { name: 'Cindy' }, attention: true });
+    expect(overview.find(row => row.sessionId === chat.sessionId)).toMatchObject({ companion: { name: 'Emma' }, attention: true });
     expect(buildAgentIslandTaskOverview(state, 104, [{ ...chat, unread: false }]).some(row => row.sessionId === chat.sessionId)).toBe(false);
   });
   it.each([null, 'offline-home'])('restores old unread without runtime activity or notifications (%s)', deviceId => {
@@ -99,7 +99,7 @@ describe('companion chat unread projection', () => {
     expect(display.pillSnapshot.attentionCount).toBe(1);
     expect(display.mode).toBe('compact');
     expect(display.sessions[0]).toMatchObject({ phase: 'completed', attention: true,
-      completionToken: 'chat-token', completionNotification: 'silent', companion: { name: 'Cindy' } });
+      completionToken: 'chat-token', completionNotification: 'silent', companion: { name: 'Emma' } });
     expect(buildAllSessionActivitySnapshots(state)).toEqual([]);
     expect(buildAgentIslandDisplayState(state, now, [{ ...chat, unread: false }]).sessions).toEqual([]);
     expect(buildAgentIslandDisplayState(state, now, [{ ...chat, visible: false }]).sessions).toEqual([]);
@@ -1360,7 +1360,7 @@ describe('Agent Island display state', () => {
   // island titled them by a filtered task title and labelled the home folder "workspace".
   it.each([
     { name: 'own chat', groupName: undefined, projectName: null },
-    { name: 'group line', groupName: 'Cindy开发', projectName: 'Cindy开发' },
+    { name: 'group line', groupName: 'Emma开发', projectName: 'Emma开发' },
   ])('shows a companion Session by its companion, not its home folder ($name)', ({ groupName, projectName }) => {
     const state = createAgentIslandState();
     const companion = {
@@ -1370,7 +1370,7 @@ describe('Agent Island display state', () => {
       glyph: 'C',
       glyphIsInitial: true,
     };
-    const workingDir = '/Users/alice/Library/Application Support/Cindy/owners/o1/bots/b1/workspace';
+    const workingDir = '/Users/alice/Library/Application Support/Emma/owners/o1/bots/b1/workspace';
 
     applyAgentIslandUserPrompt(state, { sessionId: 's1', agentKind: 'claude-code', workingDir }, 'hi', 1_000);
     applyAgentIslandMetadata(state, { sessionId: 's1', title: 'Group title', workingDir, companion }, 1_100);
@@ -2846,7 +2846,7 @@ describe('Agent Island error read semantics (已读以 App 内真实展示为准
   // consumeIslandEntryAlert 在卡片身份未变时按 explicit 处置这一张卡。
   it('disposes only the clicked error card; replayed marks cannot revive it, a new failure still alerts', () => {
     const state = createAgentIslandState();
-    const lane = { sessionId: 'lane', title: 'Cindy开发' };
+    const lane = { sessionId: 'lane', title: 'Emma开发' };
     applyAgentIslandEvent(state, lane, terminalErrorEvent('400 invalid_request_error'), 2_000);
     applyAgentIslandEvent(state, { sessionId: 'other-err', title: 'Other' }, terminalErrorEvent('boom'), 2_100);
     applyAgentIslandEvent(state, { sessionId: 'done', title: 'Done' }, doneEvent(), 2_200);

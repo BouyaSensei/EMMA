@@ -136,7 +136,7 @@ describe('newMakerDraft store', () => {
     if (customized) markDefaultTupleCustomized();
     sources.push({
       id: 'xd',
-      name: 'Cindy AI',
+      name: 'Emma AI',
       source: 'builtin',
       connected: true,
       agents: ['pi'],
@@ -678,7 +678,7 @@ describe('newMakerDraft store', () => {
     });
   });
 
-  it('patchDraft: Cindy worktree 路径会折回项目根目录', async () => {
+  it('patchDraft: Emma worktree 路径会折回项目根目录', async () => {
     const { getDraft, patchDraft } = await loadModule();
     patchDraft({ workingDir: 'E:/projects/foo/.cindy-worktrees/auto-abc' });
     expect(getDraft().workingDir).toBe('E:/projects/foo');

@@ -122,7 +122,7 @@ beforeEach(() => {
       bot_id TEXT, version INTEGER, identity_source TEXT, capabilities_json TEXT
     );
     INSERT INTO sessions (id) VALUES ('main');
-    INSERT INTO bot_profiles VALUES ('bot', 'Cindy', 'main', 1);
+    INSERT INTO bot_profiles VALUES ('bot', 'Emma', 'main', 1);
     INSERT INTO bot_profile_versions VALUES ('bot', 1, 'Be kind', '{}');
   `);
   h.queryOne.mockImplementation(async (sql: string, params: unknown[] = []) =>

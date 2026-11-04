@@ -755,7 +755,7 @@ describe('PluginPublisherOrchestrator', () => {
     const failed = await waitFor(snapshots, (progress) => progress.stage === 'failed');
     expect(failed.errorCode).toBe(expected);
     if (code === 'PLUGIN_NAMESPACE_CLIENT_REQUIRED') {
-      expect(failed.message).toBe('请更新 Cindy 后再发布此组织的插件');
+      expect(failed.message).toBe('请更新 Emma 后再发布此组织的插件');
     }
     if (code === 'PLUGIN_ORGANIZATION_CONTEXT_UNAVAILABLE') {
       expect(failed.message).toBe('暂时无法确认企业身份，请稍后重试');

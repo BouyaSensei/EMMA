@@ -567,7 +567,7 @@ describe('PI durable subagent run store', () => {
       stubAliveRunner();
       childProcess.spawnSync.mockImplementation(() => ({
         status: 0,
-        stdout: '/Applications/Cindy.app/Contents/Frameworks/Cindy Helper.app/Contents/MacOS/Cindy Helper --utility-sub-type=node /app/piSubagentRunnerProcess.js /runs/other-run/runner.cjs',
+        stdout: '/Applications/Emma.app/Contents/Frameworks/Emma Helper.app/Contents/MacOS/Emma Helper --utility-sub-type=node /app/piSubagentRunnerProcess.js /runs/other-run/runner.cjs',
       }));
       const root = await makeRoot();
       await writeStatus(root, expired());
@@ -577,11 +577,11 @@ describe('PI durable subagent run store', () => {
         .resolves.toBe(true);
     });
 
-    it('still treats another Cindy utility process as a recycled pid', async () => {
+    it('still treats another Emma utility process as a recycled pid', async () => {
       stubAliveRunner();
       childProcess.spawnSync.mockImplementation(() => ({
         status: 0,
-        stdout: '/Applications/Cindy.app/Contents/Frameworks/Cindy Helper.app/Contents/MacOS/Cindy Helper --utility-sub-type=node /app/watcherHostProcess.js',
+        stdout: '/Applications/Emma.app/Contents/Frameworks/Emma Helper.app/Contents/MacOS/Emma Helper --utility-sub-type=node /app/watcherHostProcess.js',
       }));
       const root = await makeRoot();
       await writeStatus(root, expired());

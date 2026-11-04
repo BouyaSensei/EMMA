@@ -14,7 +14,7 @@ function harness() {
   };
   const deps = {
     createTray: vi.fn(() => tray),
-    buildMenu: vi.fn(() => ({ label: 'Show Cindy' })),
+    buildMenu: vi.fn(() => ({ label: 'Show Emma' })),
     showWindow: vi.fn(),
     onError: vi.fn(),
   };
@@ -27,7 +27,7 @@ describe('Linux tray lifetime', () => {
     expect(controller.ensure()).toBe(true);
     expect(controller.ensure()).toBe(true);
     expect(deps.createTray).toHaveBeenCalledOnce();
-    expect(tray.setContextMenu).toHaveBeenCalledWith({ label: 'Show Cindy' });
+    expect(tray.setContextMenu).toHaveBeenCalledWith({ label: 'Show Emma' });
     const [event, activate] = tray.on.mock.calls[0];
     expect(event).toBe('click');
     activate();
@@ -37,9 +37,9 @@ describe('Linux tray lifetime', () => {
   it('republishes localized menus without recreating the icon', () => {
     const { tray, deps, controller } = harness();
     controller.ensure();
-    deps.buildMenu.mockReturnValue({ label: '显示 Cindy' });
+    deps.buildMenu.mockReturnValue({ label: '显示 Emma' });
     controller.refreshMenu();
-    expect(tray.setContextMenu).toHaveBeenLastCalledWith({ label: '显示 Cindy' });
+    expect(tray.setContextMenu).toHaveBeenLastCalledWith({ label: '显示 Emma' });
     expect(deps.createTray).toHaveBeenCalledOnce();
   });
 

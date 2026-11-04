@@ -106,7 +106,7 @@ describe('heartbeat service app-mode isolation', () => {
     vi.useRealTimers();
   });
 
-  it('starts Cindy heartbeat only for a verified cloud session and stops on local mode', async () => {
+  it('starts Emma heartbeat only for a verified cloud session and stops on local mode', async () => {
     const { initHeartbeatService } = await loadService();
     initHeartbeatService();
 
@@ -127,7 +127,7 @@ describe('heartbeat service app-mode isolation', () => {
     expect(options.host.getUid()).toBeNull();
   });
 
-  it('restarts Cindy heartbeat when the verified cloud owner changes', async () => {
+  it('restarts Emma heartbeat when the verified cloud owner changes', async () => {
     mocks.authState = authState('cloud', 'cloud-user-1');
     const { initHeartbeatService } = await loadService();
     initHeartbeatService();
@@ -139,7 +139,7 @@ describe('heartbeat service app-mode isolation', () => {
     expect(mocks.createHeartbeatClient.mock.calls[1][0].host.getUid()).toBe('cloud-user-2');
   });
 
-  it('restarts Cindy heartbeat when the same authenticated owner moves to another realm', async () => {
+  it('restarts Emma heartbeat when the same authenticated owner moves to another realm', async () => {
     mocks.authState = authState('cloud', 'cloud-user-1');
     const { initHeartbeatService } = await loadService();
     initHeartbeatService();

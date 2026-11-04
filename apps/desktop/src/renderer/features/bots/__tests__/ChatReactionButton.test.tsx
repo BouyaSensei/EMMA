@@ -29,8 +29,8 @@ const member = (actorId: string, name: string, avatarUrl: string | null = null) 
   ({ actorId, botId: actorId, name, avatar: '', avatarUrl, avatarColor: 'violet', status: 'active' }) as BotGroupMemberView;
 const members = [
   member('a', 'Dash', 'https://example.test/dash.png'),
-  member('c1', 'Cindy (Chris)', 'https://example.test/cindy-chris.png'),
-  member('c2', 'Cindy (Dana)', 'https://example.test/cindy-dana.png'),
+  member('c1', 'Emma (Chris)', 'https://example.test/cindy-chris.png'),
+  member('c2', 'Emma (Dana)', 'https://example.test/cindy-dana.png'),
   // A different actor with the same display name must never lend its picture.
   member('z2', 'Zoe', 'https://example.test/other-zoe.png'),
   member('z', 'Zoe'),
@@ -59,7 +59,7 @@ afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
 describe('reaction avatars', () => {
   it('shows a few reactors as avatars without hovering, matched to members by actor ID', async () => {
     mocks.reactors.mockResolvedValue({ ok: true, reactors: [
-      reactor('c2', 'Cindy (Dana)'), reactor('a', 'Dash', { isSelf: true }), reactor('c1', 'Cindy (Chris)'),
+      reactor('c2', 'Emma (Dana)'), reactor('a', 'Dash', { isSelf: true }), reactor('c1', 'Emma (Chris)'),
     ] });
     render(actions([{ emoji: '👍', count: 3, me: true }]));
     expect(mocks.reactors).toHaveBeenCalledWith({ groupId: 'room', messageId: 'root', emoji: '👍' });
@@ -67,7 +67,7 @@ describe('reaction avatars', () => {
     await waitFor(() => expect(images()).toEqual([
       'https://example.test/dash.png', 'https://example.test/cindy-chris.png', 'https://example.test/cindy-dana.png',
     ]));
-    expect(badge().getAttribute('aria-label')).toBe('👍 · 3: You, Cindy (Chris), and Cindy (Dana)');
+    expect(badge().getAttribute('aria-label')).toBe('👍 · 3: You, Emma (Chris), and Emma (Dana)');
     expect(badge().textContent).not.toContain('3');
     expect(mocks.react).not.toHaveBeenCalled();
   });
@@ -140,14 +140,14 @@ describe('reaction avatars', () => {
 
   it('re-reads when who reacted changes but the count does not', async () => {
     mocks.reactors.mockResolvedValueOnce({ ok: true, reactors: [reactor('z', 'Zoe')] })
-      .mockResolvedValueOnce({ ok: true, reactors: [reactor('c1', 'Cindy (Chris)')] });
+      .mockResolvedValueOnce({ ok: true, reactors: [reactor('c1', 'Emma (Chris)')] });
     const view = render(<ChatMessageActions shareScope="group:room" groupId="room" members={members} onChanged={vi.fn()}
       reactionRevision={3} message={message([{ emoji: '👍', count: 1, me: false }])} />);
     await waitFor(() => expect(badge().getAttribute('aria-label')).toBe('👍 · 1: Zoe'));
     // Zoe removed 👍 and Chris's companion added it: same count and `me`, a new room reaction revision.
     view.rerender(<ChatMessageActions shareScope="group:room" groupId="room" members={members} onChanged={vi.fn()}
       reactionRevision={4} message={message([{ emoji: '👍', count: 1, me: false }])} />);
-    await waitFor(() => expect(badge().getAttribute('aria-label')).toBe('👍 · 1: Cindy (Chris)'));
+    await waitFor(() => expect(badge().getAttribute('aria-label')).toBe('👍 · 1: Emma (Chris)'));
     expect(images()).toEqual(['https://example.test/cindy-chris.png']);
   });
 

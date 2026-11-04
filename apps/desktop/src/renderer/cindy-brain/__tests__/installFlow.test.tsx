@@ -257,7 +257,7 @@ describe('installFlow · 本地包安装', () => {
       expectedInstalledApproval: 'approved:org-receipt',
     }));
   });
-  it('本地包不由客户端按 minCindyVersion 二次拦截', async () => {
+  it('本地包不由客户端按 minEmmaVersion 二次拦截', async () => {
     const incompatibleManifest = { ...baseManifest, minCindyVersion: '2.0.0' };
     const { install } = setupWindow(incompatibleManifest);
 

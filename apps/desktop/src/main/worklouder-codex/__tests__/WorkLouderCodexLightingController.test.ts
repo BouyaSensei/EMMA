@@ -582,7 +582,7 @@ describe('WorkLouderCodexLightingController', () => {
     }
   });
 
-  it('switches tasks in the background first and focuses Cindy on the second tap', async () => {
+  it('switches tasks in the background first and focuses Emma on the second tap', async () => {
     vi.useFakeTimers();
     try {
       vi.setSystemTime(1_000);

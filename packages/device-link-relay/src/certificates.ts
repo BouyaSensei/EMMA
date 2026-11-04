@@ -209,7 +209,7 @@ export async function startChallengeServer(options: {
       }
     }
     res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('This is a Cindy relay. Use https.\n');
+    res.end('This is a Emma relay. Use https.\n');
   });
   server.headersTimeout = 10_000;
   server.requestTimeout = 10_000;

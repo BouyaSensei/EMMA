@@ -84,7 +84,7 @@ function deviceSubtitle(
 ): string {
   const parts = [
     platformLabel(device.platform),
-    device.appVersion?.trim() ? `Cindy ${device.appVersion.trim()}` : null,
+    device.appVersion?.trim() ? `Emma ${device.appVersion.trim()}` : null,
     hardwareLabel(device.deviceInfo),
     memoryLabel(device.deviceInfo?.memoryGb),
     opts.statusOverride ?? deviceStatusLabel(device, t),

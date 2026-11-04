@@ -45,7 +45,7 @@ async function show(
 
 afterEach(cleanup);
 
-describe('Cindy Make source summary', () => {
+describe('Emma Make source summary', () => {
   it.each([
     [0, 0, '与本地 main 的 SHA 相同'],
     [0, 6, '尚缺本地 main 中的 6 条修改记录'],
@@ -63,7 +63,7 @@ describe('Cindy Make source summary', () => {
       });
       expect(screen.getByText(expected)).toBeTruthy();
       expect(screen.getByRole('status').getAttribute('aria-label')).toBe(
-        'cindy-personal · 版本状态未确认',
+        'emma-personal · 版本状态未确认',
       );
       expect(screen.getByRole('status').className).not.toContain('--status-success');
       expect(screen.queryByTitle(source.commit!)).toBeNull();
@@ -137,9 +137,9 @@ describe('Cindy Make source summary', () => {
       });
       const status = screen.getByRole('status');
       const copy = locales[locale].cindyMake.overview.personalStatus;
-      const label = `cindy-personal${copy.suffix.replace('{{status}}', copy.upToDate)}`;
+      const label = `emma-personal${copy.suffix.replace('{{status}}', copy.upToDate)}`;
       expect(status.textContent).toBe(label);
-      expect(status.getAttribute('aria-label')).toBe(`cindy-personal · ${copy.upToDate}`);
+      expect(status.getAttribute('aria-label')).toBe(`emma-personal · ${copy.upToDate}`);
       expect(status.firstElementChild?.tagName.toLowerCase()).toBe('svg');
       expect(status.lastElementChild?.textContent).toBe(label);
       expect(status.className).toContain('--status-success');
@@ -147,7 +147,7 @@ describe('Cindy Make source summary', () => {
         screen.getByText(copy.suffix.replace('{{status}}', copy.upToDate).trim()),
       ).toBeTruthy();
       expect(screen.getByText(copy.personalChanges.replace('{{ahead}}', '1'))).toBeTruthy();
-      expect(screen.getByText('cindy-personal').closest('dt')).toBe(status.closest('dt'));
+      expect(screen.getByText('emma-personal').closest('dt')).toBe(status.closest('dt'));
       expect(screen.queryByTitle(source.commit!)).toBeNull();
       expect(screen.getByText(copy.personalChanges.replace('{{ahead}}', '1')).closest('dd')).toBe(
         status.closest('dt')?.nextElementSibling,
@@ -173,8 +173,8 @@ describe('Cindy Make source summary', () => {
       ref: 'main',
       commit: source.mainCommit!,
     });
-    const status = screen.getByRole('status', { name: 'cindy-personal · 有更新' });
-    expect(status.textContent).toBe('cindy-personal（有更新）');
+    const status = screen.getByRole('status', { name: 'emma-personal · 有更新' });
+    expect(status.textContent).toBe('emma-personal（有更新）');
     expect(status.className).toContain('--upgrade-banner-fg');
     expect(status.firstElementChild?.tagName.toLowerCase()).toBe('svg');
     expect(screen.getByText('（有更新）')).toBeTruthy();
@@ -207,7 +207,7 @@ describe('Cindy Make source summary', () => {
         },
       );
       expect(screen.getByRole('status').getAttribute('aria-label')).toBe(
-        `cindy-personal · ${expected}`,
+        `emma-personal · ${expected}`,
       );
       expect(screen.getByRole('status').className).not.toContain('--status-success');
     },
@@ -222,7 +222,7 @@ describe('Cindy Make source summary', () => {
         ref: 'main',
         commit: source.commit!,
       });
-      expect(screen.getByRole('status', { name: 'cindy-personal · 已是最新' })).toBeTruthy();
+      expect(screen.getByRole('status', { name: 'emma-personal · 已是最新' })).toBeTruthy();
       expect(screen.queryByText(/个人修改记录/)).toBeNull();
     },
   );
@@ -236,7 +236,7 @@ describe('Cindy Make source summary', () => {
       ahead: 3,
       behind: 0,
     });
-    const status = screen.getByRole('status', { name: 'cindy-personal · 已是最新' });
+    const status = screen.getByRole('status', { name: 'emma-personal · 已是最新' });
     fireEvent.focus(status);
     expect((await screen.findByRole('tooltip')).textContent).toBe(
       '已是最新 · 个人版代码已包含最新正式版的全部更新',
@@ -301,7 +301,7 @@ describe('Cindy Make source summary', () => {
       ).toBe(screen.getByTitle(source.mainCommit!).closest('dd'));
       expect(screen.getByText(source.mainCommit!.slice(0, 12)).title).toBe(source.mainCommit);
       expect(screen.queryByText(source.commit!.slice(0, 12))).toBeNull();
-      expect(screen.getByText('cindy-personal').closest('dt')).toBe(labels[1]);
+      expect(screen.getByText('emma-personal').closest('dt')).toBe(labels[1]);
       expect(screen.queryByText('personal')).toBeNull();
       for (const hidden of [
         source.currentBranch!,
@@ -323,7 +323,7 @@ describe('Cindy Make source summary', () => {
       ahead: 0,
       behind: 23,
     });
-    expect(screen.getByRole('status', { name: 'cindy-personal · 有更新' })).toBeTruthy();
+    expect(screen.getByRole('status', { name: 'emma-personal · 有更新' })).toBeTruthy();
     expect(
       screen.getByText(
         '尚缺本地 main 中的 2 条修改记录，个人版源码中另有 3 条修改记录',
@@ -363,7 +363,7 @@ describe('Cindy Make source summary', () => {
       ref: 'main',
       commit: source.mainCommit!,
     });
-    expect(screen.getByRole('status', { name: 'cindy-personal · 已是最新' })).toBeTruthy();
+    expect(screen.getByRole('status', { name: 'emma-personal · 已是最新' })).toBeTruthy();
     expect(screen.getByText('与GitHub main 一致，落后 0 条修改记录')).toBeTruthy();
   });
 
@@ -376,7 +376,7 @@ describe('Cindy Make source summary', () => {
       ahead: 0,
       behind: 0,
     });
-    expect(screen.getByRole('status', { name: 'cindy-personal · 版本状态未确认' })).toBeTruthy();
+    expect(screen.getByRole('status', { name: 'emma-personal · 版本状态未确认' })).toBeTruthy();
     expect(screen.getByText('SHA 与本地 main 不同，差距未知')).toBeTruthy();
     expect(screen.getByText('本地 main 的差距未读取')).toBeTruthy();
     expect(screen.queryByText(/与线上 main 一致/)).toBeNull();
@@ -407,7 +407,7 @@ describe('Cindy Make source summary', () => {
     async (locale) => {
       const { container } = await show({ personalAhead: 1, personalBehind: 0 }, locale);
       expect(screen.getByRole('status').getAttribute('aria-label')).toBe(
-        `cindy-personal · ${locales[locale].cindyMake.overview.personalStatus.unverified}`,
+        `emma-personal · ${locales[locale].cindyMake.overview.personalStatus.unverified}`,
       );
       expect(
         screen.getByText(

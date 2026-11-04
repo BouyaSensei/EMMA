@@ -679,7 +679,7 @@ describe('VolcengineSaucAsrProvider protocol helpers', () => {
     ['proxy key, HTTP 401', 401, false, 1],
     ['proxy key, HTTP 403', 403, false, 0],
     ['managed connection ticket, HTTP 401', 401, true, 0],
-  ] as const)('reports the Cindy AI key on a rejected handshake only for the proxy key path (%s)', async (
+  ] as const)('reports the Emma AI key on a rejected handshake only for the proxy key path (%s)', async (
     _label,
     status,
     managed,

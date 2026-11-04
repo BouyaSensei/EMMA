@@ -24,7 +24,7 @@ export function builtInSkillsRoot(userDataDir: string): string {
 
 /** Profile-independent storage shared by Global, China, dev, and isolated profiles. */
 export function sharedBuiltInSkillsRoot(appDataDir: string): string {
-  return path.join(appDataDir, 'Cindy', 'shared-system-skills');
+  return path.join(appDataDir, 'Emma', 'shared-system-skills');
 }
 
 /** Keep enable/disable intent stable while immutable built-in bundle revisions change. */

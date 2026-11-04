@@ -121,12 +121,12 @@ describe('filterPrStatusQueriesForRefs', () => {
     expect(
       filterPrStatusQueriesForRefs(
         [
-          { owner: 'MakeCindy', repo: 'Cindy', prNumber: 85 },
+          { owner: 'MakeEmma', repo: 'Emma', prNumber: 85 },
           { owner: 'private', repo: 'secret', prNumber: 1 },
         ],
-        [{ owner: 'makecindy', repo: 'cindy', prNumber: 85 }],
+        [{ owner: 'makeemma', repo: 'emma', prNumber: 85 }],
       ),
-    ).toEqual([{ owner: 'MakeCindy', repo: 'Cindy', prNumber: 85 }]);
+    ).toEqual([{ owner: 'MakeEmma', repo: 'Emma', prNumber: 85 }]);
   });
 });
 

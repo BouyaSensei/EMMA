@@ -374,7 +374,7 @@ describe('Pi device-hosted guest sessions', () => {
     }
   });
 
-  it('keeps a guest sharing the Cindy gateway on gateway models only', async () => {
+  it('keeps a guest sharing the Emma gateway on gateway models only', async () => {
     const { deps, registered } = providerDeps();
     const { handle, env, configHome } = await start(true, { deps: { ...deps, capabilityAdditions: {
       availableModels: ['m', 'denied-gateway-model'].map(id => ({ id, displayName: id, contextWindow: 200000, efforts: [], defaultEffort: null })),

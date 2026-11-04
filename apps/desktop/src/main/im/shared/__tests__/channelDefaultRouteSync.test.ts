@@ -226,7 +226,7 @@ describe('syncUnderLock', () => {
     expect(mocks.applyRoute).toHaveBeenCalledTimes(1);
     expect((await rowOf('manual')).model).toBe(NEW.model);
   });
-  it('Auto 被服务端挪到另一家 Cindy 来源、任务已跟过去时，仍算在跟随渠道默认', async () => {
+  it('Auto 被服务端挪到另一家 Emma 来源、任务已跟过去时，仍算在跟随渠道默认', async () => {
     const auto = 'auto/group-1';
     const view = (id: string, source: string, models: string[]) => ({
       id,

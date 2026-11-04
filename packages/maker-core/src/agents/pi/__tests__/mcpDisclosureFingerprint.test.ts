@@ -11,10 +11,10 @@ const source = CINDY_BRIDGE_EXTENSION_SOURCE;
 // 从工具名常量切到 CindyMcpGateway 类结束：register() 用到的常量与 helper 都在这段里，
 // 因此 register 后的 cindy_mcp_call_tool 走的是与生产同一条代码路径。
 const sliceStart = source.indexOf("const CINDY_MCP_LIST_TOOLS = 'cindy_mcp_list_tools'");
-const classStart = source.indexOf('class CindyMcpGateway {');
+const classStart = source.indexOf('class EmmaMcpGateway {');
 const classEnd = source.indexOf('\n}\n', classStart) + 3;
 if (sliceStart < 0 || classStart < sliceStart || classEnd <= classStart) {
-  throw new Error('CindyMcpGateway slice not found in bridge source');
+  throw new Error('EmmaMcpGateway slice not found in bridge source');
 }
 const GATEWAY_SOURCE = source.slice(sliceStart, classEnd);
 
@@ -74,7 +74,7 @@ function loadGateway(options: {
   const reclaimed: string[] = [];
 
   const code = ts.transpileModule(
-    `${GATEWAY_SOURCE}\n(globalThis as any).CindyMcpGateway = CindyMcpGateway;`,
+    `${GATEWAY_SOURCE}\n(globalThis as any).EmmaMcpGateway = EmmaMcpGateway;`,
     { compilerOptions: { target: ts.ScriptTarget.ES2022 } },
   ).outputText;
 

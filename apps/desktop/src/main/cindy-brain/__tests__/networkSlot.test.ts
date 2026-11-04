@@ -1554,7 +1554,7 @@ describe('networkSlot · GitHub CLI 优先凭证(source:gh-cli)', () => {
           publisherSigned: true,
           publisherVerified: true,
           reviewed: true,
-          publisherName: 'Cindy Plugin Market',
+          publisherName: 'Emma Plugin Market',
         },
       }),
       readSecret: () => 'github_pat_fallback',
@@ -1640,7 +1640,7 @@ describe('networkSlot · GitHub CLI 优先凭证(source:gh-cli)', () => {
       const { slot, fetchImpl } = makeGithubSlot({
         getGhost: () => ({ ...fakeGhost({ id: 'cindy-github', network: githubNetwork,
           trust: { level: 'cindy-official', publisherSigned: true, publisherVerified: true,
-            reviewed: true, publisherName: 'Cindy Plugin Market' } }), ...identity }),
+            reviewed: true, publisherName: 'Emma Plugin Market' } }), ...identity }),
         readGhCliToken,
         readSecret,
       });
@@ -2532,8 +2532,8 @@ describe('networkSlot · MCP Apps 手册头', () => {
 
   it('按工具声明默认带上，mcpAppsManual 显式覆盖', async () => {
     const expected = {
-      'Cindy-MCP-Apps-Manual': `https://cdn.test/cindy/mcp-apps/manual/0.1.122-beta/${manualSha(MANUAL)}.md`,
-      'Cindy-MCP-Apps-Manual-Sha256': manualSha(MANUAL),
+      'Emma-MCP-Apps-Manual': `https://cdn.test/cindy/mcp-apps/manual/0.1.122-beta/${manualSha(MANUAL)}.md`,
+      'Emma-MCP-Apps-Manual-Sha256': manualSha(MANUAL),
     };
     for (const [name, payload, carries] of [
       ['模型可见、会打开页面的工具', { callId: 'call-open_view' }, true],
@@ -2558,8 +2558,8 @@ describe('networkSlot · MCP Apps 手册头', () => {
     const on = setup();
     await on.slot.handleFetchRequest('pages', { url: 'https://api.example.com/view', callId: 'call-open_view', headers: forged });
     expect(sentHeaders(on.fetchImpl)).toEqual({
-      'Cindy-MCP-Apps-Manual': `https://cdn.test/cindy/mcp-apps/manual/0.1.122-beta/${manualSha(MANUAL)}.md`,
-      'Cindy-MCP-Apps-Manual-Sha256': manualSha(MANUAL),
+      'Emma-MCP-Apps-Manual': `https://cdn.test/cindy/mcp-apps/manual/0.1.122-beta/${manualSha(MANUAL)}.md`,
+      'Emma-MCP-Apps-Manual-Sha256': manualSha(MANUAL),
     });
   });
 
@@ -2588,7 +2588,7 @@ describe('networkSlot · MCP Apps 手册头', () => {
     fetchImpl.mockResolvedValueOnce(fakeResponse({ status: 302, headers: { location: 'https://other.example.com/next' } }));
     const result = await slot.handleFetchRequest('pages', { url: 'https://api.example.com/view', callId: 'call-open_view' });
     expect(result).toMatchObject({ ok: true });
-    expect(sentHeaders(fetchImpl)).toHaveProperty('Cindy-MCP-Apps-Manual');
+    expect(sentHeaders(fetchImpl)).toHaveProperty('Emma-MCP-Apps-Manual');
     expect(fetchPublicImpl.mock.calls[0]![0]).toBe('https://other.example.com/next');
     expect(sentHeaders(fetchPublicImpl)).toEqual({});
   });

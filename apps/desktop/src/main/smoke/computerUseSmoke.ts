@@ -52,7 +52,7 @@ export async function runComputerUseSmokeIfRequested(): Promise<void> {
       width: 680,
       height: 440,
       show: false,
-      title: 'Cindy Computer Use Smoke',
+      title: 'Emma Computer Use Smoke',
       webPreferences: {
         partition: sessionId,
         sandbox: true,
@@ -73,7 +73,7 @@ export async function runComputerUseSmokeIfRequested(): Promise<void> {
     const script = `document.getElementById('increment').addEventListener('click',()=>{const n=document.getElementById('count');n.textContent=String(Number(n.textContent)+1);const b=document.getElementById('increment');b.textContent='Smoke clicked once';b.disabled=true})`;
     const hash = createHash('sha256').update(script).digest('base64');
     await window.loadURL(
-      `data:text/html;charset=utf-8,${encodeURIComponent(`<!doctype html><html><head><title>Cindy Computer Use Smoke</title><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-${hash}'"></head><body><h1>Computer Use regression fixture</h1><label for="message">Smoke message</label><textarea id="message" aria-label="Smoke message"></textarea><button id="increment">Increment smoke count</button><output id="count">0</output><script>${script}</script></body></html>`)}`,
+      `data:text/html;charset=utf-8,${encodeURIComponent(`<!doctype html><html><head><title>Emma Computer Use Smoke</title><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-${hash}'"></head><body><h1>Computer Use regression fixture</h1><label for="message">Smoke message</label><textarea id="message" aria-label="Smoke message"></textarea><button id="increment">Increment smoke count</button><output id="count">0</output><script>${script}</script></body></html>`)}`,
     );
     window.showInactive();
     server = createComputerMcpServer(getComputerMcpDeps({ isComputerUseEnabled: () => true }), {
@@ -145,7 +145,7 @@ export async function runComputerUseSmokeIfRequested(): Promise<void> {
       session_goal: 'Test computer controls',
     });
     const target = catalog.data?.windows?.find(
-      (item: { title?: string }) => item.title === 'Cindy Computer Use Smoke',
+      (item: { title?: string }) => item.title === 'Emma Computer Use Smoke',
     );
     check(target && Number.isInteger(target.window_id), 'own fixture window discovered');
     const targetArgs = { pid: process.pid, window_id: target.window_id };
@@ -186,7 +186,7 @@ export async function runComputerUseSmokeIfRequested(): Promise<void> {
       (item) => item.role === 'AXButton' && item.label === 'Increment smoke count',
     );
     check(input?.element_token && button?.element_token, 'opaque element tokens available');
-    const value = 'Cindy smoke 中文🙂\n第二行 123\n'.repeat(30);
+    const value = 'Emma smoke 中文🙂\n第二行 123\n'.repeat(30);
     const set = await call('set_value', {
       ...targetArgs,
       element_token: input!.element_token,
@@ -353,7 +353,7 @@ export async function runComputerUseSmokeIfRequested(): Promise<void> {
       if (dragPassed) checks.push('independent DOM confirms drag selection');
     }
     // Exercise safe, real driver failure recovery without launching an unrelated app.
-    const missingApp = await call('launch_app', { name: `Cindy Smoke Missing ${sessionId}` });
+    const missingApp = await call('launch_app', { name: `Emma Smoke Missing ${sessionId}` });
     check(
       !missingApp.ok && missingApp.errorCode === 'APP_NOT_INSTALLED',
       'original app resolution error preserved',

@@ -35,7 +35,7 @@ describe('worktreePaths', () => {
     expect(groupingWorktreeBaseRepo(value)).toBeNull();
   });
 
-  it('collapses Cindy-managed worktrees (current and legacy dir name) to their base repo', () => {
+  it('collapses Emma-managed worktrees (current and legacy dir name) to their base repo', () => {
     expect(managedWorktreeBaseRepo('/repo/.cindy-worktrees/serene-lovelace')).toBe('/repo');
     expect(managedWorktreeBaseRepo('/repo/.cindy-worktrees/serene-lovelace/src/main')).toBe('/repo');
     expect(managedWorktreeBaseRepo('/repo/.xdt-worktrees/pensive-pasteur')).toBe('/repo');

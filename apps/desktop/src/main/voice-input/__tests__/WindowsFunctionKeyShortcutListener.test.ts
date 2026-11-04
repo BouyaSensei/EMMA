@@ -83,7 +83,7 @@ describe('WindowsFunctionKeyShortcutListener', () => {
     mocks.spawn.mockClear();
     mocks.spawnedChildren.length = 0;
     Object.defineProperty(process, 'resourcesPath', {
-      value: 'C:\\Cindy\\resources',
+      value: 'C:\\Emma\\resources',
       configurable: true,
     });
   });

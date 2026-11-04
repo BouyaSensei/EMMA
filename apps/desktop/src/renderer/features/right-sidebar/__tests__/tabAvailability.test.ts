@@ -50,7 +50,7 @@ describe('sidebar availability', () => {
     ).toEqual(['task-a']);
     expect(projectAvailableTabs(taskTabs, null, { installedGhosts: [], subagentsAvailable: true }).tabs).toEqual([]);
   });
-  it('filters persisted Cindy Make tabs when the product is disabled', () => {
+  it('filters persisted Emma Make tabs when the product is disabled', () => {
     const cindyTabs = [
       { id: 'file', kind: 'file-browser', state: null },
       { id: 'make', kind: 'cindy-make', state: null },

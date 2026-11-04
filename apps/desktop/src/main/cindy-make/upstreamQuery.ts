@@ -2,7 +2,7 @@ import type { MakeUpstreamItem, MakeUpstreamQuery } from '../../shared/cindyMake
 import { untilAborted } from './doctor.js';
 import { filterUpstreamCandidates, type UpstreamRuntimeDeps } from './upstreamInclusion.js';
 
-const REPOSITORY = 'makecindy/cindy';
+const REPOSITORY = 'BouyaSensei/EMMA';
 const SEARCH_PAGE_SIZE = 10;
 const TIMEOUT_MS = 25_000;
 const FILLER = new Set(

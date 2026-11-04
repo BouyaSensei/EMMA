@@ -95,7 +95,7 @@ export async function createLinuxViewerDisplay(
               const value = JSON.parse(buffer);
               if (
                 typeof value.id !== 'string' ||
-                !/^hyprland:CindyRemote-[a-f0-9]{16}$/.test(value.id) ||
+                !/^hyprland:(?:Cindy|Emma)Remote-[a-f0-9]{16}$/.test(value.id) ||
                 value.width !== width ||
                 value.height !== height ||
                 typeof value.name !== 'string'

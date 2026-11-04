@@ -73,7 +73,7 @@ export function createLocalProjectFromTaskHandlers(deps: {
 function resolveCurrentProjectsRoot() {
   const client = tryGetDbClient();
   if (!client || isAppSessionBoundaryPending()) {
-    throwIpcError('PRECONDITION_FAILED', 'Cindy project storage is not ready.');
+    throwIpcError('PRECONDITION_FAILED', 'Emma project storage is not ready.');
   }
   return resolveProjectsRoot(client);
 }

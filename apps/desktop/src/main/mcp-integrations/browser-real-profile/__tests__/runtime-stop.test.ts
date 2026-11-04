@@ -104,10 +104,10 @@ describe('stopManagedBrowserForProfile', () => {
       return result('stop', true, { stopped: true });
     });
 
-    await stopManagedBrowserForProfile({ call }, 'Cindy-real');
+    await stopManagedBrowserForProfile({ call }, 'Emma-real');
 
-    expect(call).toHaveBeenNthCalledWith(1, { action: 'status', profile: 'Cindy-real' });
-    expect(call).toHaveBeenNthCalledWith(2, { action: 'stop', profile: 'Cindy-real' });
+    expect(call).toHaveBeenNthCalledWith(1, { action: 'status', profile: 'Emma-real' });
+    expect(call).toHaveBeenNthCalledWith(2, { action: 'stop', profile: 'Emma-real' });
   });
 
   it('fails closed when a successful status omits a boolean running flag', () => {
@@ -145,10 +145,10 @@ describe('stopManagedBrowserForProfile', () => {
   it('does not stop a different profile when the pinned profile is idle', async () => {
     const call = vi.fn(async () => result('status', true, { running: false }));
 
-    await stopManagedBrowserForProfile({ call }, 'Cindy');
+    await stopManagedBrowserForProfile({ call }, 'Emma');
 
     expect(call).toHaveBeenCalledOnce();
-    expect(call).toHaveBeenCalledWith({ action: 'status', profile: 'Cindy' });
+    expect(call).toHaveBeenCalledWith({ action: 'status', profile: 'Emma' });
   });
 
   it('stops the pinned process when CDP is temporarily unavailable', async () => {
@@ -158,10 +158,10 @@ describe('stopManagedBrowserForProfile', () => {
         : result('stop', true, { stopped: true }),
     );
 
-    await stopManagedBrowserForProfile({ call }, 'Cindy-real');
+    await stopManagedBrowserForProfile({ call }, 'Emma-real');
 
-    expect(call).toHaveBeenNthCalledWith(1, { action: 'status', profile: 'Cindy-real' });
-    expect(call).toHaveBeenNthCalledWith(2, { action: 'stop', profile: 'Cindy-real' });
+    expect(call).toHaveBeenNthCalledWith(1, { action: 'status', profile: 'Emma-real' });
+    expect(call).toHaveBeenNthCalledWith(2, { action: 'stop', profile: 'Emma-real' });
   });
 });
 

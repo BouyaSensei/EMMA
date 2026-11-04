@@ -73,7 +73,7 @@ describe('shouldCloseSessionForCredentialSwitch codex mode', () => {
     ['xd', 'openai/gpt-6.1-sol', 'cindy_gateway'],
     ['xd', 'codex/gpt-5.5', 'cindy_codex'],
     ['openai', 'gpt-5.4', 'cindy_openai'],
-  ])('tags an imported thread with the identity Cindy resumes %s %s under', (providerId, model, expected) => {
+  ])('tags an imported thread with the identity Emma resumes %s %s under', (providerId, model, expected) => {
     const identity = codexImportedThreadModelProviderId({ providerId, model });
     expect(identity).toBe(expected);
     expect(isCodexThreadModelProviderIdentityMismatch({ agentKind: 'codex',
@@ -89,7 +89,7 @@ describe('shouldCloseSessionForCredentialSwitch codex mode', () => {
     })).toBe(false);
   });
 
-  it('keeps a matching Cindy Codex remote-compaction thread for Cindy codex model changes', () => {
+  it('keeps a matching Emma Codex remote-compaction thread for Emma codex model changes', () => {
     const input = {
       agentKind: 'codex',
       currentProviderId: 'xd',
@@ -103,7 +103,7 @@ describe('shouldCloseSessionForCredentialSwitch codex mode', () => {
     expect(shouldCloseSessionForCredentialSwitch(input)).toBe(false);
   });
 
-  it('keeps a local-compaction Cindy Codex thread when its independent subagent is incompatible', () => {
+  it('keeps a local-compaction Emma Codex thread when its independent subagent is incompatible', () => {
     const input = {
       agentKind: 'codex',
       currentProviderId: 'xd',
@@ -169,7 +169,7 @@ describe('shouldCloseSessionForCredentialSwitch codex mode', () => {
     expect(shouldCloseSessionForCredentialSwitch(input)).toBe(false);
   });
 
-  it('rebuilds when the live thread reports a non-Cindy provider before switching to Cindy', () => {
+  it('rebuilds when the live thread reports a non-Emma provider before switching to Emma', () => {
     // Older app-server/provider combinations report `openai` or a vendor id
     // instead of Cindy's cindy_* aliases. That is still a sticky thread
     // identity; hot-switching would reuse response items that the Cindy route

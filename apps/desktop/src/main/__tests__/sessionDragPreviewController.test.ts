@@ -39,7 +39,7 @@ describe('SessionDragPreviewController', () => {
     vi.useRealTimers();
   });
 
-  it('keeps the preview hidden while the pointer is inside Cindy windows', () => {
+  it('keeps the preview hidden while the pointer is inside Emma windows', () => {
     const owner = {};
     const preview = createPreviewWindow();
     const create = vi.fn(() => preview);
@@ -61,7 +61,7 @@ describe('SessionDragPreviewController', () => {
     controller.end(owner);
   });
 
-  it('shows and follows a preview only after the pointer leaves all Cindy windows', async () => {
+  it('shows and follows a preview only after the pointer leaves all Emma windows', async () => {
     const owner = {};
     let point = { x: 200, y: 200 };
     const preview = createPreviewWindow();
@@ -103,7 +103,7 @@ describe('SessionDragPreviewController', () => {
     expect(controller.isActive()).toBe(false);
   });
 
-  it('can show again when the preview finishes loading after re-entering Cindy', async () => {
+  it('can show again when the preview finishes loading after re-entering Emma', async () => {
     const owner = {};
     let point = { x: 200, y: 200 };
     let resolveReady!: () => void;

@@ -93,8 +93,8 @@ describe('current installation contribution preparation', () => {
   });
   it.each(['personal', 'org'] as const)('prepares a local plugin for the %s member without inferring official identity from package text', async membershipKind => {
     harness.membershipKind = membershipKind;
-    harness.ghosts[0].manifest.name = 'Cindy community tool';
-    harness.ghosts[0].manifest.author = 'Cindy';
+    harness.ghosts[0].manifest.name = 'Emma community tool';
+    harness.ghosts[0].manifest.author = 'Emma';
     expect(await prepared.prepareInstalledContribution('hello')).toMatchObject({ ghostId: 'hello' });
     expect(harness.snapshot).toHaveBeenCalled();
   });

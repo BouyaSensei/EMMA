@@ -377,7 +377,7 @@ describe('desktop MCP approval policy', () => {
   });
 });
 
-describe('Cindy market action authorization', () => {
+describe('Emma market action authorization', () => {
   it('allows catalog discovery but reviews each selected installation', () => {
     expect(
       getDesktopMcpToolApprovalPolicy({ serverName: 'cindy', toolName: 'ghost_market_search' }),

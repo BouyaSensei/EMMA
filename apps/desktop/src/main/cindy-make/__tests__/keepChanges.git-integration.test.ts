@@ -39,13 +39,13 @@ async function repos(initialLines = LINES) {
   const git: MergeGit = (args, cwd, indexFile) =>
     runSourceGit(
       { ...env, ...(indexFile ? { GIT_INDEX_FILE: indexFile } : {}) },
-      args.map((arg) => (arg === 'https://github.com/makecindy/cindy.git' ? official : arg)),
+      args.map((arg) => (arg === 'https://github.com/BouyaSensei/EMMA.git' ? official : arg)),
       cwd,
       AbortSignal.timeout(30_000),
     );
   const identity = (task: boolean) => [
     '-c',
-    `user.name=${task ? 'Cindy Make' : 'Test'}`,
+    `user.name=${task ? 'Emma Make' : 'Test'}`,
     '-c',
     `user.email=${task ? 'cindy-make@localhost.invalid' : 'test@example.invalid'}`,
     '-c',
@@ -59,7 +59,7 @@ async function repos(initialLines = LINES) {
     const task = at !== undefined;
     const date = task ? [`--date=${1_700_000_000 + at} +0000`] : [];
     await git(
-      [...identity(task), 'commit', '-s', ...date, '-m', task ? 'Cindy Make: complete personal change' : message],
+      [...identity(task), 'commit', '-s', ...date, '-m', task ? 'Emma Make: complete personal change' : message],
       cwd,
     );
     return (await git(['rev-parse', 'HEAD'], cwd)).trim();
@@ -793,7 +793,7 @@ it('asks before accepting an adjacent rewrite that cannot be proved, then keeps 
 it('never trusts Git output cut at the capture limit', async () => {
   const commit = 'a'.repeat(40);
   const git: MergeGit = async (args) => {
-    if (args[0] === 'log') return ['b'.repeat(40), 'Cindy Make', 'x@y', '1', 's'].join('\0') + '\n';
+    if (args[0] === 'log') return ['b'.repeat(40), 'Emma Make', 'x@y', '1', 's'].join('\0') + '\n';
     if (args[0] === 'rev-list') return '2\n';
     return '';
   };

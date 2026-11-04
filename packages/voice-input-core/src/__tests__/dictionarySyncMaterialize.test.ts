@@ -96,7 +96,7 @@ describe('dictionary sync — 物化上限', () => {
     // 让 alias-0 出现次数最多,其余递减。
     aliases.forEach((alias, index) => {
       for (let times = 0; times < aliases.length - index; times += 1) {
-        learn(a, 'Cindy', 1_000 + index * 20 + times, [alias]);
+        learn(a, 'Emma', 1_000 + index * 20 + times, [alias]);
       }
     });
     const materialized = materializeDictionary(a.state);
@@ -149,13 +149,13 @@ describe('dictionary sync — 物化语义', () => {
   it('一端手动确认过的词条,合并后来源保持 manual', () => {
     const a = device('a');
     const b = device('b', 4_000);
-    learn(a, 'Cindy', 1_000);
+    learn(a, 'Emma', 1_000);
     b.state = mergeSyncStates(b.state, a.state);
-    const added = addManualEntry(b.state, b.clock, { text: 'Cindy', nowMs: 5_000 });
+    const added = addManualEntry(b.state, b.clock, { text: 'Emma', nowMs: 5_000 });
     b.state = added.state;
 
     // 之后 A 继续自动学习,也不会把来源退回 automatic。
-    learn(a, 'Cindy', 6_000);
+    learn(a, 'Emma', 6_000);
     const merged = mergeSyncStates(a.state, b.state);
     expect(materializeDictionary(merged).entries[0].source).toBe('manual');
   });

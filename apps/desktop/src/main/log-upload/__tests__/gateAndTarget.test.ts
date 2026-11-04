@@ -257,7 +257,7 @@ describe('resolveLogUploadTarget（构建期注入）', () => {
     ['project 改投域名 evil.com/p', 'evil.com/p', 'l'],
     ['project 含点', 'evil.com', 'l'],
     ['project 含斜杠', 'p/x', 'l'],
-    ['project 大写(非 SLS 名)', 'Cindy', 'l'],
+    ['project 大写(非 SLS 名)', 'Emma', 'l'],
     ['logstore 含斜杠改写路径', 'p', 'l/../track'],
     ['logstore 含点', 'p', 'a.b'],
     ['logstore 空白细工', 'p', 'l l'],

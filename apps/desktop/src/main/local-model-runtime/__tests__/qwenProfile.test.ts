@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { applyQwen38NativeOverlay, shouldApplyQwen38Overlay } from '../qwenProfile.js';
 
 describe('qwenProfile', () => {
-  it('only matches Cindy-verified Qwen3.8 tags', () => {
+  it('only matches Emma-verified Qwen3.8 tags', () => {
     expect(shouldApplyQwen38Overlay('qwen3.8:27b-mxfp8')).toBe(true);
     expect(shouldApplyQwen38Overlay('qwen3.8:27b-mlx')).toBe(true);
     expect(shouldApplyQwen38Overlay('qwen3.8:latest')).toBe(false);

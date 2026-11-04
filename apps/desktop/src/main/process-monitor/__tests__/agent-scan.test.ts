@@ -126,9 +126,9 @@ describe('classifyMonitoredAgentCommandLine', () => {
   });
 
   it('识别运行时 userData 派生的 pi marker(userData 重定向场景)', () => {
-    registerPiUserDataMarkers('/custom/data-home/CindyBrand');
+    registerPiUserDataMarkers('/custom/data-home/EmmaBrand');
     expect(
-      classifyMonitoredAgentCommandLine('/custom/data-home/cindybrand/pi/2.0/pi --rpc'),
+      classifyMonitoredAgentCommandLine('/custom/data-home/emmabrand/pi/2.0/pi --rpc'),
     ).toBe('pi');
     // 空路径显式清空，不能退化成会命中所有 `/pi/` 路径的宽泛 marker。
     registerPiUserDataMarkers('');

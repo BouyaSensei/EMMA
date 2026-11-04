@@ -502,7 +502,7 @@ async function stopExternalRuntimeIfUsed(): Promise<void> {
     if (isRealProfileError(err) && err.code === 'STOP_FAILED' && (await managedPortHeldByAnotherCindy())) {
       throw new RealProfileError(
         'FOREIGN_AGENT_BROWSER',
-        'Another Cindy is using the agent browser port, so copied logins cannot be changed now.',
+        'Another Emma is using the agent browser port, so copied logins cannot be changed now.',
       );
     }
     throw err;
@@ -786,7 +786,7 @@ export async function openBrowserForLogin(): Promise<void> {
   const status = await externalBackend.call({ action: 'status' });
   if (!status.ok) {
     throw new Error(
-      status.message === FOREIGN_AGENT_BROWSER_ERROR || status.message?.includes('Another Cindy')
+      status.message === FOREIGN_AGENT_BROWSER_ERROR || status.message?.includes('Another Emma')
         ? FOREIGN_AGENT_BROWSER_ERROR
         : (status.message ?? `browser status failed (HTTP ${status.status ?? '?'})`),
     );
@@ -809,7 +809,7 @@ export async function openBrowserForLogin(): Promise<void> {
       if (reason) throw new BrowserOpenForLoginError(reason);
       if (
         started.message === FOREIGN_AGENT_BROWSER_ERROR ||
-        started.message?.includes('Another Cindy')
+        started.message?.includes('Another Emma')
       ) {
         throw new BrowserOpenForLoginError(FOREIGN_AGENT_BROWSER_ERROR);
       }

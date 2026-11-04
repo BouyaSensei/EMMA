@@ -106,7 +106,7 @@ export async function reviewUpdates(): Promise<PluginReviewUpdate[]> {
 export function markReviewRead(pluginId: string, key: string): void {
   const api = new ContributionApi();
   assertContributionOwner(api.owner);
-  if (isPassiveSharedUserDataInstance()) throwIpcError('PRECONDITION_FAILED', 'Use the active Cindy instance');
+  if (isPassiveSharedUserDataInstance()) throwIpcError('PRECONDITION_FAILED', 'Use the active Emma instance');
   if (cache?.owner !== api.owner || cache.entries.get(pluginId)?.key !== key)
     throwIpcError('PRECONDITION_FAILED', 'Refresh the review result before marking it read');
   const file = readFile();

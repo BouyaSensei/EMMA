@@ -1325,7 +1325,7 @@ function prepareGhostManifestForValidation(
     return { ok: false, reason: 'schemaVersion 3 不再支持 slots；请直接声明对应能力字段' };
   }
   if (value.minCindyVersion === undefined) {
-    return { ok: false, reason: 'schemaVersion 3 必须声明 minCindyVersion' };
+    return { ok: false, reason: 'schemaVersion 3 必须声明 minEmmaVersion' };
   }
   for (const field of V3_BOOLEAN_CAPABILITY_FIELDS) {
     if (value[field] !== undefined && value[field] !== true) {
@@ -1433,7 +1433,7 @@ export function validateGhostManifest(value: unknown): ManifestValidation {
     raw.minCindyVersion !== undefined &&
     (typeof raw.minCindyVersion !== 'string' || !isValidCindyVersion(raw.minCindyVersion))
   ) {
-    return { ok: false, reason: 'minCindyVersion 必须是合法的 SemVer 字符串' };
+    return { ok: false, reason: 'minEmmaVersion 必须是合法的 SemVer 字符串' };
   }
   // kind 可省略(2026-07-12 晚定案:单形态后字段纯冗余,缺省即 chip);
   // 写了就必须是 chip——写错值仍拒,不静默纠正(规则 9)。

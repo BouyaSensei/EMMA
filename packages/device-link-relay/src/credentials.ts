@@ -8,7 +8,7 @@
  */
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 
-export const RELAY_AUTH_SCHEME = 'CindyRelay';
+export const RELAY_AUTH_SCHEME = 'EmmaRelay';
 
 /** 32 字节随机数,base64url。设备凭证、加入码、轮询口令、签名密钥共用同一生成方式。 */
 export function createSecret(bytes = 32): string {
@@ -28,7 +28,7 @@ export function createDeviceCredential(): { credential: string; credentialHash: 
 /** 解析 `Authorization: CindyRelay <凭证>`;其它方案或格式一律视为未认证。 */
 export function parseRelayAuthorization(header: string | string[] | undefined): string | null {
   if (typeof header !== 'string') return null;
-  const match = /^CindyRelay ([A-Za-z0-9_-]{16,256})$/.exec(header.trim());
+  const match = /^(?:Emma|Cindy)Relay ([A-Za-z0-9_-]{16,256})$/.exec(header.trim());
   return match ? match[1] : null;
 }
 

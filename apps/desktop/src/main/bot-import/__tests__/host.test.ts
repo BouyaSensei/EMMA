@@ -1230,7 +1230,7 @@ it.each(['readback', 'binding'] as const)('cleans an unbound first checkpoint af
   expect(h.created).toBe(false);
 });
 
-it('adopts Cindy settings only for explicitly selected items and still requires takeover verification', async () => {
+it('adopts Emma settings only for explicitly selected items and still requires takeover verification', async () => {
   const { useCindyImportSettings, continueCompanionImport } = await import('../host.js');
   h.snapshot.items = [{ view: { id: 'task', name: 'Report', category: 'automations', selected: true, enabled: true, issues: ['SOURCE_TOOL_POLICY_NEEDS_MAPPING', 'AUTOMATION_MODEL_NEEDS_MAPPING', 'AUTOMATION_CONTEXT_NEEDS_MAPPING'] },
     automation: { sourceId: 'source-task', fingerprint: 'fixture', original: {}, input: { name: 'Report', prompt: 'Read data', enabled: false, triggers: [{ id: 'time', kind: 'interval', intervalMs: 60000 }] } } }];

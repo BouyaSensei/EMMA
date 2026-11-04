@@ -6,6 +6,7 @@ import { randomUUID } from 'node:crypto';
 import { resolveClientEndpointsStrict } from '@cindy/maker-shared/client-endpoints';
 import { CINDY_MAKE_ENABLED } from '@cindy/maker-shared/cindy-make-feature';
 import { CURRENT_CINDY_REGION } from '../../shared/brandRegion.js';
+import { BRAND_IDENTITY } from '@cindy/maker-shared/brand-identity';
 import { createLogger } from '../logger.js';
 import { t } from '../i18n.js';
 import { observeDesktopStartupResult } from '../devStartupStatus.js';
@@ -169,21 +170,29 @@ export function currentVersionProfile(): VersionProfile {
     ...(endpointSnapshot ? { endpointSnapshot } : {}),
   };
 }
+// Identity vocabulary: the brand's own names (single source of truth) plus the
+// legacy Cindy names so sandboxes created before the rebrand stay readable.
+const APP_IDENTITY_NAMES = [
+  BRAND_IDENTITY.executableName,
+  BRAND_IDENTITY.executableNameByRegion.dev,
+  'Cindy',
+  'CindyDev',
+];
 function assertProfile(profile: VersionProfile): void {
   if (
     !profile ||
     !path.isAbsolute(profile.userData) ||
-    !['Cindy', 'CindyDev'].includes(profile.appName) ||
+    !APP_IDENTITY_NAMES.includes(profile.appName) ||
     !['cn', 'global', 'dev'].includes(profile.region) ||
     (profile.deviceId !== undefined && !/^[A-Za-z0-9_-]{1,128}$/.test(profile.deviceId))
   )
     throw versionError('unavailable');
   const marker = path.join(profile.userData, 'keychain-identity');
-  let name = 'Cindy';
+  let name = BRAND_IDENTITY.executableName;
   try {
     if (fs.lstatSync(marker).isSymbolicLink()) throw versionError('unavailable');
     const value = fs.readFileSync(marker, 'utf8');
-    if (!['Cindy\n', 'Cindy\r\n', 'CindyDev\n', 'CindyDev\r\n'].includes(value))
+    if (!APP_IDENTITY_NAMES.some((n) => value === `${n}\n` || value === `${n}\r\n`))
       throw versionError('unavailable');
     name = value.trim();
   } catch (error) {

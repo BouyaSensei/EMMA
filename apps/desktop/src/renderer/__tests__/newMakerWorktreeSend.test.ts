@@ -116,7 +116,7 @@ describe('NewMakerDraftRoute worktree send flow', () => {
     expect(source).not.toContain("sourceBranch: wt.sourceBranch.trim() || 'main'");
   });
 
-  it('uses the shared Cindy branch helper and adopts the authoritative created branch', () => {
+  it('uses the shared Emma branch helper and adopts the authoritative created branch', () => {
     const previewBranch = source.indexOf('let branchName = getBranchName(name);');
     const worktreeCreate = source.indexOf('window.electronAPI.worktreeCreate', previewBranch);
     const authoritativeBranch = source.indexOf('branchName = resp.meta.branch;', worktreeCreate);

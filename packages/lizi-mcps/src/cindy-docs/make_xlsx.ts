@@ -347,7 +347,7 @@ export function registerMakeXlsxTool(
         const palette = resolveDocsTheme((theme ?? DEFAULT_DOCS_THEME) as DocsThemeName);
 
         const workbook = new ExcelJS.Workbook();
-        workbook.creator = 'Cindy';
+        workbook.creator = 'Emma';
         workbook.created = new Date();
 
         // Excel 的工作表名比较大小写不敏感,但展示名仍保留用户原始大小写。

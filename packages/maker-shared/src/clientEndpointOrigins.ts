@@ -110,6 +110,9 @@ export function findUntrustedCachedEndpoint(
     if (!value) continue;
     const host = hostOf(value);
     if (host === null) return key;
+    // Emma 的发布 CDN 是 GitHub Releases(BouyaSensei/EMMA):cdnBaseUrl 允许
+    // github.com,其余端点仍必须落在区域信任域内。
+    if (key === 'cdnBaseUrl' && host === 'github.com') continue;
     if (!isHostWithinDomain(host, [allowedDomainForKey(key, policy)]))
       return key;
   }

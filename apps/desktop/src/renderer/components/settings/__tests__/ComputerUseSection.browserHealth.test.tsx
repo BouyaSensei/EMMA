@@ -539,7 +539,7 @@ describe('ComputerUseSection browser backend health loading', () => {
       ],
     });
     const marketDetail = vi.fn().mockResolvedValue(detail);
-    const install = vi.fn().mockResolvedValue({ ghost: { manifest: { name: 'Cindy Chrome' } } });
+    const install = vi.fn().mockResolvedValue({ ghost: { manifest: { name: 'Emma Chrome' } } });
     Object.assign(window.electronAPI, { pluginMarket: { snapshot, detail: marketDetail, install } });
     api.getBackendState.mockResolvedValue({ active: 'user-browser' });
     api.getBackendHealth

@@ -14,7 +14,7 @@ function botUiSources(): Array<{ file: string; source: string }> {
     }));
 }
 
-describe('Cindy Bots design contract', () => {
+describe('Emma Bots design contract', () => {
   it('keeps Bot surfaces on the shared radius, overlay, and zero-shadow system', () => {
     for (const { file, source } of botUiSources()) {
       expect(source, `${file} must use the 8px/12px/pill radius scale`).not.toMatch(

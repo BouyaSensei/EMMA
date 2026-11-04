@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { decideCindyCompression } from '../cindyContextCompression';
 
-describe('decideCindyCompression', () => {
+describe('decideEmmaCompression', () => {
   it('does nothing remotely', () => {
     expect(
       decideCindyCompression({ local: false, bytes: 'violated', tokens: 'violated' }),

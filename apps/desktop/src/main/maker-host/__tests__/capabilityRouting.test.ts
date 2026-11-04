@@ -8,7 +8,7 @@ function computerUseRoutes(policy: CapabilityRoutingPolicy) {
 }
 
 describe('desktop Computer Use capability routing', () => {
-  it('keeps only the node_repl compatibility restriction before Cindy Computer Use is applied', () => {
+  it('keeps only the node_repl compatibility restriction before Emma Computer Use is applied', () => {
     const routes = computerUseRoutes(
       buildDesktopCapabilityRoutingPolicy({
         cindyComputerAvailable: false,

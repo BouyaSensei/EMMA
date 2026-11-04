@@ -43,7 +43,7 @@ beforeEach(() => {
 afterEach(() => vi.useRealTimers());
 it('restores on EOF, checks actual output geometry and leaves no heartbeat after exit', async () => {
   const owner = await createLinuxViewerDisplay('hyprland:eDP-2', () => true, vi.fn());
-  const name = 'CindyRemote-1234567812345678';
+  const name = 'EmmaRemote-1234567812345678';
   h.monitor.mockResolvedValue({ name, width: 800, height: 600 });
   const resized = owner.resize(800, 600, () => true);
   h.child.stdout.write(
@@ -64,7 +64,7 @@ it('disposes instead of accepting a reply from an expired lease', async () => {
   const rejected = expect(resized).rejects.toThrow('DESKTOP_LEASE_EXPIRED');
   current = false;
   h.child.stdout.write(
-    '{"id":"hyprland:CindyRemote-1234567812345678","name":"test","width":800,"height":600}\n',
+    '{"id":"hyprland:EmmaRemote-1234567812345678","name":"test","width":800,"height":600}\n',
   );
   await rejected;
   expect(h.child.stdin.writableEnded).toBe(true);

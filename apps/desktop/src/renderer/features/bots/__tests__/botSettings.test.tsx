@@ -283,14 +283,14 @@ afterEach(() => {
 });
 
 describe('Bot entry after deletion', () => {
-  it('opens an ordinary teammate when Cindy is absent without flashing creation', () => {
+  it('opens an ordinary teammate when Emma is absent without flashing creation', () => {
     mocks.profiles = [bot()];
     render(<BotsHomeView />);
     expect(mocks.navigate).toHaveBeenCalledWith('/bots/bot-1', { replace: true });
     expect(screen.queryByRole('textbox')).toBeNull();
   });
 
-  it('prefers the last viewed ID over Cindy, independent of renamed profiles', () => {
+  it('prefers the last viewed ID over Emma, independent of renamed profiles', () => {
     mocks.profiles = [bot({ id: 'cindy', name: 'Renamed', templateId: 'cindy' }), bot()];
     const history = { current: { lastMatchedKey: 'bots', paths: {}, lastBotId: 'bot-1' } as MainViewHistory };
     render(<MainViewHistoryContext.Provider value={history}><BotsHomeView /></MainViewHistoryContext.Provider>);

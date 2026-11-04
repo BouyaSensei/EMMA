@@ -104,7 +104,7 @@ describe('browser backend Settings IPC handlers', () => {
   it('keeps the code of a known login-copy failure for Settings', async () => {
     const { trustedEvent, deps, handlers } = buildHandlers();
     deps.setUseRealProfile.mockRejectedValueOnce(
-      new RealProfileError('FOREIGN_AGENT_BROWSER', 'Another Cindy is using the agent browser port.'),
+      new RealProfileError('FOREIGN_AGENT_BROWSER', 'Another Emma is using the agent browser port.'),
     );
     const err = await handlers.setUseRealProfile(trustedEvent, { enabled: true }).catch((e) => e);
     expect(extractIpcError(err)?.code).toBe('FOREIGN_AGENT_BROWSER');

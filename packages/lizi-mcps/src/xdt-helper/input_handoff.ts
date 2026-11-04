@@ -45,7 +45,7 @@ export interface InputHandoffCallbacks {
 const DESCRIPTION =
   'Hand the owner what you must never see on this computer\'s screen: a sign-in, or a password, API key, token or verification code. '
   + 'Anything else the owner can tell you (an email address, a name) is not for this: ask in your reply and enter it yourself. '
-  + 'The owner does a sign-in on the window itself; for other secret fields Cindy shows just those fields, types the answer in and confirms with the page\'s own main button. '
+  + 'The owner does a sign-in on the window itself; for other secret fields Emma shows just those fields, types the answer in and confirms with the page\'s own main button. '
   + 'It follows the flow across windows and browsers while fields keep appearing. '
   + 'A sign-in QR code on screen is handed to the owner to scan, and the task continues once they are signed in. '
   + 'Buttons, options and consent pages are yours to handle: a screen with neither a field to type nor a sign-in QR code ends at once with failure nothing_to_fill. '
@@ -101,7 +101,7 @@ export async function runInputHandoff(
   start: () => Promise<InputHandoffToolResult>,
 ): Promise<XdtHelperToolResult> {
   if (!context.sessionId || !context.sessionInstanceId)
-    return errorPayload('NO_SESSION_CONTEXT', 'No current Cindy task for this handoff.');
+    return errorPayload('NO_SESSION_CONTEXT', 'No current Emma task for this handoff.');
   if (context.remoteHostId)
     return errorPayload('CAPABILITY_NOT_AVAILABLE', 'Input handoff only works for windows on this computer.');
   if (context.mcpCallerKind === 'descendant')
@@ -110,7 +110,7 @@ export async function runInputHandoff(
   try {
     result = await start();
   } catch {
-    return errorPayload('HANDOFF_UNAVAILABLE', 'Cindy could not start the input handoff. Tell the owner what is needed instead.');
+    return errorPayload('HANDOFF_UNAVAILABLE', 'Emma could not start the input handoff. Tell the owner what is needed instead.');
   }
   if (!result.ok) return errorPayload(result.errorCode, result.message);
   return okPayload({
@@ -134,7 +134,7 @@ export function registerInputHandoffTool(
       purpose: HANDOFF_PURPOSE.describe('One short sentence for the owner, e.g. "Sign in to Example to continue setup".'),
       note: HANDOFF_NOTE.optional().describe('Optional extra context for the owner, e.g. "I do not know which sign-in option your organization uses". Shown labelled as from you.'),
       target: HANDOFF_TARGET.describe('The window that shows the step. Omit everything to use the frontmost app.'),
-      complete_when: HANDOFF_COMPLETE_WHEN.optional().describe('Optional signs that the step is done. Cindy also detects completion itself.'),
+      complete_when: HANDOFF_COMPLETE_WHEN.optional().describe('Optional signs that the step is done. Emma also detects completion itself.'),
       timeout_minutes: HANDOFF_TIMEOUT.optional(),
     },
     handler: async ({ purpose, note, target, complete_when, timeout_minutes }) => {

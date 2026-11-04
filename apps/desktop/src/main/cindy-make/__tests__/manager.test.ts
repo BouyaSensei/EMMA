@@ -14,7 +14,7 @@ const report = (
   checks: [],
 });
 
-describe('CindyMakeManager', () => {
+describe('EmmaMakeManager', () => {
   it('hides a merge task identity after its account boundary changes', () => {
     const manager = new CindyMakeManager();
     let current = true;

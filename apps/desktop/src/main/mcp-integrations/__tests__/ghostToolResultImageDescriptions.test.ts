@@ -317,7 +317,7 @@ describe('buildToolResultImageDescriptions', () => {
   });
 });
 
-describe('collectCindyMediaUrls', () => {
+describe('collectEmmaMediaUrls', () => {
   it('收集嵌套数组/对象的 cindy-media 字符串', () => {
     const sink = new Set<string>();
     collectCindyMediaUrls({ a: [IMG_A, { b: VIDEO }], c: 'https://x.com/1.png' }, sink, 8);

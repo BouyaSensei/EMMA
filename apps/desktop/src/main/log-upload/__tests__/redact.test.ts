@@ -146,7 +146,7 @@ describe('redact', () => {
   });
 
   it('Windows 家目录同样被抹掉', () => {
-    const out = redact('open C:\\Users\\someone\\AppData\\Roaming\\Cindy failed');
+    const out = redact('open C:\\Users\\someone\\AppData\\Roaming\\Emma failed');
     expect(out).not.toContain('someone');
     expect(out).toContain('AppData');
   });

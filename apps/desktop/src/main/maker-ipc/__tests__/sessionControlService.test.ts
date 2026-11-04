@@ -202,10 +202,10 @@ describe('session control domain service', () => {
       sessionQueueOriginForDispatcher({
         dispatcherSessionId: 'bot-task',
         dispatcherSessionTitle: 'Weekly feedback',
-        dispatcherBot: { id: 'bot-1', name: 'Cindy' },
+        dispatcherBot: { id: 'bot-1', name: 'Emma' },
         message: 'follow-up',
       }),
-    ).toMatchObject({ senderBotId: 'bot-1', senderBotName: 'Cindy' });
+    ).toMatchObject({ senderBotId: 'bot-1', senderBotName: 'Emma' });
   });
 
   it('shares queue lifecycle while enforcing sender ownership and preserving identity', async () => {

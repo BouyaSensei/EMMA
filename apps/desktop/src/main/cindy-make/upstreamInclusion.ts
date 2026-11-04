@@ -5,7 +5,7 @@ import type {
 } from '../../shared/cindyMakeDoctor';
 import { untilAborted } from './doctor';
 
-const REPOSITORY = 'makecindy/cindy';
+const REPOSITORY = 'BouyaSensei/EMMA';
 const MAX_ITEMS = 5;
 const MAX_CANDIDATES = 20;
 

@@ -76,7 +76,7 @@ describe('Worker running on another device (execution device)', () => {
       },
       agent: input.agent,
       model: input.model ?? 'device-default-model',
-      workingDir: input.workingDir ?? '/Users/demo/Cindy/dialogues/remote-1',
+      workingDir: input.workingDir ?? '/Users/demo/Emma/dialogues/remote-1',
     })),
     recordRemoteWorker: vi.fn(async () => undefined),
     discardRemoteWorker: vi.fn(async () => undefined),
@@ -492,9 +492,9 @@ describe('buildNoProviderMessage (pi first-class)', () => {
     const msg = buildNoProviderMessage('codex', {
       'claude-code': [],
       codex: [],
-      pi: [snap('Cindy AI')],
+      pi: [snap('Emma AI')],
     });
-    expect(msg).toContain('Pi(已连接:Cindy AI)');
+    expect(msg).toContain('Pi(已连接:Emma AI)');
   });
 });
 
@@ -1007,7 +1007,7 @@ describe('OrcaWorkerCreationService', () => {
       ),
     ): OrcaWorkerProviderSnapshot => ({
       id: 'xd',
-      name: 'Cindy AI',
+      name: 'Emma AI',
       models,
       registryIdentityByModel,
     });
@@ -1213,7 +1213,7 @@ describe('OrcaWorkerCreationService', () => {
       }))).resolves.toMatchObject({
         ok: false,
         errorCode: 'PROVIDER_ROUTE_UNAVAILABLE',
-        message: expect.stringContaining('Cindy AI'),
+        message: expect.stringContaining('Emma AI'),
       });
 
       expectNoCreationState(deps);
@@ -2097,7 +2097,7 @@ describe('OrcaWorkerCreationService', () => {
       })),
       getProviderRoutingContext: vi.fn(async () => providerRoutingContext({
         'claude-code': [
-          { id: 'xd', name: 'Cindy AI', models: ['claude-sonnet-4-6'] },
+          { id: 'xd', name: 'Emma AI', models: ['claude-sonnet-4-6'] },
           {
             id: 'anthropic',
             name: 'Anthropic',
@@ -2152,7 +2152,7 @@ describe('OrcaWorkerCreationService', () => {
       getProviderRoutingContext: vi.fn(async () => providerRoutingContext({
         'claude-code': [],
         codex: [
-          { id: 'xd', name: 'Cindy AI', models: ['gpt-5.4'] },
+          { id: 'xd', name: 'Emma AI', models: ['gpt-5.4'] },
           { id: 'custom-codex', name: 'Custom Codex', models: ['gpt-5.4'] },
         ],
       })),
@@ -2193,7 +2193,7 @@ describe('OrcaWorkerCreationService', () => {
       ]),
       getProviderRoutingContext: vi.fn(async () => providerRoutingContext({
         'claude-code': [
-          { id: 'xd', name: 'Cindy AI', models: ['claude-opus-5'] },
+          { id: 'xd', name: 'Emma AI', models: ['claude-opus-5'] },
           { id: 'anthropic', name: 'Anthropic', models: ['claude-opus-5'] },
         ],
       })),
@@ -2222,7 +2222,7 @@ describe('OrcaWorkerCreationService', () => {
     })).toBe('oauth-bearer');
   });
 
-  it('rejects a missing Anthropic Lead route before falling back to Cindy AI', async () => {
+  it('rejects a missing Anthropic Lead route before falling back to Emma AI', async () => {
     const { deps, service } = createDeps({
       getLeadSessionRow: vi.fn(async () => ({
         id: 'lead-1',
@@ -2240,7 +2240,7 @@ describe('OrcaWorkerCreationService', () => {
         { id: 'claude-opus-5', efforts: ['low', 'medium', 'high', 'xhigh', 'max'], defaultEffort: 'high' },
       ]),
       getProviderRoutingContext: vi.fn(async () => providerRoutingContext({
-        'claude-code': [{ id: 'xd', name: 'Cindy AI', models: ['claude-opus-5'] }],
+        'claude-code': [{ id: 'xd', name: 'Emma AI', models: ['claude-opus-5'] }],
       })),
     });
 
@@ -2464,7 +2464,7 @@ describe('OrcaWorkerCreationService', () => {
     }));
   });
 
-  it('does not require a Cindy API key for an explicit budget model on a custom route', async () => {
+  it('does not require a Emma API key for an explicit budget model on a custom route', async () => {
     const { deps, service } = createDeps({
       getProviderRoutingContext: vi.fn(async () => providerRoutingContext({
         'claude-code': [],

@@ -83,7 +83,7 @@ describe('OpenSSH config discovery', () => {
     await expect(readSshConfig(mainConfig)).resolves.toEqual([]);
   });
 
-  it('warns when the main config is missing but an unmanaged Cindy file exists', async () => {
+  it('warns when the main config is missing but an unmanaged Emma file exists', async () => {
     await fs.writeFile(managedConfig, 'Host unreachable\n');
     const result = await readSshConfigDetailed(mainConfig, { managedConfigPath: managedConfig });
     expect(result.hosts).toEqual([]);

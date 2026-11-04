@@ -401,7 +401,7 @@ describe('native provider connection claim on read', () => {
     expect(secondProviders.find((provider) => provider.id === 'anthropic')?.connected).toBe(true);
   });
 
-  it('不把 Cindy 存在的 xAI token 当本机 CLI 凭证自动认领', async () => {
+  it('不把 Emma 存在的 xAI token 当本机 CLI 凭证自动认领', async () => {
     expect((await connectedMap()).xai).toBe(false);
     expect(isNativeProviderAuthBound('xai')).toBe(false);
     expect(h.refreshXaiModels).not.toHaveBeenCalled();

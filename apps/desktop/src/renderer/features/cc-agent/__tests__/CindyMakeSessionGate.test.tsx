@@ -150,7 +150,7 @@ function mount(child: React.ReactNode = <div>Composer</div>) {
   </MemoryRouter>);
 }
 
-describe('old Cindy Make links', () => {
+describe('old Emma Make links', () => {
   it.each(['cindy-make', 'cindy-make-merge'])('redirects a mirrored %s task before mounting its composer', (source) => {
     state.remote = [{ id: 'old-task', source }];
     const Composer = vi.fn(() => <div>Composer</div>);

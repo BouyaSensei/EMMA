@@ -278,10 +278,10 @@ afterEach(async () => {
   await Promise.all(tempDirs.splice(0).map((d) => fs.rm(d, { recursive: true, force: true })));
 });
 
-describe('Auto-review wiring: native first, Cindy fallback', () => {
+describe('Auto-review wiring: native first, Emma fallback', () => {
   // 2026-10-24: Claude subscription users keep Claude's own Auto review even though Cindy
   // always attaches host MCPs; Cindy's hook hands back only the calls Cindy must decide.
-  it('keeps native Claude Auto with host MCPs and routes only Cindy-owned calls back to Cindy', async () => {
+  it('keeps native Claude Auto with host MCPs and routes only Emma-owned calls back to Emma', async () => {
     const policies: Record<string, 'auto-approve' | 'prompt' | 'prompt-each-time'> = {
       cindy_orca: 'auto-approve', custom_prompt_mcp: 'prompt', always_confirm_mcp: 'prompt-each-time',
     };
@@ -319,7 +319,7 @@ describe('Auto-review wiring: native first, Cindy fallback', () => {
     await handle.close();
   });
 
-  it('routes channel-turn tool calls to Cindy because native Auto cannot see requester authority', async () => {
+  it('routes channel-turn tool calls to Emma because native Auto cannot see requester authority', async () => {
     const { handle, preToolUse } = await startSession('auto', {
       providerId: 'anthropic',
       authSource: 'oauth',
@@ -352,7 +352,7 @@ describe('Auto-review wiring: native first, Cindy fallback', () => {
     await handle.close();
   });
 
-  it('uses SDK default for a third-party route so Cindy can review callbacks', async () => {
+  it('uses SDK default for a third-party route so Emma can review callbacks', async () => {
     const { handle, queryPermissionMode } = await startSession('auto', { providerId: 'xd' });
     expect(queryPermissionMode).toBe('default');
     await handle.close();
@@ -454,7 +454,7 @@ describe('Auto-review wiring: safe builtin tools auto-approve silently', () => {
       'Write',
       { file_path: path.join(referenceDir, 'spec.md') },
       { toolUseID: 'readonly-reference' },
-    )).resolves.toMatchObject({ behavior: 'deny', message: 'Cindy Auto-review denied this tool call: read-only reference' });
+    )).resolves.toMatchObject({ behavior: 'deny', message: 'Emma Auto-review denied this tool call: read-only reference' });
     expect(reviewedRequest(reviewer)).toMatchObject({
       workspaceRoots: expect.arrayContaining([referenceDir, writableDir]),
       writableRoots: expect.arrayContaining([writableDir]),
@@ -473,7 +473,7 @@ describe('Auto-review wiring: safe builtin tools auto-approve silently', () => {
       'Write',
       { file_path: path.join(writableDir, 'stale-result.txt') },
       { toolUseID: 'revoked-writable' },
-    )).resolves.toMatchObject({ behavior: 'deny', message: 'Cindy Auto-review denied this tool call: read-only reference' });
+    )).resolves.toMatchObject({ behavior: 'deny', message: 'Emma Auto-review denied this tool call: read-only reference' });
     expect(reviewer).toHaveBeenCalledTimes(2);
     await handle.close();
   });
@@ -831,7 +831,7 @@ describe('Auto-review wiring: lightweight reviewer controls gray actions', () =>
     await handle.setWritableDirs!([]);
     resolveReview!({ verdict: 'allow', reason: 'reviewed before revoke' });
 
-    await expect(pending).resolves.toMatchObject({ behavior: 'deny', message: 'Cindy Auto-review denied this tool call: Directory permissions changed; retry with the current scope.' });
+    await expect(pending).resolves.toMatchObject({ behavior: 'deny', message: 'Emma Auto-review denied this tool call: Directory permissions changed; retry with the current scope.' });
     expect(permissionRequests(seen)).toHaveLength(0);
     await handle.close();
   });
@@ -908,7 +908,7 @@ describe('Auto-review wiring: lightweight reviewer controls gray actions', () =>
       reviewVerdict: 'block',
     });
     const result = await canUseTool('Bash', { command: 'npm install left-pad' }, { toolUseID: 't5' });
-    expect(result).toMatchObject({ behavior: 'deny', message: 'Cindy Auto-review denied this tool call: reviewed' });
+    expect(result).toMatchObject({ behavior: 'deny', message: 'Emma Auto-review denied this tool call: reviewed' });
     expect(permissionRequests(seen)).toHaveLength(0);
     await handle.close();
   });
@@ -1061,7 +1061,7 @@ describe('Auto-review wiring: reviewer outages surface once per session', () => 
     const { notices } = startNoticeCollector(handle);
 
     const result = await canUseTool('Bash', { command: 'npm install left-pad' }, { toolUseID: 'n3' });
-    expect(result).toMatchObject({ behavior: 'deny', message: 'Cindy Auto-review denied this tool call: reviewed' });
+    expect(result).toMatchObject({ behavior: 'deny', message: 'Emma Auto-review denied this tool call: reviewed' });
     await settle();
 
     // 模型判定的 block 按 Auto 本意保持静默 —— 只把 reason 喂给模型,不打扰用户。

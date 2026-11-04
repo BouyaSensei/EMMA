@@ -65,12 +65,12 @@ export function registerProjectManagementTools(
     if (!context.sessionId)
       return errorPayload(
         "NO_SESSION_CONTEXT",
-        "No Cindy task is bound to this call.",
+        "No Emma task is bound to this call.",
       );
     if (context.remoteHostId)
       return errorPayload(
         "UNSUPPORTED_CAPABILITY",
-        "Project management only supports local Cindy tasks.",
+        "Project management only supports local Emma tasks.",
       );
     const result = await run(context.sessionId);
     return result.ok
@@ -81,7 +81,7 @@ export function registerProjectManagementTools(
     name: "list_projects",
     category: "control",
     description:
-      "List registered projects on the local Cindy host, including empty projects. Use the returned project_path to select an existing visible project when creating a task with send_to_session. working_dir is the same project directory for rename/remove operations. Returns directory_name, display alias, hidden state and whether the directory exists. Identify projects by path, not display name. Hidden projects are included by default; restore explicitly with create_project before selecting one. Also returns projects_root: where new project folders go on this computer (source=setting is the user's choice; inferred/default are suggestions, so confirm the location with the user before creating a folder there; exists=false means it has not been created yet). Use next_offset for pagination. Unlike list_workdirs, this is the project catalog, not task execution directory history. Unavailable from SSH tasks.",
+      "List registered projects on the local Emma host, including empty projects. Use the returned project_path to select an existing visible project when creating a task with send_to_session. working_dir is the same project directory for rename/remove operations. Returns directory_name, display alias, hidden state and whether the directory exists. Identify projects by path, not display name. Hidden projects are included by default; restore explicitly with create_project before selecting one. Also returns projects_root: where new project folders go on this computer (source=setting is the user's choice; inferred/default are suggestions, so confirm the location with the user before creating a folder there; exists=false means it has not been created yet). Use next_offset for pagination. Unlike list_workdirs, this is the project catalog, not task execution directory history. Unavailable from SSH tasks.",
     inputShape: {
       include_hidden: z.boolean().default(true),
       offset: z.number().int().min(0).default(0),
@@ -116,7 +116,7 @@ export function registerProjectManagementTools(
     name: "rename_project",
     category: "control",
     description:
-      'Change a registered local Cindy project’s display name. Only changes its Cindy alias, never the filesystem directory or task working directories. Pass name="" to restore its default directory-derived name. Find the exact working_dir with list_projects first. Does not change visibility.',
+      'Change a registered local Emma project’s display name. Only changes its Emma alias, never the filesystem directory or task working directories. Pass name="" to restore its default directory-derived name. Find the exact working_dir with list_projects first. Does not change visibility.',
     inputShape: {
       working_dir: workingDir,
       name: z
@@ -145,7 +145,7 @@ export function registerProjectManagementTools(
     name: "remove_project",
     category: "control",
     description:
-      "Remove a registered local project from Cindy’s sidebar. Existing tasks remain available as projectless chats; files, tasks and aliases are preserved. Does not archive or stop tasks. Find the exact working_dir with list_projects first. Repeating removal is safe. To restore the project, call create_project with the same working_dir.",
+      "Remove a registered local project from Emma’s sidebar. Existing tasks remain available as projectless chats; files, tasks and aliases are preserved. Does not archive or stop tasks. Find the exact working_dir with list_projects first. Repeating removal is safe. To restore the project, call create_project with the same working_dir.",
     inputShape: {
       working_dir: workingDir,
     },

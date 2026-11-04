@@ -46,7 +46,7 @@ describe('agent skill list IPC boundary', () => {
     (deviceLink) => {
       const deps = createDeps(deviceLink);
       const sensitive = new Error(
-        'SQLITE_IOERR opening /Users/chris/Library/Application Support/Cindy/private.db',
+        'SQLITE_IOERR opening /Users/chris/Library/Application Support/Emma/private.db',
       );
 
       const result = toAgentSkillListFailure(sensitive, deps);

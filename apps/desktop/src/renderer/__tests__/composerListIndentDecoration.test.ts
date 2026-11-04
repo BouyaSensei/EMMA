@@ -1122,12 +1122,12 @@ describe('wiring contract', () => {
     expect(css).toContain('.ProseMirror .composer-list-long-run-body');
     expect(css).toContain('.ProseMirror .composer-list-tab-indent');
     expect(css).toContain('.ProseMirror .composer-list-cjk-punctuation-font');
-    expect(css).toContain("font-family: 'Cindy CJK Punctuation Local'");
-    expect(css).toContain("font-family: 'Cindy CJK Punctuation Bundled'");
+    expect(css).toContain("font-family: 'Emma CJK Punctuation Local'");
+    expect(css).toContain("font-family: 'Emma CJK Punctuation Bundled'");
     expect(css).toContain('U+3000-303F, U+FF00-FFEF;');
     expect(css.match(/U\+0021-0022, U\+0027-0029/g)).toHaveLength(2);
     const punctuationFontCss = css.slice(
-      css.indexOf("font-family: 'Cindy CJK Punctuation Local'"),
+      css.indexOf("font-family: 'Emma CJK Punctuation Local'"),
       css.indexOf('.ProseMirror .composer-list-cjk-punctuation-font'),
     );
     expect(punctuationFontCss.match(/font-style: normal;/g)).toHaveLength(5);

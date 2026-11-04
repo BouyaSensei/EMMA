@@ -24,29 +24,29 @@ function msg(overrides: Partial<TgMessage> = {}): TgMessage {
 
 describe('detectGroupTrigger', () => {
   it.each([
-    'Cindy 赞助',
-    'Cindy 现在也有',
+    'Emma 赞助',
+    'Emma 现在也有',
     'cindy 帮我看看',
-    'Cindy',
-    ' Cindy？',
-    '我问过 Cindy 了',
+    'Emma',
+    ' Emma？',
+    '我问过 Emma 了',
   ])('仅提到显示名不触发：%s', (text) => {
-    expect(detectGroupTrigger(msg({ text }), BOT_ID, BOT_USERNAME, 'Cindy')).toBeNull();
+    expect(detectGroupTrigger(msg({ text }), BOT_ID, BOT_USERNAME, 'Emma')).toBeNull();
     expect(
-      detectGroupTrigger(msg({ text: undefined, caption: text }), BOT_ID, BOT_USERNAME, 'Cindy'),
+      detectGroupTrigger(msg({ text: undefined, caption: text }), BOT_ID, BOT_USERNAME, 'Emma'),
     ).toBeNull();
   });
 
-  it.each(['@CindyOther', '@Cindy_bot', '@Cindy2'])(
+  it.each(['@EmmaOther', '@Emma_bot', '@Emma2'])(
     '提及以显示名开头的其它账号不触发：%s',
     (text) => {
-      expect(detectGroupTrigger(msg({ text }), BOT_ID, BOT_USERNAME, 'Cindy')).toBeNull();
+      expect(detectGroupTrigger(msg({ text }), BOT_ID, BOT_USERNAME, 'Emma')).toBeNull();
     },
   );
 
   it('保留显式 @显示名的兼容入口', () => {
     expect(
-      detectGroupTrigger(msg({ text: '@Cindy 帮我看看' }), BOT_ID, BOT_USERNAME, 'Cindy'),
+      detectGroupTrigger(msg({ text: '@Emma 帮我看看' }), BOT_ID, BOT_USERNAME, 'Emma'),
     ).toEqual({ text: '帮我看看' });
   });
 
@@ -70,7 +70,7 @@ describe('detectGroupTrigger', () => {
     const m = msg({
       text: '继续',
       reply_to_message: msg({
-        from: { id: BOT_ID, is_bot: true, first_name: 'Cindy' },
+        from: { id: BOT_ID, is_bot: true, first_name: 'Emma' },
       }),
     });
     expect(detectGroupTrigger(m, BOT_ID, BOT_USERNAME)).toEqual({ text: '继续' });
@@ -133,13 +133,13 @@ describe('detectGroupTrigger', () => {
 
   it('text_mention 按 user id 认本 bot, 不看字面文本', () => {
     const m = msg({
-      text: 'Cindy 帮我看看',
+      text: 'Emma 帮我看看',
       entities: [
         {
           type: 'text_mention',
           offset: 0,
           length: 5,
-          user: { id: BOT_ID, is_bot: true, first_name: 'Cindy' },
+          user: { id: BOT_ID, is_bot: true, first_name: 'Emma' },
         },
       ],
     });
@@ -161,13 +161,13 @@ describe('detectGroupTrigger', () => {
 
   it('纯 text_mention 保留召唤结果，正文为空', () => {
     const m = msg({
-      text: 'Cindy',
+      text: 'Emma',
       entities: [
         {
           type: 'text_mention',
           offset: 0,
           length: 5,
-          user: { id: BOT_ID, is_bot: true, first_name: 'Cindy' },
+          user: { id: BOT_ID, is_bot: true, first_name: 'Emma' },
         },
       ],
     });
@@ -429,13 +429,13 @@ describe('replyContextOf', () => {
   it('回复 bot 的消息标 isBot', () => {
     const m = msg({
       reply_to_message: msg({
-        from: { id: BOT_ID, is_bot: true, first_name: 'Cindy' },
+        from: { id: BOT_ID, is_bot: true, first_name: 'Emma' },
         text: '已完成',
       }),
     });
     expect(replyContextOf(m)).toEqual({
       messageId: '1',
-      author: 'Cindy',
+      author: 'Emma',
       text: '已完成',
       isBot: true,
     });

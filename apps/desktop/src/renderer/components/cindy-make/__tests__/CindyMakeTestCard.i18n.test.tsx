@@ -35,7 +35,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe.each(cases)('Cindy Make completion actions in $locale', ({ locale, resource }) => {
+describe.each(cases)('Emma Make completion actions in $locale', ({ locale, resource }) => {
   it.each([
     { currentId: 'original', personalUpdateAvailable: false, hint: 'readyHint', disabled: false },
     { currentId: 'personal', personalUpdateAvailable: true, hint: 'updateHint', disabled: false },

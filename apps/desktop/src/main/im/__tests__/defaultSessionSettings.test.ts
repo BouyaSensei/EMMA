@@ -308,9 +308,9 @@ describe('resolveImSessionDefaults', () => {
   });
 
   it.each([
-    ['号池 → Cindy AI（显式来源）', 'org-pool', 'xd', ['auto', 'auto/group-1'], ['pool-model']],
+    ['号池 → Emma AI（显式来源）', 'org-pool', 'xd', ['auto', 'auto/group-1'], ['pool-model']],
     [
-      'Cindy AI → 号池（Pi 默认来源 null 即 Cindy AI）',
+      'Emma AI → 号池（Pi 默认来源 null 即 Emma AI）',
       null,
       'org-pool',
       ['auto'],

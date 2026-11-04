@@ -601,7 +601,7 @@ it('projects PC permission facts in the phone locale, excludes tools and keeps O
 
 it('projects the same installed Details as PC, with factual unsigned trust and no invented panel status', async () => {
   const h = setup();
-  h.ghost.manifest.author = 'Cindy';
+  h.ghost.manifest.author = 'Emma';
   h.ghost.manifest.version = '1.3.13';
   h.ghost.manifest.settingsHtml = 'settings.html';
   h.ghost.dir = '/plugin-install/practice';
@@ -629,5 +629,5 @@ it('projects the same installed Details as PC, with factual unsigned trust and n
   expect(toGhostPluginDetail(h.ghost).author).toBeNull();
   expect((await read()).some(fact => fact.key === 'author')).toBe(false);
   h.ghost.publishingSource = { kind: 'local', source: 'manual' };
-  expect((await read()).find(fact => fact.key === 'author')?.value).toBe('Cindy');
+  expect((await read()).find(fact => fact.key === 'author')?.value).toBe('Emma');
 });

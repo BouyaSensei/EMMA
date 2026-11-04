@@ -113,7 +113,7 @@ describe('OpenRouter speech integration', () => {
       expect(bound.baseUrl).toBe(connection.baseUrl);
       expect(bound.protocol).toBe('openai');
       expect(bound.headers).toEqual({ ...connection.headers,
-        'http-referer': 'https://cindy.app', 'x-openrouter-title': 'Emma',
+        'http-referer': 'https://emma.app', 'x-openrouter-title': 'Emma',
       });
       if (auth === 'oauth') {
         expect(deps.readOAuthToken).toHaveBeenCalledWith('router', oauth);

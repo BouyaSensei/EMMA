@@ -63,7 +63,7 @@ function expectRoute(route: string) {
   expect(state.navigate).toHaveBeenCalledExactlyOnceWith(route, { replace: true });
 }
 
-describe('startup after hiding Cindy Make', () => {
+describe('startup after hiding Emma Make', () => {
   it('skips the last Make task and hidden cached rows when restoring a task', async () => {
     state.sessions = [
       { id: 'make', source: 'cindy-make' },
@@ -77,7 +77,7 @@ describe('startup after hiding Cindy Make', () => {
     expect(state.navigate).toHaveBeenCalledTimes(1);
   });
 
-  it('opens a draft when all cached tasks belong to Cindy Make', async () => {
+  it('opens a draft when all cached tasks belong to Emma Make', async () => {
     state.sessions = [{ id: 'make', source: 'cindy-make' }] as Session[];
     render(<CCAgentIndexRedirect />);
     await waitFor(() =>

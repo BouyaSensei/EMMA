@@ -2421,7 +2421,7 @@ function getRefreshErrorCode(result: { data: unknown }): string | undefined {
 function mapMembershipToAuthUser(membership: AuthMembership, passportId?: string): CurrentUser {
   return {
     id: membership.id,
-    name: membership.displayName || membership.email || 'Cindy',
+    name: membership.displayName || membership.email || 'Emma',
     membershipDisplayName: membership.displayName,
     // auth-server 自助头像(PATCH /api/me/profile);null = 未设置(UI 首字母兜底)。
     // 产品资料头像回落已随 /api/user/me 退役(2026-07)。
@@ -4073,7 +4073,7 @@ function accountSummaryFromMetadata(
 ): DesktopSavedAccount {
   return {
     accountKey,
-    displayName: metadata.displayName || metadata.email || 'Cindy',
+    displayName: metadata.displayName || metadata.email || 'Emma',
     email: metadata.email,
     avatarUrl: metadata.avatarUrl,
     kind: metadata.kind,

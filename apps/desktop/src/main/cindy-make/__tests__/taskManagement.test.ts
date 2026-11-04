@@ -133,7 +133,7 @@ beforeEach(() => {
     recycle: h.recycle,
   });
 });
-describe('Cindy Make task management', () => {
+describe('Emma Make task management', () => {
   it('checks borrowers using the stored Windows path spelling', async () => {
     const nativePath = path.win32.join('C:/profile', 'cindy-make', 'merge-worktrees', 'run');
     Object.assign(h.row!, {

@@ -110,13 +110,13 @@ export function registerSessionImportTools(registry: XdtHelperToolRegistry, deps
     category: 'control',
     description:
       `列出这台电脑上其他 AI 编程工具（Claude Code、Codex、Pi、OpenCode、Gemini CLI、Cursor、Qwen Code、Kimi Code、Factory、WorkBuddy、DeepSeek Harness）里可以导入 ${BRAND_NAME} 继续做的任务。` +
-      '只读扫描，不写任何数据。默认不列 Cindy 自己运行过的、临时文件夹里的、Agent 内部会话和已导入的，数量见 hidden_counts；include_hidden 可把前两类也列出来。' +
+      '只读扫描，不写任何数据。默认不列 Emma 自己运行过的、临时文件夹里的、Agent 内部会话和已导入的，数量见 hidden_counts；include_hidden 可把前两类也列出来。' +
       '结果按更新时间倒序，用 key 调 import_sessions。' + SCOPE,
     inputShape: {
       source: z.string().optional().describe('只看某个来源（claude / codex / pi / opencode / gemini / cursor / qwen / kimi / factory / workbuddy / deepseek）'),
       project_dir: z.string().optional().describe('只看这个项目文件夹（worktree 归到主仓库）'),
       query: z.string().optional().describe('按标题或文件夹关键词过滤'),
-      include_hidden: z.boolean().optional().describe('同时列出 Cindy 自己运行过的与临时文件夹里的任务'),
+      include_hidden: z.boolean().optional().describe('同时列出 Emma 自己运行过的与临时文件夹里的任务'),
       force: z.boolean().optional().describe('忽略 30 秒内的扫描缓存重新扫描'),
       limit: z.number().int().min(1).max(MAX_LIST).optional().describe(`最多返回条数，默认 50，最多 ${MAX_LIST}`),
     },

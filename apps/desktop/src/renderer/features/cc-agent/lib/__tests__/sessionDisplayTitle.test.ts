@@ -39,7 +39,7 @@ describe('getSessionDisplayTitle', () => {
       ['cindyMake.history.mergeTaskTitle', '处理合入冲突'],
       ['cindyMake.history.revertTaskTitle', '处理撤销合入冲突'],
     ]) {
-      for (const title of [key, `[f428] ${key}`, `[Cindy-Make] ${key}`]) {
+      for (const title of [key, `[f428] ${key}`, `[Emma-Make] ${key}`]) {
         const s = session({
           source: 'cindy-make-merge',
           title,
@@ -113,13 +113,13 @@ describe('getSessionDisplayTitle', () => {
       id: 'other-session',
       source: 'cindy-make',
       workingDir,
-      title: '[Cindy-Make] 修改背景色',
+      title: '[Emma-Make] 修改背景色',
     });
     expect(getSessionDisplayTitle(s, UNNAMED)).toBe('[f428] 修改背景色');
-    expect(s.title).toBe('[Cindy-Make] 修改背景色');
+    expect(s.title).toBe('[Emma-Make] 修改背景色');
   });
 
-  it.each(['[Cindy Make] 修改背景色', '[f428] 修改背景色', '修改背景色'])(
+  it.each(['[Emma Make] 修改背景色', '[f428] 修改背景色', '修改背景色'])(
     'keeps one short tag when displaying %s',
     (title) => {
       const s = session({
@@ -135,17 +135,17 @@ describe('getSessionDisplayTitle', () => {
     const s = session({
       id: 'abcd-session',
       source: 'cindy-make',
-      title: '[Cindy-Make] 修改背景色',
+      title: '[Emma-Make] 修改背景色',
     });
     expect(getSessionDisplayTitle(s, UNNAMED)).toBe('修改背景色');
   });
 
   it('leaves similar prefixes in ordinary task titles untouched', () => {
     const s = session({
-      title: '[Cindy-Make] notes',
+      title: '[Emma-Make] notes',
       workingDir: '/managed/worktrees/' + MAKE_RUN,
     });
-    expect(getSessionDisplayTitle(s, UNNAMED)).toBe('[Cindy-Make] notes');
+    expect(getSessionDisplayTitle(s, UNNAMED)).toBe('[Emma-Make] notes');
   });
 
   it('哨兵标题换成本地化兜底文案', () => {
@@ -195,12 +195,12 @@ describe('isEmptyDraftSession', () => {
 });
 
 describe('toStoredSessionTitle — 显示投影必须还原成存储值', () => {
-  it.each(['新名字', '[f428] 新名字', '[Cindy-Make] 新名字'])(
+  it.each(['新名字', '[f428] 新名字', '[Emma-Make] 新名字'])(
     'preserves one worktree tag after renaming to %s',
     (editedTitle) => {
       const s = session({
         source: 'cindy-make',
-        title: '[Cindy-Make] old',
+        title: '[Emma-Make] old',
         workingDir: '/managed/worktrees/' + MAKE_RUN,
       });
       const stored = toStoredSessionTitle(s, editedTitle);
@@ -242,7 +242,7 @@ describe('canHighlightSessionDisplayTitle', () => {
   it('avoids stale search offsets for legacy Make titles and retains them for new titles', () => {
     const s = session({
       source: 'cindy-make',
-      title: '[Cindy-Make] old',
+      title: '[Emma-Make] old',
       workingDir: '/managed/worktrees/' + MAKE_RUN,
     });
     expect(canHighlightSessionDisplayTitle(s)).toBe(false);

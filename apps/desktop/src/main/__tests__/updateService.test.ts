@@ -22,7 +22,7 @@ const powerMonitorRemoveListener = vi.fn();
 const appGetVersion = vi.fn(() => '0.0.64');
 const appRelaunch = vi.fn();
 const appQuit = vi.fn();
-const appGetAppPath = vi.fn(() => path.join(TEST_ROOT, 'Cindy.app', 'Contents', 'Resources', 'app.asar'));
+const appGetAppPath = vi.fn(() => path.join(TEST_ROOT, 'Emma.app', 'Contents', 'Resources', 'app.asar'));
 const appIsInApplicationsFolder = vi.fn(() => true);
 const appGetPath = vi.fn((name: string) => {
   if (name === 'userData') return TEST_USER_DATA;
@@ -876,7 +876,7 @@ describe('binary version checks after an applied update', () => {
     }
   });
 
-  it('launches the bundled Windows updater with the existing CLI before quitting Cindy', async () => {
+  it('launches the bundled Windows updater with the existing CLI before quitting Emma', async () => {
     const service = await freshUpdateService('win32');
     const resourcesPath = path.join(TEST_ROOT, 'resources');
     fs.mkdirSync(resourcesPath, { recursive: true });
@@ -1043,7 +1043,7 @@ describe('checkForUpdate Linux installer flow', () => {
       fs.writeFileSync(targetPath, 'deb');
       return { path: targetPath, size: 123 };
     });
-    const leakedPath = '/home/devuser/custom-builds/Cindy';
+    const leakedPath = '/home/devuser/custom-builds/Emma';
     checkDebianManagedInstallation.mockReturnValue({
       status: 'error',
       error: Object.assign(new Error(`Command failed: /usr/bin/dpkg-query -S ${leakedPath}`), {
@@ -1082,7 +1082,7 @@ describe('checkForUpdate Linux installer flow', () => {
       fs.writeFileSync(targetPath, 'deb');
       return { path: targetPath, size: 123 };
     });
-    const leakedPath = '/home/devuser/custom-builds/Cindy';
+    const leakedPath = '/home/devuser/custom-builds/Emma';
     checkDebianManagedInstallation
       .mockReturnValueOnce({ status: 'managed' })
       .mockReturnValueOnce({
@@ -2515,7 +2515,7 @@ describe('Windows updater prerequisites', () => {
     }
   });
 
-  it('keeps Cindy and the staged patch intact when the VC++ Runtime is missing', async () => {
+  it('keeps Emma and the staged patch intact when the VC++ Runtime is missing', async () => {
     readAutoUpdateSettings.mockReturnValue({ autoRelaunchOnIdle: false });
     checkWindowsUpdaterPrerequisites.mockReturnValue({
       satisfied: false,

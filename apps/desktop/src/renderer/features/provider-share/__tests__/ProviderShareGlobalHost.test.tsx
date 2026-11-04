@@ -52,7 +52,7 @@ function ownerState(requests = [request]): ProviderShareOwnerState {
   return {
     ready: true,
     shares: [
-      { shareId: 'share-1', providerId: 'xd', providerLabel: 'Cindy AI', createdAt: '2026-10-01T00:00:00Z', members: [], requests },
+      { shareId: 'share-1', providerId: 'xd', providerLabel: 'Emma AI', createdAt: '2026-10-01T00:00:00Z', members: [], requests },
     ],
   };
 }
@@ -228,7 +228,7 @@ describe('ProviderShareGlobalHost', () => {
     // main 重连后重新推送同一条申请：本次运行已弹过，不再弹。
     act(() => {
       for (const listener of bus.requested) {
-        listener({ request, share: { shareId: 'share-1', providerId: 'xd', providerLabel: 'Cindy AI' } });
+        listener({ request, share: { shareId: 'share-1', providerId: 'xd', providerLabel: 'Emma AI' } });
       }
     });
     expect(screen.queryByTestId('provider-share-approve-dialog')).toBeNull();
@@ -242,7 +242,7 @@ describe('ProviderShareGlobalHost', () => {
       for (const listener of bus.requested) {
         listener({
           request: { ...request, requestId: 'req-9', displayName: 'Kai' },
-          share: { shareId: 'share-1', providerId: 'xd', providerLabel: 'Cindy AI' },
+          share: { shareId: 'share-1', providerId: 'xd', providerLabel: 'Emma AI' },
         });
       }
     });
@@ -261,7 +261,7 @@ describe('ProviderShareGlobalHost', () => {
           preview: {
             shareId: 'share-1',
             providerId: 'xd',
-            providerLabel: 'Cindy AI',
+            providerLabel: 'Emma AI',
             deviceName: "Magi's Mac Mini",
             owner: { displayName: 'Magi', avatarUrl: null, region: 'global' },
             state: 'used',
@@ -286,7 +286,7 @@ describe('ProviderShareGlobalHost', () => {
       for (const listener of bus.requested) {
         listener({
           request: { ...request, requestId: 'req-2' },
-          share: { shareId: 'share-1', providerId: 'xd', providerLabel: 'Cindy AI' },
+          share: { shareId: 'share-1', providerId: 'xd', providerLabel: 'Emma AI' },
           quiet: true,
         });
       }

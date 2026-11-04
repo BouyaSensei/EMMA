@@ -82,7 +82,7 @@ describe('SKILL.md frontmatter', () => {
     expect(source).not.toContain('\nupdatedAt:');
   });
 
-  it('migrates Cindy\'s legacy top-level metadata without changing the body', async () => {
+  it('migrates Emma\'s legacy top-level metadata without changing the body', async () => {
     const skillDir = path.join(botSkillsDir(userDataDir, 'bot-1'), 'weekly-report');
     await fs.mkdir(skillDir, { recursive: true });
     const filePath = path.join(skillDir, 'SKILL.md');

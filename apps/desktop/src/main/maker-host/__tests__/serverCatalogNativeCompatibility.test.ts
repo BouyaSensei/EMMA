@@ -77,7 +77,7 @@ afterEach(() => {
   setActiveCatalog(BUNDLED_CATALOG);
 });
 
-describe('Server catalog updates with independent Cindy native protocols', () => {
+describe('Server catalog updates with independent Emma native protocols', () => {
   it('preserves each harness effort contract and local native metadata through an older schema', () => {
     accept(serverCatalog());
     seedCodexAccount('gpt-6-astra');

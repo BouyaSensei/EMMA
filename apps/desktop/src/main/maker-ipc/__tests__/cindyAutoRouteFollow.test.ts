@@ -52,8 +52,8 @@ const movedToPlatform = [
   provider('org-pool', 'organization', ['pool-model']),
 ];
 
-describe('movedCindyAutoProviderId', () => {
-  it('Auto 换了 Cindy 来源时给出新来源，引擎与模型不在这里改', () => {
+describe('movedEmmaAutoProviderId', () => {
+  it('Auto 换了 Emma 来源时给出新来源，引擎与模型不在这里改', () => {
     expect(movedCindyAutoProviderId(movedToPlatform, route())).toBe('xd');
     const movedToPool = [
       provider('xd', 'builtin', ['auto']),
@@ -62,7 +62,7 @@ describe('movedCindyAutoProviderId', () => {
     expect(movedCindyAutoProviderId(movedToPool, route({ providerId: 'xd' }))).toBe('org-pool');
   });
 
-  it('Pi 的默认来源（providerId=null）就是 Cindy AI，Auto 挪到号池同样跟随', () => {
+  it('Pi 的默认来源（providerId=null）就是 Emma AI，Auto 挪到号池同样跟随', () => {
     const movedToPool = [
       provider('xd', 'builtin', ['auto']),
       provider('org-pool', 'organization', [AUTO]),
@@ -74,7 +74,7 @@ describe('movedCindyAutoProviderId', () => {
     ).toBeNull();
   });
 
-  it('订阅等内置非 Cindy AI 来源上的 auto/... 不跟随', () => {
+  it('订阅等内置非 Emma AI 来源上的 auto/... 不跟随', () => {
     const subscription = [
       provider('openai', 'builtin', ['other']),
       provider('xd', 'builtin', [AUTO]),
@@ -108,7 +108,7 @@ describe('movedCindyAutoProviderId', () => {
   });
 });
 
-describe('followMovedCindyAutoRoutes', () => {
+describe('followMovedEmmaAutoRoutes', () => {
   function deps(overrides: Partial<CindyAutoRouteFollowDeps> = {}) {
     const stage = vi.fn(async () => {});
     const withSessionLock = vi.fn(async (_sessionId: string, run: () => Promise<void>) => run());
@@ -198,7 +198,7 @@ describe('followMovedCindyAutoRoutes', () => {
     await expect(followMovedCindyAutoRoutes(input)).resolves.toBe(1);
     expect(stage).toHaveBeenCalledTimes(2);
     expect(logger.info).toHaveBeenCalledWith(
-      'Cindy Auto provider follow failed; task keeps its route',
+      'Emma Auto provider follow failed; task keeps its route',
       expect.objectContaining({ sessionId: 'first' }),
     );
   });
@@ -285,7 +285,7 @@ describe('Auto 没有推理档位时的跨来源跟随', () => {
     );
   });
 
-  it('负向：用户自己接的供应商上的 auto/... 不跟随，即使 Cindy 来源也有同名 Auto', async () => {
+  it('负向：用户自己接的供应商上的 auto/... 不跟随，即使 Emma 来源也有同名 Auto', async () => {
     const providers = [provider('custom', 'user', ['other']), provider('xd', 'builtin', [AUTO])];
     const { stage, run } = follow(providers, route({ providerId: 'custom', effort: '' }));
     await expect(run()).resolves.toBe(0);
@@ -334,7 +334,7 @@ describe('号池 → 平台：目录刷新按旧路由重新加载过的进行�
     expect(cindyAutoRouteToFollow(runtimeState())).toEqual(poolRoute);
   });
 
-  it('号池刷新后再跑跟随：登记下一条消息切到 Cindy AI', async () => {
+  it('号池刷新后再跑跟随：登记下一条消息切到 Emma AI', async () => {
     reloadWithStalePool();
     const stage = vi.fn(async () => {});
     await expect(
@@ -423,7 +423,7 @@ describe('已登记的 Auto 换来源，在 Auto 又挪动后撤销或改写', (
     };
   }
 
-  it('Auto 挪回当前所在的号池：撤销「切到 Cindy AI」的登记，不再登记新切换', async () => {
+  it('Auto 挪回当前所在的号池：撤销「切到 Emma AI」的登记，不再登记新切换', async () => {
     const backInPool = [
       provider('xd', 'builtin', ['auto', 'z-ai/glm-5.3-flash']),
       provider(POOL, 'organization', [REAL_AUTO, `${POOL}/e2e-model`]),
@@ -482,7 +482,7 @@ describe('已登记的 Auto 换来源，在 Auto 又挪动后撤销或改写', (
     { from: POOL, target: 'custom', availableAt: POOL },
     { from: 'custom', target: 'xd', availableAt: 'custom' },
   ])(
-    '保留非 Cindy 两端的配置登记：$from → $target（Auto 在 $availableAt）',
+    '保留非 Emma 两端的配置登记：$from → $target（Auto 在 $availableAt）',
     async ({ from, target, availableAt }) => {
       const providers = [
         provider('xd', 'builtin', availableAt === 'xd' ? [REAL_AUTO] : ['auto']),

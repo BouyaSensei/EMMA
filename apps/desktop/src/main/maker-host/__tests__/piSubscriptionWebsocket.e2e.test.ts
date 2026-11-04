@@ -26,7 +26,7 @@ import { registerPiProxySession } from '../pi-proxy-session-auth.js';
 
 const binary = process.env.CINDY_TEST_PI_BINARY ?? resolve('../../apps/pi-bin', `${process.platform}-${process.arch}`, process.platform === 'win32' ? 'pi.exe' : 'pi');
 const fastHookStart = CINDY_BRIDGE_EXTENSION_SOURCE.indexOf('async function nativeFastPayload(');
-const fastHookEnd = CINDY_BRIDGE_EXTENSION_SOURCE.indexOf('type CindyAdapterAlias', fastHookStart);
+const fastHookEnd = CINDY_BRIDGE_EXTENSION_SOURCE.indexOf('type EmmaAdapterAlias', fastHookStart);
 if (fastHookStart < 0 || fastHookEnd <= fastHookStart) throw new Error('Production Fast hook fixture is unavailable');
 const fastHookSource = CINDY_BRIDGE_EXTENSION_SOURCE.slice(fastHookStart, fastHookEnd);
 let image: string;
@@ -143,7 +143,7 @@ describe.skipIf(!existsSync(binary))('actual Pi subscription incremental transpo
 import { Type } from '@earendil-works/pi-ai';
 import { readFileSync } from 'node:fs';
 export default async function(pi: any) {
-  await registerCindyNativeProviderAdapters(pi);
+  await registerEmmaNativeProviderAdapters(pi);
   if (!${Boolean(scenario.baseline)}) pi.on('before_provider_request', (event, ctx) => nativeFastPayload(event.payload, ctx.model, {
     ui: { input: async () => JSON.stringify(JSON.parse(readFileSync(process.env.CINDY_FIXTURE_OPTIONS_FILE, 'utf8'))) },
   }));

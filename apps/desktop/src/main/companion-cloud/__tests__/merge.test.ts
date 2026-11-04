@@ -5,15 +5,15 @@ import { fakeApi, fakeLocal } from './fakes.js';
 
 const KEEP_ROOM = '10000000-0000-4000-8000-00000000000a';
 const FROM_ROOM = '10000000-0000-4000-8000-00000000000b';
-const keep = { id: 'actor-keep', externalId: 'cindy-default', name: 'Cindy', homeDeviceId: 'desk' };
-const from = { id: 'actor-from', externalId: 'bot_laptop_cindy', name: 'Cindy', homeDeviceId: 'laptop', label: 'MacBook Pro' };
+const keep = { id: 'actor-keep', externalId: 'cindy-default', name: 'Emma', homeDeviceId: 'desk' };
+const from = { id: 'actor-from', externalId: 'bot_laptop_cindy', name: 'Emma', homeDeviceId: 'laptop', label: 'MacBook Pro' };
 
-describe('telling the copies of Cindy apart', () => {
+describe('telling the copies of Emma apart', () => {
   it('goes by the preset, never by name', () => {
     expect(isCindyCompanion('cindy-default', null)).toBe(true);
     expect(isCindyCompanion('bot_1', { templateId: 'cindy' })).toBe(true);
     expect(isCindyCompanion('bot_1', { soul: CINDY_DEFAULT_IDENTITY })).toBe(true);
-    expect(isCindyCompanion('bot_1', { name: 'Cindy', soul: 'my own' })).toBe(false);
+    expect(isCindyCompanion('bot_1', { name: 'Emma', soul: 'my own' })).toBe(false);
   });
 
   it('names a second copy after where it came from', () => {
@@ -22,14 +22,14 @@ describe('telling the copies of Cindy apart', () => {
   });
 });
 
-describe('merging copies of Cindy', () => {
+describe('merging copies of Emma', () => {
   function setup() {
     const imports: Array<{ room: string; messages: Array<{ sourceId: string; authorId: string; createdAt: string; content: unknown[] }> }> = [];
     const added: Array<{ key: string; value: unknown; revision: number }> = [];
     const files: Array<{ type: string; mediaId: string; caption: string }> = [];
     const { api, calls } = fakeApi((route, method, data, actorId) => {
       if (route === '/preferences' && method === 'GET' && actorId === 'actor-from') return [...added, 
-        { key: 'companion.profile.v1', value: { name: 'Cindy', soul: 'theirs' }, revision: 1 },
+        { key: 'companion.profile.v1', value: { name: 'Emma', soul: 'theirs' }, revision: 1 },
         { key: 'companion.memory.v1:user_tea.md', value: { filename: 'user_tea.md', content: 'likes green tea' }, revision: 2 },
         { key: 'companion.memory.v1:user_new.md', value: { filename: 'user_new.md', content: 'only there' }, revision: 3 },
         { key: 'companion.memory.v1:user_same.md', value: { filename: 'user_same.md', content: 'same' }, revision: 4 },
@@ -101,7 +101,7 @@ describe('merging copies of Cindy', () => {
     expect((await t.run()).renamed).toEqual([]);
   });
 
-  it('gives merged routines ids of their own in the kept Cindy', async () => {
+  it('gives merged routines ids of their own in the kept Emma', async () => {
     const t = setup();
     await t.run();
     const id = mergedRoutineId('cindy-default', 'actor-from', 'routine-1');

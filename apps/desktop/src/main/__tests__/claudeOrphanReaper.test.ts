@@ -206,11 +206,11 @@ describe('reapClaudeOrphansSync', () => {
     // 品牌改名迁移窗口期,老安装 spawn 的 claude 命令行里仍是旧目录名——
     // 标记表必须同时覆盖 brand-identity 的当前值与 legacyUserDataDirNames。
     const { buildClaudePathMarkers } = await importReaper({ platform: 'win32' });
-    const markers = buildClaudePathMarkers(['Cindy', 'xdt-maker']);
+    const markers = buildClaudePathMarkers(['Emma', 'xdt-maker']);
     expect(markers).toEqual([
-      'appdata\\roaming\\cindy\\claude-code\\',
-      'appdata/roaming/cindy/claude-code/',
-      '/library/application support/cindy/claude-code/',
+      'appdata\\roaming\\emma\\claude-code\\',
+      'appdata/roaming/emma/claude-code/',
+      '/library/application support/emma/claude-code/',
       'appdata\\roaming\\xdt-maker\\claude-code\\',
       'appdata/roaming/xdt-maker/claude-code/',
       '/library/application support/xdt-maker/claude-code/',
@@ -299,7 +299,7 @@ describe('reapClaudeOrphansSync', () => {
     const lowercasePid = 801;
     const execFileSync = vi.fn((file: string) => {
       if (file === 'taskkill') return '';
-      return `${lowercasePid}|4|C:\\users\\me\\appdata\\roaming\\cindyglobal\\claude-code\\claude.exe`;
+      return `${lowercasePid}|4|C:\\users\\me\\appdata\\roaming\\emmaglobal\\claude-code\\claude.exe`;
     });
     const { reapClaudeOrphansSync } = await importReaper({ platform: 'win32', execFileSync });
 

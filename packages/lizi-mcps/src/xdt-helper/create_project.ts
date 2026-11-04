@@ -19,7 +19,7 @@ export function registerCreateProjectTool(
     name: "create_project",
     category: "control",
     description:
-      "Explicitly add an existing local directory to Cindy’s project list, or restore a hidden project. Use list_projects first and reuse an existing project for related work; temporary execution directories and worktrees do not need their own projects. Does not create directories, initialize Git, create a task, or start an agent. Pass the returned project_path to send_to_session to select this project; working_dir there may differ. Repeating this call reuses the same project. Runs on the Cindy host; unavailable from SSH tasks.",
+      "Explicitly add an existing local directory to Emma’s project list, or restore a hidden project. Use list_projects first and reuse an existing project for related work; temporary execution directories and worktrees do not need their own projects. Does not create directories, initialize Git, create a task, or start an agent. Pass the returned project_path to send_to_session to select this project; working_dir there may differ. Repeating this call reuses the same project. Runs on the Emma host; unavailable from SSH tasks.",
     inputShape: {
       working_dir: z
         .string()
@@ -27,7 +27,7 @@ export function registerCreateProjectTool(
         .min(1)
         .max(4096)
         .describe(
-          "Absolute path of an existing directory on the local Cindy host.",
+          "Absolute path of an existing directory on the local Emma host.",
         ),
     },
     handler: async ({ working_dir }: { working_dir: string }) => {
@@ -35,12 +35,12 @@ export function registerCreateProjectTool(
       if (!context.sessionId)
         return errorPayload(
           "NO_SESSION_CONTEXT",
-          "No Cindy task is bound to this call.",
+          "No Emma task is bound to this call.",
         );
       if (context.remoteHostId)
         return errorPayload(
           "UNSUPPORTED_CAPABILITY",
-          "Project registration only supports local Cindy tasks.",
+          "Project registration only supports local Emma tasks.",
         );
       const result = await deps.createProject({
         callerSessionId: context.sessionId,

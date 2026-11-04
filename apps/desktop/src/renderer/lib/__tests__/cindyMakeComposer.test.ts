@@ -43,7 +43,7 @@ const card = (report: MakeDoctorReport): ChatMessage => ({
   systemCardData: { report },
 });
 
-describe('Cindy Make waiting-for-test card', () => {
+describe('Emma Make waiting-for-test card', () => {
   const done = (id: string, continuedAt?: number): ChatMessage => ({
     clientId: id,
     role: 'assistant',
@@ -91,7 +91,7 @@ describe('Cindy Make waiting-for-test card', () => {
   });
 });
 
-describe('Cindy Make test flow recovery', () => {
+describe('Emma Make test flow recovery', () => {
   const continued: ChatMessage = {
     clientId: 'old-completion',
     role: 'assistant',
@@ -187,7 +187,7 @@ describe('Cindy Make test flow recovery', () => {
   });
 });
 
-describe('Cindy Make composer lifecycle', () => {
+describe('Emma Make composer lifecycle', () => {
   it('restores the full preparation card and retry request from persisted history', () => {
     const saved = card(preparing);
     saved.systemCardData = { ...saved.systemCardData, request: 'original request' };

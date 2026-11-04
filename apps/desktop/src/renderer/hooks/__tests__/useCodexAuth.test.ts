@@ -157,7 +157,7 @@ describe('useCodexAuth lifecycle', () => {
     expect(result.current.state).toEqual({ kind: 'unauthenticated' });
   });
 
-  it('disconnects Cindy in Dev while retaining the browser login write guard', async () => {
+  it('disconnects Emma in Dev while retaining the browser login write guard', async () => {
     const auth = installAuthApi(async () => undefined);
     auth.getState.mockResolvedValueOnce({
       authenticated: true,
@@ -968,12 +968,12 @@ describe('useCodexAuth lifecycle', () => {
     });
   });
 
-  it('does not treat a Cindy AI API key as a connected ChatGPT account', () => {
+  it('does not treat a Emma AI API key as a connected ChatGPT account', () => {
     expect(
       isChatGptConnectionConnected(
         {
           kind: 'authenticated',
-          identity: 'API Key · Cindy AI',
+          identity: 'API Key · Emma AI',
           authSource: 'api-key',
         },
         true,

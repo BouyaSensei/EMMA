@@ -115,7 +115,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('Cindy Make history with real translations', () => {
+describe('Emma Make history with real translations', () => {
   it.each(cases)(
     'shows conflict resolution, cleanup and automatic continuation in $locale',
     async ({ locale, resource, conflict }) => {

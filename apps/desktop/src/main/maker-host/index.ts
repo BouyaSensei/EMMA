@@ -649,7 +649,7 @@ export async function refreshCodexGatewayHost(
   const maker = _maker;
   const agent = _codexAgent;
   if (!maker || !agent) return;
-  const guard = await agent.beginLocalHostCredentialChange('Cindy AI key changed', {
+  const guard = await agent.beginLocalHostCredentialChange('Emma AI key changed', {
     allLocalHosts: true,
     credentialMode: 'gateway-key',
     targetHostKey,
@@ -1079,7 +1079,7 @@ export function getMaker(): Maker {
         return { ...result, permission: session.stablePermissionModeState,
           hostCapabilities: Object.fromEntries(Object.entries(session.capabilities)
             .filter(([, value]) => value && typeof value === 'object' && 'supported' in value)),
-          hostCapabilitiesNote: '宿主支持的交互能力，不等于有同名 Agent 工具。安装 Cindy 更新须调用 install_app_update，由宿主向用户确认后经内置更新器完成；check_app_update 仅检查更新。' };
+          hostCapabilitiesNote: '宿主支持的交互能力，不等于有同名 Agent 工具。安装 Emma 更新须调用 install_app_update，由宿主向用户确认后经内置更新器完成；check_app_update 仅检查更新。' };
       },
       botCapabilities: createDesktopBotCapabilityService(),
       createMediaDownloadContext: (sessionId: string, sessionInstanceId: string) => {
@@ -1347,7 +1347,7 @@ export function getMaker(): Maker {
         const meta = await _maker?.getSessionMeta(sessionId);
         // Finalize only the managed task branch; official/personal integration is a separate action.
         if (!meta?.workDir || !isCindyMakeWorktreePath(userData, meta.workDir)) {
-          throw new Error('session working directory is not a Cindy Make worktree');
+          throw new Error('session working directory is not a Emma Make worktree');
         }
         const env = await createMakeToolchainEnvironment(userData);
         return cindyMakeManager.withProject(makeSourceRoot(userData), () =>

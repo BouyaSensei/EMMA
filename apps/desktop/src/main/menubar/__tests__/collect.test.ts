@@ -86,7 +86,7 @@ describe('source mapping', () => {
     ]);
   });
 
-  it('leaves local runtimes and the Cindy gateway out of pay-as-you-go', () => {
+  it('leaves local runtimes and the Emma gateway out of pay-as-you-go', () => {
     expect(paygSource(provider({ id: 'ollama', auth: { method: 'none' } } as never))).toBeNull();
     expect(paygSource(provider({ id: 'xd', auth: { method: 'apiKey' } } as never))).toBeNull();
     expect(paygSource(provider({ id: 'glm', name: 'GLM', auth: { method: 'apiKey' }, access: { kind: 'api' } } as never))).toMatchObject({
@@ -185,7 +185,7 @@ describe('collectMenubarInputs', () => {
     expect(codexReads).toBe(0);
   });
 
-  it('puts the Cindy balance first and lists running tasks', async () => {
+  it('puts the Emma balance first and lists running tasks', async () => {
     const collected = await collectMenubarInputs(
       deps({
         readBalance: async () => ({ available: 5, fullAmount: 10, burnPerDay: 1, observedAtMs: NOW, currency: 'USD', quota: null }),
@@ -222,7 +222,7 @@ describe('collectMenubarInputs', () => {
     expect(collected.tasks.map((entry) => entry.sessionId)).toEqual(['ordinary']);
   });
 
-  it('marks the source a running task draws on, and the Cindy balance for managed providers', async () => {
+  it('marks the source a running task draws on, and the Emma balance for managed providers', async () => {
     const collected = await collectMenubarInputs(
       deps({
         listProviders: async () => [

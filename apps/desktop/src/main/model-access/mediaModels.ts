@@ -200,7 +200,7 @@ async function fetchGatewayMediaModels(): Promise<GatewayMediaCatalogEntry[]> {
     baseUrl: () => getClientEndpoint('modelAccessApiBaseUrl'),
     timeoutMs: MEDIA_MODEL_REQUEST_TIMEOUT_MS,
     logLabel: MEDIA_MODELS_PATH,
-    headers: { 'X-Cindy-Model-Capabilities': 'display_pricing' },
+    headers: { 'X-Emma-Model-Capabilities': 'display_pricing' },
   });
   if (
     typeof payload !== 'object' ||
@@ -292,7 +292,7 @@ function parseResolvedGuidePayload(
   ) {
     throw new MediaGuideCompatibilityError(
       'CLIENT_UPGRADE_REQUIRED',
-      '当前 Cindy 版本不支持该模型的调用协议，请升级客户端或更换模型。',
+      '当前 Emma 版本不支持该模型的调用协议，请升级客户端或更换模型。',
       `unsupported Guide schemaVersion: ${schemaVersion}`,
     );
   }

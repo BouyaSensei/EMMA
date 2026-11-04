@@ -663,7 +663,7 @@ describe('computer mcp integration', () => {
     });
     mockProcessSnapshotSpawn([
       { pid: 77, name: 'Simulator', command: '/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator' },
-      { pid: 88, name: 'Device Hub', command: '/Applications/Cindy.app/Contents/Frameworks/Device Hub.app/Contents/MacOS/Device Hub' },
+      { pid: 88, name: 'Device Hub', command: '/Applications/Emma.app/Contents/Frameworks/Device Hub.app/Contents/MacOS/Device Hub' },
       { pid: 99, name: 'Google Chrome', command: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' },
     ]);
 
@@ -1117,7 +1117,7 @@ describe('computer mcp integration', () => {
     expectDriverSessionGenerations([payload.session], 'session-1', [0]);
   });
 
-  it('styles the Cindy cursor once per long-lived MCP session before actions', async () => {
+  it('styles the Emma cursor once per long-lived MCP session before actions', async () => {
     mcpCallToolMock
       .mockResolvedValueOnce({ content: [{ type: 'text', text: '{"ok":true}' }] })
       .mockResolvedValueOnce({ content: [{ type: 'text', text: '{"ok":true}' }] })
@@ -1285,7 +1285,7 @@ describe('computer mcp integration', () => {
     expect(calls.every((args) => !('session_goal' in args))).toBe(true);
   });
 
-  it('retries Cindy cursor styling after a transient styling failure', async () => {
+  it('retries Emma cursor styling after a transient styling failure', async () => {
     mcpCallToolMock
       .mockRejectedValueOnce(new Error('motion unavailable'))
       .mockResolvedValueOnce({ content: [{ type: 'text', text: '{"ok":true}' }] })

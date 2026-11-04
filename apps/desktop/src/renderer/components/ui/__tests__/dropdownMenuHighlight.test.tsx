@@ -141,7 +141,7 @@ describe('shared dropdown menu glide highlight', () => {
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>Move</DropdownMenuSubTrigger>
             <DropdownMenuSubContent>
-              <DropdownMenuItem>Cindy</DropdownMenuItem>
+              <DropdownMenuItem>Emma</DropdownMenuItem>
             </DropdownMenuSubContent>
           </DropdownMenuSub>
         </DropdownMenuContent>
@@ -155,7 +155,7 @@ describe('shared dropdown menu glide highlight', () => {
     // regression checks the actual SubContent DOM boundary after opening it.
     expect(parentMenu.contains(submenu)).toBe(false);
     expect(document.body.contains(submenu)).toBe(true);
-    expect(submenu.contains(screen.getByRole('menuitem', { name: 'Cindy' }))).toBe(true);
+    expect(submenu.contains(screen.getByRole('menuitem', { name: 'Emma' }))).toBe(true);
   });
 
   it('follows the Radix highlighted item with one decorative layer per panel', async () => {
@@ -444,7 +444,7 @@ describe('shared dropdown menu glide highlight', () => {
         <DropdownMenuContent>
           <SessionProjectMoveSubmenu
             projectOptions={
-              [{ name: 'Cindy', path: '/p/cindy', description: '~/p/cindy' }] as never
+              [{ name: 'Emma', path: '/p/cindy', description: '~/p/cindy' }] as never
             }
             isDialogue={false}
             onSelectProject={() => {}}

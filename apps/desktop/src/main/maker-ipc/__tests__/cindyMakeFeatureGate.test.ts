@@ -22,7 +22,7 @@ function bind(expression: string, deps: Record<string, unknown>) {
   return new Function(...Object.keys(deps), compiled)(...Object.values(deps));
 }
 
-describe('disabled Cindy Make execution', () => {
+describe('disabled Emma Make execution', () => {
   it('refuses direct feature operations and both persisted purposes but leaves ordinary sources available', () => {
     expect(assertCindyMakeEnabled).toThrow(/\[UNSUPPORTED_CAPABILITY\]/);
     for (const source of ['cindy-make', 'cindy-make-merge']) {

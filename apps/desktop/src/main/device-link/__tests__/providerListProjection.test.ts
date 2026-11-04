@@ -134,7 +134,7 @@ function xdProviderWithFullRouting() {
 
 describe('projectInvokeResultForTunnel — maker:provider:list 投影', () => {
   it('keeps the source account name for mobile and desktop controllers', () => {
-    for (const name of ['Cindy AI · 个人', 'Cindy AI · 心动', 'Cindy AI · Example Studio']) {
+    for (const name of ['Emma AI · 个人', 'Emma AI · 心动', 'Emma AI · Example Studio']) {
       const input = { providers: [{ ...xdProviderWithFullRouting(), name }] };
       expect(project(input).providers[0]?.name).toBe(name);
       expect(projectForCurrentController(input).providers[0]?.name).toBe(name);

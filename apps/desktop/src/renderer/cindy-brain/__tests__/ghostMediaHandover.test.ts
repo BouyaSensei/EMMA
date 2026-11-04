@@ -51,7 +51,7 @@ describe('Ghost media handover', () => {
     }), { preserveRemoteOptimisticRecovery: true });
   });
 
-  it.each(['broken-json', '{}', JSON.stringify({ sourceToken: 42 }), JSON.stringify({ sourceToken: '' })])('does not downgrade malformed Cindy MIME %s to a legacy URI', async (payload) => {
+  it.each(['broken-json', '{}', JSON.stringify({ sourceToken: 42 }), JSON.stringify({ sourceToken: '' })])('does not downgrade malformed Emma MIME %s to a legacy URI', async (payload) => {
     const source = getGhostMediaHandoverFromDataTransfer(transfer({ 'text/uri-list': uri, [GHOST_MEDIA_HANDOVER_MIME]: payload }));
     expect(source?.sourceToken).toBe('');
     const resolvePanelMedia = vi.fn().mockRejectedValue(new Error('NOT_FOUND'));

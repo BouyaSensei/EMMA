@@ -2083,7 +2083,7 @@ describe('MakerScheduleRunner queued dispatch (busy bound session)', () => {
     expect(harness.send).not.toHaveBeenCalled();
   });
 
-  it('排队 Cindy Codex 在独立 Subagent 不兼容时接受正确的本地压缩身份', async () => {
+  it('排队 Emma Codex 在独立 Subagent 不兼容时接受正确的本地压缩身份', async () => {
     mocks.getSessionRowSnapshot.mockResolvedValue({
       status: 'active',
       userSendAt: null,

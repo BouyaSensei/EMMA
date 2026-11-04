@@ -26,7 +26,7 @@ describe('shared task invitation handoff', () => {
     }
   });
   it('extracts the unique invitation when the task title contains ordinary URLs', () => {
-    const message = `邀请你加入「检查 https://docs.example.test/ 和 http://example.test/page」\n${link}?app=cindycn\n复制后打开 Cindy`;
+    const message = `邀请你加入「检查 https://docs.example.test/ 和 http://example.test/page」\n${link}?app=cindycn\n复制后打开 Emma`;
     expect(parseSharedTaskInvitation(message, server)).toEqual({ ok: true, invitation: token });
     expect(parseSharedTaskInvitation(message, 'https://other.example.test')).toEqual({ ok: false, reason: 'different-server' });
     expect(parseSharedTaskInvitation('https://docs.example.test/#' + token, server)).toEqual({ ok: false, reason: 'invalid' });
@@ -66,6 +66,6 @@ describe('shared task invitation handoff', () => {
     expect(sharedTaskAccountName('  Account Name  ')).toBe('Account Name');
     expect(sharedTaskAccountName('a'.repeat(31) + '\u{1f600}')).toBe('a'.repeat(31));
     expect(sharedTaskAccountName('A\nB')).toBe('AB');
-    expect(sharedTaskAccountName('')).toBe('Cindy');
+    expect(sharedTaskAccountName('')).toBe('Emma');
   });
 });

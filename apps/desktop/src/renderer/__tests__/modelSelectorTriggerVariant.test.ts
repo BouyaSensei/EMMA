@@ -41,7 +41,7 @@ vi.mock('react-i18next', async (importOriginal) => ({
         'modelDescriptions.quickAnswers': '适合简短问答、摘要与短文写作。',
         'effortLevels.xhigh': '超高',
         'settings.providers.anthropic.title': 'Anthropic',
-        'settings.providers.xd.title': 'Cindy AI',
+        'settings.providers.xd.title': 'Emma AI',
         'newChat.modelSelector.trigger.placeholder': '选择模型',
         'newChat.modelSelector.trigger.loading': '正在读取模型…',
         'newChat.modelSelector.trigger.unresolved': '模型信息暂不可用',
@@ -1451,7 +1451,7 @@ describe('ModelSelector trigger variants', () => {
     providersRef.providers = [
       {
         id: 'xd',
-        name: 'Cindy AI',
+        name: 'Emma AI',
         connected: true,
         agents: ['claude-code'],
         routing: { 'claude-code': {} },
@@ -1541,7 +1541,7 @@ describe('ModelSelector trigger variants', () => {
     deviceProvidersRef.providers = [
       {
         id: 'xd',
-        name: 'Cindy AI',
+        name: 'Emma AI',
         connected: true,
         agents: ['claude-code'],
         routing: { 'claude-code': {} },
@@ -1777,7 +1777,7 @@ describe('ModelSelector trigger variants', () => {
       providersRef.providers = [
         {
           id: 'xd',
-          name: 'Cindy',
+          name: 'Emma',
           connected: true,
           agents: [agentKind],
           routing: { [agentKind]: {} },
@@ -1909,7 +1909,7 @@ describe('ModelSelector trigger variants', () => {
       visible: true,
     },
     {
-      label: 'Cindy AI 模型级 Anthropic bridge',
+      label: 'Emma AI 模型级 Anthropic bridge',
       providerProtocol: 'openai-responses',
       modelProtocol: 'anthropic-messages',
       visible: true,
@@ -1941,7 +1941,7 @@ describe('ModelSelector trigger variants', () => {
       providersRef.providers = [
         {
           id: modelProtocol ? 'xd' : 'fixture',
-          name: modelProtocol ? 'Cindy AI' : 'Fixture',
+          name: modelProtocol ? 'Emma AI' : 'Fixture',
           source: modelProtocol ? 'builtin' : 'user',
           connected: true,
           agents: ['codex'],
@@ -1984,7 +1984,7 @@ describe('ModelSelector trigger variants', () => {
         if (visible) {
           expect(compatibilityLabel).toBeTruthy();
           const detailText = details.textContent ?? '';
-          const sourceText = modelProtocol ? 'Source: Cindy AI' : 'Source: Fixture';
+          const sourceText = modelProtocol ? 'Source: Emma AI' : 'Source: Fixture';
           expect(detailText.indexOf(sourceText)).toBeLessThan(detailText.indexOf('1M context'));
           expect(detailText.indexOf('1M context')).toBeLessThan(
             detailText.indexOf('Codex compatibility mode'),
@@ -2388,7 +2388,7 @@ describe('ModelSelector trigger variants', () => {
     providersRef.providers = [
       {
         id: 'xd',
-        name: 'Cindy AI',
+        name: 'Emma AI',
         connected: true,
         agents: ['claude-code'],
         routing: { 'claude-code': {} },
@@ -2473,7 +2473,7 @@ describe('ModelSelector trigger variants', () => {
     providersRef.providers = [
       {
         id: 'xd',
-        name: 'Cindy AI',
+        name: 'Emma AI',
         connected: true,
         agents: ['claude-code'],
         routing: { 'claude-code': {} },

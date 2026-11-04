@@ -346,7 +346,7 @@ describe('Pi subagent provider selection', () => {
     });
   });
 
-  it('accepts the Cindy source id even when the runtime provider name differs', () => {
+  it('accepts the Emma source id even when the runtime provider name differs', () => {
     expect(route({ model: 'gateway-model', provider: 'cindy-gateway' })).toMatchObject({
       routeProvider: 'cindy',
       routeProxySessionAuth: true,

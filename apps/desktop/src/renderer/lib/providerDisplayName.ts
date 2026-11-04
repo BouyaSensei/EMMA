@@ -20,7 +20,7 @@ export function providerDisplayName(provider: Pick<ProviderView, 'id' | 'name'>,
   const key = PROVIDER_TITLE_KEY[provider.id];
   // The host supplies its account's name, including for another computer or a share.
   // Older hosts/catalogs only know the technical name; do not infer their account here.
-  return provider.id === 'xd' && !provider.name?.startsWith('Cindy AI · ') && key
+  return provider.id === 'xd' && !provider.name?.startsWith('Emma AI · ') && key
     ? t(key)
     : provider.name || (key ? t(key) : provider.id);
 }

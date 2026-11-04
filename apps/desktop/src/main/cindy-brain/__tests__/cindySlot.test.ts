@@ -157,7 +157,7 @@ function makeSlot(overrides: Partial<CindySlotDeps> = {}): {
     ok: true as const,
     results: [
       {
-        title: 'Cindy',
+        title: 'Emma',
         url: 'https://example.test/cindy',
         snippet: 'Search result',
       },
@@ -360,11 +360,11 @@ describe('载荷校验', () => {
   });
 });
 
-describe('Cindy Web Search', () => {
+describe('Emma Web Search', () => {
   const SEARCH_REQ = {
     type: 'cindy-request',
     kind: 'search_web',
-    query: '  Cindy Web Search  ',
+    query: '  Emma Web Search  ',
     provider: 'cindy',
     callId: 'call-search-1',
     callerTool: 'research',
@@ -391,7 +391,7 @@ describe('Cindy Web Search', () => {
 
     const result = await slot.handleModelRequest('art', SEARCH_REQ);
 
-    expect(searchWeb).toHaveBeenCalledWith({ query: 'Cindy Web Search', limit: 5 });
+    expect(searchWeb).toHaveBeenCalledWith({ query: 'Emma Web Search', limit: 5 });
     expect(claimPipeCall).toHaveBeenCalledWith(
       'art',
       'call-search-1',
@@ -523,7 +523,7 @@ describe('Cindy Web Search', () => {
     const searchWeb = vi.fn(async () => ({
       ok: false as const,
       errorCode: 'QUOTA_EXHAUSTED' as const,
-      message: 'Cindy AI 搜索额度不足',
+      message: 'Emma AI 搜索额度不足',
       requestStarted: true,
       status: 402,
       requestId: 'litellm-call-2',
@@ -532,7 +532,7 @@ describe('Cindy Web Search', () => {
     expect(await quota.slot.handleModelRequest('art', SEARCH_REQ)).toEqual({
       ok: false,
       errorCode: 'QUOTA_EXHAUSTED',
-      message: 'Cindy AI 搜索额度不足',
+      message: 'Emma AI 搜索额度不足',
     });
 
     expect(quota.claimPipeCall).toHaveBeenCalledTimes(1);

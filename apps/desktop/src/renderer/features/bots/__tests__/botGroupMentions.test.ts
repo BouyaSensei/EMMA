@@ -64,15 +64,15 @@ describe('resolveBotGroupMentions', () => {
 
   it('routes a picked owner-qualified name to only that companion and keeps short-name mentions', () => {
     const sameName = [
-      { botId: 'chris-cindy', name: 'Cindy (Chris)', displayName: 'Cindy' },
-      { botId: 'alex-cindy', name: 'Cindy (Alex Chen)', displayName: 'Cindy' },
+      { botId: 'chris-cindy', name: 'Emma (Chris)', displayName: 'Emma' },
+      { botId: 'alex-cindy', name: 'Emma (Alex Chen)', displayName: 'Emma' },
     ];
     const picked = insertBotGroupMention('@Ci', { start: 0, end: 3 }, sameName[1].name);
     expect(resolveBotGroupMentions(picked.text, { members: sameName, allLabels: [] }).botIds).toEqual(['alex-cindy']);
-    expect(resolveBotGroupMentions('@Cindy hi', { members: sameName.slice(0, 1), allLabels: [] }).botIds).toEqual(['chris-cindy']);
+    expect(resolveBotGroupMentions('@Emma hi', { members: sameName.slice(0, 1), allLabels: [] }).botIds).toEqual(['chris-cindy']);
     const renamed = [{ ...sameName[0], name: '小辛 (Chris)', nickname: '小辛' }];
     expect(resolveBotGroupMentions('@小辛帮我看看', { members: renamed, allLabels: [] }).botIds).toEqual(['chris-cindy']);
-    expect(resolveBotGroupMentions('@Cindy hi', { members: renamed, allLabels: [] }).botIds).toEqual([]);
+    expect(resolveBotGroupMentions('@Emma hi', { members: renamed, allLabels: [] }).botIds).toEqual([]);
   });
 
   it('prefers the longest name and uses tracked picks only to split duplicates', () => {

@@ -53,7 +53,7 @@ describe('selectExecutableCoreMediaModels', () => {
   });
 });
 
-describe('deriveCindyMediaConfig — 正常目录', () => {
+describe('deriveEmmaMediaConfig — 正常目录', () => {
   it('清单按目录序、label 取 name、providerId 记归属;draft/best 缺省回落 standard', () => {
     const image = deriveCindyMediaConfig([XD], 'image');
     expect(image.models).toEqual([
@@ -158,7 +158,7 @@ describe('deriveCindyMediaConfig — 正常目录', () => {
   });
 });
 
-describe('deriveCindyMediaConfig — 空清单即不可用', () => {
+describe('deriveEmmaMediaConfig — 空清单即不可用', () => {
   it('供应商完全没有该类目 → { models: [], defaults: null },不抛', () => {
     const imageOnly: CindyMediaProviderSlice = {
       id: 'io',
@@ -195,7 +195,7 @@ describe('deriveCindyMediaConfig — 空清单即不可用', () => {
   });
 });
 
-describe('deriveCindyMediaConfig — 停用过滤(model-disable override)', () => {
+describe('deriveEmmaMediaConfig — 停用过滤(model-disable override)', () => {
   it('停用条目不进清单也不占 first-wins;目录默认指向停用型号时回落清单首项', () => {
     const cfg = deriveCindyMediaConfig(
       [XD],
@@ -236,7 +236,7 @@ describe('deriveCindyMediaConfig — 停用过滤(model-disable override)', () =
   });
 });
 
-describe('deriveCindyMediaConfig — 就绪过滤(isProviderReady,2026-07 图像多来源)', () => {
+describe('deriveEmmaMediaConfig — 就绪过滤(isProviderReady,2026-07 图像多来源)', () => {
   const GEMINI: CindyMediaProviderSlice = {
     id: 'gemini',
     imageModels: [{ id: 'gemini/gemini-3-pro-image', name: 'Gemini 3 Pro Image' }],
@@ -277,7 +277,7 @@ describe('deriveCindyMediaConfig — 就绪过滤(isProviderReady,2026-07 图像
   });
 });
 
-describe('deriveCindyMediaConfig — supportsEdit(仅生成来源,2026-07)', () => {
+describe('deriveEmmaMediaConfig — supportsEdit(仅生成来源,2026-07)', () => {
   const XAI: CindyMediaProviderSlice = {
     id: 'xai',
     imageModels: [{ id: 'xai/aurora', name: 'Aurora' }],
@@ -302,7 +302,7 @@ describe('deriveCindyMediaConfig — supportsEdit(仅生成来源,2026-07)', () 
   });
 });
 
-describe('deriveCindyMediaConfig — 向量类目(embed)', () => {
+describe('deriveEmmaMediaConfig — 向量类目(embed)', () => {
   it('读 embeddingModels / embeddingDefaults,与 image / video 同一套派生规则', () => {
     const cfg = deriveCindyMediaConfig([XD], 'embed');
     expect(cfg.models.map((m) => m.id)).toEqual([
@@ -347,7 +347,7 @@ describe('deriveCindyMediaConfig — 向量类目(embed)', () => {
   });
 });
 
-describe('deriveCindyMediaConfig — 向量只认 XD(派单还不是 provider-aware)', () => {
+describe('deriveEmmaMediaConfig — 向量只认 XD(派单还不是 provider-aware)', () => {
   /**
    * 图像已经是多来源(imageChannelRegistry 按 providerId 取执行通道),向量还没有
    * 对应的分流层:执行端是单例 EmbeddingService,只握着 XD Gateway 一个 baseUrl +
@@ -386,7 +386,7 @@ describe('deriveCindyMediaConfig — 向量只认 XD(派单还不是 provider-aw
   });
 });
 
-describe('deriveCindyMediaConfig — 客户端不认识的向量型号不进清单', () => {
+describe('deriveEmmaMediaConfig — 客户端不认识的向量型号不进清单', () => {
   /**
    * 目录是热更的,可能给出比 EmbeddingModelId 这个静态联合更新的型号 id。不滤掉的话
    * 它会照常展示、可被钉选、甚至成为目录默认,而执行侧的纵深防御会把每一次请求变成

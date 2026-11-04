@@ -49,7 +49,7 @@ export const AUTONOMY_EVENT_FIELDS: readonly (keyof AutonomyEventData)[] = [
 export function hostSessionsSource(): RoutineSource {
   return {
     id: HOST_SESSIONS_SOURCE_ID,
-    name: 'Cindy 任务',
+    name: 'Emma 任务',
     status: 'listening',
     events: AUTONOMY_EVENT_TYPES.map((type) => ({
       type,

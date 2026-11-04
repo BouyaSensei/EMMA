@@ -37,7 +37,7 @@ const OWNER_USER = 'interop-account';
 
 async function call(base: string, method: string, pathname: string, init: { credential?: string; body?: unknown; pollToken?: string } = {}) {
   const headers: Record<string, string> = {};
-  if (init.credential) headers.authorization = `CindyRelay ${init.credential}`;
+  if (init.credential) headers.authorization = `EmmaRelay ${init.credential}`;
   if (init.pollToken) headers['x-cindy-relay-poll-token'] = init.pollToken;
   if (init.body !== undefined) headers['content-type'] = 'application/json';
   const res = await fetch(`${base}${pathname}`, {
@@ -121,7 +121,7 @@ async function main(): Promise<number> {
           CINDY_TEST_RELAY_URL: `${base.replace(/^http/, 'ws')}/api/device-link/ws`,
           CINDY_TEST_HOST_TOKEN: owner.credential,
           CINDY_TEST_CONTROLLER_TOKEN: admitted.credential,
-          CINDY_TEST_AUTH_SCHEME: 'CindyRelay',
+          CINDY_TEST_AUTH_SCHEME: 'EmmaRelay',
           CINDY_TEST_FRAME_AUTH: JSON.stringify({
             relayId,
             ownerPublicKey: ownerKey.publicKey,

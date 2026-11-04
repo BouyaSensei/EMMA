@@ -47,7 +47,7 @@ afterEach(() => {
   vi.clearAllMocks();
 });
 
-describe('ErrorBanner — Cindy AI 余额不足导流', () => {
+describe('ErrorBanner — Emma AI 余额不足导流', () => {
   it('来源是 xd 且计费面可见时换文案并给「查看余额」出口', () => {
     const onViewBalance = vi.fn();
 
@@ -203,7 +203,7 @@ describe('ErrorBanner — Cindy AI 余额不足导流', () => {
     expect(onViewBalance).toHaveBeenCalledOnce();
   });
 
-  it('报错后切换 provider:来源快照是 openai、会话切到 xd → 不误挂 Cindy AI 充值入口', () => {
+  it('报错后切换 provider:来源快照是 openai、会话切到 xd → 不误挂 Emma AI 充值入口', () => {
     render(
       createElement(ErrorBanner, {
         error: QUOTA_ERROR,

@@ -64,7 +64,7 @@ interface TargetRecord {
 }
 
 export const USER_BROWSER_UNSUPPORTED_HINT =
-  '用户浏览器执行端不支持此操作;需要时请明确告知用户并改用 Cindy 专用浏览器(external),不要自行切换。';
+  '用户浏览器执行端不支持此操作;需要时请明确告知用户并改用 Emma 专用浏览器(external),不要自行切换。';
 
 /** 旧版扩展的能力表(供 MCP 层在调用前拒绝,与 status 一并告知模型)。 */
 export const USER_BROWSER_CAPABILITIES = Object.freeze({
@@ -168,7 +168,7 @@ function unsupported(action: BackendRequest['action'], what: string): BackendRes
 function outdated(action: BackendRequest['action'], what: string): BackendResult {
   return actionFailed(
     action,
-    `${what}需要 Cindy 浏览器扩展 ${USER_BROWSER_PARITY_VERSION} 或更新版本:请告知用户在扩展管理页更新或重新加载 Cindy 扩展;也可以改用 Cindy 专用浏览器(external),不要自行切换。`,
+    `${what}需要 Emma 浏览器扩展 ${USER_BROWSER_PARITY_VERSION} 或更新版本:请告知用户在扩展管理页更新或重新加载 Emma 扩展;也可以改用 Emma 专用浏览器(external),不要自行切换。`,
     'BROWSER_RUNTIME_INVALID_REQUEST',
   );
 }
@@ -183,7 +183,7 @@ function uploadTooLarge(action: BackendRequest['action'], chunked: boolean): Bac
     action,
     chunked
       ? '上传文件总大小超过 1 GB,文件要先放进页面内存,扩展处理不了这么大。请告知用户在页面上手动选择文件,或分批上传'
-      : `上传文件总大小超过约 30 MB:这个版本的 Cindy 浏览器扩展只能直接传这么多。请告知用户把扩展更新到 ${USER_BROWSER_CHUNKED_UPLOAD_VERSION} 或更新版本(之后分块传输,最大 1 GB),或分批上传`,
+      : `上传文件总大小超过约 30 MB:这个版本的 Emma 浏览器扩展只能直接传这么多。请告知用户把扩展更新到 ${USER_BROWSER_CHUNKED_UPLOAD_VERSION} 或更新版本(之后分块传输,最大 1 GB),或分批上传`,
     'BROWSER_RUNTIME_INVALID_REQUEST',
   );
 }
@@ -222,12 +222,12 @@ const TAB_ACTION_LABEL: Partial<Record<BackendRequest['action'], string>> = {
 };
 
 const NOT_CONFIGURED_MESSAGE =
-  '没有已启用的浏览器扩展插件提供页面控制(安装并启用 Cindy Chrome 插件后再选择「我的浏览器」)。';
+  '没有已启用的浏览器扩展插件提供页面控制(安装并启用 Emma Chrome 插件后再选择「我的浏览器」)。';
 const DISCONNECTED_MESSAGE =
-  '浏览器扩展未连接:请在用户的 Chrome / Edge 中安装并启用 Cindy 扩展,保持 Cindy 运行;连接后重新查询 status。';
+  '浏览器扩展未连接:请在用户的 Chrome / Edge 中安装并启用 Emma 扩展,保持 Emma 运行;连接后重新查询 status。';
 
 const UNPAIRED_MESSAGE =
-  '浏览器扩展已连到 Cindy,但还没完成配对或授权:请让用户在 Cindy Chrome 插件页确认这个浏览器,或重新启用插件后再查询 status。';
+  '浏览器扩展已连到 Emma,但还没完成配对或授权:请让用户在 Emma Chrome 插件页确认这个浏览器,或重新启用插件后再查询 status。';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -310,7 +310,7 @@ export class UserBrowserBackend implements BrowserBackend {
         return actionOk(req.action, {
           ready: true,
           backend: this.kind,
-          note: '用户浏览器由用户自己启停,Cindy 不关闭它。',
+          note: '用户浏览器由用户自己启停,Emma 不关闭它。',
         });
       case 'profiles':
         return this.handleProfiles(req);
@@ -477,7 +477,7 @@ export class UserBrowserBackend implements BrowserBackend {
           : 'BROWSER_RUNTIME_ACTION_FAILED',
       message:
         error === 'DEBUGGER_NOT_ALLOWED' || error === 'DEBUGGER_UNAVAILABLE'
-          ? `${error}:这一步需要 Chrome 的调试接口,Cindy 扩展没有这项能力(Chrome 不允许扩展按需申请)。不要重试,也不要让用户去找开启入口;请告知用户这一步可以改用 Cindy 专用浏览器(external),由用户决定,不要自行切换。`
+          ? `${error}:这一步需要 Chrome 的调试接口,Emma 扩展没有这项能力(Chrome 不允许扩展按需申请)。不要重试,也不要让用户去找开启入口;请告知用户这一步可以改用 Emma 专用浏览器(external),由用户决定,不要自行切换。`
           : `${error}:${message}`,
       data: {
         error,
@@ -708,11 +708,11 @@ export class UserBrowserBackend implements BrowserBackend {
       ...(unpaired ? { reason: 'pairing-required' } : {}),
       ...(outdatedClients.length
         ? {
-            updateNote: `有 ${outdatedClients.length} 个连接的 Cindy 扩展低于 ${USER_BROWSER_PARITY_VERSION},只支持基础读取与交互;更新扩展后可用截图、上传、页面脚本等完整能力。`,
+            updateNote: `有 ${outdatedClients.length} 个连接的 Emma 扩展低于 ${USER_BROWSER_PARITY_VERSION},只支持基础读取与交互;更新扩展后可用截图、上传、页面脚本等完整能力。`,
           }
         : {}),
       capabilities: userBrowserCapabilities(control),
-      note: '用户自己的浏览器:新页面开在 Cindy 的后台窗口里,不抢焦点;不要关闭、重排或切换用户自己的标签页,除非任务需要。',
+      note: '用户自己的浏览器:新页面开在 Emma 的后台窗口里,不抢焦点;不要关闭、重排或切换用户自己的标签页,除非任务需要。',
       ...(doctor
         ? {
             port: status.port,
@@ -728,7 +728,7 @@ export class UserBrowserBackend implements BrowserBackend {
     if (req.proxyServer !== undefined || req.proxyAllowedHostnames !== undefined) {
       return actionFailed(
         req.action,
-        '用户浏览器执行端不支持指定代理;需要代理时改用 Cindy 专用浏览器',
+        '用户浏览器执行端不支持指定代理;需要代理时改用 Emma 专用浏览器',
         'BROWSER_RUNTIME_INVALID_REQUEST',
       );
     }
@@ -1246,7 +1246,7 @@ export class UserBrowserBackend implements BrowserBackend {
         return actionOk(req.action, {
           ...base,
           note:
-            '已在 Chrome 的 Cindy 窗口里切到这一页(不抢焦点,浏览器图标会闪动提醒):需要用户亲手操作(例如登录)时,请告诉用户切到那个窗口完成,完成后再继续。',
+            '已在 Chrome 的 Emma 窗口里切到这一页(不抢焦点,浏览器图标会闪动提醒):需要用户亲手操作(例如登录)时,请告诉用户切到那个窗口完成,完成后再继续。',
         });
       case 'screenshot':
       case 'pdf':
@@ -1309,8 +1309,8 @@ export class UserBrowserBackend implements BrowserBackend {
       req.profile ?? '',
       record.targetId,
     ]);
-    if (command.method !== 'Cindy.begin') {
-      if (command.method === 'Cindy.captureRead')
+    if (command.method !== 'Emma.begin') {
+      if (command.method === 'Emma.captureRead')
         await this.recipePumps.get(command.sessionId ?? '')?.();
       return actionOk(
         req.action,

@@ -86,7 +86,7 @@ export async function resolveLlamaCppRelease(signal: AbortSignal): Promise<Llama
   const res = await outboundFetch(RELEASES, {
     signal: AbortSignal.any([signal, AbortSignal.timeout(30_000)]),
     redirect: 'error',
-    headers: { 'User-Agent': 'Cindy-Desktop', Accept: 'application/vnd.github+json' },
+    headers: { 'User-Agent': 'Emma-Desktop', Accept: 'application/vnd.github+json' },
   });
   if (!res.ok) throw new Error('RELEASE_UNAVAILABLE');
   return pickLlamaCppRelease(await res.json(), process.platform, process.arch);

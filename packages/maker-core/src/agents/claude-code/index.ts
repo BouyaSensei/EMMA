@@ -1389,7 +1389,7 @@ export class ClaudeCodeAgent extends BaseAgent {
       ? withoutUserMcpRoutes(this.deps.capabilityRouting)
       : this.deps.capabilityRouting;
     if (reviewMode && opts.remoteHostId) {
-      throw new Error('Cindy Review currently supports local Claude Code sessions only');
+      throw new Error('Emma Review currently supports local Claude Code sessions only');
     }
     // 设备托管：Claude Code 在本机运行(本机的登录、订阅与供应商)，项目、文件与命令在任务所在
     // 电脑上。自带的文件与命令工具关掉，改用经隧道回到那台电脑的 Cindy 工具(cindy_exec)；
@@ -2167,7 +2167,7 @@ export class ClaudeCodeAgent extends BaseAgent {
           hookEventName: 'PreToolUse',
           permissionDecision: 'deny',
           permissionDecisionReason:
-            'Cindy Review only permits read-only access to this task and its explicit artifacts.',
+            'Emma Review only permits read-only access to this task and its explicit artifacts.',
         },
       };
     };
@@ -2238,11 +2238,11 @@ export class ClaudeCodeAgent extends BaseAgent {
       const mcpPolicy = isMcp ? classifyMcpApprovalPolicy(toolName, pre.tool_input) : null;
       // Requester authority (owner / group guest) and forceConfirmToolCall are only known to
       // Cindy, and a channel policy outranks trusted-MCP approval: route every call to canUseTool.
-      if (activeTurnPermissionPolicy) return decide('ask', 'Cindy reviews tool calls in channel turns.');
+      if (activeTurnPermissionPolicy) return decide('ask', 'Emma reviews tool calls in channel turns.');
       // Trusted MCP still goes through canUseTool: the Host shortcut allows it without a model call,
       // but a plugin-delegated task must be re-checked against its live delegation scope first.
-      if (mcpPolicy === 'auto-approve') return decide('ask', 'Trusted Cindy tool: Host shortcut and delegation check.');
-      if (mcpPolicy === 'prompt-each-time') return decide('ask', 'This tool requires Cindy confirmation.');
+      if (mcpPolicy === 'auto-approve') return decide('ask', 'Trusted Emma tool: Host shortcut and delegation check.');
+      if (mcpPolicy === 'prompt-each-time') return decide('ask', 'This tool requires Emma confirmation.');
       return { continue: true };
     };
     const localClaudeHooks = reviewMode
@@ -2600,7 +2600,7 @@ export class ClaudeCodeAgent extends BaseAgent {
         return {
           behavior: 'deny',
           message: capabilityRoute.replacement
-            ? `This downstream source was not selected. Use Cindy capability ${capabilityRoute.replacement.id}.`
+            ? `This downstream source was not selected. Use Emma capability ${capabilityRoute.replacement.id}.`
             : 'This downstream source was not selected.',
         };
       }
@@ -4053,7 +4053,7 @@ export class ClaudeCodeAgent extends BaseAgent {
                 kind: 'permission',
                 behavior: 'deny',
                 reason: capabilityRoute.replacement
-                  ? `This downstream source was not selected. Use Cindy capability ${capabilityRoute.replacement.id}.`
+                  ? `This downstream source was not selected. Use Emma capability ${capabilityRoute.replacement.id}.`
                   : 'This downstream source was not selected.',
               };
             }
@@ -7748,7 +7748,7 @@ export class ClaudeCodeAgent extends BaseAgent {
         ) {
           await q.setPermissionMode('default');
         }
-        log.warn('Claude native Auto reviewer unavailable; keeping Auto with Cindy fallback', {
+        log.warn('Claude native Auto reviewer unavailable; keeping Auto with Emma fallback', {
           providerId: mutableProviderId,
           model: mutableModel,
         });

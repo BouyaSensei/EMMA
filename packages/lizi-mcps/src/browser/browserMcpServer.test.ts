@@ -90,7 +90,7 @@ describe('browser experience cache', () => {
   // refer to the same host identity; changing the default must not widen scope.
   it.each([true, false])('binds learned recipes to the resolved host profile (deferred=%s)', async deferred => {
     const recipe = deferred ? readDraft : draft;
-    let profile = 'Cindy';
+    let profile = 'Emma';
     let stored: Recipe | undefined;
     let version = 0;
     const h = await makeHarness({
@@ -103,21 +103,21 @@ describe('browser experience cache', () => {
       if (!deferred) {
         expect((await invoke(h, { action: 'recipe', site: 'experience.test', recipeDraft: draft,
           inputs: { query: 'book' } })).verified).toBe(true);
-        profile = 'Cindy-real';
+        profile = 'Emma-real';
         expect((await invoke(h, { action: 'saveRecipe', site: 'experience.test', recipeDraft: draft })).ok).toBe(false);
-        profile = 'Cindy';
+        profile = 'Emma';
       }
       expect((await invoke(h, { action: 'saveRecipe', site: 'experience.test', recipeDraft: recipe,
-        profile: 'Cindy', deferValidation: deferred })).ok).toBe(true);
-      expect(stored?.validation?.profile).toBe('Cindy');
+        profile: 'Emma', deferValidation: deferred })).ok).toBe(true);
+      expect(stored?.validation?.profile).toBe('Emma');
       expect((await invoke(h, { action: 'siteguide', site: 'experience.test', intent: 'Search' })).recipes).toHaveLength(1);
-      profile = 'Cindy-real';
+      profile = 'Emma-real';
       expect((await invoke(h, { action: 'siteguide', site: 'experience.test', intent: 'Search' })).recipes).toHaveLength(0);
       const count = h.calls.length;
       expect((await invoke(h, { action: 'recipe', recipeId: draft.id, inputs: { query: 'book' } })).ok).toBe(false);
       expect(h.calls).toHaveLength(count);
-      expect((await invoke(h, { action: 'recipe', recipeId: draft.id, profile: 'Cindy', inputs: { query: 'book' } })).ok).toBe(true);
-      expect(h.calls.slice(-2).every(req => (req as { profile: string }).profile === 'Cindy')).toBe(true);
+      expect((await invoke(h, { action: 'recipe', recipeId: draft.id, profile: 'Emma', inputs: { query: 'book' } })).ok).toBe(true);
+      expect(h.calls.slice(-2).every(req => (req as { profile: string }).profile === 'Emma')).toBe(true);
     } finally { await h.cleanup(); }
   });
 

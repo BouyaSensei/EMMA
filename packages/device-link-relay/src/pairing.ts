@@ -108,7 +108,7 @@ export class Pairing {
       throw new RelayError('BAD_REQUEST', 'invalid pairing request');
     }
     if (!isRelayPublicKey(body.publicKey) || typeof body.proof !== 'string' || !PROOF_PATTERN.test(body.proof)) {
-      throw new RelayError('BAD_REQUEST', 'this Cindy version is too old to join a signed relay');
+      throw new RelayError('BAD_REQUEST', 'this Emma version is too old to join a signed relay');
     }
     const platform = optionalShortString(body.platform, 32);
     const appVersion = optionalShortString(body.appVersion, 64);
@@ -119,7 +119,7 @@ export class Pairing {
     }
     // 账号不对时保留加入码,让正确的设备还能用。
     if (accountUserId !== this.store.ownerUserId) {
-      throw new RelayError('ACCOUNT_MISMATCH', 'this relay belongs to another Cindy account');
+      throw new RelayError('ACCOUNT_MISMATCH', 'this relay belongs to another Emma account');
     }
     if (this.store.get(deviceId)?.role === 'owner') {
       throw new RelayError('FORBIDDEN', 'the owner device is already part of this relay');

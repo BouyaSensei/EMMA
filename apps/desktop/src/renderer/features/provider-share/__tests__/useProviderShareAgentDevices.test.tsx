@@ -40,7 +40,7 @@ function share(partial: Partial<ProviderShareReceived>): ProviderShareReceived {
     shareId: 's1',
     memberId: 'm1',
     providerId: 'xd',
-    providerLabel: 'Cindy AI',
+    providerLabel: 'Emma AI',
     hostDeviceId: 'host-1',
     deviceName: "Magi's Mac Mini",
     owner: { displayName: 'Magi', avatarUrl: null, region: 'global' },

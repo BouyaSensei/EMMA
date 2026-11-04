@@ -57,7 +57,7 @@ describe('createWorkLouderCodexLightingFrame', () => {
     expect(frame.threads[0]?.brightness).toBeGreaterThan(0);
   });
 
-  it('uses animated blue lighting while Cindy is running', () => {
+  it('uses animated blue lighting while Emma is running', () => {
     const frame = createWorkLouderCodexLightingFrame([activity('one', 'running')]);
 
     expect(frame.ambient.effect).toBe(WorkLouderLightingEffect.Snake);
@@ -483,7 +483,7 @@ describe('Creator Micro 2 agent keymap', () => {
     expect(creatorMicro2KeymapSessionFileName(null)).toBe('keymap-session.json');
   });
 
-  it('does not treat a vendor layout that mentions AG00 as a Cindy occupancy map', () => {
+  it('does not treat a vendor layout that mentions AG00 as a Emma occupancy map', () => {
     const vendorWithAg00 = JSON.stringify({
       profiles: [
         {
@@ -506,7 +506,7 @@ describe('Creator Micro 2 agent keymap', () => {
     expect(isCindyExclusiveAgentKeymap(JSON.stringify(cindy.document))).toBe(true);
   });
 
-  it('only treats the rebound layer as a Cindy occupancy map', () => {
+  it('only treats the rebound layer as a Emma occupancy map', () => {
     const parsed = parseWorkLouderKeymapDocument(JSON.stringify(factoryDocument));
     const cindyOnInactive = applyCreatorMicro2AgentLayer(parsed!, 1);
     const text = JSON.stringify(cindyOnInactive.document);

@@ -1834,7 +1834,7 @@ export function registerProviderHandlers(
       const target = parsePriceTarget(targetInput);
       const desired = parseDesiredPrice(quoteInput);
       if (target.providerId === 'xd') {
-        throwIpcError('INVALID_PARAMS', 'Cindy AI Gateway pricing is server-controlled');
+        throwIpcError('INVALID_PARAMS', 'Emma AI Gateway pricing is server-controlled');
       }
       if (deps.isOrganizationManagedProviderId(target.providerId)) {
         throwIpcError('PERMISSION_DENIED', 'Enterprise pricing is managed by your organization');

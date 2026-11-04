@@ -73,10 +73,10 @@ it('separates Global from folder browsing once when this computer has no project
 });
 
 it('keeps recent projects between Global and folder browsing', async () => {
-  const { menu, onPick } = await openProjects(undefined, ['/fixture/Cindy']);
+  const { menu, onPick } = await openProjects(undefined, ['/fixture/Emma']);
   expect(menu.getAllByRole('separator')).toHaveLength(2);
-  fireEvent.click(menu.getByRole('menuitem', { name: /^Cindy/ }));
-  expect(onPick).toHaveBeenCalledWith('/fixture/Cindy');
+  fireEvent.click(menu.getByRole('menuitem', { name: /^Emma/ }));
+  expect(onPick).toHaveBeenCalledWith('/fixture/Emma');
 });
 
 it('shows the remote empty state without local folder browsing', async () => {
@@ -102,10 +102,10 @@ it('keeps target paths visible for same-name projects and browses the selected H
   const localBrowse = vi.fn();
   Object.defineProperty(window, 'electronAPI', { configurable: true, value: { showOpenDirectoryDialog: localBrowse } });
   const { menu, onPick } = await openProjects([
-    { id: 'target-a', name: 'Cindy', path: '/target/first/Cindy' },
-    { id: 'target-b', name: 'Cindy', path: 'D:\\Projects\\Cindy' },
+    { id: 'target-a', name: 'Emma', path: '/target/first/Emma' },
+    { id: 'target-b', name: 'Emma', path: 'D:\\Projects\\Emma' },
   ], ['/controller/local'], browse);
-  expect(menu.getByText('/target/first/Cindy')).toBeTruthy();
+  expect(menu.getByText('/target/first/Emma')).toBeTruthy();
   expect(menu.queryByText('/controller/local')).toBeNull();
   fireEvent.click(menu.getByRole('menuitem', { name: /D:.*Projects/ }));
   expect(onPick).toHaveBeenCalledWith('target-b');

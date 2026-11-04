@@ -10,14 +10,14 @@ import {
 function launchArgs(extraArgs: string[], headless = true): string[] {
   const resolved = resolveBrowserConfig({
     enabled: true,
-    defaultProfile: 'Cindy',
+    defaultProfile: 'Emma',
     headless,
     extraArgs,
     profiles: {
       Cindy: { driver: 'openclaw', cdpPort: 18800, color: '#00D9C5' },
     },
   });
-  const profile = resolveProfile(resolved, 'Cindy');
+  const profile = resolveProfile(resolved, 'Emma');
   if (!profile) throw new Error('test profile did not resolve');
   return buildOpenClawChromeLaunchArgs({
     resolved,

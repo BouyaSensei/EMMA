@@ -49,7 +49,7 @@ function loadAdapter(initialAliases: Alias[] = [], network?: { fetch: unknown; s
     },
   };
   const source = PI_NATIVE_PROVIDER_ADAPTER_SOURCE.replaceAll('import(', '__loadPiAi(');
-  const compiled = ts.transpileModule(source + '\n(globalThis as any).adapter = { parseCindyProviderRefreshSnapshot, registerCindyNativeProviderAdapters };', {
+  const compiled = ts.transpileModule(source + '\n(globalThis as any).adapter = { parseEmmaProviderRefreshSnapshot, registerEmmaNativeProviderAdapters };', {
     compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.None },
   }).outputText;
   const sandbox: Record<string, unknown> = {
@@ -73,7 +73,7 @@ function loadAdapter(initialAliases: Alias[] = [], network?: { fetch: unknown; s
   return { adapter, env, pi, ctx, handlers, providers, actions, setModels: (value: typeof models) => { nextModels = value; } };
 }
 
-describe('Cindy native provider refresh bridge', () => {
+describe('Emma native provider refresh bridge', () => {
   it('wraps only managed cache routes and keeps the native serializer and payload hook', async () => {
     const stream = vi.fn(async function* () {});
     const h = loadAdapter([], { fetch: vi.fn(), stream });
@@ -290,7 +290,7 @@ describe('Cindy native provider refresh bridge', () => {
     expect(start).toBeGreaterThan(0);
     expect(end).toBeGreaterThan(start);
     const code = ts.transpileModule(
-      `async function setup(pi: any, nativeProviderAdapters: any, parseCindyProviderRefreshSnapshot: any) {\nconst SECRET_ENV_NAMES = new Set<string>();\n${source.slice(start, end)}\n}\n(globalThis as any).setup = setup;`,
+      `async function setup(pi: any, nativeProviderAdapters: any, parseEmmaProviderRefreshSnapshot: any) {\nconst SECRET_ENV_NAMES = new Set<string>();\n${source.slice(start, end)}\n}\n(globalThis as any).setup = setup;`,
       { compilerOptions: { target: ts.ScriptTarget.ES2022 } },
     ).outputText;
     const sandbox: Record<string, unknown> = { piCodingAgent: { VERSION: '1.0.0' },

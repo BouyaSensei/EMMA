@@ -125,7 +125,7 @@ export class OpenCliPage extends CDPBasePage {
     if (!sessionId) {
       const opened = await this.request({
         action: "recipeCommand",
-        recipeCommand: { method: "Cindy.begin" },
+        recipeCommand: { method: "Emma.begin" },
       });
       if (typeof opened.sessionId !== "string")
         throw new Error("Browser did not return a recipe session");
@@ -144,7 +144,7 @@ export class OpenCliPage extends CDPBasePage {
         .call({
           action: "recipeCommand",
           targetId,
-          recipeCommand: { method: "Cindy.end", sessionId },
+          recipeCommand: { method: "Emma.end", sessionId },
         })
         .catch(() => {});
     }
@@ -254,7 +254,7 @@ export class OpenCliPage extends CDPBasePage {
         await this.request({
           action: "recipeCommand",
           targetId: closing,
-          recipeCommand: { method: "Cindy.end", sessionId },
+          recipeCommand: { method: "Emma.end", sessionId },
         }, false);
         this.sessions.delete(closing);
       }
@@ -278,13 +278,13 @@ export class OpenCliPage extends CDPBasePage {
   }
 
   async startNetworkCapture(pattern = ""): Promise<boolean> {
-    await this.cdp("Cindy.captureStart", { pattern });
+    await this.cdp("Emma.captureStart", { pattern });
     return true;
   }
   async readNetworkCapture(
     options: { retainIncomplete?: boolean } = {},
   ): Promise<unknown[]> {
-    const result = (await this.cdp("Cindy.captureRead", options)) as {
+    const result = (await this.cdp("Emma.captureRead", options)) as {
       entries: unknown[];
     };
     return result.entries;

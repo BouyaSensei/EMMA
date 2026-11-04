@@ -335,7 +335,7 @@ describe('armShutdownHardKillWatchdog', () => {
       spawn,
       pid: 12345,
       platform: 'darwin',
-      execPath: '/Apps/Cindy Test/Electron',
+      execPath: '/Apps/Emma Test/Electron',
     });
 
     expect(spawn).toHaveBeenCalledTimes(1);
@@ -355,7 +355,7 @@ describe('armShutdownHardKillWatchdog', () => {
       + '[ -n "$started" ] || exit 0; '
       + `sleep ${SHUTDOWN_HARD_KILL_GRACE_SECONDS}; `
       + '[ "$(ps -p 12345 -o lstart= 2>/dev/null)" = "$started" ] && '
-      + "ps -p 12345 -o command= 2>/dev/null | grep -qF '/Apps/Cindy Test/Electron' && "
+      + "ps -p 12345 -o command= 2>/dev/null | grep -qF '/Apps/Emma Test/Electron' && "
       + 'kill -9 12345 2>/dev/null',
     ]);
     expect(opts).toEqual({ detached: true, stdio: 'ignore' });
@@ -375,7 +375,7 @@ describe('armShutdownHardKillWatchdog', () => {
       spawn,
       pid: 67890,
       platform: 'win32',
-      execPath: 'C:\\Cindy\\Cindy.exe',
+      execPath: 'C:\\Emma\\Emma.exe',
       tmpDir: watchdogTmpDir,
     });
 
@@ -399,7 +399,7 @@ describe('armShutdownHardKillWatchdog', () => {
       scriptPath,
       '67890',
       String(SHUTDOWN_HARD_KILL_GRACE_SECONDS * 1000),
-      'C:\\Cindy\\Cindy.exe',
+      'C:\\Emma\\Emma.exe',
     ]);
     expect(opts).toEqual({ detached: true, windowsHide: true, stdio: 'ignore' });
     expect(child.unref).toHaveBeenCalledTimes(1);
@@ -463,7 +463,7 @@ describe('armShutdownHardKillWatchdog', () => {
         spawn,
         pid: 1,
         platform: 'win32',
-        execPath: 'C:\\Cindy\\Cindy.exe',
+        execPath: 'C:\\Emma\\Emma.exe',
         tmpDir: join(watchdogTmpDir, 'missing', 'deep'),
       }),
     ).not.toThrow();

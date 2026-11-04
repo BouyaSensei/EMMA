@@ -134,7 +134,7 @@ const log = createLogger('device-link:ipc');
 
 function requireDeviceLinkCapability(): void {
   if (!getAppCapabilities().canUseDeviceLink) {
-    throwIpcError('PERMISSION_DENIED', 'Device Link requires a Cindy account.');
+    throwIpcError('PERMISSION_DENIED', 'Device Link requires an Emma account.');
   }
 }
 
@@ -1578,7 +1578,7 @@ export function registerDeviceLinkIpc(deps: DeviceLinkIpcDeps = defaultDeps()): 
     assertCurrent();
     const manifest = caps.ok ? caps.result as { collections?: Array<{ id: string; actions?: Array<{ id: string }> }> } : null;
     if (!manifest?.collections?.some(c => c.id === 'plugins' && c.actions?.some(a => a.id === 'management:snapshot')))
-      throwIpcError('UNSUPPORTED_CAPABILITY', 'Update Cindy on the target computer');
+      throwIpcError('UNSUPPORTED_CAPABILITY', 'Update Emma on the target computer');
     const win = BrowserWindow.fromWebContents(event.sender);
     const options = { filters: [{ name: t('settings.ghosts.detail.exportFileType'), extensions: ['cindy'] }], properties: ['openFile' as const] };
     const picked = win ? await dialog.showOpenDialog(win, options) : await dialog.showOpenDialog(options);
@@ -1617,7 +1617,7 @@ export function registerDeviceLinkIpc(deps: DeviceLinkIpcDeps = defaultDeps()): 
   });
   const authorizationFailed = (error: unknown): never => {
     if (error instanceof RemotePluginOauthUnsupportedError)
-      throwIpcError('UNSUPPORTED_CAPABILITY', 'Update Cindy on the remote device to use remote plugin authorization');
+      throwIpcError('UNSUPPORTED_CAPABILITY', 'Update Emma on the remote device to use remote plugin authorization');
     throwIpcError('PRECONDITION_FAILED', 'Remote authorization unavailable; retry from the current card');
   };
   ipcMain.handle(REMOTE_PLUGIN_SETTINGS_OPEN, async (event, raw: unknown) => {

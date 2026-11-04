@@ -80,7 +80,7 @@ const baseProviders = [
   makeProvider('anthropic', { name: 'Anthropic' }),
   makeProvider('openai', { name: 'OpenAI' }),
   makeProvider('xai', { name: 'xAI' }),
-  makeProvider('xd', { name: 'Cindy AI', auth: { method: 'managed' } as ProviderView['auth'] }),
+  makeProvider('xd', { name: 'Emma AI', auth: { method: 'managed' } as ProviderView['auth'] }),
 ];
 
 function LocationProbe() {
@@ -155,11 +155,11 @@ afterEach(() => {
 });
 
 describe('ConnectProviderCard', () => {
-  it('global 区零连接 → 推荐行(Cindy AI)+ 三条 OAuth 主列;点 Anthropic 落 connect=anthropic', async () => {
+  it('global 区零连接 → 推荐行(Emma AI)+ 三条 OAuth 主列;点 Anthropic 落 connect=anthropic', async () => {
     await renderCardSettled();
 
     expect(screen.getByTestId('connect-provider-card')).not.toBeNull();
-    expect(screen.getByText('Cindy AI')).not.toBeNull();
+    expect(screen.getByText('Emma AI')).not.toBeNull();
     expect(screen.getByText('onboarding.connectProvider.recommendedLabel')).not.toBeNull();
     expect(screen.getByText('Anthropic')).not.toBeNull();
     expect(screen.getByText('OpenAI')).not.toBeNull();
@@ -193,7 +193,7 @@ describe('ConnectProviderCard', () => {
     const card = screen.getByTestId('connect-provider-card');
     const labels = Array.from(card.querySelectorAll('button')).map((b) => b.textContent ?? '');
     expect(labels.findIndex((x) => x.includes('Anthropic'))).toBeLessThan(
-      labels.findIndex((x) => x.includes('Cindy AI')),
+      labels.findIndex((x) => x.includes('Emma AI')),
     );
 
     fireEvent.click(screen.getByText('Anthropic').closest('button')!);
@@ -230,7 +230,7 @@ describe('ConnectProviderCard', () => {
   it('cloud 模式点推荐行 → connect=xd;「我有 API key」→ wizard=1', async () => {
     await renderCardSettled();
 
-    fireEvent.click(screen.getByText('Cindy AI').closest('button')!);
+    fireEvent.click(screen.getByText('Emma AI').closest('button')!);
     expect(screen.getByTestId('location').textContent).toBe('/settings?tab=providers&connect=xd');
 
     cleanup();
@@ -239,7 +239,7 @@ describe('ConnectProviderCard', () => {
     expect(screen.getByTestId('location').textContent).toBe('/settings?tab=providers&wizard=1');
   });
 
-  it('local(跳过登录)模式 → 推荐行为「登录 Cindy」,点击落 /login', async () => {
+  it('local(跳过登录)模式 → 推荐行为「登录 Emma」,点击落 /login', async () => {
     authState.mode = 'local';
     await renderCardSettled();
 
@@ -292,7 +292,7 @@ describe('ConnectProviderCard', () => {
     localStorage.setItem('providerOnboarding.dismissedAt', new Date().toISOString());
     providersState.providers = [
       ...baseProviders.slice(0, 3),
-      makeProvider('xd', { name: 'Cindy AI', connected: true }),
+      makeProvider('xd', { name: 'Emma AI', connected: true }),
     ];
     renderCard();
 

@@ -10,7 +10,7 @@ vi.mock('@cindy/maker-shared/cindy-make-feature', async (importOriginal) => ({
 }));
 beforeEach(() => { feature.enabled = true; });
 
-describe('applyPersistedCindyMakeMarker', () => {
+describe('applyPersistedEmmaMakeMarker', () => {
   it.each(['cindy-make', 'cindy-make-merge'])('refuses to resume a persisted %s task while disabled', async (source) => {
     feature.enabled = false;
     const options = { id: 'old-task', vendorOptions: { source: 'draft' } };
@@ -48,7 +48,7 @@ describe('applyPersistedCindyMakeMarker', () => {
     expect(readSource).not.toHaveBeenCalled();
   });
 
-  it('refuses remote Cindy Make tasks', async () => {
+  it('refuses remote Emma Make tasks', async () => {
     await expect(
       applyPersistedCindyMakeMarker(
         { id: 'make-1', remoteHostId: 'build-box' },

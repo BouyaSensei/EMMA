@@ -943,7 +943,7 @@ export class GhostNodeRuntimeBroker {
       ghost.manifest.node.protocol === 'mcp-stdio' &&
       isGhostNodeMcpReservedMethod(request.method as string)
     ) {
-      return errorResult('INVALID_REQUEST', 'MCP 初始化由 Cindy 主机统一管理');
+      return errorResult('INVALID_REQUEST', 'MCP 初始化由 Emma 主机统一管理');
     }
 
     let ownerScopeSnapshot: unknown;
@@ -2120,7 +2120,7 @@ export class GhostNodeRuntimeBroker {
         {
           protocolVersion: MCP_PROTOCOL_VERSION,
           capabilities: {},
-          clientInfo: { name: 'Cindy', version: '1' },
+          clientInfo: { name: 'Emma', version: '1' },
         },
         10_000,
       ).then(() => {
@@ -2359,7 +2359,7 @@ export class GhostNodeRuntimeBroker {
       this.writeLine(entry, {
         jsonrpc: '2.0',
         id: msg.id,
-        error: { code: -32601, message: 'Cindy host does not expose reverse RPC methods' },
+        error: { code: -32601, message: 'Emma host does not expose reverse RPC methods' },
       });
       return;
     }

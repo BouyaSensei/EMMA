@@ -13,7 +13,7 @@ export async function sendCodexApprovalFeedback(
     expectedTurnId: feedback.turnId,
     input: [{
       type: 'text',
-      text: 'Cindy permission result (host-generated feedback, not a user message or additional authorization):\n'
+      text: 'Emma permission result (host-generated feedback, not a user message or additional authorization):\n'
         + JSON.stringify({ itemId: feedback.itemId, result: feedback.reason })
         + '\nThis approval request was denied. Use this reason rather than attributing a generic upstream rejection to the user.',
       text_elements: [],

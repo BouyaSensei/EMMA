@@ -244,13 +244,13 @@ describe('(multi-team)bindingsCache 持久化', () => {
   });
 });
 
-describe('provider 与 Cindy 账号隔离', () => {
+describe('provider 与 Emma 账号隔离', () => {
   const telegramBinding = {
     bindingId: 'bind-1',
     principalId: 'tg-user-1',
     principalName: 'Chris',
     scopeId: 'bot-1',
-    scopeName: 'CindyBot',
+    scopeName: 'EmmaBot',
   };
 
   it('Slack/Telegram 开关独立，目录映射设备共享，绑定缓存按账号分区', () => {

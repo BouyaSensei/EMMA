@@ -75,7 +75,7 @@ export function createBotRemoteSettingsHost(deps: BotSettingsHostDeps) {
     try {
       if (op === 'caps') return { ok: true, value: caps() };
       const handler = deps.ops[op];
-      if (!handler) return failure('UNSUPPORTED_CAPABILITY', 'Update Cindy on the teammate’s computer');
+      if (!handler) return failure('UNSUPPORTED_CAPABILITY', 'Update Emma on the teammate’s computer');
       if (botId && !(await deps.botVisible(botId))) {
         assertCurrent();
         return failure('NOT_FOUND', 'Teammate unavailable');

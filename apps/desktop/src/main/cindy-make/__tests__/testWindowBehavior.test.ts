@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createMakeTestWindowBehavior } from '../testWindowBehavior';
 
-describe('Cindy Make test window', () => {
+describe('Emma Make test window', () => {
   const environment = { XDT_CINDY_MAKE_TEST: '1', XDT_ISOLATED: '1' };
 
   it('activates the ready preview and quits on close without persisting a tray preference', () => {

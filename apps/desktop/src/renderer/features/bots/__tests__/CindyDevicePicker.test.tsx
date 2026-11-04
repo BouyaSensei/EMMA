@@ -48,13 +48,13 @@ it.each([
     const onSelect = vi.fn();
     const makeOptions = (online: boolean, connectionKnown?: boolean): CindyDeviceOption[] => {
       const options = cindyDeviceOptions(
-        [{ id: 'cindy-default', name: 'Cindy', status: 'active' } as BotProfile],
+        [{ id: 'cindy-default', name: 'Emma', status: 'active' } as BotProfile],
         [
           {
             id: 'cindy-default',
             deviceId: 'remote',
             deviceName: 'Mac mini',
-            name: 'Cindy',
+            name: 'Emma',
             avatar: '',
             avatarColor: '',
             description: '',
@@ -148,13 +148,13 @@ it.each([true, false])(
     const i18n = createInstance();
     await i18n.init({ lng: 'en', resources: { en: { translation: en } } });
     const options = cindyDeviceOptions(
-      [{ id: 'cindy-default', name: 'Cindy', status: 'active' } as BotProfile],
+      [{ id: 'cindy-default', name: 'Emma', status: 'active' } as BotProfile],
       [
         {
           id: 'cindy-default',
           deviceId: 'remote',
           deviceName: 'Mac mini',
-          name: 'Cindy',
+          name: 'Emma',
           avatar: '',
           avatarColor: '',
           description: '',
@@ -210,7 +210,7 @@ it.each([true, false])(
   },
 );
 
-describe('Cindy device menu with real translations', () => {
+describe('Emma device menu with real translations', () => {
   it.each([
     ['zh-CN', zhCN, '本机'],
     ['zh-TW', zhTW, '本機'],
@@ -226,13 +226,13 @@ describe('Cindy device menu with real translations', () => {
       interpolation: { escapeValue: false },
     });
     const options = cindyDeviceOptions(
-      [{ id: 'cindy-default', name: 'Cindy', status: 'active' } as BotProfile],
+      [{ id: 'cindy-default', name: 'Emma', status: 'active' } as BotProfile],
       [
         {
           id: 'cindy-default',
           deviceId: 'remote',
           deviceName: 'Mac mini',
-          name: 'Cindy',
+          name: 'Emma',
           avatar: '',
           avatarColor: '',
           description: '',

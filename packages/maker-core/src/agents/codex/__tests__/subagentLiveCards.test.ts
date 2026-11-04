@@ -287,7 +287,7 @@ describe('createSubagentLiveCardTracker', () => {
     ).toBe(300);
   });
 
-  it('uses an unlocked Cindy fallback only until the child thread reports its model', () => {
+  it('uses an unlocked Emma fallback only until the child thread reports its model', () => {
     const tracker = createSubagentLiveCardTracker({ now: () => 0, subagentModelFallback: 'gpt-5.6-terra' });
     // Fresh spawn 的初始模型由 translator 合并进原有启动帧，tracker 不重复发帧。
     expect(tracker.noteSpawnItem(v2SpawnItem('card-1', 't-child'))).toBeNull();

@@ -56,7 +56,7 @@ export async function resolveOfficialSidecarAsset(
   const response = await fetchImpl(OLLAMA_GITHUB_API_LATEST, {
     headers: {
       Accept: 'application/vnd.github+json',
-      'User-Agent': 'Cindy-Desktop',
+      'User-Agent': 'Emma-Desktop',
       'X-GitHub-Api-Version': '2022-11-28',
     },
     signal,

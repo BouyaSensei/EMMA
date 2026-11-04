@@ -81,7 +81,7 @@ beforeEach(() => {
 
 describe('auxiliary task-title routing', () => {
   it.each([
-    ['研究Deepseek Harness对比Cindy', '研究Deepseek Harness对比Cindy'],
+    ['研究Deepseek Harness对比Emma', '研究Deepseek Harness对比Emma'],
     ['😀'.repeat(40), '😀'.repeat(40)],
     ['😀'.repeat(41), '😀'.repeat(40)],
     ['字'.repeat(41), '字'.repeat(40)],

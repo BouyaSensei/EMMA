@@ -83,7 +83,7 @@ describe('first-party naming and approved source eligibility', () => {
     expect(resolveGhostFirstPartyPrivilege({ ...publicInstall, marketRecord: { ...PUBLIC_RECORD, sha256: 'b'.repeat(64) } }).brokerEligible).toBe(false);
   });
 
-  it('keeps an exact Cindy public resource usable without builtin facts or an organization prefix cache', () => {
+  it('keeps an exact Emma public resource usable without builtin facts or an organization prefix cache', () => {
     const loader = loadGhostFirstPartyFactsLoader({
       readInstalledBuiltin: () => false,
       readMarketInstallation: () => ({

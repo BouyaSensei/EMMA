@@ -221,7 +221,7 @@ describe('local client runtime lifecycle', () => {
     if (outcome === 'owner-changed') await expect(opening).rejects.toThrow('owner changed');
     else if (outcome === 'unavailable' || outcome === 'denied') {
       await expect(opening).rejects.toMatchObject({ code: 'REMOTE_AGENT_UNAVAILABLE',
-        message: '远程供应商暂不可用，请在 Cindy 中检查连接或更新远端版本。' });
+        message: '远程供应商暂不可用，请在 Emma 中检查连接或更新远端版本。' });
     } else {
       const f = await opening;
       const opts = f.maker.startLocalAgentSession.mock.calls[0][1];
@@ -257,7 +257,7 @@ describe('local client runtime lifecycle', () => {
     await f.runtime.call('instructions', { instructions: 'updated' });
     await expect(f.runtime.call('send', message)).rejects.toMatchObject({
       code: 'REMOTE_AGENT_PEER_TOO_OLD',
-      message: '远程供应商暂不可用，请在 Cindy 中检查连接或更新远端版本。',
+      message: '远程供应商暂不可用，请在 Emma 中检查连接或更新远端版本。',
     });
     expect(f.first.send).not.toHaveBeenCalled();
   });
@@ -291,7 +291,7 @@ describe('local client runtime lifecycle', () => {
   // #7631 review P0: the existing visible-session tests only mock persistence.
   // A Cindy input must await close/handoff and fence all subsequent app input.
   // Minimal input: one live visible runtime followed by a host takeover (integration).
-  it('fences the app before handing the visible task to Cindy', async () => {
+  it('fences the app before handing the visible task to Emma', async () => {
     const f = await fixture({ visible: true });
     const entered = deferred(), finish = deferred();
     cleanups.push(async () => { finish.resolve(); });
@@ -314,11 +314,11 @@ describe('local client runtime lifecycle', () => {
     await takeOverLocalAgentVisibleSession(f.runtime.visibleSessionId!);
     expect(f.host.close).toHaveBeenCalledTimes(1);
     expect(f.first.send).not.toHaveBeenCalled();
-    f.first.onEvent.mock.calls[0][0]({ type: 'text', data: { text: 'private Cindy output' } } as AgentEvent);
+    f.first.onEvent.mock.calls[0][0]({ type: 'text', data: { text: 'private Emma output' } } as AgentEvent);
     expect(f.events).toEqual([]);
   });
 
-  it('joins an API close queued behind the Cindy send lease without waiting on itself', async () => {
+  it('joins an API close queued behind the Emma send lease without waiting on itself', async () => {
     const f = await fixture({ visible: true });
     const release = await acquireSendToSessionLock(f.runtime.visibleSessionId!);
     cleanups.push(async () => { release(); });
@@ -333,7 +333,7 @@ describe('local client runtime lifecycle', () => {
     expect(f.host.close).toHaveBeenCalledOnce();
   });
 
-  it('does not reopen an external engine waiting behind a Cindy takeover', async () => {
+  it('does not reopen an external engine waiting behind a Emma takeover', async () => {
     const f = await fixture({ visible: true });
     const release = await acquireSendToSessionLock(f.runtime.visibleSessionId!);
     cleanups.push(async () => { release(); });
@@ -401,7 +401,7 @@ describe('local client runtime lifecycle', () => {
     await vi.waitFor(() =>
       expect(f.events).toContainEqual({
         type: 'turn_end',
-        data: { status: 'failed', message: 'Cindy 未能完成本次发送。' },
+        data: { status: 'failed', message: 'Emma 未能完成本次发送。' },
       }),
     );
     expect(dispatched).not.toHaveBeenCalled();

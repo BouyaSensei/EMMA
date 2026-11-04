@@ -1602,7 +1602,7 @@ describe('CodexAgent spawn configuration', () => {
       extraArgs: imageGenerationEnabled
         ? [
             '-c',
-            `model_providers.${modelProviderId}.name="Cindy Custom Provider"`,
+            `model_providers.${modelProviderId}.name="Emma Custom Provider"`,
             '-c',
             `model_providers.${modelProviderId}.http_headers={ x-openai-actor-authorization = "local-image-extension" }`,
           ]
@@ -2087,7 +2087,7 @@ describe('CodexAgent permissions', () => {
     });
   });
 
-  it.each([false, true])('keeps goal continuation owned by Cindy on thread startup (resume=%s)', async (resume) => {
+  it.each([false, true])('keeps goal continuation owned by Emma on thread startup (resume=%s)', async (resume) => {
     const agent = new CodexAgent(createDeps());
     const host = installFakeHost(agent);
     const handle = await agent.startSession({
@@ -2413,7 +2413,7 @@ describe('CodexAgent permissions', () => {
     const host = installFakeHost(agent, undefined, { userAgent: 'mock-codex/0.145.0' });
     await expect(agent.startSession({
       sessionId: 'review-old-windows', model: 'gpt-5.5', workingDir, reviewMode: true,
-    })).rejects.toThrow('Windows Cindy Review requires Codex app-server 0.156.0');
+    })).rejects.toThrow('Windows Emma Review requires Codex app-server 0.156.0');
     expect(host.request.mock.calls.some(([method]) => method === Method.ThreadStart)).toBe(false);
   });
 
@@ -3016,7 +3016,7 @@ describe('CodexAgent capability routing', () => {
     await resumeHandle.close();
   });
 
-  it('keeps the plugin enabled when Cindy Computer Use is unavailable but hides its incompatible Skill', async () => {
+  it('keeps the plugin enabled when Emma Computer Use is unavailable but hides its incompatible Skill', async () => {
     const compatibilityOnlyRouting = {
       overrides: [capabilityRouting.overrides[1]],
     } as const;
@@ -3232,7 +3232,7 @@ describe('CodexAgent capability routing', () => {
       model: 'gpt-5.4',
       workingDir: '/repo',
     })).rejects.toThrow(
-      'Cannot start Codex safely because Cindy could not inspect restricted Codex Skills: skills/list unavailable',
+      'Cannot start Codex safely because Emma could not inspect restricted Codex Skills: skills/list unavailable',
     );
   });
 
@@ -5881,7 +5881,7 @@ describe('CodexAgent.startSession developerInstructions', () => {
     await handle.close();
   });
 
-  it('selects remote compaction identities only for ChatGPT and Cindy codex routes', async () => {
+  it('selects remote compaction identities only for ChatGPT and Emma codex routes', async () => {
     const agent = new CodexAgent(createDeps());
     const host = installFakeHost(agent, undefined, {
       codexProxyActive: true,
@@ -6259,7 +6259,7 @@ describe('CodexAgent.startSession developerInstructions', () => {
     await handle.close();
   });
 
-  it('keeps Cindy codex root compaction local when an independent subagent uses another backend', async () => {
+  it('keeps Emma codex root compaction local when an independent subagent uses another backend', async () => {
     const agent = new CodexAgent(createDeps());
     const host = installFakeHost(agent, undefined, {
       codexProxyActive: true,
@@ -7017,7 +7017,7 @@ describe('CodexAgent.startSession developerInstructions', () => {
     await handle.close();
   });
 
-  it('keeps global Cindy prompts and discovery context out of a Bot thread', async () => {
+  it('keeps global Emma prompts and discovery context out of a Bot thread', async () => {
     const getGhostRosterPrompt = vi.fn(() => 'GLOBAL GHOST ROSTER');
     const agent = new CodexAgent(createDeps(
       { systemPrompt: 'GLOBAL CINDY HOST PROMPT' },
@@ -16351,7 +16351,7 @@ describe('CodexAgent MCP thread context hooks', () => {
   );
 
   it.each(['auto-block', 'timeout', 'resolver-failure', 'no-resolver', 'user-denied'] as const)(
-    'preserves the MCP denial cause for Cindy without changing native approval: %s', async (cause) => {
+    'preserves the MCP denial cause for Emma without changing native approval: %s', async (cause) => {
       const review = vi.fn<AutoReviewDelegate>(async () => ({ verdict: 'block', reason: 'secret reviewer content' }));
       const agent = new CodexAgent(createDeps({}, { reviewAutoPermissionAction: review, getMcpToolApprovalPolicy: () => 'prompt' }));
       const host = installFakeHost(agent);
@@ -17511,7 +17511,7 @@ describe('CodexAgent MCP thread context hooks', () => {
     const steers = host.request.mock.calls.filter(([method]) => method === Method.TurnSteer);
     expect(steers).toHaveLength(1);
     expect(steers[0]?.[1]).toMatchObject({ threadId: params.threadId, expectedTurnId: params.turnId,
-      input: [{ type: 'text', text: expect.stringContaining('Cindy Auto-review denied this tool call: Keep the existing document.') }] });
+      input: [{ type: 'text', text: expect.stringContaining('Emma Auto-review denied this tool call: Keep the existing document.') }] });
     handlers.itemCompleted?.({ threadId: params.threadId, turnId: params.turnId,
       item: { id: params.itemId, type: kind, status: 'declined', command: 'python3 rewrite.py', changes, aggregatedOutput: '' } });
     await handlers.commandExecutionApproval!({ ...params, itemId: 'second-item', command: 'python3 check.py', cwd: '/repo' });
@@ -17553,9 +17553,9 @@ describe('CodexAgent MCP thread context hooks', () => {
     await expect(approval).resolves.toEqual({ decision: 'decline' });
     const steers = host.request.mock.calls.filter(([method]) => method === Method.TurnSteer);
     expect(steers).toHaveLength(scenario === 'turn-ended' ? 0 : 1);
-    if (scenario === 'user') expect(JSON.stringify(steers)).toContain('User denied this tool call via Cindy');
+    if (scenario === 'user') expect(JSON.stringify(steers)).toContain('User denied this tool call via Emma');
     if (scenario === 'system') {
-      expect(JSON.stringify(steers)).toContain('Cindy could not approve');
+      expect(JSON.stringify(steers)).toContain('Emma could not approve');
       expect(JSON.stringify(steers)).not.toContain('User denied');
     }
     expect(host.request.mock.calls.filter(([method]) => method === Method.TurnStart)).toHaveLength(1);
@@ -17736,7 +17736,7 @@ describe('CodexAgent MCP thread context hooks', () => {
     await handle.close();
   });
 
-  it('re-checks Ask and Full access after an in-flight Cindy auto-review', async () => {
+  it('re-checks Ask and Full access after an in-flight Emma auto-review', async () => {
     const askReview = deferred<{ verdict: 'allow' }>();
     const askReviewer = vi.fn(() => askReview.promise);
     const askAgent = new CodexAgent(createDeps({}, { reviewAutoPermissionAction: askReviewer }));
@@ -17966,7 +17966,7 @@ describe('CodexAgent MCP thread context hooks', () => {
     await handle.close();
   });
 
-  it('auto-approves safe fallback commands via the Cindy auto-review core without prompting', async () => {
+  it('auto-approves safe fallback commands via the Emma auto-review core without prompting', async () => {
     const reviewAutoPermissionAction = vi.fn<AutoReviewDelegate>(async (_request) => ({ verdict: 'allow' as const }));
     const agent = new CodexAgent(createDeps({}, { reviewAutoPermissionAction }));
     const host = installFakeHost(agent);
@@ -25425,7 +25425,7 @@ describe('CodexAgent.forkSdkSession', () => {
     else await expect(result).rejects.toBeInstanceOf(AgentNotAuthenticatedError);
   });
 
-  it.each(['indexed', 'lazy', 'legacy-agent-cipher'])('requests Cindy recovery before native forking (%s)', async (format) => {
+  it.each(['indexed', 'lazy', 'legacy-agent-cipher'])('requests Emma recovery before native forking (%s)', async (format) => {
     const codexHome = await fs.mkdtemp(path.join(os.tmpdir(), 'cindy-indexed-fork-'));
     try {
       const agent = new CodexAgent(createDeps());

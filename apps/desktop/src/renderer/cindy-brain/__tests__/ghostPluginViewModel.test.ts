@@ -95,7 +95,7 @@ function marketItem(overrides: Partial<PluginMarketItem> = {}): PluginMarketItem
 describe('ghostPluginViewModel', () => {
   it('maps iconless Plugins to restrained functional fallback symbols', () => {
     expect(ghostFallbackIconKind('Lizi Mivo', 'lizi-mivo')).toBe('media');
-    expect(ghostFallbackIconKind('Cindy Mermaid', 'cindy-mermaid')).toBe('diagram');
+    expect(ghostFallbackIconKind('Emma Mermaid', 'cindy-mermaid')).toBe('diagram');
     expect(ghostFallbackIconKind('XD Feishu', 'xd-feishu')).toBe('communication');
     expect(ghostFallbackIconKind('Local Weather', 'local-weather')).toBe('generic');
   });
@@ -133,7 +133,7 @@ describe('ghostPluginViewModel', () => {
       {
         id: 'slack',
         ghostId: 'slack',
-        name: 'Cindy Slack',
+        name: 'Emma Slack',
         description: 'messages',
         version: '1',
         enabled: true,

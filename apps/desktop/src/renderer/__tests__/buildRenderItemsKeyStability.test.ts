@@ -57,7 +57,7 @@ const mkAssistant = (id: string, content = 'ok'): ChatMessage => ({
   content,
 });
 
-it('keeps persistent Cindy Make progress visible in the message timeline', () => {
+it('keeps persistent Emma Make progress visible in the message timeline', () => {
   const built = buildRenderItems([
     mkUser('u1', '之前的消息'),
     {
@@ -71,7 +71,7 @@ it('keeps persistent Cindy Make progress visible in the message timeline', () =>
   ).toBe(true);
 });
 
-it('keeps modal-only Cindy Make cards out of the message timeline', () => {
+it('keeps modal-only Emma Make cards out of the message timeline', () => {
   const built = buildRenderItems([
     mkUser('u1', '之前的消息'),
     {
@@ -679,7 +679,7 @@ describe('buildRenderItems — key stability', () => {
     expect(items.indexOf(cards[0])).toBeGreaterThan(items.findIndex((item) => item.key === 'msg-a1'));
   });
 
-  it('places the preceding turn changes before an appended Cindy Make card', () => {
+  it('places the preceding turn changes before an appended Emma Make card', () => {
     const firstUser = mkUser('u1');
     const makeCard = {
       ...mkAssistant('make-card', ''),

@@ -1398,7 +1398,7 @@ describe('createComputerMcpServer', () => {
     await h.cleanup();
   });
 
-  it('replays a validated trajectory through Cindy action dispatch', async () => {
+  it('replays a validated trajectory through Emma action dispatch', async () => {
     const deps: ComputerMcpDeps = {
       getStatus: vi.fn(),
       callTool: vi.fn(async () => ({ ok: true })),
@@ -1733,7 +1733,7 @@ describe('createComputerMcpServer', () => {
     await fs.rm(root, { recursive: true, force: true });
   });
 
-  it('preserves recorded tool summaries instead of exposing Cindy envelopes', async () => {
+  it('preserves recorded tool summaries instead of exposing Emma envelopes', async () => {
     const deps: ComputerMcpDeps = {
       getStatus: vi.fn(),
       callTool: vi
@@ -1971,7 +1971,7 @@ describe('createComputerMcpServer desktop guards', () => {
 
   it('distinguishes a vanished window from one that is only off screen, with compact discovery', async () => {
     const windows = [
-      { pid: 65985, window_id: 5304, app_name: 'Electron', title: 'Cindy', is_on_screen: false,
+      { pid: 65985, window_id: 5304, app_name: 'Electron', title: 'Emma', is_on_screen: false,
         process: { pid: 65985, command: '/very/long/command/line --with --flags' },
         identity: { kind: 'electron-dev', confidence: 0.75, labels: ['electron'], hints: ['use set_value'] } },
     ];
@@ -1985,7 +1985,7 @@ describe('createComputerMcpServer desktop guards', () => {
       } })) as { reason?: string; recovery?: { discovery?: { data?: { windows?: unknown[] } } } };
       expect(offScreen.reason).toBe('window_not_on_screen');
       expect(offScreen.recovery?.discovery?.data?.windows).toEqual([
-        { pid: 65985, window_id: 5304, app_name: 'Electron', title: 'Cindy', is_on_screen: false,
+        { pid: 65985, window_id: 5304, app_name: 'Electron', title: 'Emma', is_on_screen: false,
           identity: { kind: 'electron-dev', hints: ['use set_value'] } },
       ]);
 

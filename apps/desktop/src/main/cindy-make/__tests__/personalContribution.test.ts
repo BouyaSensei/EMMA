@@ -23,7 +23,7 @@ async function fakeDiff(args: string[]): Promise<string> {
 const record = (runId: string, number: number): ContributionRecord => ({
   runId,
   number,
-  url: `https://github.com/makecindy/cindy/pull/${number}`,
+  url: `https://github.com/BouyaSensei/EMMA/pull/${number}`,
   branch: `cindy-make-pr/${runId}`,
   commit: A,
   submittedAt: 1,
@@ -361,7 +361,7 @@ describe('PersonalContribution', () => {
       }
     });
     const pull = {
-      number: 9, html_url: 'https://github.com/makecindy/cindy/pull/9',
+      number: 9, html_url: 'https://github.com/BouyaSensei/EMMA/pull/9',
       state: 'open', base: { ref: 'another-base' },
     };
     let posted = false;
@@ -401,7 +401,7 @@ describe('PersonalContribution', () => {
     }
   });
 
-  it('stops the submission when the Cindy account changes while it runs', async () => {
+  it('stops the submission when the Emma account changes while it runs', async () => {
     let scope = 'owner-1';
     const writes: unknown[] = [];
     const git = vi.fn(async (args: string[]) => {
@@ -458,7 +458,7 @@ describe('PersonalContribution', () => {
       run: {
         runId: 'run',
         number: 3,
-        url: 'https://github.com/makecindy/cindy/pull/3',
+        url: 'https://github.com/BouyaSensei/EMMA/pull/3',
         branch: 'cindy-make-pr/run',
         commit: A,
         submittedAt: 1,
@@ -496,7 +496,7 @@ describe('PersonalContribution', () => {
         return new Response(
           JSON.stringify({
             number: 3,
-            html_url: 'https://github.com/makecindy/cindy/pull/3',
+            html_url: 'https://github.com/BouyaSensei/EMMA/pull/3',
             state: 'open',
             base: { ref: 'another-base' },
           }),
@@ -536,7 +536,7 @@ describe('PersonalContribution', () => {
       run: {
         runId: 'run',
         number: 3,
-        url: 'https://github.com/makecindy/cindy/pull/3',
+        url: 'https://github.com/BouyaSensei/EMMA/pull/3',
         branch: 'cindy-make-pr/run',
         commit: A,
         submittedAt: 1,
@@ -576,7 +576,7 @@ describe('PersonalContribution', () => {
         ? new Response(
             JSON.stringify({
               number: 3,
-              html_url: 'https://github.com/makecindy/cindy/pull/3',
+              html_url: 'https://github.com/BouyaSensei/EMMA/pull/3',
               state: 'open',
             }),
             { status: 200 },
@@ -697,7 +697,7 @@ describe('PersonalContribution', () => {
       run: {
         runId: 'run',
         number: 3,
-        url: 'https://github.com/makecindy/cindy/pull/3',
+        url: 'https://github.com/BouyaSensei/EMMA/pull/3',
         branch: 'cindy-make-pr/run',
         commit: A,
         submittedAt: 1,
@@ -735,7 +735,7 @@ describe('PersonalContribution', () => {
         return new Response(
           JSON.stringify({
             number: 3,
-            html_url: 'https://github.com/makecindy/cindy/pull/3',
+            html_url: 'https://github.com/BouyaSensei/EMMA/pull/3',
             // Open when the submission checked, closed before it could update.
             state: reads <= 2 ? 'open' : 'closed',
           }),
@@ -821,7 +821,7 @@ describe('PersonalContribution', () => {
           return new Response(
             JSON.stringify(
               head.endsWith(reconciledBranch)
-                ? [{ number: 7, html_url: 'https://github.com/makecindy/cindy/pull/7' }]
+                ? [{ number: 7, html_url: 'https://github.com/BouyaSensei/EMMA/pull/7' }]
                 : [],
             ),
             { status: 200 },
@@ -831,7 +831,7 @@ describe('PersonalContribution', () => {
           return new Response(
             JSON.stringify({
               number: 7,
-              html_url: 'https://github.com/makecindy/cindy/pull/7',
+              html_url: 'https://github.com/BouyaSensei/EMMA/pull/7',
               state: 'open',
             }),
             { status: 200 },
@@ -912,7 +912,7 @@ describe('PersonalContribution', () => {
           return new Response(
             JSON.stringify({
               number: 5,
-              html_url: 'https://github.com/makecindy/cindy/pull/5',
+              html_url: 'https://github.com/BouyaSensei/EMMA/pull/5',
               state: 'open',
             }),
             { status: 201 },

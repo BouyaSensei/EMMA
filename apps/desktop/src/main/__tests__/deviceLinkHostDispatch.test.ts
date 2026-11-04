@@ -241,7 +241,7 @@ describe('device-link host dispatch (runInvoke) — real gate + async fs guard +
     expect(handler).toHaveBeenCalledTimes(1);
   });
 
-  it('create-session 的 workingDir 是刚创建的 Cindy 托管 worktree → 放行到 handler', async () => {
+  it('create-session 的 workingDir 是刚创建的 Emma 托管 worktree → 放行到 handler', async () => {
     const handler = registerHandler('maker:create-session', () => ({ sessionId: 's-worktree' }));
     const res = (await runInvoke(SRC, {
       channel: 'maker:create-session',

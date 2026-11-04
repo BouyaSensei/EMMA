@@ -105,7 +105,7 @@ describe('Windows Git PATH PowerShell probes', () => {
 
     expect(script).toContain('limits.Basic.Flags = 0x2000; // JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE');
     expect(script).toContain('AssignProcessToJobObject(job, GetCurrentProcess())');
-    expect(script.indexOf('[CindyWindowsPathProbeJob]::Attach()')).toBeLessThan(
+    expect(script.indexOf('[EmmaWindowsPathProbeJob]::Attach()')).toBeLessThan(
       script.indexOf('[void]$process.Start()'),
     );
     expect(script).toContain('__CINDY_WINDOWS_GIT_PATH_DIAGNOSTIC__`tpath-process-job');

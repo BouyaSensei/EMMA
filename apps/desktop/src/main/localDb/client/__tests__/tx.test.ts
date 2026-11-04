@@ -1318,7 +1318,7 @@ describe('db worker tx handlers', () => {
     });
   });
 
-  it.each([false, true])('session.treeRehydrate preserves Cindy-managed attachments across A→B→A (inline=%s)', async (useInlineWorker) => {
+  it.each([false, true])('session.treeRehydrate preserves Emma-managed attachments across A→B→A (inline=%s)', async (useInlineWorker) => {
     await withClient(async (client) => {
       await seedSession(client, 's1');
       const original = {

@@ -137,7 +137,7 @@ export function formatAuxiliaryModelRefLabel(ref: string): string {
     return `${profile.model} · ${utilityTransportLabel(profile.transport)}`;
   }
   if (parsed.route.providerId === 'xd') {
-    return `${parsed.route.model} · Cindy AI`;
+    return `${parsed.route.model} · Emma AI`;
   }
   const agent = parsed.route.agentKind === 'claude-code'
     ? 'Claude'

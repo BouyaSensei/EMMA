@@ -109,9 +109,9 @@ describe('dictionary sync — 删除传播', () => {
     // 手动词条不写抑制,是墓碑传播的唯一验证路径。
     const a = device('a');
     const b = device('b');
-    addManual(a, 'Cindy', 1_000);
+    addManual(a, 'Emma', 1_000);
     b.state = mergeSyncStates(b.state, a.state);
-    expect(entryTexts(b.state)).toEqual(['Cindy']);
+    expect(entryTexts(b.state)).toEqual(['Emma']);
 
     remove(a, 'cindy', 2_000);
     expect(materializeDictionary(a.state).suppressedTexts).toEqual([]);
@@ -155,13 +155,13 @@ describe('dictionary sync — 删除传播', () => {
 
   it('删除手动词条不写抑制,之后自动学习可以重新学出来', () => {
     const a = device('a');
-    addManual(a, 'Cindy', 1_000);
+    addManual(a, 'Emma', 1_000);
     remove(a, 'cindy', 2_000);
     expect(entryTexts(a.state)).toEqual([]);
     expect(materializeDictionary(a.state).suppressedTexts).toEqual([]);
 
-    learn(a, 'Cindy', 3_000);
-    expect(entryTexts(a.state)).toEqual(['Cindy']);
+    learn(a, 'Emma', 3_000);
+    expect(entryTexts(a.state)).toEqual(['Emma']);
     // 重新学出来的是全新化身,计数从零起。
     expect(materializeDictionary(a.state).entries[0].frequency).toBe(1);
   });

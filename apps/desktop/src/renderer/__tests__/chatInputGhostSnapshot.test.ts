@@ -44,7 +44,7 @@ describe('ChatInput Ghost snapshot contract', () => {
     );
   });
 
-  it('persists the explicit no-effort sentinel for Cindy Make creation', () => {
+  it('persists the explicit no-effort sentinel for Emma Make creation', () => {
     expect(source).toContain("const selectedEffort = composerSelection.display.effort ?? initialEffort ?? '';");
     expect(source).toContain('effort: selectedEffort,');
     expect(source).not.toContain('...(initialEffort === null ? {} : { effort: activeEffort })');

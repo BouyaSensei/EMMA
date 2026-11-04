@@ -56,7 +56,9 @@ function isCindyWindow(appName: string, title: string): boolean {
   if (CINDY_APP_STEMS.has(appStem)) return true;
   if (appStem !== 'electron') return false;
   const normalizedTitle = title.trim().toLowerCase();
-  return normalizedTitle === BRAND_NAME.toLowerCase() || normalizedTitle === 'cindydev';
+  return normalizedTitle === BRAND_NAME.toLowerCase()
+    || normalizedTitle === 'cindydev'
+    || normalizedTitle === `${BRAND_NAME.toLowerCase()}dev`;
 }
 
 function searchable(values: string[], query: string): boolean {

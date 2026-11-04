@@ -1,7 +1,7 @@
 import type { MakeSourceLatestVersion, MakeSourceStatus } from '../../shared/cindyMakeDoctor.js';
 import { untilAborted } from './doctor.js';
 
-const API = 'https://api.github.com/repos/makecindy/cindy';
+const API = 'https://api.github.com/repos/BouyaSensei/EMMA';
 export type Channel = MakeSourceLatestVersion['channel'];
 type Fetch = (url: string, init?: RequestInit) => Promise<Response>;
 

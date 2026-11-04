@@ -308,12 +308,12 @@ describe('resume ids the provider would rewrite', () => {
   const win = { workingDir: 'C:\\Users\\alice\\work\\app', homeDir: 'C:\\Users\\alice', extraDirs: [], writableDirs: [] };
   it.each([
     ['session uuid', 'f3b1c7de-0c2a-4c5e-9e7a-1a2b3c4d5e6f', mac, false],
-    ['Pi file under another Mac user', '/Users/bob/Library/Application Support/Cindy/pi/sessions/s.jsonl', mac, true],
+    ['Pi file under another Mac user', '/Users/bob/Library/Application Support/Emma/pi/sessions/s.jsonl', mac, true],
     ['Pi file under this home', '/Users/alice/Library/pi/s.jsonl', mac, true],
     ['Pi file under an extra folder', '/Volumes/data/ref/s.jsonl', mac, true],
     ['Pi file on a Linux provider', '/home/bob/.local/share/cindy/pi/s.jsonl', mac, false],
-    ['Pi file on a Windows provider', 'C:\\Users\\bob\\AppData\\Roaming\\Cindy\\pi\\s.jsonl', mac, false],
-    ['Pi file under another Windows user', 'C:\\Users\\bob\\AppData\\Roaming\\Cindy\\pi\\s.jsonl', win, true],
+    ['Pi file on a Windows provider', 'C:\\Users\\bob\\AppData\\Roaming\\Emma\\pi\\s.jsonl', mac, false],
+    ['Pi file under another Windows user', 'C:\\Users\\bob\\AppData\\Roaming\\Emma\\pi\\s.jsonl', win, true],
     ['Pi file on a Mac provider for a Windows task', '/Users/bob/Library/pi/s.jsonl', win, false],
   ] as const)('%s', (_label, id, workspace, rewritten) => {
     expect(hostRewritesResumeId(id, workspace)).toBe(rewritten);

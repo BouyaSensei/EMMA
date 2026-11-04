@@ -25,7 +25,7 @@ const report: MakeDoctorReport = {
   platform: 'win32',
   arch: 'x64',
   task: {
-    title: 'Cindy Make: scrolling',
+    title: 'Emma Make: scrolling',
     sessionId: 'created',
     originSessionId: 'origin',
     phase: 'dependencies',
@@ -33,7 +33,7 @@ const report: MakeDoctorReport = {
   },
 };
 
-describe('Cindy Make preparation card', () => {
+describe('Emma Make preparation card', () => {
   it.each(['running', 'failed', 'cancelled'] as const)(
     'keeps a read-only %s card visible without controls or local navigation',
     (status) => {
@@ -130,7 +130,7 @@ describe('Cindy Make preparation card', () => {
         originSessionId: 'origin',
         runId: 'make-run',
         request: 'original request',
-        title: '[make] Cindy Make: scrolling',
+        title: '[make] Emma Make: scrolling',
       }),
     );
   });

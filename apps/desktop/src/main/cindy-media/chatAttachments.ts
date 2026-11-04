@@ -101,7 +101,7 @@ export function collectCindyMediaUrls(value: unknown): string[] {
     serialized = JSON.stringify(value) ?? '';
   } catch (err) {
     // 不可序列化(BigInt/循环引用等):附件将失去晋升,留痕便于排查(review P2)。
-    log.warn('collectCindyMediaUrls: message not serializable, refs will not be committed', {
+    log.warn('collectEmmaMediaUrls: message not serializable, refs will not be committed', {
       error: err instanceof Error ? err.message : String(err),
     });
     return [];

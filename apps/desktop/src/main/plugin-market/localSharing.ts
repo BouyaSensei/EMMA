@@ -50,7 +50,7 @@ function accessForOwner() {
         if (!token) throwIpcError('ACCOUNT_REAUTH_REQUIRED', 'Sign in to access a local share');
         const value = await serverApiFetch<unknown>(route, {
           baseUrl: endpoints[service], token, method, body, cache: 'no-store', timeoutMs: 20_000,
-          headers: { 'x-cindy-version': app.getVersion(), 'X-Cindy-Auth-Realm': realm },
+          headers: { 'x-cindy-version': app.getVersion(), 'X-Emma-Auth-Realm': realm },
           skipAutoRefresh: true, skipSessionInvalidation: true, redactErrorDetails: true,
           allowedRedactedErrorCodes: ['TOKEN_EXPIRED', 'LOCAL_SHARE_UPLOAD_INCOMPLETE'],
           logLabel: service === 'plugin' ? '/api/local-plugin-shares' : '/api/shares',

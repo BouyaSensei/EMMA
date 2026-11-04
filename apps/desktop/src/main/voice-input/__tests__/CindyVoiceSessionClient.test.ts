@@ -52,7 +52,7 @@ const SESSION = {
   refiner: { enabled: true, provider: 'qwen-plus' },
 };
 
-describe('CindyVoiceRunContext', () => {
+describe('EmmaVoiceRunContext', () => {
   it('refreshes once and retries managed session allocation after a plain 401', async () => {
     refresh.mockResolvedValueOnce(true);
     serverApiFetch

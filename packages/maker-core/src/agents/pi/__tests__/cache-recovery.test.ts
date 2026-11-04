@@ -45,7 +45,7 @@ function fixture(legacy = false) {
       files.delete(name);
     },
   };
-  const api = runInNewContext(PI_CACHE_RECOVERY_SOURCE + '\ninstallCindyCacheRecovery(pi)', {
+  const api = runInNewContext(PI_CACHE_RECOVERY_SOURCE + '\ninstallEmmaCacheRecovery(pi)', {
     pi: { on: (name: string, fn: (...args: any[]) => void) => handlers.set(name, fn) },
     process: { pid: 123, uptime: () => 1, kill(pid: number) {
       if (deadPids.has(pid)) throw Object.assign(new Error('dead'), { code: 'ESRCH' });

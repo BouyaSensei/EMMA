@@ -11,7 +11,7 @@ const h = vi.hoisted(() => ({
   saveDraft: vi.fn(),
   /** Main creates the per-task worktree; tests only need a deterministic path per run. */
   prepareWorkspace: vi.fn(async (runId: string) => ({
-    path: `/Users/test/Cindy/worktrees/${runId}`,
+    path: `/Users/test/Emma/worktrees/${runId}`,
     branch: `cindy-make/${runId}`,
     baseCommit: '0123456789ab',
   })),

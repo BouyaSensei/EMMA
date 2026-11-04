@@ -13,7 +13,7 @@ afterEach(async () => {
 });
 
 describe('localizeAgentStatus', () => {
-  it('localizes Cindy-owned static status labels', () => {
+  it('localizes Emma-owned static status labels', () => {
     expect(localizeAgentStatus('Thinking...', i18n.t)).toBe('正在思考…');
     expect(localizeAgentStatus('Editing files...', i18n.t)).toBe('正在编辑文件…');
     expect(localizeAgentStatus('Working', i18n.t)).toBe('正在工作…');
@@ -29,7 +29,7 @@ describe('localizeAgentStatus', () => {
     );
   });
 
-  it('localizes Cindy-owned turn-start phrases without changing the user name', () => {
+  it('localizes Emma-owned turn-start phrases without changing the user name', () => {
     expect(localizeAgentStatus('Just Wait ...', i18n.t)).toBe('请稍候…');
     expect(localizeAgentStatus('Nice day, Alice!', i18n.t)).toBe('正在处理，Alice');
     expect(localizeAgentStatus('Working on it, Alice', i18n.t)).toBe('正在处理，Alice');

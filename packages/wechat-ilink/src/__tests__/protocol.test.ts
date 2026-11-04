@@ -19,7 +19,7 @@ const signal = () => new AbortController().signal;
 describe("pure protocol utilities", () => {
   it("round-trips AES-128-ECB and validates padded sizes", () => {
     const key = Uint8Array.from({ length: 16 }, (_, index) => index);
-    const input = Buffer.from("Cindy WeChat");
+    const input = Buffer.from("Emma WeChat");
     const encrypted = encryptAes128Ecb(input, key);
     expect(Buffer.from(decryptAes128Ecb(encrypted, key))).toEqual(input);
     expect(aes128EcbPaddedSize(0)).toBe(16);
@@ -202,7 +202,7 @@ describe("iLink HTTP boundary", () => {
       baseUrl: "https://ilinkai.weixin.qq.com",
       token: "fake-token",
       clientVersion: "1.1.21",
-      botAgent: "Cindy/1.1.21",
+      botAgent: "Emma/1.1.21",
       fetch: async (input, init) => {
         calls.push({ url: String(input), init });
         return new Response(JSON.stringify({ ret: 0 }));
@@ -222,13 +222,13 @@ describe("iLink HTTP boundary", () => {
       {
         base_info: {
           channel_version: "1.1.21",
-          bot_agent: "Cindy/1.1.21",
+          bot_agent: "Emma/1.1.21",
         },
       },
       {
         base_info: {
           channel_version: "1.1.21",
-          bot_agent: "Cindy/1.1.21",
+          bot_agent: "Emma/1.1.21",
         },
       },
     ]);
@@ -276,7 +276,7 @@ describe("iLink HTTP boundary", () => {
     const transport = new TencentIlinkTransport({
       baseUrl: "https://ilinkai.weixin.qq.com",
       token: "fake-token",
-      botAgent: "Cindy/1.0.0",
+      botAgent: "Emma/1.0.0",
       fetch: fetchMock,
     });
     await expect(transport.poll("old", signal())).resolves.toEqual({
@@ -290,7 +290,7 @@ describe("iLink HTTP boundary", () => {
     const api = new IlinkApiClient({
       baseUrl: "https://ilinkai.weixin.qq.com",
       token: "top-secret",
-      botAgent: "Cindy/1.0.0",
+      botAgent: "Emma/1.0.0",
       fetch: async () => new Response("token=top-secret", { status: 503 }),
     });
     await expect(api.getUpdates("", signal())).rejects.toMatchObject({
@@ -308,7 +308,7 @@ describe("iLink HTTP boundary", () => {
       baseUrl: "https://ilinkai.weixin.qq.com",
       token: "fake-token",
       clientVersion: "1.1.21",
-      botAgent: "Cindy/1.1.21 invalid",
+      botAgent: "Emma/1.1.21 invalid",
       fetch: async (_input, init) => {
         request = init;
         return new Response(JSON.stringify({ ret: 0 }));
@@ -338,7 +338,7 @@ describe("iLink HTTP boundary", () => {
       },
       base_info: {
         channel_version: "1.1.21",
-        bot_agent: "Cindy/1.1.21",
+        bot_agent: "Emma/1.1.21",
       },
     });
   });
@@ -348,7 +348,7 @@ describe("iLink HTTP boundary", () => {
     const transport = new TencentIlinkTransport({
       baseUrl: "https://ilinkai.weixin.qq.com",
       token: "fake-token",
-      botAgent: "Cindy/1.0.0",
+      botAgent: "Emma/1.0.0",
       fetch: async (input, init) => {
         const url = String(input);
         calls.push({ url, init });
@@ -443,7 +443,7 @@ describe("iLink HTTP boundary", () => {
     const transport = new TencentIlinkTransport({
       baseUrl: "https://ilinkai.weixin.qq.com",
       token: "fake-token",
-      botAgent: "Cindy/1.0.0",
+      botAgent: "Emma/1.0.0",
       fetch: async () => new Response(JSON.stringify(responses.shift())),
     });
     await expect(transport.poll("", signal())).rejects.toMatchObject({
@@ -460,7 +460,7 @@ describe("iLink HTTP boundary", () => {
     const transport = new TencentIlinkTransport({
       baseUrl: "https://ilinkai.weixin.qq.com",
       token: "fake-token",
-      botAgent: "Cindy/1.0.0",
+      botAgent: "Emma/1.0.0",
       fetch: async (_input, init) =>
         await new Promise<Response>((_resolve, reject) => {
           init?.signal?.addEventListener("abort", () => {
@@ -479,7 +479,7 @@ describe("iLink HTTP boundary", () => {
     const oversized = new TencentIlinkTransport({
       baseUrl: "https://ilinkai.weixin.qq.com",
       token: "fake-token",
-      botAgent: "Cindy/1.0.0",
+      botAgent: "Emma/1.0.0",
       maxResponseBytes: 16,
       fetch: async () =>
         new Response(JSON.stringify({ ret: 0, padding: "x".repeat(100) })),
@@ -491,7 +491,7 @@ describe("iLink HTTP boundary", () => {
     const tooMany = new TencentIlinkTransport({
       baseUrl: "https://ilinkai.weixin.qq.com",
       token: "fake-token",
-      botAgent: "Cindy/1.0.0",
+      botAgent: "Emma/1.0.0",
       maxPollMessages: 1,
       fetch: async () =>
         new Response(JSON.stringify({ ret: 0, msgs: [{}, {}] })),
@@ -503,7 +503,7 @@ describe("iLink HTTP boundary", () => {
     const tooManyItems = new TencentIlinkTransport({
       baseUrl: "https://ilinkai.weixin.qq.com",
       token: "fake-token",
-      botAgent: "Cindy/1.0.0",
+      botAgent: "Emma/1.0.0",
       maxItemsPerMessage: 1,
       fetch: async () =>
         new Response(

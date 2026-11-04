@@ -39,7 +39,7 @@ function record(over: Partial<SubmittedIssueRecord> = {}): SubmittedIssueRecord 
   const number = over.number ?? 1061;
   return {
     number,
-    url: `https://github.com/makecindy/cindy/issues/${number}`,
+    url: `https://github.com/BouyaSensei/EMMA/issues/${number}`,
     title: '账号 A 提交的 issue',
     type: 'feature',
     submittedAt: '2026-07-30T09:12:49.000Z',

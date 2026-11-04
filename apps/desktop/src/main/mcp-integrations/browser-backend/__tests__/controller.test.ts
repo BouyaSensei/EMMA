@@ -292,11 +292,11 @@ describe('resolveBackendProfile', () => {
   // extension backend matched no connection and every tool reported the
   // extension as disconnected.
   it('never substitutes the managed profile for the user browser backend', () => {
-    const managed = vi.fn(() => 'Cindy-real');
+    const managed = vi.fn(() => 'Emma-real');
     expect(resolveBackendProfile('user-browser', undefined, managed)).toBeUndefined();
     expect(resolveBackendProfile('user-browser', 'abc12345', managed)).toBe('abc12345');
     expect(managed).not.toHaveBeenCalled();
-    expect(resolveBackendProfile('external', undefined, managed)).toBe('Cindy-real');
+    expect(resolveBackendProfile('external', undefined, managed)).toBe('Emma-real');
     expect(resolveBackendProfile('rsb-webview', 'ignored', managed)).toBe('rsb');
   });
 });

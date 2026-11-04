@@ -56,7 +56,7 @@ describe('XboxGamepadController', () => {
       ]);
     },
   );
-  it('ignores input until the adapter is enabled and Cindy is frontmost', () => {
+  it('ignores input until the adapter is enabled and Emma is frontmost', () => {
     const dispatch = vi.fn();
     const preview = vi.fn();
     const frontmost = { value: false };
@@ -105,7 +105,7 @@ describe('XboxGamepadController', () => {
     expect(dispatch).toHaveBeenCalledWith({ type: 'command', commandId: 'composer.submit' });
   });
 
-  it('releases holds when Cindy leaves the foreground', () => {
+  it('releases holds when Emma leaves the foreground', () => {
     const dispatch = vi.fn();
     const controller = new XboxGamepadController({
       isCindyFrontmost: () => true,

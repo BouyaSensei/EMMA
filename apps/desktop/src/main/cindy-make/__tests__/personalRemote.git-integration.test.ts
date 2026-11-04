@@ -172,7 +172,7 @@ it('commits legacy uncommitted personal files before uploading and can disconnec
     expect(h.record()).toMatchObject({ sync: 'synced' });
     expect((await h.raw(['status', '--porcelain'], h.source)).trim()).toBe('');
     expect((await h.raw(['log', '-1', '--format=%s'], h.source)).trim()).toBe(
-      'Cindy Make: preserve personal changes',
+      'Emma Make: preserve personal changes',
     );
     expect((await h.raw(['show', 'refs/heads/cindy-personal:legacy.txt'], h.fork)).trim()).toBe(
       'kept work',

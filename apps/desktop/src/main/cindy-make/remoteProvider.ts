@@ -24,7 +24,7 @@ export function createMakeRemoteProvider(deps: MakeRemoteProviderDeps): RemoteRe
     collection: {
       id: MAKE_REMOTE_COLLECTION,
       resourceKind: 'session',
-      title: 'Cindy Make',
+      title: 'Emma Make',
       placement: 'session:cindy-make',
     },
     async list() {

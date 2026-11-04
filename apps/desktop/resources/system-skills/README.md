@@ -9,11 +9,11 @@ Its validation and metadata-generation scripts vendor the pure-Python modules fr
 PyYAML 6.0.3 so they work without a separate package install. The upstream MIT
 license and version/source record live under `cindy-skill-creator/scripts/_vendor/`.
 
-`learn` is authored and maintained by Cindy. It starts Cindy's managed Learn
+`learn` is authored and maintained by Emma. It starts Emma's managed Learn
 host through the essential `cindy_helper` bridge; another client may discover
 the Skill files, but cannot run the workflow without that host capability.
 
-Cindy materializes these resources into its user-data directory at startup. Do not put user-authored Skills here.
+Emma materializes these resources into its user-data directory at startup. Do not put user-authored Skills here.
 
 ## Rules for bundled Skills
 

@@ -69,7 +69,7 @@ describe('createKeychainMarkerIo', () => {
     const winner = makeIo();
     const loser = makeIo();
     expect(winner.claimMarker('EmmaDev')).toBe('claimed');
-    expect(loser.claimMarker('Cindy')).toBe('exists');
+    expect(loser.claimMarker('Emma')).toBe('exists');
     expect(fs.readFileSync(markerPath, 'utf8')).toBe('EmmaDev\n');
   });
 
@@ -78,7 +78,7 @@ describe('createKeychainMarkerIo', () => {
     expect(io.claimMarker('EmmaDev')).toBe('claimed');
     expect(fs.readFileSync(markerPath, 'utf8')).toBe('EmmaDev\n');
     const loser = makeIo({ linkSync: linkUnsupported });
-    expect(loser.claimMarker('Cindy')).toBe('exists');
+    expect(loser.claimMarker('Emma')).toBe('exists');
     expect(fs.readFileSync(markerPath, 'utf8')).toBe('EmmaDev\n');
   });
 
@@ -147,7 +147,7 @@ describe('createKeychainMarkerIo', () => {
       const isData = call % 2 === 0;
       call += 1;
       if (!isData) return 0;
-      const content = Buffer.from(pass % 2 === 0 ? 'EmmaDev\n' : 'Cindy\n', 'utf8');
+      const content = Buffer.from(pass % 2 === 0 ? 'EmmaDev\n' : 'Emma\n', 'utf8');
       content.copy(buffer as Buffer, offset);
       return content.length;
     }) as typeof fs.readSync;

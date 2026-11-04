@@ -228,7 +228,7 @@ describe('createForgePackStagingController', () => {
     expect(fs.readdirSync(dir)).toEqual(before);
   });
 
-  it('stages completeForgePackStaging from buf even when authorCindyPath holds different bytes', () => {
+  it('stages completeForgePackStaging from buf even when authorEmmaPath holds different bytes', () => {
     const dir = makeTempDir();
     configureForgePackStagingForTests({
       getTempDir: () => dir,

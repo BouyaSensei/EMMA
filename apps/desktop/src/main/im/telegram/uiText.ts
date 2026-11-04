@@ -17,7 +17,7 @@ export const telegramUiText = {
 export const ui = {
   slash: {
     start:
-      '👋 你好，我是你的个人 Cindy 助理~\n\n私聊直接发消息就行；群里 @ 我或回复我的消息才会触发。发 /help 看全部命令。',
+      '👋 你好，我是你的个人 Emma 助理~\n\n私聊直接发消息就行；群里 @ 我或回复我的消息才会触发。发 /help 看全部命令。',
     new: '🌱 新任务已创建 — 已在任务列表显示，从头开始吧~',
     help: `🤖 我能帮你做这些：
 
@@ -40,7 +40,7 @@ export const ui = {
       `⚙️ 当前设置\n\n项目：${workspace}\nAgent：${agent}\n模型：${model}\n推理强度：${effort}\n权限：${permission}\n\n想改就发 /project、/model、/permission～`,
     // 连接已交给伙伴: 五项读的是伙伴这条任务实际在用的, 要改去伙伴设置。
     settingsCompanion: ({ workspace, agent, model, effort, permission }) =>
-      `⚙️ 当前设置（伙伴）\n\n项目：${workspace}\nAgent：${agent}\n模型：${model}\n推理强度：${effort}\n权限：${permission}\n\n模型、权限和工作目录跟随伙伴设置，请在 Cindy 的伙伴设置里修改。`,
+      `⚙️ 当前设置（伙伴）\n\n项目：${workspace}\nAgent：${agent}\n模型：${model}\n推理强度：${effort}\n权限：${permission}\n\n模型、权限和工作目录跟随伙伴设置，请在 Emma 的伙伴设置里修改。`,
     detachedBySlash: '🚪 接管结束，咱们回到 Telegram 对话。下次想远程操控 desktop 再 /ctr',
     detachedByRevoke: '⚠️ 你在 desktop 那边把接管收回去了，后续消息回到 Telegram 对话。',
     notAttached: '🤷 你现在没在接管任何任务，/exctr 闲着也没事可干。',
@@ -49,7 +49,7 @@ export const ui = {
       '🧭 这里是伙伴的主对话，会一直接着聊，不会另开新任务。想换个话题直接说就好；需要单独做的事，伙伴会自己开后台任务。',
     companionLaneNew: '🌱 已为这个群开始一段新对话，之前的上下文收起来了，从头开始吧~',
     companionManagedCommand:
-      '🧭 这个连接已交给伙伴，模型、权限和工作目录跟随伙伴设置。请在 Cindy 的伙伴设置里修改。',
+      '🧭 这个连接已交给伙伴，模型、权限和工作目录跟随伙伴设置。请在 Emma 的伙伴设置里修改。',
   },
 
   agent: {
@@ -57,12 +57,12 @@ export const ui = {
     runtimeError: (errMsg: string) => `⚠️ Agent 翻车了：${errMsg.slice(0, 200)}`,
     sendInternalError: (errMsg: string) => `❌ 内部出 bug 了：${errMsg}`,
     apiKeyMissing:
-      '⚠️ Cindy AI Key 还没配呢~\n去 desktop 的 Settings → 模型供应商里连接 Cindy AI，再来 ping 我',
+      '⚠️ Emma AI Key 还没配呢~\n去 desktop 的 Settings → 模型供应商里连接 Emma AI，再来 ping 我',
     authMissing: ({ providerLabel, providerId, missing, agentKind, model, attached }) => {
       const provider = providerLabel ?? providerId ?? '当前供应商';
       const reason =
         missing === 'gateway-key'
-          ? '需要先配置 Cindy AI Key'
+          ? '需要先配置 Emma AI Key'
           : missing === 'provider-key'
             ? '还没有配置该供应商的 API Key'
             : missing === 'provider-disconnected'
@@ -149,7 +149,7 @@ export const ui = {
       failed: (reason: string) => `❌ 权限模式没切过去：${reason}`,
       fullAccessConfirmTitle: '⚠️ 确认开启 Full access？',
       fullAccessConfirmBody:
-        'Full access 会关闭工作区沙箱并跳过常规审批。Cindy 可以修改工作区外的文件、执行联网命令且不再询问；内置高风险操作仍会要求确认。',
+        'Full access 会关闭工作区沙箱并跳过常规审批。Emma 可以修改工作区外的文件、执行联网命令且不再询问；内置高风险操作仍会要求确认。',
       btnConfirmFullAccess: '开启 Full access',
       btnCancelFullAccess: '保留当前权限',
       fullAccessCancelled: '已取消，保留当前权限',

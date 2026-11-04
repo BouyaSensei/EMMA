@@ -9,14 +9,14 @@ import {
 } from '@/features/cc-agent/lib/sidebarProjectRestore';
 import type { Session } from '@/lib/ccAgent.types';
 
-const PROJECT_KEY = 'local:/workspace/cindy';
+const PROJECT_KEY = 'local:/workspace/emma';
 
 function projectSession(overrides: Partial<Session> = {}): Session {
   return {
     id: 'session-1',
     userId: 'user-1',
     title: 'Task',
-    workingDir: '/workspace/cindy',
+    workingDir: '/workspace/emma',
     workspaceKind: 'project',
     model: 'model',
     effort: 'medium',
@@ -124,7 +124,7 @@ describe('collectRestorableProjectKeys', () => {
       sessions: [],
       persistentLocalProjects: [
         {
-          workingDir: '/workspace/cindy',
+          workingDir: '/workspace/emma',
           lastUsedAt: '2026-08-02T08:00:00.000Z',
           knownAgentKinds: [],
         },
@@ -153,7 +153,7 @@ describe('collectRestorableProjectKeys', () => {
   it('applies activity and vendor filters to unpinned persistent projects', () => {
     const persistentLocalProjects = [
       {
-        workingDir: '/workspace/cindy',
+        workingDir: '/workspace/emma',
         lastUsedAt: '2026-01-01T00:00:00.000Z',
         knownAgentKinds: ['cc'],
       },
@@ -184,7 +184,7 @@ describe('collectRestorableProjectKeys', () => {
       sessions: [],
       persistentLocalProjects: [
         {
-          workingDir: '/workspace/cindy',
+          workingDir: '/workspace/emma',
           lastUsedAt: '2026-08-02T08:00:00.000Z',
           knownAgentKinds: [],
         },
@@ -213,18 +213,18 @@ describe('collectRestorableProjectKeys', () => {
       sessions: [],
       persistentLocalProjects: [
         {
-          workingDir: 'C:/Workspace/Cindy',
+          workingDir: 'C:/Workspace/Emma',
           lastUsedAt: '2026-01-01T00:00:00.000Z',
           knownAgentKinds: ['cc'],
         },
       ],
       lastActivityCutoff: Date.parse('2026-08-01T00:00:00.000Z'),
-      pinnedProjectKeys: new Set(['local:c:/workspace/cindy']),
+      pinnedProjectKeys: new Set(['local:c:/workspace/emma']),
       vendorPredicate: (session) => session.agentKind === 'codex',
       localPlatform: 'win32',
     });
 
-    expect(Array.from(keys)).toEqual(['local:C:/Workspace/Cindy']);
+    expect(Array.from(keys)).toEqual(['local:C:/Workspace/Emma']);
   });
 });
 
@@ -267,8 +267,8 @@ describe('restoreHiddenProjectIfPresent', () => {
   });
 
   it('restores an equivalent Windows project and includes its actual current key', async () => {
-    const selectedProjectKey = 'local:c:/workspace/cindy';
-    const currentProjectKey = 'local:C:/Workspace/Cindy';
+    const selectedProjectKey = 'local:c:/workspace/emma';
+    const currentProjectKey = 'local:C:/Workspace/Emma';
     const ensureProjectIncluded = vi.fn();
 
     await expect(
@@ -321,12 +321,12 @@ describe('restoreHiddenProjectIfPresent', () => {
   });
 
   it('restores when another window unhides the project while this picker is open', async () => {
-    const currentProjectKey = 'local:C:/Workspace/Cindy';
+    const currentProjectKey = 'local:C:/Workspace/Emma';
     const ensureProjectIncluded = vi.fn();
 
     await expect(
       restoreHiddenProjectIfPresent({
-        projectKey: 'local:c:/workspace/cindy',
+        projectKey: 'local:c:/workspace/emma',
         wasHiddenAtPickerOpen: true,
         setProjectHidden: vi.fn().mockResolvedValue(false),
         getCurrentProjectKeys: () => new Set([currentProjectKey]),
@@ -433,16 +433,16 @@ describe('restoreSelectedHiddenProject', () => {
 
     await expect(
       restoreSelectedHiddenProject({
-        projectKey: 'local:c:/workspace/cindy',
-        hiddenProjectKeys: new Set(['local:C:/Workspace/Cindy']),
+        projectKey: 'local:c:/workspace/emma',
+        hiddenProjectKeys: new Set(['local:C:/Workspace/Emma']),
         setProjectHidden: vi.fn().mockResolvedValue(false),
-        getCurrentProjectKeys: () => new Set(['local:C:/Workspace/Cindy']),
+        getCurrentProjectKeys: () => new Set(['local:C:/Workspace/Emma']),
         ensureProjectIncluded,
         localPlatform: 'win32',
       }),
     ).resolves.toBe(true);
 
-    expect(ensureProjectIncluded).toHaveBeenCalledWith('local:C:/Workspace/Cindy');
+    expect(ensureProjectIncluded).toHaveBeenCalledWith('local:C:/Workspace/Emma');
   });
 
   it('uses the selected path when the restored project has no remaining tasks', async () => {

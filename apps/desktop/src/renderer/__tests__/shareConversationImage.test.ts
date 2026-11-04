@@ -68,7 +68,7 @@ describe('stripMessageSources', () => {
         <span data-message-origin="device">从手机「iPhone」发送</span>
       </div>
       <div class="hook-card">
-        <div ${SHARE_SOURCE_ATTR}>Cindy · 来自 Slack</div>
+        <div ${SHARE_SOURCE_ATTR}>Emma · 来自 Slack</div>
         <div class="body">帮我看下这个报错</div>
       </div>
       <div class="bubble">正文内容</div>

@@ -44,7 +44,7 @@ describe('Pi compact version management', () => {
     fireEvent.click(screen.getByRole('button', { name: key('updateConfirm') }));
     await waitFor(() => expect(install).toHaveBeenCalledWith({ source: 'upstream', version: '0.87.1' }));
   });
-  it('offers the older Cindy formal version for an explicit restore', async () => {
+  it('offers the older Emma formal version for an explicit restore', async () => {
     render(<PiKernelVersionRow />); await menu();
     fireEvent.click(screen.getByRole('menuitem', { name: /restore.*0.84.4/ }));
     await screen.findByRole('alertdialog');

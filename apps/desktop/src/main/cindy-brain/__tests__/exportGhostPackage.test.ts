@@ -129,7 +129,7 @@ function makeDeps(overrides: Partial<Parameters<typeof exportGhostPackage>[1]> =
       filePath: path.join(workDir, path.basename(defaultPath)),
     })),
     getDownloadsDir: () => workDir,
-    fileTypeLabel: 'Cindy Plugin',
+    fileTypeLabel: 'Emma Plugin',
     writeFile: (filePath: string, data: Buffer) => fs.promises.writeFile(filePath, data),
     inspectPackage: async () => true,
     ...overrides,
@@ -484,7 +484,7 @@ describe('exportGhostPackage', () => {
     await exportGhostPackage('hello', makeDeps({ showSaveDialog }));
     expect(showSaveDialog).toHaveBeenCalledWith({
       defaultPath: path.join(workDir, 'Hello 插件-1.2.0.cindy'),
-      filters: [{ name: 'Cindy Plugin', extensions: ['cindy'] }],
+      filters: [{ name: 'Emma Plugin', extensions: ['cindy'] }],
     });
   });
 

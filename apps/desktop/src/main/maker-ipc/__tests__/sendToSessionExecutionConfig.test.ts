@@ -75,7 +75,7 @@ const providerRouting = (
     }],
     pi: [{
       id: 'xd',
-      name: 'Cindy AI',
+      name: 'Emma AI',
       models: ['pi-model'],
       fastModels: ['pi-model'],
       effortMetaByModel: {
@@ -359,7 +359,7 @@ describe('resolveSendToSessionExecutionConfig', () => {
           'claude-code': [],
           codex: [{
             id: 'xd',
-            name: 'Cindy AI',
+            name: 'Emma AI',
             models: ['codex/gpt-5.6-sol'],
             fastModels: [],
             effortMetaByModel: {

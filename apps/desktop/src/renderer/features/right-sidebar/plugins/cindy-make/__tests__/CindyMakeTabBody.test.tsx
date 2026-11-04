@@ -41,7 +41,7 @@ function ctx(owner: Pick<TabKindHostContext, 'remoteHostId' | 'deviceLinkDeviceI
   };
 }
 
-describe('CindyMakeTabBody task ownership', () => {
+describe('EmmaMakeTabBody task ownership', () => {
   afterEach(cleanup);
 
   it.each([

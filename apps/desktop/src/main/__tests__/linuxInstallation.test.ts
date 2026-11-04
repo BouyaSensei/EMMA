@@ -18,39 +18,39 @@ import { allDeepLinkSchemes } from '@cindy/maker-shared/brand-identity';
 
 describe('Linux install routing', () => {
   it('requires exact Debian package ownership, not the existence of dpkg', () => {
-    expect(isDebianManagedInstallation('/usr/lib/cindy/Cindy', () => 'cindy: /usr/lib/cindy/Cindy\n')).toBe(true);
-    expect(isDebianManagedInstallation('/usr/lib/cindy/Cindy', () => 'cindy:amd64: /usr/lib/cindy/Cindy\n')).toBe(true);
-    expect(isDebianManagedInstallation('/home/test/Cindy', () => 'cindy: /usr/lib/cindy/Cindy\n')).toBe(false);
-    expect(isDebianManagedInstallation('/usr/lib/cindy/Cindy', () => 'unrelated: /usr/lib/cindy/Cindy\n')).toBe(false);
-    expect(isDebianManagedInstallation('/usr/lib/cindy/Cindy', () => { throw new Error('no dpkg'); })).toBe(false);
+    expect(isDebianManagedInstallation('/usr/lib/cindy/Emma', () => 'cindy: /usr/lib/cindy/Emma\n')).toBe(true);
+    expect(isDebianManagedInstallation('/usr/lib/cindy/Emma', () => 'cindy:amd64: /usr/lib/cindy/Emma\n')).toBe(true);
+    expect(isDebianManagedInstallation('/home/test/Emma', () => 'cindy: /usr/lib/cindy/Emma\n')).toBe(false);
+    expect(isDebianManagedInstallation('/usr/lib/cindy/Emma', () => 'unrelated: /usr/lib/cindy/Emma\n')).toBe(false);
+    expect(isDebianManagedInstallation('/usr/lib/cindy/Emma', () => { throw new Error('no dpkg'); })).toBe(false);
   });
 
   it('distinguishes a failed ownership query from confirmed non-ownership', () => {
-    expect(checkDebianManagedInstallation('/usr/lib/cindy/Cindy', () => 'unrelated: /usr/lib/cindy/Cindy\n'))
+    expect(checkDebianManagedInstallation('/usr/lib/cindy/Emma', () => 'unrelated: /usr/lib/cindy/Emma\n'))
       .toEqual({ status: 'not-managed' });
-    expect(checkDebianManagedInstallation('/usr/lib/cindy/Cindy', () => 'cindy: /usr/lib/cindy/Cindy\n'))
+    expect(checkDebianManagedInstallation('/usr/lib/cindy/Emma', () => 'cindy: /usr/lib/cindy/Emma\n'))
       .toEqual({ status: 'managed' });
     const timeout = Object.assign(new Error('dpkg-query timed out'), { code: 'ETIMEDOUT', signal: 'SIGTERM' });
-    expect(checkDebianManagedInstallation('/usr/lib/cindy/Cindy', () => { throw timeout; }))
+    expect(checkDebianManagedInstallation('/usr/lib/cindy/Emma', () => { throw timeout; }))
       .toEqual({ status: 'error', error: timeout });
     const denied = Object.assign(new Error('spawnSync /usr/bin/dpkg-query EACCES'), {
       code: 'EACCES', status: null, signal: null,
     });
-    expect(checkDebianManagedInstallation('/usr/lib/cindy/Cindy', () => { throw denied; }))
+    expect(checkDebianManagedInstallation('/usr/lib/cindy/Emma', () => { throw denied; }))
       .toEqual({ status: 'error', error: denied });
-    const queryFailed = Object.assign(new Error('Command failed: /usr/bin/dpkg-query -S /usr/lib/cindy/Cindy'), {
+    const queryFailed = Object.assign(new Error('Command failed: /usr/bin/dpkg-query -S /usr/lib/cindy/Emma'), {
       status: 2, signal: null,
     });
-    expect(checkDebianManagedInstallation('/usr/lib/cindy/Cindy', () => { throw queryFailed; }))
+    expect(checkDebianManagedInstallation('/usr/lib/cindy/Emma', () => { throw queryFailed; }))
       .toEqual({ status: 'error', error: queryFailed });
   });
 
   it('maps dpkg-query exit status 1 to confirmed non-ownership', () => {
     const noMatch = Object.assign(
-      new Error('Command failed: /usr/bin/dpkg-query -S /home/devuser/custom-builds/Cindy'),
+      new Error('Command failed: /usr/bin/dpkg-query -S /home/devuser/custom-builds/Emma'),
       { status: 1, signal: null },
     );
-    expect(checkDebianManagedInstallation('/home/devuser/custom-builds/Cindy', () => { throw noMatch; }))
+    expect(checkDebianManagedInstallation('/home/devuser/custom-builds/Emma', () => { throw noMatch; }))
       .toEqual({ status: 'not-managed' });
   });
 
@@ -58,7 +58,7 @@ describe('Linux install routing', () => {
     const missingBinary = Object.assign(new Error('spawnSync /usr/bin/dpkg-query ENOENT'), {
       code: 'ENOENT', status: null, signal: null,
     });
-    expect(checkDebianManagedInstallation('/usr/lib/cindy/Cindy', () => { throw missingBinary; }))
+    expect(checkDebianManagedInstallation('/usr/lib/cindy/Emma', () => { throw missingBinary; }))
       .toEqual({ status: 'not-managed' });
   });
 
@@ -88,15 +88,15 @@ describe.skipIf(process.platform !== 'linux')('user installer transaction smoke 
   }
   beforeAll(async () => {
     root = fs.mkdtempSync(path.join(os.tmpdir(), 'cindy-install-test-'));
-    prefix = path.join(root, 'home', "Cindy's space $literal");
+    prefix = path.join(root, 'home', "Emma's space $literal");
     fs.mkdirSync(path.join(root, 'home'));
     const results = await Promise.allSettled(['1.0.0', '1.0.1', '1.0.2', '1.0.3', '1.0.4', '1.0.5'].map(async (version) => {
       const pkg = path.join(root, version);
       const appDir = path.join(pkg, 'usr', 'lib', 'cindy');
       fs.mkdirSync(path.join(appDir, 'resources'), { recursive: true });
-      fs.writeFileSync(path.join(appDir, 'Cindy'), '#!/bin/sh\nprintf "%s\\n" "fixture"\n', { mode: 0o755 });
+      fs.writeFileSync(path.join(appDir, 'Emma'), '#!/bin/sh\nprintf "%s\\n" "fixture"\n', { mode: 0o755 });
       if (version === '1.0.4' || version === '1.0.5') {
-        fs.writeFileSync(path.join(appDir, 'Cindy'), [
+        fs.writeFileSync(path.join(appDir, 'Emma'), [
           '#!/bin/sh', 'printf "%s\\n" "$$" "$@" > "$CINDY_TEST_LAUNCH_LOG"', 'exec sleep 10', '',
         ].join('\n'), { mode: 0o755 });
       }
@@ -138,7 +138,7 @@ describe.skipIf(process.platform !== 'linux')('user installer transaction smoke 
     fs.rmSync(path.join(prefix, 'launch'));
     expect(run('1.0.0').status).toBe(0);
     expect(execFileSync(path.join(prefix, 'launch'), { encoding: 'utf8' })).toBe('fixture\n');
-    const find = () => findLinuxUserInstallation(path.join(prefix, 'current', 'Cindy'), path.join(root, 'home'), process.getuid!());
+    const find = () => findLinuxUserInstallation(path.join(prefix, 'current', 'Emma'), path.join(root, 'home'), process.getuid!());
     expect(find()).toEqual({ prefix, current: before, region: 'global' });
     expect(run('1.0.1', true, { digest: '0'.repeat(64) }).status).not.toBe(0);
     expect(run('1.0.1', true, { version: '9.9.9' }).status).not.toBe(0);
@@ -170,11 +170,11 @@ describe.skipIf(process.platform !== 'linux')('user installer transaction smoke 
     // Retrying after a failure immediately before the atomic rename works.
     expect(run('1.0.2', true).status).toBe(0);
     expect(fs.readlinkSync(path.join(prefix, 'previous'))).toBe(installed);
-    expect(fs.existsSync(path.join(prefix, before, 'Cindy'))).toBe(true);
+    expect(fs.existsSync(path.join(prefix, before, 'Emma'))).toBe(true);
     expect(fs.readdirSync(path.join(prefix, 'releases')).some((name) => name.startsWith('.stage.'))).toBe(false);
     expect(find()?.current).toContain('1.0.2');
-    expect(findLinuxUserInstallation(path.join(prefix, before, 'Cindy'), path.join(root, 'home'), process.getuid!())).toBeNull();
-    expect(findLinuxUserInstallation(path.join(prefix, 'current', 'Cindy'), prefix, process.getuid!())).toBeNull();
+    expect(findLinuxUserInstallation(path.join(prefix, before, 'Emma'), path.join(root, 'home'), process.getuid!())).toBeNull();
+    expect(findLinuxUserInstallation(path.join(prefix, 'current', 'Emma'), prefix, process.getuid!())).toBeNull();
   });
   it.each([false, true])('retries hard-interrupted installs without modifying retained releases (apply=%s)', (apply) => {
     const prefix = path.join(root, 'home', `interrupted-${apply}`);
@@ -217,7 +217,7 @@ describe.skipIf(process.platform !== 'linux')('user installer transaction smoke 
     expect(run('1.0.1', false, { prefix }).status).toBe(0);
     expect(fs.readlinkSync(path.join(prefix, 'current'))).toBe(current);
     expect(execFileSync(path.join(prefix, 'launch'), { encoding: 'utf8' })).toBe('fixture\n');
-    expect(findLinuxUserInstallation(path.join(prefix, 'current', 'Cindy'), path.join(root, 'home'), process.getuid!())?.current).toBe(current);
+    expect(findLinuxUserInstallation(path.join(prefix, 'current', 'Emma'), path.join(root, 'home'), process.getuid!())?.current).toBe(current);
   });
   it('reinstalls a retained version without reusing or deleting its directory', () => {
     const prefix = path.join(root, 'home', 'retained');
@@ -235,7 +235,7 @@ describe.skipIf(process.platform !== 'linux')('user installer transaction smoke 
     fs.symlinkSync('missing-release', dangling);
     expect(run('1.0.2', true, { prefix }).status).toBe(0);
     expect(fs.readlinkSync(dangling)).toBe('missing-release');
-    expect(fs.existsSync(path.join(prefix, 'current', 'Cindy'))).toBe(true);
+    expect(fs.existsSync(path.join(prefix, 'current', 'Emma'))).toBe(true);
   });
   it('registers a valid stable desktop entry with no real desktop changes', () => {
     const bin = path.join(root, 'fake-bin');
@@ -275,7 +275,7 @@ describe.skipIf(process.platform !== 'linux')('user installer transaction smoke 
       const script = buildLinuxUpdateScript({
         pid: 2147483647, // Outside Linux's pid_max: no real process may be killed.
         debPath: pkg.file, sha256: valid ? pkg.digest : 'f'.repeat(64), sizeBytes: pkg.size,
-        exePath: path.join(prefix, before, 'Cindy'), lockFilePath, logPath,
+        exePath: path.join(prefix, before, 'Emma'), lockFilePath, logPath,
         userInstallation: { prefix, current: before, region: 'global', version },
         relaunchArgs: ['--password-store=gnome-libsecret'],
         timings: { lockHeartbeatSeconds: 1, verifyTimeoutSeconds: 3, verifyRetryAtSeconds: 2 },

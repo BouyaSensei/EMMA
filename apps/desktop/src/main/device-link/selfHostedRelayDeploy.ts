@@ -320,7 +320,7 @@ if [ "$MODE" != direct ]; then EXTRA="$EXTRA --trust-proxy"; fi
 if [ "$MODE" = direct ]; then CAPS=CAP_NET_BIND_SERVICE; fi
 cat > /etc/systemd/system/cindy-relay.service.new <<UNIT
 [Unit]
-Description=Cindy self-hosted relay
+Description=Emma self-hosted relay
 After=network-online.target
 Wants=network-online.target
 
@@ -381,7 +381,7 @@ fi
 if [ "$ACTION" = commit ]; then
   cat > /etc/systemd/system/cindy-relay-nginx.service <<UNIT
 [Unit]
-Description=Apply renewed Cindy relay certificate to Nginx
+Description=Apply renewed Emma relay certificate to Nginx
 [Service]
 Type=oneshot
 ExecStart=$NODE ${INSTALL_DIR}/relay.mjs nginx --action renew
@@ -389,7 +389,7 @@ UMask=0077
 UNIT
   cat > /etc/systemd/system/cindy-relay-nginx.timer <<UNIT
 [Unit]
-Description=Check Cindy relay Nginx certificate
+Description=Check Emma relay Nginx certificate
 [Timer]
 OnBootSec=1min
 OnUnitActiveSec=5min

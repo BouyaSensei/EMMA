@@ -295,7 +295,7 @@ describe('2026-01-26 MCP Apps conformance against an independent local server', 
       expect(f.document.prefersBorder).toBe(false);
       expect(f.init).toMatchObject({
         protocolVersion: '2026-01-26',
-        hostInfo: { name: 'Cindy' },
+        hostInfo: { name: 'Emma' },
         hostContext: {
           theme: 'light',
           locale: 'zh-CN',

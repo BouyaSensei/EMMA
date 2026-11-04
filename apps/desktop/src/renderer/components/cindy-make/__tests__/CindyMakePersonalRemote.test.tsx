@@ -50,7 +50,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('CindyMakeStorageRow', () => {
+describe('EmmaMakeStorageRow', () => {
   const bound: CindyMakePersonalRemoteState = {
     github: 'connected',
     githubLogin: 'octo',
@@ -195,7 +195,7 @@ describe('CindyMakeStorageRow', () => {
   });
 });
 
-describe('CindyMakeStorageCard', () => {
+describe('EmmaMakeStorageCard', () => {
   it.each([
     ['zh-CN', zhCN],
     ['zh-TW', zhTW],

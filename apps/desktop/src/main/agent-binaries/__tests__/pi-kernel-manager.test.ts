@@ -112,7 +112,7 @@ describe('Pi version selection', () => {
   });
 });
 
-describe('Cindy formal Pi release parsing', () => {
+describe('Emma formal Pi release parsing', () => {
   const base = 'https://hotfix.cindy.app/cindy';
   const pi = { version: '0.84.4', sha256: 'a'.repeat(64), file: 'pi/0.84.4/darwin-arm64/pi.dist.tar.gz', size: 123 };
   it('uses the formal manifest asset and digest, including Windows directory archives', () => {

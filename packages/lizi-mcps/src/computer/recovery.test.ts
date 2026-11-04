@@ -415,7 +415,7 @@ describe("bounded Computer Use recovery", () => {
   });
 
   it("discovers replacement PID/window candidates without selecting or clicking one", async () => {
-    const windows = [{ pid: 99, window_id: 100, app_name: "Cindy" }];
+    const windows = [{ pid: 99, window_id: 100, app_name: "Emma" }];
     const dispatch = vi.fn(async (name: string) => {
       if (name === "list_windows") return { windows };
       throw Object.assign(new Error("gone"), { code: "window_id_not_found" });

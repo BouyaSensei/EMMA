@@ -411,7 +411,7 @@ export class PluginPublisherOrchestrator {
           errorCode: signal.aborted ? null : 'CONFIRM_UNAVAILABLE',
           message: signal.aborted
             ? cancelMessage(record.uploadId !== null)
-            : '请在 Cindy 窗口内重试',
+            : '请在 Emma 窗口内重试',
         });
         return;
       }
@@ -717,7 +717,7 @@ function isTerminalPublisherClientError(error: PluginPublisherApiError): boolean
 }
 
 function mapPublisherApiMessage(error: PluginPublisherApiError): string {
-  if (error.code === 'PLUGIN_NAMESPACE_CLIENT_REQUIRED') return '请更新 Cindy 后再发布此组织的插件';
+  if (error.code === 'PLUGIN_NAMESPACE_CLIENT_REQUIRED') return '请更新 Emma 后再发布此组织的插件';
   if (error.code === 'PLUGIN_ORGANIZATION_CONTEXT_UNAVAILABLE') return '暂时无法确认企业身份，请稍后重试';
   if (error.code === 'PLUGIN_NAMESPACE_CONFIG_REQUIRED') return '企业插件发布暂不可用，请稍后重试';
   if (error.code === 'PUBLISH_GHOST_ID_INVALID') return '新插件 ID 必须以小写字母开头，请修改 ID 后重新发布';

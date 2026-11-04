@@ -60,7 +60,7 @@ describe('task archive projection', () => {
     expect(f.sync).toHaveBeenCalledTimes(1);
   });
 
-  it.each(['active', 'archived'])('periodically repairs native drift while Cindy stays %s', async status => {
+  it.each(['active', 'archived'])('periodically repairs native drift while Emma stays %s', async status => {
     vi.useFakeTimers();
     const f = fixture();
     f.insert('task', 'codex', status);

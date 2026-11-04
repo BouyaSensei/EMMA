@@ -3051,7 +3051,7 @@ describe('makerChatStore text delta batching', () => {
     );
   });
 
-  it('re-fetches Cindy credentials and resends on LiteLLM invalid proxy token', async () => {
+  it('re-fetches Emma credentials and resends on LiteLLM invalid proxy token', async () => {
     vi.mocked(sessionService.get).mockResolvedValue({
       agentKind: 'claude-code',
       remoteHostId: null,
@@ -3139,7 +3139,7 @@ describe('makerChatStore text delta batching', () => {
     expect(makerChatStore.getSnapshot(SESSION_ID).error).toContain('LiteLLM_VerificationTokenTable');
   });
 
-  it('persists the deferred error when Cindy credential re-fetch fails', async () => {
+  it('persists the deferred error when Emma credential re-fetch fails', async () => {
     vi.mocked(window.electronAPI.modelAccess.retry).mockResolvedValueOnce({
       state: 'failed',
       source: null,
@@ -3831,7 +3831,7 @@ describe('makerChatStore text delta batching', () => {
     expect(messageService.dismissError).toHaveBeenCalledTimes(1);
   });
 
-  it('does not treat a custom LiteLLM provider token error as Cindy credentials', async () => {
+  it('does not treat a custom LiteLLM provider token error as Emma credentials', async () => {
     onInputProjection?.(
       projection(SESSION_ID, {
         error: LITELLM_INVALID_PROXY_TOKEN,
@@ -3859,7 +3859,7 @@ describe('makerChatStore text delta batching', () => {
     expect(makerChatStore.getSnapshot(SESSION_ID).error).toContain('LiteLLM_VerificationTokenTable');
   });
 
-  it('does not guess Cindy credentials when queued createOpts omitted providerId', async () => {
+  it('does not guess Emma credentials when queued createOpts omitted providerId', async () => {
     vi.mocked(sessionService.get).mockResolvedValue({
       agentKind: 'claude-code',
       remoteHostId: null,
@@ -3899,7 +3899,7 @@ describe('makerChatStore text delta batching', () => {
     expect(makerChatStore.getSnapshot(SESSION_ID).error).toContain('LiteLLM_VerificationTokenTable');
   });
 
-  it('waits for the failed turn done before refreshing Cindy credentials', async () => {
+  it('waits for the failed turn done before refreshing Emma credentials', async () => {
     onInputProjection?.(
       projection(SESSION_ID, {
         error: LITELLM_INVALID_PROXY_TOKEN,

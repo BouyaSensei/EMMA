@@ -20,7 +20,7 @@ describe('deleteInstalled', () => {
     vi.mocked(removeManagedOllamaModel).mockClear();
   });
 
-  it('deletes the Ollama model and removes it from Cindy', async () => {
+  it('deletes the Ollama model and removes it from Emma', async () => {
     const deleteModel = vi.fn(async () => undefined);
     const service = createLocalModelService({
       deleteModel,
@@ -36,7 +36,7 @@ describe('deleteInstalled', () => {
     });
   });
 
-  it('keeps the Cindy entry when Ollama delete fails', async () => {
+  it('keeps the Emma entry when Ollama delete fails', async () => {
     const deleteModel = vi.fn(async () => {
       throw new Error('ollama /api/delete failed (500)');
     });

@@ -178,14 +178,14 @@ afterEach(() => {
   vi.useRealTimers();
 });
 
-describe('one Cindy entry across devices', () => {
+describe('one Emma entry across devices', () => {
   const remote = (deviceId: string, deviceName: string, extra = {}) => ({
-    id: 'cindy-default', deviceId, deviceName, name: 'Cindy', avatar: '🤖', avatarColor: 'violet',
+    id: 'cindy-default', deviceId, deviceName, name: 'Emma', avatar: '🤖', avatarColor: 'violet',
     description: '', preview: `${deviceName} preview`, activityAt: 1, sessionId: `${deviceId}-chat`, online: true, ...extra,
   });
 
-  it('keeps the original local row and only offers switching while another Cindy exists', async () => {
-    mocks.profiles = [bot({ id: 'cindy-default', name: 'Cindy', lastMessagePreview: 'Local preview' })];
+  it('keeps the original local row and only offers switching while another Emma exists', async () => {
+    mocks.profiles = [bot({ id: 'cindy-default', name: 'Emma', lastMessagePreview: 'Local preview' })];
     const view = await renderSidebar();
     expect(screen.queryByRole('combobox', { name: /bots.devicePicker.switchDevice/ })).toBeNull();
     expect(screen.queryByTestId('cindy-device-row')).toBeNull();
@@ -209,7 +209,7 @@ describe('one Cindy entry across devices', () => {
     expect(screen.getByText('Local preview')).toBeTruthy();
   });
 
-  it('keeps the original remote row when it is the only Cindy', async () => {
+  it('keeps the original remote row when it is the only Emma', async () => {
     mocks.remoteBots = [remote('cloud', 'Cloud', { online: false })];
     await renderSidebar();
     expect(screen.queryByRole('combobox', { name: /bots.devicePicker.switchDevice/ })).toBeNull();
@@ -219,8 +219,8 @@ describe('one Cindy entry across devices', () => {
     expect(mocks.navigate).toHaveBeenCalledWith('/bots/remote/cloud/cindy-default');
   });
 
-  it('defaults to local Cindy while leaving custom same-name teammates separate', async () => {
-    mocks.profiles = [{ ...bot({ id: 'cindy-default', name: 'Cindy', lastMessagePreview: 'Local preview' }), templateId: 'cindy' }];
+  it('defaults to local Emma while leaving custom same-name teammates separate', async () => {
+    mocks.profiles = [{ ...bot({ id: 'cindy-default', name: 'Emma', lastMessagePreview: 'Local preview' }), templateId: 'cindy' }];
     mocks.remoteBots = [remote('cloud', 'Cloud'), remote('mac', 'Mac'), { ...remote('other', 'Office'), id: 'custom', preview: 'Custom preview' }];
     await renderSidebar();
     expect(screen.getAllByTestId('cindy-device-row')).toHaveLength(1);
@@ -228,12 +228,12 @@ describe('one Cindy entry across devices', () => {
     expect(screen.getByText('Custom preview')).toBeTruthy();
     expect(screen.queryByText('Cloud preview')).toBeNull();
     expect(screen.queryByText('Mac preview')).toBeNull();
-    fireEvent.click(screen.getByRole('button', { name: 'Cindy · bots.devicePicker.local' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Emma · bots.devicePicker.local' }));
     expect(mocks.navigate).toHaveBeenCalledWith('/bots/cindy-default');
   });
 
   it('follows the selected remote chat and returns to local when visiting another teammate', async () => {
-    mocks.profiles = [bot({ id: 'cindy-default', name: 'Renamed Cindy', lastMessagePreview: 'Local preview' }), bot({ id: 'writer', name: 'Writer' })];
+    mocks.profiles = [bot({ id: 'cindy-default', name: 'Renamed Emma', lastMessagePreview: 'Local preview' }), bot({ id: 'writer', name: 'Writer' })];
     mocks.remoteBots = [remote('cloud', 'Cloud'), remote('mac', 'Mac')];
     const view = await renderSidebar();
     const trigger = screen.getByRole('combobox', { name: /bots.devicePicker.switchDevice/ });
@@ -245,19 +245,19 @@ describe('one Cindy entry across devices', () => {
     view.rerender(<TeammatesSection />);
     expect(screen.getByText('Cloud preview')).toBeTruthy();
     expect(screen.queryByText('Local preview')).toBeNull();
-    expect(screen.getByRole('button', { name: 'Cindy · Cloud' }).getAttribute('aria-current')).toBe('page');
+    expect(screen.getByRole('button', { name: 'Emma · Cloud' }).getAttribute('aria-current')).toBe('page');
     mocks.params = { botId: 'writer' };
     view.rerender(<TeammatesSection />);
     expect(screen.getByText('Local preview')).toBeTruthy();
     expect(screen.queryByText('Cloud preview')).toBeNull();
-    const localEntry = screen.getByRole('button', { name: 'Renamed Cindy · bots.devicePicker.local' });
+    const localEntry = screen.getByRole('button', { name: 'Renamed Emma · bots.devicePicker.local' });
     expect(localEntry.hasAttribute('aria-current')).toBe(false);
     fireEvent.click(localEntry);
     expect(mocks.navigate).toHaveBeenLastCalledWith('/bots/cindy-default');
   });
 
   it('keeps remote unread discoverable without opening the chat or switching away from local', async () => {
-    mocks.profiles = [bot({ id: 'cindy-default', name: 'Cindy' })];
+    mocks.profiles = [bot({ id: 'cindy-default', name: 'Emma' })];
     mocks.remoteBots = [remote('cloud', 'Cloud', { lastReplyAt: 20, readAt: 10, online: false })];
     await renderSidebar();
     expect(screen.getByLabelText('bots.devicePicker.otherUnread')).toBeTruthy();
@@ -269,21 +269,21 @@ describe('one Cindy entry across devices', () => {
     expect(mocks.navigate).not.toHaveBeenCalled();
   });
 
-  it('prefers local Cindy when local profiles arrive after the remote roster', async () => {
+  it('prefers local Emma when local profiles arrive after the remote roster', async () => {
     mocks.remoteBots = [remote('cloud', 'Cloud'), remote('mac', 'Mac')];
     const view = await renderSidebar();
     expect(screen.getByText('Cloud preview')).toBeTruthy();
 
-    mocks.profiles = [bot({ id: 'cindy-default', name: 'Cindy', lastMessagePreview: 'Local preview' })];
+    mocks.profiles = [bot({ id: 'cindy-default', name: 'Emma', lastMessagePreview: 'Local preview' })];
     view.rerender(<TeammatesSection />);
     expect(screen.getByText('Local preview')).toBeTruthy();
     expect(screen.queryByText('Cloud preview')).toBeNull();
-    expect(screen.getByRole('button', { name: 'Cindy · bots.devicePicker.local' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Emma · bots.devicePicker.local' })).toBeTruthy();
     expect(mocks.navigate).not.toHaveBeenCalled();
   });
 
   it('follows a remote deep link and falls back to local if that device is removed', async () => {
-    mocks.profiles = [bot({ id: 'cindy-default', name: 'Cindy', lastMessagePreview: 'Local preview' })];
+    mocks.profiles = [bot({ id: 'cindy-default', name: 'Emma', lastMessagePreview: 'Local preview' })];
     mocks.remoteBots = [remote('cloud', 'Cloud')];
     mocks.params = { botId: 'cindy-default', deviceId: 'cloud' };
     const view = await renderSidebar();
@@ -294,7 +294,7 @@ describe('one Cindy entry across devices', () => {
     expect(mocks.navigate).not.toHaveBeenCalled();
   });
 
-  it('offers a remote-only group without recreating a deleted local Cindy', async () => {
+  it('offers a remote-only group without recreating a deleted local Emma', async () => {
     mocks.remoteBots = [remote('cloud', 'Cloud'), remote('mac', 'Mac')];
     await renderSidebar();
     expect(screen.getAllByTestId('cindy-device-row')).toHaveLength(1);
@@ -305,10 +305,10 @@ describe('one Cindy entry across devices', () => {
 
 describe('teammate host labels', () => {
   it('shows only the remote device for same-name teammates and preserves remote routing', async () => {
-    mocks.profiles = [bot({ id: 'local-bot', name: 'Cindy', lastMessagePreview: 'Local preview' })];
+    mocks.profiles = [bot({ id: 'local-bot', name: 'Emma', lastMessagePreview: 'Local preview' })];
     mocks.devices = [{ deviceId: 'local-device', name: 'MBP-M5', isSelf: true }];
     mocks.remoteBots = [{ id: 'remote-bot', deviceId: 'remote-device', deviceName: 'Mac-Studio',
-      name: 'Cindy', avatar: '🤖', avatarColor: 'violet', description: '', preview: 'Remote preview',
+      name: 'Emma', avatar: '🤖', avatarColor: 'violet', description: '', preview: 'Remote preview',
       activityAt: 1, sessionId: 'remote-session', online: true }];
     const view = await renderSidebar();
     expect(screen.queryByText('bots.remote.online')).toBeNull();
@@ -327,7 +327,7 @@ describe('teammate host labels', () => {
   });
 
   it('keeps local status free of device labels before and after directory updates', async () => {
-    mocks.profiles = [bot({ id: 'local-bot', name: 'Cindy' })];
+    mocks.profiles = [bot({ id: 'local-bot', name: 'Emma' })];
     const view = await renderSidebar();
     expect(screen.queryByText('bots.remote.online')).toBeNull();
     expect(view.container.innerHTML).not.toContain('bots.remote.thisDevice');
@@ -340,10 +340,10 @@ describe('teammate host labels', () => {
   });
 
   it('disambiguates remote devices and updates their names without exposing the local host', async () => {
-    mocks.profiles = [bot({ id: 'local-bot', name: 'Cindy' })];
+    mocks.profiles = [bot({ id: 'local-bot', name: 'Emma' })];
     mocks.devices = [{ deviceId: 'local-device', name: 'Shared Mac', isSelf: true }];
     mocks.remoteBots = ['host-a', 'host-b'].map((deviceId) => ({
-      id: 'remote-bot', deviceId, deviceName: 'Shared Mac', name: 'Cindy',
+      id: 'remote-bot', deviceId, deviceName: 'Shared Mac', name: 'Emma',
       avatar: '🤖', avatarColor: 'violet', description: '', preview: '',
       activityAt: 1, sessionId: 'remote-session', online: true,
     }));
@@ -358,7 +358,7 @@ describe('teammate host labels', () => {
   });
 
   it.each(['Thinking', 'Generating'])('preserves %s while hiding the local host and idle status', async (compactDetail) => {
-    mocks.profiles = [bot({ id: 'local-bot', name: 'Cindy', lastMessagePreview: 'Previous reply' })];
+    mocks.profiles = [bot({ id: 'local-bot', name: 'Emma', lastMessagePreview: 'Previous reply' })];
     mocks.devices = [{ deviceId: 'local-device', name: 'MBP-M5', isSelf: true }];
     mocks.islandActivity.set('local-bot-chat', { sessionId: 'local-bot-chat', phase: 'running', compactDetail });
     const view = await renderSidebar();
@@ -377,7 +377,7 @@ describe('teammate host labels', () => {
   });
 
   it('retains delegated work and the existing typing fallback when detail is absent', async () => {
-    mocks.profiles = [{ ...bot({ id: 'local-bot', name: 'Cindy' }), sessions: [
+    mocks.profiles = [{ ...bot({ id: 'local-bot', name: 'Emma' }), sessions: [
       { id: 'local-bot-chat', kind: 'chat' }, { id: 'delegated', kind: 'task' },
     ] }];
     mocks.islandActivity.set('delegated', { sessionId: 'delegated', phase: 'running', compactDetail: ' ' });
@@ -862,12 +862,12 @@ describe('cloud companions in the roster', () => {
     expect(mocks.navigate).toHaveBeenCalledWith('/bots/remote/laptop/mia');
   });
 
-  it('does not offer a demoted local Cindy as the local option', async () => {
-    mocks.profiles = [bot({ id: 'cindy-default', name: 'Cindy', lastMessagePreview: 'Local preview' })];
-    mocks.remoteBots = [{ id: 'cindy-default', deviceId: 'laptop', deviceName: 'Laptop', name: 'Cindy', avatar: '🤖',
+  it('does not offer a demoted local Emma as the local option', async () => {
+    mocks.profiles = [bot({ id: 'cindy-default', name: 'Emma', lastMessagePreview: 'Local preview' })];
+    mocks.remoteBots = [{ id: 'cindy-default', deviceId: 'laptop', deviceName: 'Laptop', name: 'Emma', avatar: '🤖',
       avatarColor: 'violet', description: '', preview: 'Laptop preview', activityAt: 1, sessionId: 'laptop-chat', online: true }];
     mocks.cloud = { enabled: true, selfDeviceId: 'desk', humanActorId: 'human', demotedBotIds: ['cindy-default'],
-      actors: [{ id: 'a-cindy', externalId: 'cindy-default', name: 'Cindy', avatar: null, homeDeviceId: 'laptop' }] };
+      actors: [{ id: 'a-cindy', externalId: 'cindy-default', name: 'Emma', avatar: null, homeDeviceId: 'laptop' }] };
     await renderSidebar();
     expect(screen.queryByText('Local preview')).toBeNull();
     expect(screen.queryByTestId('cindy-device-row')).toBeNull();

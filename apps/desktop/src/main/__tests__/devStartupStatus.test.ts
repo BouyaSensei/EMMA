@@ -84,7 +84,7 @@ describe('devStartupStatus', () => {
   });
 
   it('persists OS process identity through readiness updates', async () => {
-    const identity = { startedAtMs: 50, executablePath: path.join(tempDir, 'Cindy') };
+    const identity = { startedAtMs: 50, executablePath: path.join(tempDir, 'Emma') };
     readIdentity.mockResolvedValue(identity);
     cleanup = await beginDesktopDevInstance({
       userDataDir: tempDir,
@@ -103,7 +103,7 @@ describe('devStartupStatus', () => {
   });
 
   it('does not delay bootstrap for OS identity and preserves readiness on late enrichment', async () => {
-    const identity = { startedAtMs: 50, executablePath: path.join(tempDir, 'Cindy') };
+    const identity = { startedAtMs: 50, executablePath: path.join(tempDir, 'Emma') };
     let resolveIdentity!: (value: typeof identity) => void;
     const pending = new Promise<typeof identity>((resolve) => {
       resolveIdentity = resolve;
@@ -146,7 +146,7 @@ describe('devStartupStatus', () => {
       pid: 4242,
     });
     cleanup();
-    resolveIdentity({ startedAtMs: 50, executablePath: path.join(tempDir, 'Cindy') });
+    resolveIdentity({ startedAtMs: 50, executablePath: path.join(tempDir, 'Emma') });
     await pending;
     expect(fs.existsSync(path.join(tempDir, '.dev-instances', '4242.json'))).toBe(false);
   });
@@ -175,7 +175,7 @@ describe('devStartupStatus', () => {
       pid: 4242,
       instanceId: 'replacement',
     });
-    resolveIdentity({ startedAtMs: 50, executablePath: path.join(tempDir, 'old-Cindy') });
+    resolveIdentity({ startedAtMs: 50, executablePath: path.join(tempDir, 'old-Emma') });
     await pending;
     oldCleanup();
     const record = JSON.parse(
@@ -300,14 +300,14 @@ describe('devStartupStatus', () => {
 
     markDesktopDevStartupFailed(
       'SINGLE_INSTANCE_OWNED',
-      'Another Cindy instance owns the primary slot.',
-      { userDataDir: '/tmp/Cindy' },
+      'Another Emma instance owns the primary slot.',
+      { userDataDir: '/tmp/Emma' },
     );
 
     expect(JSON.parse(fs.readFileSync(statusPath, 'utf8'))).toMatchObject({
       state: 'failed',
       code: 'SINGLE_INSTANCE_OWNED',
-      detail: { userDataDir: '/tmp/Cindy' },
+      detail: { userDataDir: '/tmp/Emma' },
     });
     expect(
       JSON.parse(fs.readFileSync(path.join(tempDir, '.dev-instances', '4243.json'), 'utf8')),

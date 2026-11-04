@@ -53,7 +53,7 @@ export function realProfileDestDir(runtimeDir: string): string {
 }
 
 export function isolatedProfileDestDir(runtimeDir: string): string {
-  return path.join(runtimeDir, 'browser', 'Cindy');
+  return path.join(runtimeDir, 'browser', 'Emma');
 }
 
 export function lastUsedProfileName(localStateRaw: string): string {

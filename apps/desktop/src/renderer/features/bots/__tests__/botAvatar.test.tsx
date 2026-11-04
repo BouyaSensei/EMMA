@@ -123,7 +123,7 @@ describe('Cloud companion avatar addresses', () => {
   });
 });
 
-describe('Reserved Cindy avatar sentinel', () => {
+describe('Reserved Emma avatar sentinel', () => {
   it('recognizes the whole cindy://avatar/ namespace, case- and padding-insensitively', () => {
     for (const value of [
       'cindy://avatar/official',

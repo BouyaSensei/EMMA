@@ -89,7 +89,7 @@ describe('provider group runtime', () => {
     }] } });
     io.shares.mockReturnValueOnce([{
       shareId: 's1', memberId: 'm1', providerId: 'anthropic', providerLabel: 'Anthropic',
-      hostDeviceId: 'host', deviceName: 'Cindy', owner: { displayName: 'Owner', avatarUrl: null, region: 'global' },
+      hostDeviceId: 'host', deviceName: 'Emma', owner: { displayName: 'Owner', avatarUrl: null, region: 'global' },
       status: 'active', hostOnline: true, hostCapable: true,
     }]);
     const config = normalizeProviderGroupConfig({ members: [

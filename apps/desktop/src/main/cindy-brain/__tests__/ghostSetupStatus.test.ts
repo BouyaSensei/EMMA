@@ -71,7 +71,7 @@ describe('evaluateGhostSetup · 启发式回落(无 setup 声明)', () => {
         secrets: [
           {
             key: 'cindy_identity',
-            label: 'Cindy 企业身份',
+            label: 'Emma 企业身份',
             source: 'oidc-token',
             inject: {
               ...INJECT,

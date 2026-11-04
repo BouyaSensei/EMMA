@@ -352,7 +352,7 @@ export const wechatIm = new WechatIM({
             appId: credentials.ilinkBotId,
           }
         : {}),
-      botAgent: `Cindy/${app.getVersion()}`,
+      botAgent: `Emma/${app.getVersion()}`,
       fetch: (input, init) => net.fetch(input instanceof URL ? input.toString() : input, init),
       ...(onAuthorizationEvent
         ? {

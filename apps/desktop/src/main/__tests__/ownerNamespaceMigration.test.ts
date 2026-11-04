@@ -180,7 +180,7 @@ describe('claimLegacyOwnerNamespace', () => {
     await fs.writeFile(path.join(root, 'slack-hook.json'), 'legacy-hook');
     await writeDevInstanceRecord(root, 4242, root, {
       startedAtMs,
-      rootDir: '/Applications/Old Cindy.app/Contents/Resources/app.asar',
+      rootDir: '/Applications/Old Emma.app/Contents/Resources/app.asar',
     });
 
     const result = await claimLegacyOwnerNamespace(
@@ -309,7 +309,7 @@ describe('claimLegacyOwnerNamespace', () => {
     expect(hasExclusiveSharedLegacyUserDataAccess(root, (pid) => pid === 4242)).toBe(false);
   });
 
-  it('keeps deferring when a reused pid now belongs to another Cindy process', async () => {
+  it('keeps deferring when a reused pid now belongs to another Emma process', async () => {
     const root = await tempRoot();
     const startedAtMs = 1_000_000;
     await fs.writeFile(path.join(root, 'slack-hook.json'), 'legacy-hook');
@@ -321,7 +321,7 @@ describe('claimLegacyOwnerNamespace', () => {
         isPidAlive: (pid) => pid === 4242,
         readProcessIdentity: () => ({
           startedAtMs: startedAtMs + 120_000,
-          command: '/Applications/Cindy.app/Contents/MacOS/Cindy',
+          command: '/Applications/Emma.app/Contents/MacOS/Emma',
         }),
       }),
     );

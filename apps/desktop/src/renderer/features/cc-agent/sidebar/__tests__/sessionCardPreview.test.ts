@@ -9,9 +9,9 @@ describe('resolveSessionCardBody', () => {
         variant: 'list',
         pinned: true,
         summary: 'PR 已提交并开启，相关单测通过。',
-        preview: '不是键盘没插上，是同时有两份 Cindy 在抢同一块 HID。',
+        preview: '不是键盘没插上，是同时有两份 Emma 在抢同一块 HID。',
       }),
-    ).toBe('不是键盘没插上，是同时有两份 Cindy 在抢同一块 HID。');
+    ).toBe('不是键盘没插上，是同时有两份 Emma 在抢同一块 HID。');
   });
 
   it('卡片 + 置顶才用摘要', () => {

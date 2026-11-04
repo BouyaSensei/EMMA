@@ -124,7 +124,7 @@ describe('nextUtilityRequestStep', () => {
       .toBe('chat-completions|effort:low');
   });
 
-  it('only treats 404 as a parameter error on Cindy AI native steps', () => {
+  it('only treats 404 as a parameter error on Emma AI native steps', () => {
     const chat = steps.findIndex((step) => step.wire === 'chat-completions');
     expect(nextUtilityRequestStep(steps, chat, 404)).toBeNull();
   });

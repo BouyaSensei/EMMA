@@ -4,7 +4,7 @@ import { deriveAppCapabilities } from '../appCapabilities';
 import { isLocalDbOwnerCurrent, legacyMigrationOwner } from '../appSessionPolicy';
 
 describe('local app-session policy', () => {
-  it('disables every Cindy account capability in local mode', () => {
+  it('disables every Emma account capability in local mode', () => {
     expect(deriveAppCapabilities('local')).toEqual({
       canUseCindyAccountServices: false,
       canUseCindyGateway: false,

@@ -29,7 +29,7 @@ const runningLocalClaude = {
 describe('planUserRuntimeModelSwitch — 用户点选体验矩阵', () => {
   it.each([
     {
-      name: '跑着 Opus 5 → Cindy 打折/Fable(窗口未核实) → 热切,档位 high 留下',
+      name: '跑着 Opus 5 → Emma 打折/Fable(窗口未核实) → 热切,档位 high 留下',
       input: {
         agentKind: 'claude-code',
         model: 'claude-fable-5',
@@ -50,7 +50,7 @@ describe('planUserRuntimeModelSwitch — 用户点选体验矩阵', () => {
       },
     },
     {
-      name: '跑着切 Cindy 打折,上一模型 Fast 开着 → Fast 必须关,不能带着插队状态',
+      name: '跑着切 Emma 打折,上一模型 Fast 开着 → Fast 必须关,不能带着插队状态',
       input: {
         agentKind: 'claude-code',
         model: 'claude-opus-5',
@@ -275,7 +275,7 @@ describe('planUserRuntimeModelSwitch — 用户点选体验矩阵', () => {
       },
     },
     {
-      name: '占用未知 + Cindy 未核实 → fail-open 热切',
+      name: '占用未知 + Emma 未核实 → fail-open 热切',
       input: {
         agentKind: 'claude-code',
         model: 'claude-opus-5',

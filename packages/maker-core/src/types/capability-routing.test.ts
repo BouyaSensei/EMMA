@@ -82,7 +82,7 @@ describe('capability route resolution', () => {
     expect(
       isCapabilitySourceExplicitlySelected(
         route,
-        '不要使用 Feishu Delegate，改用 Cindy',
+        '不要使用 Feishu Delegate，改用 Emma',
       ),
     ).toBe(false);
     expect(

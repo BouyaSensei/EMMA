@@ -315,7 +315,7 @@ it.each(['dev', 'beta', 'release'] as const)(
     });
     // Settings now names the official version the personal version is on.
     expect(h.recordRef).toHaveBeenCalledWith(expect.any(String), ref);
-    const api = 'https://api.github.com/repos/makecindy/cindy';
+    const api = 'https://api.github.com/repos/BouyaSensei/EMMA';
     expect(h.fetch.mock.calls.map(([url]) => url)).toEqual([
       ...(channel === 'dev'
         ? []

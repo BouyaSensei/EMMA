@@ -225,11 +225,11 @@ it('filters single and multiple creators, including archived tasks, independentl
 });
 
 // User regression: one built-in Cindy must filter local and remote creations together.
-it('offers one Cindy across computers without merging a custom namesake or unrelated same-ID bots', async () => {
-  h.profiles = [bot('cindy-default', 'Cindy'), bot('custom', 'Cindy')];
+it('offers one Emma across computers without merging a custom namesake or unrelated same-ID bots', async () => {
+  h.profiles = [bot('cindy-default', 'Emma'), bot('custom', 'Emma')];
   h.remote = [
     { ...bot('remote-cindy', 'Renamed', { templateId: 'cindy' }), deviceId: 'laptop', deviceName: 'Laptop', delegatedSessionIds: ['remote-child'] },
-    { ...bot('custom', 'Cindy'), deviceId: 'laptop', delegatedSessionIds: ['custom-child'] },
+    { ...bot('custom', 'Emma'), deviceId: 'laptop', delegatedSessionIds: ['custom-child'] },
   ];
   followScopes.mockResolvedValueOnce([{ botId: 'cindy-default', delegatedSessionIds: ['local-child'] }]);
   const { result, rerender } = renderHook(() => ({ options: useTaskCreatorOptions(), index: useTaskCreatorIndex() }));
@@ -244,7 +244,7 @@ it('offers one Cindy across computers without merging a custom namesake or unrel
     session({ id: 'custom-child', deviceLinkDeviceId: 'laptop' }), session()];
   expect(tasks.filter(task => matchesTaskCreators(task, selected, result.current.index))).toEqual(tasks.slice(0, 2));
   expect(tasks.filter(task => matchesTaskCreators(task, 'none', result.current.index))).toEqual([tasks[3]]);
-  h.remote = [...h.remote, { ...bot('new-cindy', 'Cindy', { templateId: 'cindy' }), deviceId: 'new-host', delegatedSessionIds: ['new-child'] }];
+  h.remote = [...h.remote, { ...bot('new-cindy', 'Emma', { templateId: 'cindy' }), deviceId: 'new-host', delegatedSessionIds: ['new-child'] }];
   rerender();
   expect(result.current.options).toHaveLength(3);
   expect(matchesTaskCreators(session({ id: 'new-child', deviceLinkDeviceId: 'new-host' }), selected, result.current.index)).toBe(true);
@@ -252,10 +252,10 @@ it('offers one Cindy across computers without merging a custom namesake or unrel
 
 // The filter must reuse the main roster's retired-copy rules, not resurrect a demoted local Cindy.
 it('hides retired copies and filters one cloud companion across its old and current computers', async () => {
-  h.profiles = [bot('cindy-default', 'Cindy'), bot('cloud-bot', 'Cindy')];
-  h.remote = [{ ...bot('cloud-bot', 'Cindy'), deviceId: 'laptop', delegatedSessionIds: ['remote-child'] }];
+  h.profiles = [bot('cindy-default', 'Emma'), bot('cloud-bot', 'Emma')];
+  h.remote = [{ ...bot('cloud-bot', 'Emma'), deviceId: 'laptop', delegatedSessionIds: ['remote-child'] }];
   resetCompanionCloudStoreForTests({ enabled: true, selfDeviceId: 'desktop', humanActorId: 'human', demotedBotIds: ['cindy-default'],
-    actors: [{ id: 'actor', externalId: 'cloud-bot', name: 'Cindy', avatar: null, homeDeviceId: 'laptop', homeDevice: { deviceId: 'laptop', name: 'Mac Studio', online: true, isSelf: false } }] });
+    actors: [{ id: 'actor', externalId: 'cloud-bot', name: 'Emma', avatar: null, homeDeviceId: 'laptop', homeDevice: { deviceId: 'laptop', name: 'Mac Studio', online: true, isSelf: false } }] });
   followScopes.mockResolvedValueOnce([{ botId: 'cloud-bot', delegatedSessionIds: ['local-child'] }]);
   const { result } = renderHook(() => ({ options: useTaskCreatorOptions(), index: useTaskCreatorIndex() }));
   await act(async () => {});
@@ -291,9 +291,9 @@ it.each(['routine', 'channel'])('uses exact local/remote ownership for %s avatar
 
 // Unit / review4390134785: existing coverage starts with a real roster, missing
 // the cloud-only -> known-Cindy -> online transition and saved companion alias.
-it('keeps a cloud-only Cindy selection valid when identity and its home roster arrive', async () => {
+it('keeps a cloud-only Emma selection valid when identity and its home roster arrive', async () => {
   resetCompanionCloudStoreForTests({ enabled: true, selfDeviceId: 'desktop', humanActorId: 'human', demotedBotIds: [],
-    actors: [{ id: 'actor', externalId: 'cloud-cindy', name: 'Cindy', avatar: null, homeDeviceId: 'laptop' }] });
+    actors: [{ id: 'actor', externalId: 'cloud-cindy', name: 'Emma', avatar: null, homeDeviceId: 'laptop' }] });
   const { normalizeTaskCreators } = await import('../../cc-agent/hooks/helpers/sidebarFilterCore');
   const { result, rerender } = renderHook(() => ({ options: useTaskCreatorOptions(), index: useTaskCreatorIndex() }));
   const old = [JSON.stringify(['companion', 'cloud-cindy'])];

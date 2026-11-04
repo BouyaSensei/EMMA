@@ -2340,7 +2340,7 @@ async function recoverMissingPrivateRollout(
   if (materializedBeforeCas === 'unsafe') {
     throw resumePreparationBlocked(
       threadId,
-      'the private orphan materialized outside Cindy storage or as a non-file',
+      'the private orphan materialized outside Emma storage or as a non-file',
     );
   }
 
@@ -2377,7 +2377,7 @@ async function recoverMissingPrivateRollout(
     if (materializedAfterCas === 'unsafe') {
       throw resumePreparationBlocked(
         threadId,
-        'the private orphan materialized outside Cindy storage or as a non-file',
+        'the private orphan materialized outside Emma storage or as a non-file',
       );
     }
   } else if (materializedAfterCas !== 'missing') {
@@ -2392,7 +2392,7 @@ async function recoverMissingPrivateRollout(
   if (!isAcceptableSyntheticWinner(targetHome, winner, published)) {
     throw resumePreparationBlocked(threadId, 'target state changed during private orphan recovery');
   }
-  log.info('recovered missing private Codex rollout from Cindy history', {
+  log.info('recovered missing private Codex rollout from Emma history', {
     threadId,
     originalRolloutPath: recordedPath,
     recoveredRolloutPath: winner,
@@ -2536,7 +2536,7 @@ async function recoverStableExternalEmptyWithoutTargetState(
   }
 
   if (!emptyRolloutStillMatches(external.rolloutPath, originalEmpty)) {
-    log.warn('external rollout changed after private state handoff; preserved outside Cindy append boundary', {
+    log.warn('external rollout changed after private state handoff; preserved outside Emma append boundary', {
       threadId,
       externalRolloutPath: external.rolloutPath,
       recoveredRolloutPath: winner,
@@ -2663,7 +2663,7 @@ async function recoverStableEmptyRollout(
     }
   }
   if ((originalChangedBeforeCas || originalChangedAfterCas) && !originalIsPrivate) {
-    log.warn('external rollout changed during recovery; preserved outside Cindy append boundary', {
+    log.warn('external rollout changed during recovery; preserved outside Emma append boundary', {
       threadId,
       externalRolloutPath: rolloutPath,
       recoveredRolloutPath: published.path,
@@ -2680,7 +2680,7 @@ async function recoverStableEmptyRollout(
     throw resumePreparationBlocked(threadId, 'a concurrent state handoff selected a different recovery');
   }
 
-  log.info('recovered stable empty Codex rollout from Cindy history', {
+  log.info('recovered stable empty Codex rollout from Emma history', {
     threadId,
     originalRolloutPath: rolloutPath,
     recoveredRolloutPath: recoveredWinner,

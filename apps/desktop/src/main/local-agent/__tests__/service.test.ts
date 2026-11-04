@@ -148,7 +148,7 @@ afterEach(async () => {
   vi.unstubAllGlobals();
 });
 
-describe('generic local app Cindy authorization', () => {
+describe('generic local app Emma authorization', () => {
   // #7631: a settings write is owner-scoped, validated and never granted by
   // an app RPC. Existing revocation tests do not exercise this new operation.
   it('changes only the requested connection and rejects malformed or stale-owner settings writes', async () => {
@@ -229,7 +229,7 @@ describe('generic local app Cindy authorization', () => {
     expect(options.detail).toContain('1.2');
     expect(options.detail).not.toMatch(/\{\{(?:id|version)\}\}/);
   });
-  it('revokes only the selected connection through the Cindy confirmation', async () => {
+  it('revokes only the selected connection through the Emma confirmation', async () => {
     expect(await revokeLocalAgentConnections('grant-b')).toBe(true);
     expect(mock.revoke).toHaveBeenCalledWith('grant-b');
     expect(mock.revokeAll).not.toHaveBeenCalled();
@@ -243,7 +243,7 @@ describe('generic local app Cindy authorization', () => {
     expect(mock.revoke).not.toHaveBeenCalled();
     expect(mock.revokeAll).not.toHaveBeenCalled();
   });
-  it('rejects Cindy consent if the account changed while the prompt was open', async () => {
+  it('rejects Emma consent if the account changed while the prompt was open', async () => {
     mock.confirm.mockImplementationOnce(async () => {
       mock.owner = 'owner-b';
       return true;
@@ -269,7 +269,7 @@ describe('generic local app Cindy authorization', () => {
       await mock.deps.approve(new AbortController().signal, { id: 'notes', name: 'Notes' }),
     ).toBe(false);
   });
-  it('rechecks the IPC caller after Cindy confirmation and keeps raw storage errors out of IPC', async () => {
+  it('rechecks the IPC caller after Emma confirmation and keeps raw storage errors out of IPC', async () => {
     const assertCaller = vi.fn();
     mock.confirm.mockImplementationOnce(async () => {
       assertCaller.mockImplementation(() => {
@@ -284,7 +284,7 @@ describe('generic local app Cindy authorization', () => {
     mock.revoke.mockRejectedValueOnce(new Error('PRIVATE storage path or credential'));
     await expect(revokeLocalAgentConnections('grant-a')).rejects.toThrow('[INTERNAL]');
   });
-  it('uses trusted app windows for Cindy consent and local notifications', async () => {
+  it('uses trusted app windows for Emma consent and local notifications', async () => {
     mock.trusted = false;
     expect(
       await mock.deps.approve(new AbortController().signal, { id: 'notes', name: 'Notes' }),

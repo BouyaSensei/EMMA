@@ -34,7 +34,7 @@ describe('reduceXboxGamepadFrame', () => {
     ).toEqual([{ type: 'scroll', direction: 'up', intensity: expect.any(Number) }]);
   });
 
-  it('maps face and bumper edges to Cindy commands', () => {
+  it('maps face and bumper edges to Emma commands', () => {
     const idle = XBOX_GAMEPAD_EMPTY_FRAME;
     expect(reduceXboxGamepadFrame(idle, press('a'), layout)).toEqual([
       { type: 'command', commandId: 'composer.submit' },

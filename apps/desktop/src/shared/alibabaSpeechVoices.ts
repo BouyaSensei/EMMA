@@ -299,7 +299,7 @@ const SYSTEM_VOICES: Readonly<Record<string, readonly SystemVoice[]>> = {
     ['Beth_v3.1', 'Beth'],
     ['Betty_v3.1', 'Betty'],
     ['Cally_v3.1', 'Cally'],
-    ['Cindy_v3.1', 'Cindy'],
+    ['Emma_v3.1', 'Emma'],
     ['Donna_v3.1', 'Donna'],
     ['Andy_v3.1', 'Andy'],
     ['Brian_v3.1', 'Brian'],

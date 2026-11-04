@@ -202,9 +202,9 @@ export function isSystemPermissionDenialReason(reason: unknown): boolean {
 
 /** Denial provenance for tool results and Codex's same-turn host feedback. */
 export function formatPermissionDenial(source: 'auto' | 'user' | 'system', reason?: string): string {
-  const label = source === 'auto' ? 'Cindy Auto-review denied this tool call'
-    : source === 'user' ? 'User denied this tool call via Cindy'
-      : 'Cindy could not approve this tool call';
+  const label = source === 'auto' ? 'Emma Auto-review denied this tool call'
+    : source === 'user' ? 'User denied this tool call via Emma'
+      : 'Emma could not approve this tool call';
   const detail = reason?.trim().slice(0, 240);
   return detail ? `${label}: ${detail}` : `${label}.`;
 }

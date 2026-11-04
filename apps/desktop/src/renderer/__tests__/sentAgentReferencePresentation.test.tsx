@@ -18,7 +18,7 @@ import { formatQuoteForSend, parseChatQuoteSegments } from '@/lib/chatQuotes';
 
 afterEach(cleanup);
 
-function browserReference(label = 'Cindy issue #1462') {
+function browserReference(label = 'Emma issue #1462') {
   const href = 'cindy://browser-tab/tab-1?url=https%3A%2F%2Fgithub.com%2Fmakecindy%2Fcindy%2Fissues%2F1462';
   const wire = `[${label}](${href})`;
   const reference: AgentInputReference = {
@@ -46,7 +46,7 @@ describe('sent structured reference ranges', () => {
       { kind: 'text', text: '，总结下' },
     ]);
     expect(projectSentInlinePlainText(content, [], [projected])).toBe(
-      '看下 Cindy issue #1462，总结下',
+      '看下 Emma issue #1462，总结下',
     );
   });
 
@@ -87,20 +87,20 @@ describe('sent structured reference ranges', () => {
 describe('sent structured reference chips', () => {
   it.each([
     {
-      label: 'Cindy issue #1462',
+      label: 'Emma issue #1462',
       reference: browserReference().reference,
     },
     {
-      label: 'Cindy Dev',
+      label: 'Emma Dev',
       reference: {
         kind: 'desktop-window',
         start: 0,
         end: 5,
-        href: 'cindy://desktop-window/42/7?app=Cindy',
+        href: 'cindy://desktop-window/42/7?app=Emma',
         windowId: 7,
         pid: 42,
-        appName: 'Cindy',
-        title: 'Cindy Dev',
+        appName: 'Emma',
+        title: 'Emma Dev',
       } satisfies AgentInputReference,
     },
     {

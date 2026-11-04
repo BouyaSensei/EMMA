@@ -24,7 +24,7 @@ export type HandoffPictureRead =
 const notFound = (): HandoffPictureRead => ({
   ok: false,
   errorCode: 'IMAGE_NOT_FOUND',
-  message: 'Cindy cannot read that picture. Pass the path of a PNG or JPEG screenshot (absolute, or relative to the task folder), or a cindy-media:// URL.',
+  message: 'Emma cannot read that picture. Pass the path of a PNG or JPEG screenshot (absolute, or relative to the task folder), or a cindy-media:// URL.',
 });
 
 const notAnImage = (): HandoffPictureRead => ({ ok: false, errorCode: 'NOT_AN_IMAGE', message: 'Pass a PNG or JPEG screenshot.' });

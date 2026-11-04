@@ -69,7 +69,7 @@ describe('createGitSnapshotCoordinator', () => {
     expect(createShadowSavepoint).not.toHaveBeenCalled();
   });
   it.each(['source', 'worktrees/run', 'merge-worktrees/12345678-1234-1234-1234-123456789abc'])(
-    'never creates hidden commits in Cindy Make %s',
+    'never creates hidden commits in Emma Make %s',
     async (directory) => {
       const maker = makeMaker({
         getSessionMeta: vi.fn().mockResolvedValue({

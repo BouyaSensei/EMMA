@@ -37,7 +37,7 @@ async function fixture(conflict: boolean) {
     );
   const git = (args: string[], cwd: string, indexFile?: string) =>
     run(
-      args.map((arg) => (arg === 'https://github.com/makecindy/cindy.git' ? remote : arg)),
+      args.map((arg) => (arg === 'https://github.com/BouyaSensei/EMMA.git' ? remote : arg)),
       cwd,
       indexFile,
     );
@@ -289,7 +289,7 @@ it('rebases locally committed personal changes onto the latest official main and
     expect(await h.git(['rev-list', 'main..cindy-personal', '--merges'], h.source)).toBe('');
     expect(await h.git(['status', '--porcelain'], h.source)).toBe('');
     expect(await h.git(['log', '-1', '--format=%B'], h.source)).toContain(
-      'Signed-off-by: Cindy Make <cindy-make@localhost.invalid>',
+      'Signed-off-by: Emma Make <cindy-make@localhost.invalid>',
     );
     expect(
       await h.git(['rev-parse', 'refs/cindy-make/backups/' + h.state.id + '/personal'], h.source),

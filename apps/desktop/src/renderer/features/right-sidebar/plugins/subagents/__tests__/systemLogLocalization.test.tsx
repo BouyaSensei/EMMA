@@ -37,7 +37,7 @@ afterEach(cleanup);
  * fallback so older clients and older records are unaffected.
  */
 describe('SystemLogRow localization', () => {
-  it('localizes a line Cindy synthesised', () => {
+  it('localizes a line Emma synthesised', () => {
     render(<SystemLogRow entry={entry({
       id: 'a',
       content: 'A stop was requested from the parent task.',

@@ -46,7 +46,7 @@ function singleFileTar(name: string, content: Buffer): Buffer {
 }
 
 describe('runtimeVersionMatchesPin', () => {
-  it('requires Cindy-managed Claude and Codex binaries to match their pins exactly', () => {
+  it('requires Emma-managed Claude and Codex binaries to match their pins exactly', () => {
     expect(runtimeVersionMatchesPin('claude-code', `${PINNED_CLAUDE_VERSION} (Claude Code)`)).toBe(true);
     expect(
       runtimeVersionMatchesPin(

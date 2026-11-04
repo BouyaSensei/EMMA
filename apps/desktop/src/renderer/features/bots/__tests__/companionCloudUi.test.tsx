@@ -98,7 +98,7 @@ describe('presentation helpers', () => {
     expect(withoutShadowedBots([{ id: 'mia' }], snapshot('laptop', false))).toEqual([{ id: 'mia' }]);
   });
 
-  it('keeps cloud companions out of the per-computer Cindy merge', () => {
+  it('keeps cloud companions out of the per-computer Emma merge', () => {
     expect(withoutCloudCompanions([{ id: 'mia' }, { id: 'ada' }], snapshot('laptop'))).toEqual([{ id: 'ada' }]);
     expect(withoutCloudCompanions([{ id: 'mia' }], snapshot('laptop', false))).toEqual([{ id: 'mia' }]);
   });
@@ -276,7 +276,7 @@ describe('BotHomeComputerSetting', () => {
     expect(maker.switchCompanionHome).toHaveBeenCalledWith('mia', 'desk', undefined);
   });
 
-  it('explains when the main computer runs an older Cindy', async () => {
+  it('explains when the main computer runs an older Emma', async () => {
     maker.getCompanionHomeChoices.mockResolvedValue({ homeDeviceId: 'laptop', mode: 'unavailable', reason: 'HOME_OUTDATED', targets: [] });
     show(snapshot('laptop'));
     openMenu();

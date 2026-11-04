@@ -34,7 +34,7 @@ export const ui = {
     detachedByRevoke: '⚠️ 你在 desktop 那边把接管收回去了，后续消息回到我们俩的 Discord 私聊。',
     notAttached: '🤷 你现在没在接管任何任务，/exctr 闲着也没事可干。',
     companionManagedCommand:
-      '🧭 这个 bot 已经交给伙伴啦 — 模型、权限和工作目录都跟着伙伴设置走，想改的话去 Cindy 的伙伴设置里调~',
+      '🧭 这个 bot 已经交给伙伴啦 — 模型、权限和工作目录都跟着伙伴设置走，想改的话去 Emma 的伙伴设置里调~',
   },
 
   agent: {
@@ -42,12 +42,12 @@ export const ui = {
     runtimeError: (errMsg: string) => `⚠️ Agent 翻车了：${errMsg.slice(0, 200)}`,
     sendInternalError: (errMsg: string) => `❌ 内部出 bug 了：${errMsg}`,
     apiKeyMissing:
-      '⚠️ Cindy AI Key 还没配呢~\n去 desktop 的 Settings → 模型供应商里连接 Cindy AI，再来 ping 我',
+      '⚠️ Emma AI Key 还没配呢~\n去 desktop 的 Settings → 模型供应商里连接 Emma AI，再来 ping 我',
     authMissing: ({ providerLabel, providerId, missing, agentKind, model, attached }) => {
       const provider = providerLabel ?? providerId ?? '当前供应商';
       const reason =
         missing === 'gateway-key'
-          ? '需要先配置 Cindy AI Key'
+          ? '需要先配置 Emma AI Key'
           : missing === 'provider-key'
             ? '还没有配置该供应商的 API Key'
             : missing === 'provider-disconnected'
@@ -126,7 +126,7 @@ export const ui = {
       resolved: (label: string) => `✅ 权限模式切到 ${label} 了`,
       failed: (reason: string) => `❌ 权限模式没切过去：${reason}`,
       fullAccessConfirmTitle: '⚠️ 确认开启 Full access？',
-      fullAccessConfirmBody: 'Full access 会关闭工作区沙箱并跳过常规审批。Cindy 可以修改工作区外的文件、执行联网命令且不再询问；内置高风险操作仍会要求确认。',
+      fullAccessConfirmBody: 'Full access 会关闭工作区沙箱并跳过常规审批。Emma 可以修改工作区外的文件、执行联网命令且不再询问；内置高风险操作仍会要求确认。',
       btnConfirmFullAccess: '开启 Full access',
       btnCancelFullAccess: '保留当前权限',
       fullAccessCancelled: '已取消，保留当前权限',

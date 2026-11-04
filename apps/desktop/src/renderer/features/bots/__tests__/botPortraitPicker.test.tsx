@@ -134,7 +134,7 @@ describe('shared teammate portrait gallery', () => {
 it.each(['cindy://avatar/preset/cindy', '🤖', '👩🏽‍💻'])(
   'renders a current avatar fallback while prioritizing a new image draft: %s',
   (avatar) => {
-    const fallback = <BotAvatar bot={{ name: 'Cindy', avatar }} />;
+    const fallback = <BotAvatar bot={{ name: 'Emma', avatar }} />;
     const view = render(<BotPortraitPicker fallback={fallback} onChange={vi.fn()} />);
     const trigger = screen.getByRole('button', { name: 'bots.profile.changeAvatar' });
     if (avatar.startsWith('cindy://'))

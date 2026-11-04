@@ -36,7 +36,7 @@ vi.mock('react-i18next', async (importOriginal) => ({
         'modelDescriptions.coding': '用于编写代码、排查错误与改进程序。',
         'settings.providers.anthropic.title': 'Anthropic',
         'settings.providers.openai.title': 'OpenAI',
-        'settings.providers.xd.title': 'Cindy AI',
+        'settings.providers.xd.title': 'Emma AI',
         'newChat.modelSelector.modelListAria': '模型列表',
         'newChat.modelSelector.search.noResults': '无匹配模型',
         'newChat.modelSelector.search.placeholderAll': '搜索模型…',
@@ -160,7 +160,7 @@ const providersRef = vi.hoisted(() => ({
     },
     {
       id: 'xd',
-      name: 'Cindy AI',
+      name: 'Emma AI',
       source: 'builtin',
       agents: ['claude-code', 'codex'],
       auth: { method: 'api-key' },
@@ -864,7 +864,7 @@ describe('统一面板 · 会话内形态', () => {
     expect(groups[0].querySelector('[data-model-selected]')).toBeNull();
     expect(list.querySelectorAll('[data-model-selected="true"]')).toHaveLength(1);
     expect(list.querySelector('[data-group-provider="xd"]')).toBeNull();
-    expect(screen.getByRole('button', { name: 'Cindy AI' })).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Emma AI' })).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: 'Anthropic' }));
     fireEvent.change(screen.getByRole('textbox'), { target: { value: 'GPT' } });
     expect(within(list).getAllByText('GPT-5.5').length).toBeGreaterThan(0);
@@ -900,7 +900,7 @@ describe('统一面板 · 会话内形态', () => {
     const { rerender } = renderPanel(props);
     expect(within(screen.getByRole('listbox')).getByText('Opus 5')).toBeTruthy();
     expect(screen.queryByRole('button', { name: /^仅 / })).toBeNull();
-    fireEvent.click(screen.getByRole('button', { name: 'Cindy AI' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Emma AI' }));
     rerender(React.createElement(ModelSelectorContent, { remoteAgent: undefined, ...props, sessionEngineFilter }));
     expect(screen.getByRole('button', { name: '全部' }).getAttribute('aria-pressed')).toBe('true');
     expect(within(screen.getByRole('listbox')).getByText('Opus 5')).toBeTruthy();
@@ -1040,7 +1040,7 @@ describe('统一面板 · 会话内形态', () => {
       currentProviderId: 'xd',
       modelId: 'gpt-5.5',
     });
-    fireEvent.click(screen.getByRole('button', { name: 'Cindy AI' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Emma AI' }));
     const triple = rowFor('GPT-5.5').querySelector('[data-unified-triple]');
     expect(triple?.getAttribute('title')).toContain('Claude');
     await act(async () => {
@@ -1061,7 +1061,7 @@ describe('统一面板 · 会话内形态', () => {
       currentProviderId: 'xd',
       modelId: 'gpt-5.5',
     });
-    fireEvent.click(screen.getByRole('button', { name: 'Cindy AI' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Emma AI' }));
     const sizer = container.querySelector('[data-width-sizer]');
     expect(sizer).toBeTruthy();
     // 量的是**全量视图**:同引擎视图里看不到的 Opus 5 也在 sizer 里。
@@ -3615,7 +3615,7 @@ describe('统一面板 · 合并行与 wire id', () => {
     expect(getEffort.mock.calls).not.toContainEqual(['claude-code', 'openai', 'gpt-5.6']);
   });
 
-  it('全部模型优先显示来源，Cindy AI 保留单行本地简介', () => {
+  it('全部模型优先显示来源，Emma AI 保留单行本地简介', () => {
     renderPanel();
     const row = rowFor('GPT-5.6');
     expect(row.textContent).not.toContain('A very long English');

@@ -32,7 +32,7 @@ function evaluate(expression: ts.Expression, scope: Record<string, unknown>): un
   return new Function(...Object.keys(scope), outputText)(...Object.values(scope));
 }
 
-describe('Cindy Make composer presentation', () => {
+describe('Emma Make composer presentation', () => {
   it('opens preflight in place and only routes standalone diagnostics to their container', () => {
     expect(composer).toContain('<CindyMakePreflightDialog');
     expect(composer).toContain("makeResult.kind === 'preflight'");
@@ -72,7 +72,7 @@ describe('Cindy Make composer presentation', () => {
       }
     }
     expect(sessionView).toContain('if (cindyMakeInputLocked) return false;');
-    expect(sessionView).not.toContain('CindyMakeResumeCard');
+    expect(sessionView).not.toContain('EmmaMakeResumeCard');
     const testCard = sessionView.indexOf('<CindyMakeTestCard', mask);
     expect(testCard).toBeGreaterThan(mask);
     expect(testCard).toBeLessThan(input);

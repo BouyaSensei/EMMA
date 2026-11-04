@@ -82,7 +82,7 @@ describe('inspectPdfPages', () => {
   });
 
   it('读出页数、尺寸、文本量,并把真正空白的页判成 blank', async () => {
-    const pdf = buildPdf(['Hello Cindy Docs', null]);
+    const pdf = buildPdf(['Hello Emma Docs', null]);
     const result = await inspectPdfPages(pdf, [], 10, 400);
 
     expect(result.numPages).toBe(2);
@@ -93,8 +93,8 @@ describe('inspectPdfPages', () => {
     expect(Math.round(first!.width)).toBe(595);
     expect(Math.round(first!.height)).toBe(842);
     expect(first!.rotation).toBe(0);
-    expect(first!.textChars).toBe('Hello Cindy Docs'.length);
-    expect(first!.textPreview).toContain('Hello Cindy Docs');
+    expect(first!.textChars).toBe('Hello Emma Docs'.length);
+    expect(first!.textPreview).toContain('Hello Emma Docs');
     expect(first!.blank).toBe(false);
 
     // 第 2 页没有 Contents,任何绘制指令都没有 —— 这就是「打开是白的」那种页。

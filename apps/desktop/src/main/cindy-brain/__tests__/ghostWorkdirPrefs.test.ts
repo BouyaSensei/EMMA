@@ -158,8 +158,8 @@ describe('relocateGhostWorkdirPrefs', () => {
 
 describe('normalizeWorkdirKey(纯字符串归一化,不碰 fs)', () => {
   it('Windows 形态:统一反斜杠、去尾分隔符、小写折叠', () => {
-    expect(__testing.normalizeWorkdirKey('E:\\Cindy\\Cindy-Moved\\')).toBe('e:\\cindy\\cindy-moved');
-    expect(__testing.normalizeWorkdirKey('E:/Cindy/Cindy-Moved')).toBe('e:\\cindy\\cindy-moved');
+    expect(__testing.normalizeWorkdirKey('E:\\Emma\\Emma-Moved\\')).toBe('e:\\emma\\emma-moved');
+    expect(__testing.normalizeWorkdirKey('E:/Emma/Emma-Moved')).toBe('e:\\emma\\emma-moved');
     expect(__testing.normalizeWorkdirKey('C:\\')).toBe('c:\\');
   });
 

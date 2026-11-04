@@ -39,7 +39,7 @@ it('keeps a rejected credential suppressed in memory when the revocation write f
   expect(isNativeProviderCredentialRejected('anthropic', digest)).toBe(true);
   expect(isNativeProviderCredentialRejected('anthropic', 'b'.repeat(64))).toBe(false);
 });
-it('an explicit revocation stops Cindy from using the native login until it is reconnected', () => {
+it('an explicit revocation stops Emma from using the native login until it is reconnected', () => {
   bindNativeProviderAuth('anthropic', { sharedSystem: true });
   unbindNativeProviderAuth('anthropic', { revoked: true });
   expect(isNativeProviderAuthBound('anthropic')).toBe(false);

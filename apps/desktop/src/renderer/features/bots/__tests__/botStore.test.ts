@@ -246,7 +246,7 @@ describe('bot profile store', () => {
     }
   });
 
-  it('returns the original Cindy instead of cloning a renamed preset', async () => {
+  it('returns the original Emma instead of cloning a renamed preset', async () => {
     const cindy = addBotProfile({ name: 'Renamed assistant', description: '', templateId: 'cindy' });
     createdIds.push(cindy.id);
     const count = getBotProfiles().length;

@@ -190,7 +190,7 @@ describe('shared session event notifications', () => {
     gates.islandEnabled = true;
     gates.feishu = true;
 
-    sendSessionEventNotification('session-2', 'Cindy', 'done');
+    sendSessionEventNotification('session-2', 'Emma', 'done');
 
     expect(showSessionEvent).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -272,7 +272,7 @@ describe('shared session event notifications', () => {
     expect(showSessionEvent).toHaveBeenCalledWith(expect.objectContaining({ kind: 'done', channels: { desktop: false, feishu: false, mobile: true } }));
   });
 
-  it('does not send external notifications while the user is already looking at Cindy', () => {
+  it('does not send external notifications while the user is already looking at Emma', () => {
     vi.mocked(document.hasFocus).mockReturnValue(true);
 
     sendSessionEventNotification('session-3', 'Dash', 'error');

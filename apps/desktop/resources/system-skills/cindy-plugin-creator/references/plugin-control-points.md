@@ -1,10 +1,10 @@
-## 4.6.2 控制节点:在 Cindy 的流程关键点先问你(subscribe.hooks)
+## 4.6.2 控制节点:在 Emma 的流程关键点先问你(subscribe.hooks)
 
-控制节点是 Cindy 预先埋在流程关键点的 `will-` 拦截点。用户在某个自动化或例行任务的
+控制节点是 Emma 预先埋在流程关键点的 `will-` 拦截点。用户在某个自动化或例行任务的
 「前置检查」里选了你的插件,或在新任务的模型选择器里选了你发布的模型(§4.6.3),到了节点主机就停下来
 问你,**不经过 Agent、不花模型回合**。插件不会自动管所有任务:只问选了它的那些任务。你可以在插件里调自己的规则、外部决策
-接口(例如 OpenAI Decisions、Jev)或任何服务,再回一个裁决。节点由 Cindy 统一维护,
-新写插件不需要 Cindy 发新版。
+接口(例如 OpenAI Decisions、Jev)或任何服务,再回一个裁决。节点由 Emma 统一维护,
+新写插件不需要 Emma 发新版。
 
 ### 当前节点
 
@@ -14,13 +14,13 @@
 | `will-routine-run` | 伙伴例行任务每次被触发、建任务和调用模型之前 | allow / skip / block | 30 秒 |
 | `will-start-task` | 新任务(含 `/goal` 开的)第一条消息发出、任务建好之前;只问一次,之后的消息不再问;伙伴对话不问 | allow / route | 8 秒 |
 
-运行时用 `host-request` 查当前 Cindy 实际提供哪些节点,别靠版本号猜:
+运行时用 `host-request` 查当前 Emma 实际提供哪些节点,别靠版本号猜:
 
 ```js
 const r = await cindy.request({ kind: 'control-points' });
 // r.points = [{ id, actions, timeoutMs, declared, active }]
 // active=false:声明了但用户还没在安装/更新确认里批准,用户还不能在任务里选你。
-// 旧版 Cindy 不认识该请求会报错 —— 当作"没有控制节点",保留其它功能。
+// 旧版 Emma 不认识该请求会报错 —— 当作"没有控制节点",保留其它功能。
 ```
 
 ### 声明
@@ -34,7 +34,7 @@ const r = await cindy.request({ kind: 'control-points' });
 - 控制节点**不要求** `launch: "resident"`:不在跑时主机会按需拉起,唤醒耗时计入同一时限。
 - 每个节点在安装确认里是独立一行权限;只有用户确认看到过的节点,用户才能在任务的「前置检查」
   里选你。插件更新时新增节点会再次请用户确认。
-- 写上当前 Cindy 还不认识的节点名可以装,但不会生效,也不会在 Cindy 升级后自动生效。
+- 写上当前 Emma 还不认识的节点名可以装,但不会生效,也不会在 Emma 升级后自动生效。
 
 ### 收到询问、回裁决
 

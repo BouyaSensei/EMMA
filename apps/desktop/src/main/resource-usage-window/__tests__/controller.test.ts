@@ -251,7 +251,7 @@ describe('ResourceUsageWindowController', () => {
     expect(windows[0]?.focus).toHaveBeenCalledOnce();
   });
 
-  it('ignores readiness from any other Cindy window', () => {
+  it('ignores readiness from any other Emma window', () => {
     const { controller, windows } = makeHarness();
     controller.prewarm();
     const other = { id: 99 } as WebContents;
@@ -332,7 +332,7 @@ describe('ResourceUsageWindowController', () => {
     expect(windows[0]?.setTitle).toHaveBeenCalledWith('资源监视器');
   });
 
-  it('keeps the localized native title when the renderer reports Cindy as the page title', () => {
+  it('keeps the localized native title when the renderer reports Emma as the page title', () => {
     const windows: FakeWindow[] = [];
     const controller = new ResourceUsageWindowController({
       createWindow: () => {
@@ -347,19 +347,19 @@ describe('ResourceUsageWindowController', () => {
     windows[0]?.setTitle.mockClear();
 
     const firstLoad = { preventDefault: vi.fn() };
-    windows[0]?.emitWebContents('page-title-updated', firstLoad, 'Cindy');
+    windows[0]?.emitWebContents('page-title-updated', firstLoad, 'Emma');
     expect(firstLoad.preventDefault).toHaveBeenCalled();
     expect(windows[0]?.setTitle).toHaveBeenCalledWith('Activity Monitor');
 
     controller.setLocale('zh-CN');
     windows[0]?.setTitle.mockClear();
     const reload = { preventDefault: vi.fn() };
-    windows[0]?.emitWebContents('page-title-updated', reload, 'Cindy');
+    windows[0]?.emitWebContents('page-title-updated', reload, 'Emma');
     expect(reload.preventDefault).toHaveBeenCalled();
     expect(windows[0]?.setTitle).toHaveBeenCalledWith('资源监视器');
   });
 
-  it('hides with the owner without restoring a hidden Cindy window', () => {
+  it('hides with the owner without restoring a hidden Emma window', () => {
     const windows: FakeWindow[] = [];
     const mainSender = { id: 100 } as WebContents;
     const ownerListeners = new Map<string, () => void>();

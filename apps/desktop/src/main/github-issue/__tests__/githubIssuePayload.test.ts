@@ -14,7 +14,7 @@ import {
 const RAW_ISSUE = {
   number: 1061,
   title: 'skill(browser-translate): share the Skill',
-  html_url: 'https://github.com/makecindy/cindy/issues/1061',
+  html_url: 'https://github.com/BouyaSensei/EMMA/issues/1061',
   state: 'open',
   labels: [{ id: 1, name: 'feature', color: 'ededed', description: '' }],
   created_at: '2026-07-30T09:12:49Z',
@@ -25,7 +25,7 @@ const RAW_ISSUE = {
 const PARSED = {
   number: 1061,
   title: 'skill(browser-translate): share the Skill',
-  htmlUrl: 'https://github.com/makecindy/cindy/issues/1061',
+  htmlUrl: 'https://github.com/BouyaSensei/EMMA/issues/1061',
   state: 'open',
   labels: ['feature'],
   createdAt: '2026-07-30T09:12:49Z',

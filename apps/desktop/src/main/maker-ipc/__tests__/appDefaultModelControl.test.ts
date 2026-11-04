@@ -33,7 +33,7 @@ beforeEach(() => {
 });
 afterEach(() => { configureAppDefaultModelSelection(null); vi.useRealTimers(); });
 
-describe('Bot control of the real Cindy default', () => {
+describe('Bot control of the real Emma default', () => {
   it('only lists the enabled connected model, even if another model is in the catalog', async () => {
     expect(await inspectAppDefaultModel()).toMatchObject({ current: route, available: [{ id, route }] });
     expect((await inspectAppDefaultModel()).available).toHaveLength(1);

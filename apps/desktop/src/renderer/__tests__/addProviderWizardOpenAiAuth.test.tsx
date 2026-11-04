@@ -371,7 +371,7 @@ describe('AddProviderWizard — OpenAI 授权边界', () => {
     await waitFor(() => expect(toast.error).toHaveBeenCalledExactlyOnceWith('settings.connections.claude.toast.loginFailed'));
     expect(onDone).not.toHaveBeenCalled();
   });
-  it('已有系统 Codex OAuth 快照时仍停留在授权页，不自动完成当前 Cindy 绑定', async () => {
+  it('已有系统 Codex OAuth 快照时仍停留在授权页，不自动完成当前 Emma 绑定', async () => {
     const onDone = vi.fn();
     render(
       <AddProviderWizard

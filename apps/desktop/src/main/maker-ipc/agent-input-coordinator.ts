@@ -3292,7 +3292,7 @@ export class AgentInputCoordinator {
     let continueText = CONTINUE_AFTER_ERROR_PROMPT;
     if (providerRestart) {
       continueText += '\n\n[Host recovery] The provider process stopped or restarted during the previous turn.'
-        + (automatic ? ' Cindy is automatically continuing the interrupted task in the original conversation.'
+        + (automatic ? ' Emma is automatically continuing the interrupted task in the original conversation.'
           : ' Continue the interrupted task in the original conversation.')
         + ' Some tools may already have executed on the task computer without their results reaching you.'
         + ' Check the current files, processes and external state before continuing; do not repeat side effects.';

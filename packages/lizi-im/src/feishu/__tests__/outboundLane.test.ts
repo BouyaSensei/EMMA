@@ -613,7 +613,7 @@ describe('feishu outbound lane routing', () => {
                 },
               }),
             },
-            sender: { sender_type: 'app', sender_name: 'Cindy' },
+            sender: { sender_type: 'app', sender_name: 'Emma' },
           },
         ],
       },
@@ -621,7 +621,7 @@ describe('feishu outbound lane routing', () => {
 
     await expect(outbound.resolveReplyMessage('om_parent_card', 'oc_group1')).resolves.toEqual({
       replyContext: {
-        author: 'Cindy',
+        author: 'Emma',
         text: '这是上一条完整答案',
         isBot: true,
       },
@@ -640,7 +640,7 @@ describe('feishu outbound lane routing', () => {
             body: {
               content: JSON.stringify({ type: 'template', data: { template_id: 'ctp_x' } }),
             },
-            sender: { sender_type: 'app', sender_name: 'Cindy' },
+            sender: { sender_type: 'app', sender_name: 'Emma' },
           },
         ],
       },
