@@ -289,8 +289,17 @@ describe('PdfPreview lazy page rendering', () => {
       }),
     );
     root.scrollTop = nodes[2].offsetTop + 120;
-    const observer = FakeIntersectionObserver.instances.find((item) => item.targets.has(nodes[1]))!;
-    await act(async () => observer.emit(nodes[1], true));
+    // Poll for the observer that watches page 2, the same contract the other
+    // cases in this file use: `waitFor` can resolve on the commit that created
+    // the page nodes before their observe() calls land, so the bare find()!
+    // returned undefined and the emit threw 'Cannot read properties of
+    // undefined (reading \'emit\')' in the Windows CI shard.
+    let observer: FakeIntersectionObserver | undefined;
+    await waitFor(() => {
+      observer = FakeIntersectionObserver.instances.find((item) => item.targets.has(nodes[1]));
+      expect(observer).toBeDefined();
+    });
+    await act(async () => observer!.emit(nodes[1], true));
     const before = root.scrollTop;
     await act(async () => pending.resolve(landscape));
     expect(nodes[1].style.height).toBe('400px');
