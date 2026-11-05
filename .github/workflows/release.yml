@@ -252,8 +252,8 @@ jobs:
   release:
     needs: [resolve-version, build-windows, build-macos, build-linux]
     runs-on: ubuntu-latest
-    # +staging des binaires d'agents (~1,2 Go de téléchargements multi-plateformes).
-    timeout-minutes: 35
+    # +staging des binaires d'agents (~1 Go de téléchargements + archimage multi-plateformes).
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -284,6 +284,29 @@ jobs:
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           path: artifacts
+
+      - name: Fetch pinned agent binaries
+        shell: bash
+        env:
+          # The fetchers hit the GitHub release API for codex/ripgrep; the token
+          # raises the rate limit from 60/h (anonymous) to the authenticated quota.
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          # tools/<tool>/updates/<version>/<platform>/ is NOT tracked in git: it is
+          # produced by these fetchers (official sources, sha256-verified, fail-closed).
+          # The pinned version MUST be passed as an argument: with no version, update.mjs
+          # compares upstream latest to the committed latest.json and exits WITHOUT
+          # downloading when they already match — which is the normal state of a
+          # pinned release, so staging would then find no sources.
+          for tool in claude codex-package ripgrep; do
+            v=$(node -p "require('./tools/$tool/latest.json').version")
+            echo "[fetch] $tool $v — all platforms"
+            node "tools/$tool/update.mjs" "$v"
+          done
+          # pi is fetched by stage-agent-binaries.mjs itself (pinned URL in
+          # tools/pi/latest.json; its win32 asset is a .zip handled by unzipper,
+          # since GNU tar on Linux cannot extract zip).
+          ls -R tools/claude/updates tools/codex-package/updates tools/ripgrep/updates
 
       - name: Stage agent binaries
         run: |
