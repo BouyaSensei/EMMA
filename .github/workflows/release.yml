@@ -344,15 +344,18 @@ jobs:
         run: |
           v="${{ needs.resolve-version.outputs.version }}"
           tag="v${v}"
-          assets="artifacts/win32-x64/emma-setup-${v}.exe"
+          # Uploads des petits fichiers d'abord : l'updater a besoin des manifests
+          # (et endpoint.json) dès le démarrage, ils doivent donc être publiés même
+          # si un gros binaire échoue.
+          assets="manifests/endpoint.json"
+          for f in manifests/manifest-*.json; do [ -f "$f" ] && assets="$assets $f"; done
+          [ -f "artifacts/win32-x64/emma-setup-${v}.exe" ] && assets="$assets artifacts/win32-x64/emma-setup-${v}.exe"
           [ -f "artifacts/darwin-arm64/emma-mac-${v}.zip" ] && assets="$assets artifacts/darwin-arm64/emma-mac-${v}.zip"
           for f in artifacts/linux-x64/*; do [ -f "$f" ] && assets="$assets $f"; done
           # Assets vendor de binaires d'agents (noms plats que l'updater télécharge au démarrage).
           for p in win32-x64 darwin-arm64 linux-x64; do
             for f in staged/$p/*.gz staged/$p/*.tar.gz; do [ -f "$f" ] && assets="$assets $f"; done
           done
-          for f in manifests/manifest-*.json; do assets="$assets $f"; done
-          assets="$assets manifests/endpoint.json"
 
           # Créer la release SANS assets puis uploader séparément: `gh release
           # create <assets>` race avec uploads.github.com (HTTP 404 sur l'asset
@@ -363,16 +366,28 @@ jobs:
               --notes "Emma $v — auto-updatable release. Installers and update manifests for all platforms."
             sleep 10
           fi
-          # Retry loop: les uploads peuvent 404/transitoirement échouer juste
-          # après la création.
-          attempt=1
-          until gh release upload "$tag" $assets --clobber; do
-            if [ "$attempt" -ge 3 ]; then
-              echo "Asset upload failed after 3 attempts"
-              exit 1
-            fi
-            attempt=$((attempt + 1))
-            echo "Upload attempt $((attempt - 1)) failed, retrying in 15s..."
-            sleep 15
+          # Upload asset par asset avec retry indépendant : en envoyant la liste
+          # complète, `--clobber` efface les assets déjà publiées au retry suivant,
+          # et l'URL de l'asset supprimée renvoie alors HTTP 404 pour toujours
+          # (run v0.1.1 : 'HTTP 404 …releases/assets/712194405' après 3 tentatives,
+          # la release est restée incomplète). Un seul fichier ne doit pas faire
+          # perdre les autres.
+          failed=""
+          for f in $assets; do
+            ok=""
+            for attempt in 1 2 3 4; do
+              if gh release upload "$tag" "$f" --clobber; then
+                ok=1
+                break
+              fi
+              echo "upload of $(basename "$f") failed (attempt $attempt), retrying in 20s..."
+              sleep 20
+            done
+            [ -z "$ok" ] && failed="$failed $(basename "$f")"
           done
+
+          if [ -n "$failed" ]; then
+            echo "Release assets missing after retries:$failed"
+            exit 1
+          fi
           echo "Published https://github.com/${{ github.repository }}/releases/tag/$tag"
