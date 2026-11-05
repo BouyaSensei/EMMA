@@ -1091,9 +1091,9 @@ export function DeviceLinkProvider({ children }: { children: ReactNode }) {
       ...connectionOptions,
       directRuntime: directBridge.runtime,
       getWsUrl: () => deviceLinkWsUrl(),
-      // 自建中转用中转凭证 + CindyRelay,账号 token 绝不发往中转(docs/self-hosted-relay-plan.md §5.2)。
+      // 自建中转用中转凭证 + EmmaRelay,账号 token 绝不发往中转(docs/self-hosted-relay-plan.md §5.2)。
       // 先等本账号的中转设置读完,避免冷启动先连上官方再切走;取 token 期间路由变了就放弃这一轮,
-      // 不让官方 token 与 CindyRelay 方案、中转地址拼到同一次握手里。
+      // 不让官方 token 与 EmmaRelay 方案、中转地址拼到同一次握手里。
       getToken: async () => {
         await waitForSelfHostedRelayRoute();
         if (getSelfHostedRelayRouteGeneration() !== clientRelayRoute) return null;
@@ -1102,7 +1102,7 @@ export function DeviceLinkProvider({ children }: { children: ReactNode }) {
         const token = await getAccessToken();
         return getSelfHostedRelayRouteGeneration() === clientRelayRoute ? token : null;
       },
-      authorizationScheme: () => (getActiveSelfHostedRelay() ? 'CindyRelay' : 'Bearer'),
+      authorizationScheme: () => (getActiveSelfHostedRelay() ? 'EmmaRelay' : 'Bearer'),
       // 自建中转的设备签名(docs/self-hosted-relay-plan.md §16);官方中转返回 null。
       // 收到的消息在分发前核对主人签发的设备证书与帧签名，防止中转替换权限请求的展示内容。
       frameAuth: currentSelfHostedRelayFrameAuth,

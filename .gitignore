@@ -83,6 +83,8 @@ apps/desktop/codex-home/
 
 # ── 设计与开发临时产物 ───────────────────────────────────────
 docs/superpowers/
+# scripts/stage-agent-binaries.mjs --out <dir> 的暂存输出(数百 MB 二进制),纯本地验证用。
+stage-test/
 
 # ── IDE / 本地知识工具 ───────────────────────────────────────
 .idea/

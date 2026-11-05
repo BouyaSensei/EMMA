@@ -2,7 +2,7 @@
 # Explicit opt-in desktop integration, separate from the update transaction.
 set -euo pipefail
 umask 077
-fail() { printf 'Cindy: %s\n' "$*" >&2; exit 1; }
+fail() { printf 'Emma: %s\n' "$*" >&2; exit 1; }
 [[ $(uname -s) == Linux && $EUID -ne 0 && $# -eq 1 ]] || fail 'Run as your desktop user: register-desktop.sh PREFIX'
 for tool in realpath sha256sum desktop-file-validate update-desktop-database xdg-mime flock; do
   command -v "$tool" >/dev/null || fail "Missing dependency: $tool"
@@ -38,13 +38,13 @@ exec_path=${exec_path//\$/\\\\$}
 exec_path=${exec_path//\`/\\\\\`}
 icon=$prefix/current/resources/icon.png
 icon=${icon//\\/\\\\}
-printf '%s\n' '[Desktop Entry]' 'Type=Application' 'Name=Cindy (User)' \
+printf '%s\n' '[Desktop Entry]' 'Type=Application' 'Name=Emma (User)' \
   "Exec=\"$exec_path\" %U" "Icon=$icon" 'Terminal=false' \
   'Categories=Development;' "StartupWMClass=$app_id" \
-  'MimeType=x-scheme-handler/cindy;x-scheme-handler/xdt-maker;' > "$temp"
+  'MimeType=x-scheme-handler/emma;x-scheme-handler/cindy;x-scheme-handler/xdt-maker;' > "$temp"
 desktop-file-validate "$temp"
 mv -T -- "$temp" "$dest"
 update-desktop-database "$apps_dir"
-xdg-mime default "$id" x-scheme-handler/cindy x-scheme-handler/xdt-maker
+xdg-mime default "$id" x-scheme-handler/emma x-scheme-handler/cindy x-scheme-handler/xdt-maker
 printf 'Menu entry and login links registered: %s\n' "$dest"
-printf 'CLI: use %s/launch (add a cindy symlink to your PATH if desired).\n' "$prefix"
+printf 'CLI: use %s/launch (add an emma symlink to your PATH if desired).\n' "$prefix"

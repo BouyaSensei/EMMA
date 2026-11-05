@@ -5,7 +5,7 @@ import { projectKeyComparisonKey } from '../projectKeys';
 describe('projectKeyComparisonKey', () => {
   it('case-folds local Windows drive paths after normalizing separators', () => {
     expect(projectKeyComparisonKey('local:C:\\Repo\\Emma\\', 'win32')).toBe(
-      'local:c:/repo/cindy',
+      'local:c:/repo/emma',
     );
     expect(projectKeyComparisonKey('local:c:/repo/cindy', 'win32')).toBe(
       'local:c:/repo/cindy',

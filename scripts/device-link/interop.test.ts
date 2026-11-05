@@ -66,10 +66,10 @@ it("interoperates with an explicitly provisioned isolated relay and automaticall
       "Test relay URL must be ws(s), without credentials, query or fragment.",
     );
   }
-  // 官方测试 relay 用账号 access token(Bearer);自建中转用加入时拿到的设备凭证(CindyRelay)。
+  // 官方测试 relay 用账号 access token(Bearer);自建中转用加入时拿到的设备凭证(EmmaRelay,兼容旧 CindyRelay)。
   const scheme = process.env.CINDY_TEST_AUTH_SCHEME ?? "Bearer";
-  if (scheme !== "Bearer" && scheme !== "CindyRelay") {
-    throw new Error("CINDY_TEST_AUTH_SCHEME must be Bearer or CindyRelay.");
+  if (scheme !== "Bearer" && scheme !== "EmmaRelay") {
+    throw new Error("CINDY_TEST_AUTH_SCHEME must be Bearer or EmmaRelay.");
   }
   const timing = {
     requestTimeoutMs: 10_000,

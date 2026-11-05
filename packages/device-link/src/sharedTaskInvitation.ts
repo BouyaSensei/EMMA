@@ -16,7 +16,7 @@ export function sharedTaskInvitationServer(value: string): string | null {
   } catch { return null; }
 }
 
-export type SharedTaskInvitationApp = 'cindy' | 'cindycn' | 'cindydev';
+export type SharedTaskInvitationApp = 'emma' | 'emmecn' | 'emmadev' | 'cindy' | 'cindycn' | 'cindydev';
 const APPS = new Set(['emma', 'emmecn', 'emmadev', 'cindy', 'cindycn', 'cindydev']);
 
 export function buildSharedTaskInvitationLink(invitation: string, server: string, app: SharedTaskInvitationApp = 'cindy'): string {
@@ -46,7 +46,7 @@ export function parseSharedTaskInvitation(input: string, server: string): Shared
     const url = new URL(links[0].replace(/[.,;!?]+$/, ''));
     if (url.search || url.username || url.password || !url.pathname.endsWith(SHARED_TASK_INVITATION_PATH)) return invalid;
     const [invitation, hint, extra] = url.hash.slice(1).split('?');
-    if (extra !== undefined || (hint !== undefined && !/^app=(cindy|cindycn|cindydev)$/.test(hint))) return invalid;
+    if (extra !== undefined || (hint !== undefined && !/^app=(emma|emmecn|emmadev|cindy|cindycn|cindydev)$/.test(hint))) return invalid;
     if (!isSharedTaskInvitation(invitation)) return invalid;
     const source = sharedTaskInvitationServer(url.origin + url.pathname.slice(0, -SHARED_TASK_INVITATION_PATH.length));
     if (!source) return invalid;

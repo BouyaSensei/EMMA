@@ -252,35 +252,61 @@ jobs:
   release:
     needs: [resolve-version, build-windows, build-macos, build-linux]
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # +staging des binaires d'agents (~1,2 Go de téléchargements multi-plateformes).
+    timeout-minutes: 35
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+        with:
+          run_install: false
 
       - name: Setup Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          # stage-agent-binaries.mjs importe tar/unzipper (deps workspace).
+          if ! pnpm install --frozen-lockfile; then
+            echo "pnpm install failed - clearing store cache and retrying"
+            rm -rf "$(pnpm store path)" node_modules
+            pnpm install --frozen-lockfile
+          fi
 
       - name: Download artifacts
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           path: artifacts
 
+      - name: Stage agent binaries
+        run: |
+          mkdir -p staged
+          node scripts/stage-agent-binaries.mjs --platform win32-x64 --out staged/win32-x64
+          node scripts/stage-agent-binaries.mjs --platform darwin-arm64 --out staged/darwin-arm64
+          node scripts/stage-agent-binaries.mjs --platform linux-x64 --out staged/linux-x64
+          ls -laR staged
+
       - name: Generate update manifests
         run: |
           v="${{ needs.resolve-version.outputs.version }}"
           mkdir -p manifests
           node scripts/generate-update-manifest.mjs --version "$v" --platform win32-x64 \
-            --installer "artifacts/win32-x64/emma-setup-${v}.exe" --out manifests/manifest-win32-x64.json
+            --installer "artifacts/win32-x64/emma-setup-${v}.exe" --agent-binaries staged/win32-x64 --out manifests/manifest-win32-x64.json
           node scripts/generate-update-manifest.mjs --version "$v" --platform darwin-arm64 \
-            --installer "artifacts/darwin-arm64/emma-mac-${v}.zip" --out manifests/manifest-darwin-arm64.json
+            --installer "artifacts/darwin-arm64/emma-mac-${v}.zip" --agent-binaries staged/darwin-arm64 --out manifests/manifest-darwin-arm64.json
           # Linux: prefer AppImage, fall back to deb
           linux_asset=$(ls artifacts/linux-x64/*.AppImage 2>/dev/null | head -1)
           [ -z "$linux_asset" ] && linux_asset=$(ls artifacts/linux-x64/*.deb 2>/dev/null | head -1)
           if [ -n "$linux_asset" ]; then
             node scripts/generate-update-manifest.mjs --version "$v" --platform linux-x64 \
-              --installer "$linux_asset" --out manifests/manifest-linux-x64.json
+              --installer "$linux_asset" --agent-binaries staged/linux-x64 --out manifests/manifest-linux-x64.json
           else
             echo "No Linux asset; skipping linux manifest"
           fi
@@ -298,6 +324,10 @@ jobs:
           assets="artifacts/win32-x64/emma-setup-${v}.exe"
           [ -f "artifacts/darwin-arm64/emma-mac-${v}.zip" ] && assets="$assets artifacts/darwin-arm64/emma-mac-${v}.zip"
           for f in artifacts/linux-x64/*; do [ -f "$f" ] && assets="$assets $f"; done
+          # Assets vendor de binaires d'agents (noms plats que l'updater télécharge au démarrage).
+          for p in win32-x64 darwin-arm64 linux-x64; do
+            for f in staged/$p/*.gz staged/$p/*.tar.gz; do [ -f "$f" ] && assets="$assets $f"; done
+          done
           for f in manifests/manifest-*.json; do assets="$assets $f"; done
           assets="$assets manifests/endpoint.json"
 
